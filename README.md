@@ -16,6 +16,11 @@
         }
         .container {
             text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .container h1 {
             font-size: 48px;
@@ -29,6 +34,17 @@
             font-size: 64px;
             animation: spin 2s linear infinite;
         }
+        .contact-info {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .contact-info a {
+            color: #1a0dab;
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -40,6 +56,11 @@
         <div class="icon">🚧</div>
         <h1>Work in Progress</h1>
         <p>We're working hard to bring you a better experience. Please check back soon.</p>
+        <div class="contact-info">
+            In the meantime, you can reach out to me on 
+            <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank">LinkedIn</a> 
+            for more information. Or email at 
+            <a href="mailto:mohammed_imran.khan@outlook.com">mohammed_imran.khan@outlook.com</a>.
+        </div>
     </div>
 </body>
-
