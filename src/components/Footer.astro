@@ -26,6 +26,16 @@ const socialLinks = [
       <span class="text-green">$</span> echo "&copy; {currentYear} Imran Khan · Bengaluru, India"
     </p>
     
+    <!-- Visitor Counter -->
+    <div class="flex items-center gap-2 text-small text-secondary font-mono">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      <span id="visitor-count" class="text-green">--</span>
+      <span>views</span>
+    </div>
+    
     <div class="flex items-center gap-3">
       {socialLinks.map(({ href, label, icon }) => (
         <a
@@ -43,3 +53,24 @@ const socialLinks = [
     </div>
   </div>
 </footer>
+
+<script>
+  // Using visitor-badge.laobi.icu - reliable, free, increments on every view
+  const img = new Image();
+  img.src = 'https://visitor-badge.laobi.icu/badge?page_id=mimran-khan.github.io&left_color=%230a0a0a&right_color=%2322c55e&left_text=';
+  
+  // Parse the count from the badge or use a simpler API
+  fetch('https://api.counterapi.dev/v1/mimran-khan-portfolio/visits/up')
+    .then(response => response.json())
+    .then(data => {
+      const countEl = document.getElementById('visitor-count');
+      if (countEl && data.count !== undefined) {
+        countEl.textContent = data.count.toLocaleString();
+      }
+    })
+    .catch(() => {
+      // Fallback if API fails
+      const countEl = document.getElementById('visitor-count');
+      if (countEl) countEl.textContent = '∞';
+    });
+</script>
