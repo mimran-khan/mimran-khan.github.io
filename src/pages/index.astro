@@ -1,0 +1,394 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import AchievementCard from '../components/AchievementCard.astro';
+import EducationTimeline from '../components/EducationTimeline.astro';
+import EventsCarousel from '../components/EventsCarousel.astro';
+import { getCollection } from 'astro:content';
+
+import iitk from '../assets/images/education/iitk.png';
+import bits from '../assets/images/education/bits-pillani.png';
+import vtu from '../assets/images/education/vtu.png';
+import amrita from '../assets/images/education/amrita.png';
+
+const experiences = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const achievements = (await getCollection('achievements')).sort((a, b) => a.data.order - b.data.order);
+
+const stats = [
+  { value: '6+', label: 'Years' },
+  { value: '3', label: 'Patents' },
+  { value: '7', label: 'Awards' },
+  { value: '10+', label: 'AI Products' },
+];
+
+const skillGroups = [
+  {
+    category: 'Agentic AI',
+    skills: ['Multi-Agent Systems', 'MCP Servers', 'A2A Protocol', 'LangGraph', 'CrewAI', 'AutoGen', 'Tool Orchestration']
+  },
+  {
+    category: 'LLM Engineering', 
+    skills: ['RAG', 'Fine-tuning', 'QLoRA', 'Prompt Engineering', 'LLM Evals', 'Vector DBs', 'Embeddings']
+  },
+  {
+    category: 'ML & Deep Learning',
+    skills: ['PyTorch', 'TensorFlow', 'Transformers', 'Diffusion Models', 'CNNs', 'RNNs']
+  },
+  {
+    category: 'NLP & Speech',
+    skills: ['NLP', 'ASR', 'TTS', 'Speech-to-Speech', 'Translation', 'Sentiment Analysis']
+  },
+  {
+    category: 'Infrastructure',
+    skills: ['Python', 'FastAPI', 'MLOps', 'Kubernetes', 'Docker', 'SQL']
+  },
+  {
+    category: 'Automation',
+    skills: ['RPA', 'Automation Anywhere', 'UiPath', 'Process Automation']
+  }
+];
+
+const education = [
+  {
+    institution: 'Amrita Vishwa Vidyapeetham',
+    degree: 'PhD (Ongoing)',
+    field: 'AI & ML',
+    year: 'Ongoing',
+    logo: amrita,
+  },
+  {
+    institution: 'IIT Kanpur',
+    degree: 'Masters',
+    field: 'AI & ML',
+    year: '2025',
+    logo: iitk,
+  },
+  {
+    institution: 'BITS Pilani',
+    degree: 'M.Tech',
+    field: 'AI & ML',
+    year: '2024',
+    logo: bits,
+  },
+  {
+    institution: 'VTU',
+    degree: 'B.E.',
+    field: 'Computer Science',
+    year: '2019',
+    logo: vtu,
+  },
+];
+---
+
+<BaseLayout 
+  title="Home" 
+  description="Imran Khan - Senior ML Engineer at Red Hat. Ex-Principal ML Engineer at Mercedes-Benz R&D. PhD Scholar, IIT Kanpur, BITS Pilani. Agentic AI, Multi-Agent Systems, RAG, LLMs."
+>
+  <Hero />
+  
+  <!-- Stats -->
+  <section class="border-y border-border py-8">
+    <div class="container-main">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map(({ value, label }) => (
+          <div class="text-center">
+            <p class="text-h1 font-mono text-green">{value}</p>
+            <p class="text-small text-secondary uppercase tracking-wider">{label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section">
+    <div class="container-main">
+      <p class="section-heading">Tech Stack</p>
+      <div class="space-y-6">
+        {skillGroups.map((group) => (
+          <div>
+            <p class="text-small text-green font-mono mb-3">// {group.category}</p>
+            <div class="flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <span class="px-3 py-1.5 rounded-lg bg-elevated border border-border hover:border-green/50 transition-all duration-300 cursor-default text-sm text-foreground">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Blog</p>
+      
+      <a 
+        href="https://mimran-khan.github.io/claude-code-source/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="group block bg-elevated border border-border rounded-lg overflow-hidden hover:border-green/50 transition-all duration-300"
+      >
+        <div class="flex flex-col md:flex-row">
+          <!-- Thumbnail -->
+          <div class="md:w-72 lg:w-80 shrink-0 bg-gradient-to-br from-green/10 via-background to-cyan/10 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-border">
+            <div class="text-center">
+              <div class="text-6xl mb-2">🔓</div>
+              <div class="font-mono text-green text-lg font-bold">ClaudeCode</div>
+              <div class="text-xs text-secondary mt-1">512K+ Lines Exposed</div>
+            </div>
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 p-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded">Featured</span>
+              <span class="text-small text-secondary">Mar 31, 2026</span>
+            </div>
+            <h3 class="text-h2 text-foreground group-hover:text-green transition-colors mb-2">
+              Claude Code Leaked | 512K Lines of Anthropic's AI Agent Source Code Exposed
+            </h3>
+            <p class="text-body text-secondary mb-4">
+              Deep dive analysis of the leaked Claude Code source - 512,000+ lines of TypeScript revealing how Anthropic built the most advanced AI coding assistant. Explore the agentic loop, 40+ tools, and architectural patterns.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Agentic AI</span>
+              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Claude Code</span>
+              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Source Analysis</span>
+              <span class="px-2 py-1 text-xs bg-background border border-border rounded">TypeScript</span>
+            </div>
+            <div class="flex items-center gap-4 text-small text-secondary">
+              <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                10 min read
+              </span>
+              <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                512K+ lines analyzed
+              </span>
+              <span class="hidden sm:flex items-center gap-1 ml-auto text-green group-hover:translate-x-1 transition-transform">
+                Read article
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Experience</p>
+      
+      <div class="space-y-4">
+        {experiences.map((exp) => (
+          <ExperienceCard
+            company={exp.data.company}
+            role={exp.data.role}
+            startDate={exp.data.startDate}
+            endDate={exp.data.endDate}
+            location={exp.data.location}
+            highlights={exp.data.highlights}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Events & Speaking -->
+  <section class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Events & Speaking</p>
+      <EventsCarousel />
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Projects</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            techStack={project.data.techStack}
+            link={project.data.link}
+            github={project.data.github}
+            featured={project.data.featured}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Education</p>
+      
+      <EducationTimeline items={education} />
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Certifications</p>
+      
+      <div class="space-y-6">
+        <!-- Cloud & AI Platforms -->
+        <div>
+          <p class="text-small text-green font-mono mb-3">// Cloud & AI Platforms</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Azure AI Engineer Associate - Microsoft</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Azure AI Fundamentals - Microsoft</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Generative AI Fundamentals - Google Cloud</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">LLMs & Transformers - Google Cloud</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Image Generation & Captioning - Google Cloud</span>
+          </div>
+        </div>
+
+        <!-- Machine Learning & AI -->
+        <div>
+          <p class="text-small text-green font-mono mb-3">// Machine Learning & AI</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Machine Learning Specialization - Stanford</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Advanced Learning Algorithms - Stanford</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">ML Foundations - University of Washington</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">GANs - DeepLearning.AI</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">NLP with Python - Udemy</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Computer Vision & OpenCV - Udemy</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">OpenAI API & GPT - Udemy</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">AI Ethics - Udemy</span>
+          </div>
+        </div>
+
+        <!-- RPA & Automation -->
+        <div>
+          <p class="text-small text-green font-mono mb-3">// RPA & Automation</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Master RPA Professional - Automation Anywhere</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Advanced RPA Professional - Automation Anywhere</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Level I Certification - Robocorp</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">AI Center & Specialized AI - UiPath</span>
+          </div>
+        </div>
+
+        <!-- Project Management & Agile -->
+        <div>
+          <p class="text-small text-green font-mono mb-3">// Project Management & Agile</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">SAFe 5 Advanced Scrum Master - Scaled Agile</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Six Sigma Black Belt - PMI</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Six Sigma Green Belt - PMI</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">PMI-ACP Cert Prep - PMI</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Project Management Foundations - Google</span>
+          </div>
+        </div>
+
+        <!-- DevOps & Development -->
+        <div>
+          <p class="text-small text-green font-mono mb-3">// DevOps & Development</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">DevSecOps Grey Belt - Mercedes-Benz</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">GitHub Professional Certificate</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">SQL Bootcamp - Udemy</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Power Apps & Automate - Microsoft</span>
+            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">iOS & Swift Development - Udemy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Patents -->
+  <section class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Patents</p>
+      
+      <div class="space-y-3">
+        <div class="flex items-start gap-4 py-3 border-b border-border">
+          <span class="text-small font-mono text-green shrink-0 w-16">2025</span>
+          <div>
+            <p class="text-body text-foreground">Multimodal Sign Language Translation with CHGCMA</p>
+            <p class="text-small text-secondary">Pending - Mercedes-Benz R&D Center</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 py-3 border-b border-border">
+          <span class="text-small font-mono text-green shrink-0 w-16">2024</span>
+          <div>
+            <p class="text-body text-foreground">Multimodal Generative AI for Service Personalization</p>
+            <p class="text-small text-secondary">Pending - MIT World Peace University</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 py-3 border-b border-border last:border-0">
+          <span class="text-small font-mono text-green shrink-0 w-16">2024</span>
+          <div>
+            <p class="text-body text-foreground">Cognitive Models for Enhanced UX & Design Creativity</p>
+            <p class="text-small text-secondary">Pending - MIT World Peace University</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Awards</p>
+      
+      <div class="card">
+        {achievements.map((achievement) => (
+          <AchievementCard
+            title={achievement.data.title}
+            description={achievement.data.description}
+            year={achievement.data.year}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section border-t border-border">
+    <div class="container-main">
+      <div class="max-w-lg">
+        <p class="section-heading">Contact</p>
+        
+        <h2 class="text-h1 text-foreground mb-4">
+          Let's work together
+        </h2>
+        
+        <p class="text-body text-secondary mb-6">
+          I'm open to discussing AI/ML consulting, autonomous agent systems, and enterprise AI deployments.
+        </p>
+        
+        <div class="flex flex-wrap gap-3">
+          <a href="mailto:mohammed_imran.khan@outlook.com" class="btn btn-primary">
+            Send Email
+          </a>
+          <a 
+            href="https://linkedin.com/in/mohdimran-khan"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

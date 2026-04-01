@@ -1,0 +1,625 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const effects = [
+  { id: 'matrix', name: 'Matrix Rain', cat: 'dramatic' },
+  { id: 'particles', name: 'Neural Network', cat: 'dramatic' },
+  { id: 'boot', name: 'Boot Sequence', cat: 'dramatic' },
+  { id: 'glitch', name: 'Glitch Text', cat: 'dramatic' },
+  { id: 'spotlight', name: 'Cursor Spotlight', cat: 'minimal' },
+  { id: 'reveal', name: 'Scroll Reveal', cat: 'minimal' },
+  { id: 'gradient', name: 'Gradient Mesh', cat: 'minimal' },
+  { id: 'grain', name: 'Film Grain', cat: 'minimal' },
+  { id: 'magnetic', name: 'Magnetic Buttons', cat: 'interactive' },
+  { id: 'tilt', name: '3D Tilt Cards', cat: 'interactive' },
+  { id: 'scramble', name: 'Text Scramble', cat: 'interactive' },
+  { id: 'wave', name: 'Wave Lines', cat: 'interactive' },
+  { id: 'aurora', name: 'Aurora', cat: 'ambient' },
+  { id: 'stars', name: 'Starfield', cat: 'ambient' },
+  { id: 'dots', name: 'Dot Grid', cat: 'ambient' },
+  { id: 'fog', name: 'Fog/Mist', cat: 'ambient' },
+];
+
+const categories = [
+  { key: 'dramatic', label: 'DRAMATIC', color: 'text-green' },
+  { key: 'minimal', label: 'MINIMALIST', color: 'text-cyan' },
+  { key: 'interactive', label: 'INTERACTIVE', color: 'text-foreground' },
+  { key: 'ambient', label: 'AMBIENT', color: 'text-secondary' },
+];
+---
+
+<BaseLayout title="Effects Demo" description="16 portfolio effects">
+  <div class="container-main py-20">
+    <h1 class="text-display text-foreground mb-2">Effects Gallery</h1>
+    <p class="text-secondary mb-12">16 effects. Click to preview. ESC to close.</p>
+    
+    {categories.map((cat, catIdx) => (
+      <div class="mb-8">
+        <p class={`font-mono text-sm mb-3 ${cat.color}`}>// {cat.label}</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {effects.filter(e => e.cat === cat.key).map((effect, i) => (
+            <button 
+              data-effect={effect.id}
+              class="effect-btn group"
+            >
+              <span class="text-green font-mono text-xs">{String(catIdx * 4 + i + 1).padStart(2, '0')}</span>
+              <span class="block text-foreground text-sm mt-1 group-hover:text-green transition-colors">{effect.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 z-50 hidden bg-[#0d1117]">
+    <button id="close-overlay" class="fixed top-6 right-6 z-50 w-10 h-10 flex items-center justify-center text-green hover:text-white text-2xl font-mono transition-colors">×</button>
+    <canvas id="fx-canvas" class="absolute inset-0"></canvas>
+    <div id="fx-html" class="absolute inset-0"></div>
+  </div>
+</BaseLayout>
+
+<style>
+  .effect-btn {
+    @apply p-4 bg-elevated border border-border rounded-lg text-left;
+    @apply hover:border-green hover:bg-subtle transition-all duration-200;
+  }
+</style>
+
+<script is:inline>
+(function() {
+  const overlay = document.getElementById('overlay');
+  const canvas = document.getElementById('fx-canvas');
+  const html = document.getElementById('fx-html');
+  const closeBtn = document.getElementById('close-overlay');
+  const ctx = canvas.getContext('2d');
+  
+  let raf = null;
+  let running = false;
+  let mouseX = 0, mouseY = 0;
+  
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  
+  function close() {
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+    overlay.classList.add('hidden');
+    html.innerHTML = '';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  
+  closeBtn.onclick = close;
+  document.onkeydown = (e) => { if (e.key === 'Escape') close(); };
+  window.onresize = resize;
+  overlay.onmousemove = (e) => { mouseX = e.clientX; mouseY = e.clientY; };
+  
+  document.querySelectorAll('[data-effect]').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.effect;
+      overlay.classList.remove('hidden');
+      resize();
+      running = true;
+      html.innerHTML = '';
+      
+      switch(id) {
+        case 'matrix': matrix(); break;
+        case 'particles': particles(); break;
+        case 'boot': boot(); break;
+        case 'glitch': glitch(); break;
+        case 'spotlight': spotlight(); break;
+        case 'reveal': reveal(); break;
+        case 'gradient': gradient(); break;
+        case 'grain': grain(); break;
+        case 'magnetic': magnetic(); break;
+        case 'tilt': tilt(); break;
+        case 'scramble': scramble(); break;
+        case 'wave': wave(); break;
+        case 'aurora': aurora(); break;
+        case 'stars': stars(); break;
+        case 'dots': dots(); break;
+        case 'fog': fog(); break;
+      }
+    };
+  });
+
+  // ===== 01: MATRIX =====
+  function matrix() {
+    const chars = 'アイウエオカキクケコ01><{}AI神経'.split('');
+    const fontSize = 16;
+    const cols = Math.floor(canvas.width / fontSize);
+    const drops = Array(cols).fill(0).map(() => Math.random() * -50);
+    
+    html.innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#3fb950;text-shadow:0 0 40px rgba(63,185,80,0.6)">MATRIX RAIN</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Move cursor to highlight</p></div></div>';
+    
+    function draw() {
+      if (!running) return;
+      ctx.fillStyle = 'rgba(13,17,23,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = fontSize + 'px monospace';
+      
+      for (let i = 0; i < cols; i++) {
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+        const dist = Math.hypot(x - mouseX, y - mouseY);
+        
+        if (dist < 120) {
+          ctx.fillStyle = '#39d3d5';
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = '#39d3d5';
+        } else {
+          ctx.fillStyle = 'rgba(63,185,80,0.7)';
+          ctx.shadowBlur = 0;
+        }
+        
+        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], x, y);
+        ctx.shadowBlur = 0;
+        
+        if (y > canvas.height && Math.random() > 0.98) drops[i] = 0;
+        drops[i]++;
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ===== 02: PARTICLES =====
+  function particles() {
+    const pts = Array(70).fill(0).map(() => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      r: Math.random() * 2 + 1
+    }));
+    
+    html.innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#3fb950;text-shadow:0 0 40px rgba(63,185,80,0.6)">NEURAL NETWORK</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Cursor attracts nodes</p></div></div>';
+    
+    function draw() {
+      if (!running) return;
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        const dist = Math.hypot(mouseX - p.x, mouseY - p.y);
+        
+        if (dist < 180 && dist > 0) {
+          p.vx += ((mouseX - p.x) / dist) * 0.03;
+          p.vy += ((mouseY - p.y) / dist) * 0.03;
+        }
+        
+        p.vx *= 0.98; p.vy *= 0.98;
+        p.x += p.vx; p.y += p.vy;
+        
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, dist < 180 ? p.r + 2 : p.r, 0, Math.PI * 2);
+        ctx.fillStyle = dist < 180 ? '#39d3d5' : '#3fb950';
+        ctx.fill();
+        
+        for (let j = i + 1; j < pts.length; j++) {
+          const d = Math.hypot(p.x - pts[j].x, p.y - pts[j].y);
+          if (d < 120) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.strokeStyle = 'rgba(63,185,80,' + (1 - d/120) * 0.4 + ')';
+            ctx.stroke();
+          }
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ===== 03: BOOT =====
+  function boot() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent,rgba(0,0,0,0.4))"></div>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.1) 0px,rgba(0,0,0,0.1) 1px,transparent 1px,transparent 2px);pointer-events:none"></div>
+      <pre id="boot-text" style="position:absolute;inset:0;padding:2rem;font-family:monospace;font-size:14px;color:#3fb950;text-shadow:0 0 10px rgba(63,185,80,0.5);overflow:hidden"></pre>
+    `;
+    
+    const lines = [
+      '[0.000] IMRAN_OS v2.0 LOADING...',
+      '[0.001] ████████████████████████████ 100%',
+      '[0.002] CPU: Neural Core @ 5.8THz [OK]',
+      '[0.003] RAM: 64GB VRAM [OK]',
+      '[0.004] GPU: Transformer XL [OK]',
+      '',
+      '[0.005] Loading AI Modules...',
+      '[0.006] ├── llm.weights [LOADED]',
+      '[0.007] ├── attention.layers [LOADED]',
+      '[0.008] ├── agent.core [LOADED]',
+      '[0.009] └── orchestrator [LOADED]',
+      '',
+      '[0.010] ┌─────────────────────────────┐',
+      '[0.011] │  █ █▄ ▄█ █▀█ ▄▀█ █▄ █      │',
+      '[0.012] │  █ █ ▀ █ █▀▄ █▀█ █ ▀█      │',
+      '[0.013] │                             │',
+      '[0.014] │  PRINCIPAL ML ENGINEER      │',
+      '[0.015] │  MERCEDES-BENZ R&D          │',
+      '[0.016] └─────────────────────────────┘',
+      '',
+      '[0.017] System ready.',
+      '[0.018] $ _'
+    ];
+    
+    const pre = document.getElementById('boot-text');
+    let li = 0, ci = 0;
+    
+    function type() {
+      if (!running || li >= lines.length) return;
+      if (ci < lines[li].length) {
+        pre.textContent += lines[li][ci++];
+        setTimeout(type, 5 + Math.random() * 10);
+      } else {
+        pre.textContent += '\n';
+        li++; ci = 0;
+        setTimeout(type, 30 + Math.random() * 50);
+      }
+    }
+    type();
+  }
+
+  // ===== 04: GLITCH =====
+  function glitch() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;background:#0d1117"></div>
+      <div style="position:absolute;inset:0;opacity:0.08;background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center;position:relative">
+          <h2 id="glitch-main" style="font-size:6rem;font-weight:bold;color:#3fb950">GLITCH</h2>
+          <h2 id="glitch-1" style="position:absolute;top:0;left:0;font-size:6rem;font-weight:bold;color:#ff00ff;clip-path:inset(0 0 70% 0)">GLITCH</h2>
+          <h2 id="glitch-2" style="position:absolute;top:0;left:0;font-size:6rem;font-weight:bold;color:#00ffff;clip-path:inset(70% 0 0 0)">GLITCH</h2>
+          <p style="color:rgba(240,246,252,0.7);margin-top:1rem">RGB chromatic aberration</p>
+        </div>
+      </div>
+    `;
+    
+    const g1 = document.getElementById('glitch-1');
+    const g2 = document.getElementById('glitch-2');
+    
+    function animate() {
+      if (!running) return;
+      const r1 = Math.random();
+      const r2 = Math.random();
+      g1.style.transform = `translate(${(r1-0.5)*8}px, ${(r2-0.5)*4}px)`;
+      g1.style.clipPath = `inset(${r1*60}% 0 ${(1-r1)*40}% 0)`;
+      g2.style.transform = `translate(${(r2-0.5)*8}px, ${(r1-0.5)*4}px)`;
+      g2.style.clipPath = `inset(${r2*40}% 0 ${(1-r2)*60}% 0)`;
+      setTimeout(() => raf = requestAnimationFrame(animate), 50 + Math.random() * 100);
+    }
+    animate();
+  }
+
+  // ===== 05: SPOTLIGHT =====
+  function spotlight() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;padding:4rem;overflow:auto">
+        <h2 style="font-size:2.5rem;font-weight:bold;color:#f0f6fc;margin-bottom:2rem">Cursor Spotlight</h2>
+        <p style="color:#8b949e;margin-bottom:2rem">Hover over cards - glow follows cursor</p>
+        <div id="spot-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:600px"></div>
+      </div>
+    `;
+    
+    const grid = document.getElementById('spot-grid');
+    ['Agentic AI', 'Multi-Agent', 'RAG Systems', 'Enterprise LLMs'].forEach(t => {
+      const card = document.createElement('div');
+      card.style.cssText = 'padding:1.5rem;background:#161b22;border:1px solid #30363d;border-radius:12px;position:relative;overflow:hidden;cursor:pointer';
+      card.innerHTML = `<h3 style="color:#f0f6fc;font-size:1.25rem;margin-bottom:0.5rem;position:relative;z-index:1">${t}</h3><p style="color:#8b949e;font-size:0.875rem;position:relative;z-index:1">Building the future of AI.</p>`;
+      
+      card.onmousemove = (e) => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        card.style.background = `radial-gradient(circle 200px at ${x}px ${y}px, rgba(63,185,80,0.15), #161b22)`;
+        card.style.borderColor = 'rgba(63,185,80,0.5)';
+      };
+      card.onmouseleave = () => {
+        card.style.background = '#161b22';
+        card.style.borderColor = '#30363d';
+      };
+      grid.appendChild(card);
+    });
+  }
+
+  // ===== 06: REVEAL =====
+  function reveal() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;overflow:auto">
+        <div style="height:100vh;display:flex;align-items:center;justify-content:center">
+          <div style="text-align:center"><h2 style="font-size:3rem;font-weight:bold;color:#f0f6fc">Scroll Reveal</h2><p style="color:#8b949e">↓ Scroll down</p></div>
+        </div>
+        <div id="reveal-items" style="max-width:48rem;margin:0 auto;padding:0 2rem 10rem"></div>
+      </div>
+    `;
+    
+    const items = document.getElementById('reveal-items');
+    [['01','Experience','6+ years building ML systems at scale'],['02','Expertise','Agentic AI & orchestration frameworks'],['03','Impact','30+ projects delivered, 5 awards'],['04','Vision','AI agents working alongside humans']].forEach(([n,t,d]) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'opacity:0;transform:translateY(50px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);margin-bottom:6rem';
+      div.innerHTML = `<p style="color:#3fb950;font-family:monospace;margin-bottom:0.5rem">${n}</p><h3 style="color:#f0f6fc;font-size:2rem;margin-bottom:0.75rem">${t}</h3><p style="color:#8b949e">${d}</p>`;
+      items.appendChild(div);
+    });
+    
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    items.querySelectorAll('div').forEach(el => obs.observe(el));
+  }
+
+  // ===== 07: GRADIENT =====
+  function gradient() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;background:#0d1117;overflow:hidden">
+        <div style="position:absolute;width:70vmax;height:70vmax;border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(63,185,80,0.35),transparent 60%);top:-10%;left:-10%;animation:gfloat 18s ease-in-out infinite"></div>
+        <div style="position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(57,211,213,0.25),transparent 60%);bottom:-10%;right:-10%;animation:gfloat 22s ease-in-out infinite reverse"></div>
+        <div style="position:absolute;width:50vmax;height:50vmax;border-radius:50%;filter:blur(70px);background:radial-gradient(circle,rgba(139,92,246,0.2),transparent 60%);top:50%;left:50%;transform:translate(-50%,-50%);animation:gfloat 25s ease-in-out infinite 5s"></div>
+      </div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#f0f6fc">Gradient Mesh</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Ambient drifting blobs</p></div>
+      </div>
+      <style>@keyframes gfloat{0%,100%{transform:translate(0,0)}33%{transform:translate(5%,8%)}66%{transform:translate(-5%,3%)}}</style>
+    `;
+  }
+
+  // ===== 08: GRAIN =====
+  function grain() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;background:#0d1117"></div>
+      <div style="position:absolute;inset:0;opacity:0.12;background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');animation:grainMove 0.5s steps(10) infinite"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#f0f6fc">Film Grain</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Subtle analog texture</p><p style="color:rgba(240,246,252,0.4);margin-top:2rem;font-size:0.875rem">Look at the background noise</p></div>
+      </div>
+      <style>@keyframes grainMove{0%{transform:translate(0,0)}10%{transform:translate(-1%,-1%)}20%{transform:translate(1%,1%)}30%{transform:translate(-1%,1%)}40%{transform:translate(1%,-1%)}50%{transform:translate(-1%,0)}60%{transform:translate(1%,0)}70%{transform:translate(0,1%)}80%{transform:translate(0,-1%)}90%{transform:translate(1%,1%)}100%{transform:translate(0,0)}}</style>
+    `;
+  }
+
+  // ===== 09: MAGNETIC =====
+  function magnetic() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center">
+          <h2 style="font-size:2.5rem;font-weight:bold;color:#f0f6fc;margin-bottom:3rem">Magnetic Buttons</h2>
+          <div style="display:flex;gap:1.5rem;justify-content:center">
+            <button class="mag-btn" style="padding:1rem 2rem;background:#3fb950;color:#0d1117;font-weight:600;border-radius:8px;border:none;cursor:pointer;transition:transform 0.15s ease-out">Get in Touch</button>
+            <button class="mag-btn" style="padding:1rem 2rem;background:transparent;color:#f0f6fc;border:1px solid #30363d;border-radius:8px;cursor:pointer;transition:transform 0.15s ease-out">LinkedIn</button>
+          </div>
+          <p style="color:rgba(240,246,252,0.5);margin-top:3rem;font-size:0.875rem">Move cursor near buttons</p>
+        </div>
+      </div>
+    `;
+    
+    html.querySelectorAll('.mag-btn').forEach(btn => {
+      btn.onmousemove = (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top - r.height/2;
+        btn.style.transform = `translate(${x*0.4}px,${y*0.4}px)`;
+      };
+      btn.onmouseleave = () => { btn.style.transform = 'translate(0,0)'; };
+    });
+  }
+
+  // ===== 10: TILT =====
+  function tilt() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center">
+          <h2 style="font-size:2.5rem;font-weight:bold;color:#f0f6fc;margin-bottom:3rem">3D Tilt Cards</h2>
+          <div style="display:flex;gap:2rem;justify-content:center;perspective:1000px">
+            <div class="tilt-card" style="width:180px;height:220px;background:linear-gradient(135deg,#161b22,#21262d);border:1px solid #30363d;border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.1s ease-out;transform-style:preserve-3d"><span style="font-size:4rem">🤖</span></div>
+            <div class="tilt-card" style="width:180px;height:220px;background:linear-gradient(135deg,#161b22,#21262d);border:1px solid #30363d;border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.1s ease-out;transform-style:preserve-3d"><span style="font-size:4rem">⚡</span></div>
+          </div>
+          <p style="color:rgba(240,246,252,0.5);margin-top:3rem;font-size:0.875rem">Hover and move cursor</p>
+        </div>
+      </div>
+    `;
+    
+    html.querySelectorAll('.tilt-card').forEach(card => {
+      card.onmousemove = (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `rotateY(${x*25}deg) rotateX(${-y*25}deg) scale(1.05)`;
+        card.style.borderColor = '#3fb950';
+      };
+      card.onmouseleave = () => {
+        card.style.transform = 'rotateY(0) rotateX(0) scale(1)';
+        card.style.borderColor = '#30363d';
+      };
+    });
+  }
+
+  // ===== 11: SCRAMBLE =====
+  function scramble() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center">
+          <h2 id="scram" style="font-size:4rem;font-weight:bold;color:#3fb950;font-family:monospace;cursor:pointer;letter-spacing:0.1em">HOVER ME</h2>
+          <p style="color:rgba(240,246,252,0.5);margin-top:2rem;font-size:0.875rem">Hover to scramble</p>
+        </div>
+      </div>
+    `;
+    
+    const el = document.getElementById('scram');
+    const target = 'IMRAN KHAN';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%';
+    let interval = null;
+    
+    el.onmouseenter = () => {
+      let iter = 0;
+      clearInterval(interval);
+      interval = setInterval(() => {
+        el.textContent = target.split('').map((c,i) => {
+          if (c === ' ') return ' ';
+          if (i < iter) return target[i];
+          return chars[Math.floor(Math.random()*chars.length)];
+        }).join('');
+        if (iter >= target.length) clearInterval(interval);
+        iter += 0.5;
+      }, 40);
+    };
+    
+    el.onmouseleave = () => {
+      clearInterval(interval);
+      el.textContent = 'HOVER ME';
+    };
+  }
+
+  // ===== 12: WAVE =====
+  function wave() {
+    html.innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#f0f6fc">Wave Lines</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Sine wave animation</p></div></div>';
+    
+    let t = 0;
+    function draw() {
+      if (!running) return;
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      for (let w = 0; w < 6; w++) {
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height/2);
+        for (let x = 0; x < canvas.width; x += 2) {
+          const y = canvas.height/2 + Math.sin(x*0.008 + t + w*0.5) * (25 + w*8) + Math.sin(x*0.015 - t*0.7) * 15;
+          ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = `rgba(63,185,80,${0.15 + w*0.12})`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+      t += 0.025;
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ===== 13: AURORA =====
+  function aurora() {
+    canvas.style.display = 'none';
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,#0a0c10,#0d1117);overflow:hidden">
+        <div style="position:absolute;top:5%;left:5%;width:90%;height:50%;filter:blur(50px);opacity:0.5">
+          <div style="position:absolute;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(63,185,80,0.4) 30%,rgba(57,211,213,0.3) 50%,rgba(139,92,246,0.2) 70%,transparent 100%);animation:auroraMove 10s ease-in-out infinite"></div>
+          <div style="position:absolute;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(139,92,246,0.3) 20%,rgba(63,185,80,0.3) 60%,transparent 100%);animation:auroraMove 14s ease-in-out infinite reverse"></div>
+        </div>
+      </div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#f0f6fc">Aurora</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Northern lights</p></div>
+      </div>
+      <style>@keyframes auroraMove{0%,100%{transform:translateX(-10%) scaleY(1)}50%{transform:translateX(10%) scaleY(1.3)}}</style>
+    `;
+  }
+
+  // ===== 14: STARS =====
+  function stars() {
+    html.innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#f0f6fc">Starfield</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Flying through space</p></div></div>';
+    
+    const stars = Array(150).fill(0).map(() => ({
+      x: (Math.random() - 0.5) * canvas.width * 2,
+      y: (Math.random() - 0.5) * canvas.height * 2,
+      z: Math.random() * canvas.width
+    }));
+    
+    function draw() {
+      if (!running) return;
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      const cx = canvas.width/2, cy = canvas.height/2;
+      for (let s of stars) {
+        s.z -= 4;
+        if (s.z <= 0) {
+          s.z = canvas.width;
+          s.x = (Math.random() - 0.5) * canvas.width * 2;
+          s.y = (Math.random() - 0.5) * canvas.height * 2;
+        }
+        
+        const sx = (s.x / s.z) * 400 + cx;
+        const sy = (s.y / s.z) * 400 + cy;
+        const r = Math.max(0.5, (1 - s.z/canvas.width) * 3);
+        
+        ctx.beginPath();
+        ctx.arc(sx, sy, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(240,246,252,${1 - s.z/canvas.width})`;
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ===== 15: DOTS =====
+  function dots() {
+    html.innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#f0f6fc">Dot Grid</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Cursor ripple effect</p></div></div>';
+    
+    const gap = 25;
+    function draw() {
+      if (!running) return;
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      for (let x = gap; x < canvas.width; x += gap) {
+        for (let y = gap; y < canvas.height; y += gap) {
+          const d = Math.hypot(x - mouseX, y - mouseY);
+          const size = d < 120 ? 2 + (1 - d/120) * 5 : 1.5;
+          const alpha = d < 120 ? 1 : 0.25;
+          
+          ctx.beginPath();
+          ctx.arc(x, y, size, 0, Math.PI * 2);
+          ctx.fillStyle = d < 120 ? `rgba(63,185,80,${alpha})` : `rgba(240,246,252,${alpha})`;
+          ctx.fill();
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ===== 16: FOG =====
+  function fog() {
+    canvas.style.display = 'none';
+    let blobs = '';
+    for (let i = 0; i < 8; i++) {
+      const size = 30 + Math.random() * 20;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const dur = 15 + Math.random() * 15;
+      const delay = Math.random() * 10;
+      blobs += `<div style="position:absolute;width:${size}vmax;height:${size}vmax;border-radius:50%;background:radial-gradient(circle,rgba(63,185,80,0.15),transparent 60%);filter:blur(60px);left:${x}%;top:${y}%;animation:fogFloat ${dur}s ease-in-out ${delay}s infinite alternate"></div>`;
+    }
+    
+    html.innerHTML = `
+      <div style="position:absolute;inset:0;background:#0d1117;overflow:hidden">${blobs}</div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center"><h2 style="font-size:4rem;font-weight:bold;color:#f0f6fc">Fog / Mist</h2><p style="color:rgba(240,246,252,0.7);margin-top:0.5rem">Drifting particles</p></div>
+      </div>
+      <style>@keyframes fogFloat{0%{transform:translate(0,0) scale(1)}100%{transform:translate(10vw,5vh) scale(1.1)}}</style>
+    `;
+  }
+})();
+</script>

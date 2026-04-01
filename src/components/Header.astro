@@ -1,0 +1,221 @@
+---
+const navLinks = [
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#blog', label: 'Blog' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+  <nav class="container-main flex items-center justify-between h-14">
+    <a href="/" id="logo-scramble" class="font-mono text-green hover:text-green-dim transition-colors" data-text="~/imran-khan">
+      ~/imran-khan
+    </a>
+    
+    <div class="flex items-center gap-1">
+      <ul class="hidden md:flex items-center gap-1">
+        {navLinks.map(({ href, label }) => (
+          <li>
+            <a 
+              href={href} 
+              class="px-3 py-1.5 text-small text-secondary hover:text-green transition-colors"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      
+      <button 
+        id="calendly-btn-desktop"
+        class="hidden md:flex btn btn-primary text-small py-1.5 px-3 ml-4"
+      >
+        Book a Call
+      </button>
+      
+      <button 
+        id="mobile-menu-toggle"
+        class="md:hidden p-2 text-secondary hover:text-green transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg id="menu-open-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="menu-close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  
+  <div id="mobile-menu" class="hidden md:hidden bg-background border-b border-border">
+    <ul class="container-main py-4 space-y-1">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a 
+            href={href} 
+            class="block py-2 text-secondary hover:text-green transition-colors"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2">
+        <button 
+          id="calendly-btn-mobile"
+          class="w-full btn btn-primary text-center text-small"
+        >
+          Book a Call
+        </button>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- Calendly Modal -->
+<div id="calendly-modal" class="fixed inset-0 z-[100] hidden">
+  <!-- Backdrop -->
+  <div id="calendly-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+  
+  <!-- Modal Content -->
+  <div class="absolute inset-4 sm:inset-8 md:inset-12 lg:inset-16 flex items-center justify-center">
+    <div class="relative w-full h-full max-w-4xl max-h-[90vh] bg-elevated rounded-lg border border-border overflow-hidden">
+      <!-- Close Button -->
+      <button id="calendly-close" class="absolute top-3 right-3 z-10 p-2 bg-background/80 rounded-full text-secondary hover:text-green transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      
+      <!-- Calendly Iframe -->
+      <iframe 
+        id="calendly-iframe"
+        src=""
+        class="w-full h-full border-0"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-open-icon');
+  const closeIcon = document.getElementById('menu-close-icon');
+  
+  toggle?.addEventListener('click', () => {
+    const isHidden = menu?.classList.toggle('hidden');
+    openIcon?.classList.toggle('hidden', !isHidden);
+    closeIcon?.classList.toggle('hidden', isHidden);
+  });
+  
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      openIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+    });
+  });
+
+  // Calendly Modal
+  const calendlyModal = document.getElementById('calendly-modal');
+  const calendlyIframe = document.getElementById('calendly-iframe') as HTMLIFrameElement | null;
+  const calendlyClose = document.getElementById('calendly-close');
+  const calendlyBackdrop = document.getElementById('calendly-backdrop');
+  const calendlyBtnDesktop = document.getElementById('calendly-btn-desktop');
+  const calendlyBtnMobile = document.getElementById('calendly-btn-mobile');
+  const calendlyUrl = 'https://calendly.com/mimran-khan?hide_gdpr_banner=1&background_color=0d1117&text_color=e6edf3&primary_color=3fb950';
+
+  function openCalendlyModal() {
+    if (calendlyIframe) calendlyIframe.src = calendlyUrl;
+    calendlyModal?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    // Close mobile menu if open
+    menu?.classList.add('hidden');
+    openIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+  }
+
+  function closeCalendlyModal() {
+    calendlyModal?.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (calendlyIframe) calendlyIframe.src = '';
+  }
+
+  calendlyBtnDesktop?.addEventListener('click', openCalendlyModal);
+  calendlyBtnMobile?.addEventListener('click', openCalendlyModal);
+  calendlyClose?.addEventListener('click', closeCalendlyModal);
+  calendlyBackdrop?.addEventListener('click', closeCalendlyModal);
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !calendlyModal?.classList.contains('hidden')) {
+      closeCalendlyModal();
+    }
+  });
+
+  // Text scramble effect for logo - cycles through 3 names: imran-khan, mimran-khan, predatorroxy
+  const logo = document.getElementById('logo-scramble');
+  if (logo) {
+    const names = ['imran-khan', 'mimran-khan', 'predatorroxy'];
+    let nameIndex = 0;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*<>[]{}|';
+    
+    let phase = 'hold'; // Start by showing first name
+    let revealIndex = 0;
+    let holdCount = 0;
+    
+    const getCurrentText = () => `~/${names[nameIndex]}`;
+    
+    setInterval(() => {
+      const currentText = getCurrentText();
+      
+      if (phase === 'scramble') {
+        // Scramble for a bit, then start revealing
+        logo.textContent = currentText
+          .split('')
+          .map((char) => {
+            if (char === ' ' || char === '/' || char === '~') return char;
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('');
+        
+        holdCount++;
+        if (holdCount > 40) { // ~2 seconds of scrambling
+          phase = 'reveal';
+          revealIndex = 0;
+          holdCount = 0;
+        }
+      } else if (phase === 'reveal') {
+        // Progressively reveal text from left to right
+        logo.textContent = currentText
+          .split('')
+          .map((char, i) => {
+            if (char === ' ' || char === '/' || char === '~') return char;
+            if (i < revealIndex) return currentText[i];
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('');
+        
+        revealIndex += 0.5;
+        if (revealIndex >= currentText.length) {
+          phase = 'hold';
+          holdCount = 0;
+        }
+      } else if (phase === 'hold') {
+        // Show current name for a while
+        logo.textContent = currentText;
+        holdCount++;
+        if (holdCount > 100) { // ~5 seconds of showing name
+          // Move to next name and start scramble
+          nameIndex = (nameIndex + 1) % names.length;
+          phase = 'scramble';
+          holdCount = 0;
+        }
+      }
+    }, 50);
+  }
+</script>

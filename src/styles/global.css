@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: 13 17 23;
+    --color-bg-elevated: 22 27 34;
+    --color-bg-subtle: 33 38 45;
+    --color-bg-muted: 48 54 61;
+    
+    --color-text: 240 246 252;
+    --color-text-secondary: 139 148 158;
+    --color-text-muted: 110 118 129;
+    
+    --color-green: 63 185 80;
+    --color-green-dim: 46 160 67;
+    --color-cyan: 57 211 213;
+    
+    --color-border: 48 54 61;
+    --color-border-hover: 139 148 158;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: rgb(13, 17, 23);
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  ::selection {
+    background: rgba(63, 185, 80, 0.3);
+    color: #f0f6fc;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-main {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-16 md:py-20;
+  }
+
+  .section-heading {
+    @apply text-xs font-medium uppercase tracking-widest text-green mb-8;
+  }
+
+  .card {
+    @apply bg-elevated border border-border rounded-lg p-5;
+    @apply transition-colors duration-200;
+  }
+
+  .card:hover {
+    @apply border-border-hover;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium;
+    @apply transition-colors duration-150;
+  }
+
+  .btn-primary {
+    @apply bg-green text-background font-semibold;
+  }
+
+  .btn-primary:hover {
+    @apply bg-green-dim;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-foreground border border-border;
+  }
+
+  .btn-secondary:hover {
+    @apply border-green text-green;
+  }
+
+  .btn-ghost {
+    @apply text-secondary;
+  }
+
+  .btn-ghost:hover {
+    @apply text-green;
+  }
+
+  .pill {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-mono;
+    @apply bg-subtle text-secondary border border-border;
+  }
+
+  .link {
+    @apply text-green hover:underline underline-offset-4;
+  }
+
+  .divider {
+    @apply border-t border-border;
+  }
+
+  .terminal {
+    @apply font-mono text-sm leading-relaxed;
+  }
+
+  .terminal-prompt {
+    @apply text-green font-bold;
+  }
+
+  .terminal-command {
+    @apply text-foreground;
+  }
+
+  .terminal-output {
+    @apply text-secondary;
+  }
+
+  .terminal-highlight {
+    @apply text-cyan;
+  }
+
+  .cursor-blink {
+    @apply inline-block w-2.5 h-5 bg-green ml-0.5;
+    animation: blink 1s step-end infinite;
+  }
+
+  .typing {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(30, end);
+  }
+
+  .stat-value {
+    @apply text-green font-mono;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Magnetic button effect - applied via JS */
+.btn {
+  transition: transform 0.15s ease-out, background-color 0.15s, border-color 0.15s, color 0.15s;
+}

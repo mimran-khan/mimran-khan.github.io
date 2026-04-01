@@ -1,0 +1,22 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0d1117"/>
+  
+  <text x="80" y="200" font-family="monospace" font-size="20" fill="#3fb950">$ whoami</text>
+  
+  <text x="80" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#f0f6fc">Imran Khan</text>
+  
+  <text x="80" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#8b949e">Senior ML Engineer @ Red Hat</text>
+  
+  <text x="80" y="420" font-family="monospace" font-size="18" fill="#3fb950">&gt;</text>
+  <text x="110" y="420" font-family="monospace" font-size="18" fill="#f0f6fc">Agentic AI & Multi-Agent Systems</text>
+  
+  <text x="80" y="450" font-family="monospace" font-size="18" fill="#3fb950">&gt;</text>
+  <text x="110" y="450" font-family="monospace" font-size="18" fill="#f0f6fc">RAG Pipelines & LLM Applications</text>
+  
+  <text x="80" y="480" font-family="monospace" font-size="18" fill="#3fb950">&gt;</text>
+  <text x="110" y="480" font-family="monospace" font-size="18" fill="#f0f6fc">PhD Scholar | IIT Kanpur | BITS Pilani</text>
+  
+  <rect x="80" y="540" width="100" height="4" rx="2" fill="#EE0000"/>
+  
+  <text x="1120" y="590" font-family="monospace" font-size="16" fill="#3fb950" text-anchor="end">mimran-khan.github.io</text>
+</svg>

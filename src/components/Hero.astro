@@ -1,0 +1,222 @@
+---
+import { Image } from 'astro:assets';
+import profileImage from '../assets/images/profile.png';
+
+const jsonContent = `{
+  "agentic_ai": ["MCP", "A2A", "LangGraph", "CrewAI", "AutoGen", "OpenAI Agents SDK", "PydanticAI", "Deep Agents"],
+  "machine_learning": ["PyTorch", "Transformers", "Diffusion Models", "RL", "XGBoost", "Sklearn"],
+  "architecture": ["System Design", "MLOps", "LLMOps", "Microservices", "Event-Driven", "K8s"],
+  "strategy": ["0→1 Products", "Enterprise AI", "LLM Evals", "AI Roadmaps"]
+}`;
+---
+
+<section class="relative min-h-[70vh] flex items-center pt-16 overflow-hidden">
+  <!-- Neural Network Canvas Background -->
+  <canvas id="neural-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+  
+  <!-- Aesthetic gradient overlays -->
+  <div class="absolute inset-0 bg-gradient-to-r from-[#0d1117] via-[#0d1117]/90 via-50% to-transparent pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-[#0d1117]/50 pointer-events-none"></div>
+  
+  <!-- Subtle glow effect -->
+  <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-green/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-1/3 w-64 h-64 bg-cyan/5 rounded-full blur-3xl pointer-events-none"></div>
+  
+  <!-- Content -->
+  <div class="container-main relative z-10">
+    <div class="w-full">
+      <div class="terminal opacity-0 animate-slide-up">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="terminal-prompt">$</span>
+          <span class="terminal-command">whoami</span>
+          <span class="cursor-blink"></span>
+        </div>
+        
+        <div class="flex items-end gap-6 sm:gap-10">
+          <div class="space-y-1">
+            <h1 class="text-display text-foreground">
+              Mohammed Imran Khan
+            </h1>
+            <p class="text-h3 text-secondary font-normal">
+              Senior ML Engineer <span class="text-green">@</span> Red Hat
+            </p>
+          </div>
+          <Image 
+            src={profileImage} 
+            alt="Mohammed Imran Khan" 
+            class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-cover rounded-full border-2 border-green/40 shrink-0 ml-4"
+            width={112}
+            height={112}
+          />
+        </div>
+      </div>
+
+      <div class="terminal mt-6 sm:mt-8 space-y-2 sm:space-y-3 opacity-0 animate-slide-up delay-200">
+        <div class="flex items-start gap-2">
+          <span class="text-green shrink-0">&gt;</span>
+          <span class="text-foreground text-sm sm:text-base">Agentic AI | Multi-Agent Orchestration, MCP Servers, LangGraph, A2A Protocol</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="text-green shrink-0">&gt;</span>
+          <span class="text-foreground text-sm sm:text-base">AI Architecture | System Design, MLOps Pipelines, Production-grade LLM Infra</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="text-green shrink-0">&gt;</span>
+          <span class="text-foreground text-sm sm:text-base">Tech Strategy | 0→1 AI Products, Platform Architecture, PoC to Production</span>
+        </div>
+      </div>
+
+      <div class="terminal mt-6 sm:mt-8 opacity-0 animate-slide-up delay-300">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="terminal-prompt">$</span>
+          <span class="terminal-command text-sm sm:text-base">cat focus.json</span>
+        </div>
+        <pre class="bg-elevated/90 backdrop-blur-md border border-border/50 rounded-md p-3 sm:p-4 font-mono text-[10px] sm:text-xs md:text-sm text-green whitespace-pre-wrap break-words">{jsonContent}</pre>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mt-8 sm:mt-10 opacity-0 animate-slide-up delay-400">
+        <a href="#contact" class="btn btn-primary">
+          Get in Touch
+        </a>
+        <a 
+          href="https://linkedin.com/in/mohdimran-khan" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-secondary backdrop-blur-sm"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a 
+          href="https://github.com/mimran-khan" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-secondary backdrop-blur-sm"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  
+  let mouseX = -1000, mouseY = -1000;
+  
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  
+  resize();
+  window.addEventListener('resize', resize);
+  
+  // Create particles
+  const particles = [];
+  const particleCount = 80;
+  
+  function initParticles() {
+    particles.length = 0;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 2 + 1
+      });
+    }
+  }
+  
+  initParticles();
+  
+  // Track mouse on the entire section
+  const section = canvas.closest('section');
+  if (section) {
+    section.addEventListener('mousemove', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+    
+    section.addEventListener('mouseleave', function() {
+      mouseX = -1000;
+      mouseY = -1000;
+    });
+  }
+  
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      const dist = Math.hypot(mouseX - p.x, mouseY - p.y);
+      
+      // Attraction to mouse
+      if (dist < 200 && dist > 0) {
+        p.vx += ((mouseX - p.x) / dist) * 0.015;
+        p.vy += ((mouseY - p.y) / dist) * 0.015;
+      }
+      
+      // Apply velocity with damping
+      p.vx *= 0.98;
+      p.vy *= 0.98;
+      p.x += p.vx;
+      p.y += p.vy;
+      
+      // Wrap around edges
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      
+      // Draw particle with glow
+      const isNear = dist < 200;
+      const radius = isNear ? p.r + 2 : p.r;
+      
+      if (isNear) {
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#39d3d5';
+      }
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = isNear ? '#39d3d5' : 'rgba(63, 185, 80, 0.8)';
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      
+      // Draw connections
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const d = Math.hypot(p.x - p2.x, p.y - p2.y);
+        
+        if (d < 150) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = 'rgba(63, 185, 80, ' + ((1 - d / 150) * 0.4) + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    
+    requestAnimationFrame(draw);
+  }
+  
+  draw();
+})();
+</script>
