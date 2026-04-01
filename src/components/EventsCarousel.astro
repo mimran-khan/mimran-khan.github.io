@@ -1,0 +1,685 @@
+---
+import { Image } from 'astro:assets';
+
+// Speaking events
+import technoversAward from '../assets/images/speaking/technoverse-award.png';
+import technoverseSpeakers from '../assets/images/speaking/technoverse-speakers.png';
+import technoverseKeynote from '../assets/images/speaking/technoverse-keynote.png';
+import botcraftGroup from '../assets/images/speaking/botcraft-group.png';
+import botcraftLecture from '../assets/images/speaking/botcraft-lecture.png';
+import botcraftJudging from '../assets/images/speaking/botcraft-judging.png';
+import innovationPulseBts from '../assets/images/speaking/innovation-pulse-bts.png';
+import innovationPulsePanel from '../assets/images/speaking/innovation-pulse-panel.png';
+import meetiaPosterTalk from '../assets/images/speaking/meetia-poster-talk.png';
+import meetiaPosterDemo from '../assets/images/speaking/meetia-poster-demo.png';
+import meetiaPosterCrowd from '../assets/images/speaking/meetia-poster-crowd.png';
+
+// Work events
+import sgTranslations from '../assets/images/projects/servicegipfel-translations.png';
+import sgTeam from '../assets/images/projects/servicegipfel-team.png';
+import sgConcept from '../assets/images/projects/servicegipfel-concept.png';
+import sgStage from '../assets/images/projects/servicegipfel-stage.png';
+
+// Education events
+import bitsGraduation from '../assets/images/education/bits-graduation.png';
+import bitsConvocationHall from '../assets/images/education/bits-convocation-hall.png';
+import bitsConvocationStage from '../assets/images/education/bits-convocation-stage.png';
+import iitkFlightLab from '../assets/images/education/iitk-flight-lab.png';
+import iitkCohort from '../assets/images/education/iitk-cohort.png';
+import iitkCampus from '../assets/images/education/iitk-campus.png';
+
+// Awards
+import syncxTeam from '../assets/images/awards/syncx-team.png';
+import syncxTrophy from '../assets/images/awards/syncx-trophy.png';
+import meetiaStage from '../assets/images/awards/meetia-stage.png';
+import meetiaTeam from '../assets/images/awards/meetia-team.png';
+import meetiaWinner from '../assets/images/awards/meetia-winner.png';
+import meetiaTrophy from '../assets/images/awards/meetia-trophy.png';
+import silverStarCert from '../assets/images/awards/silver-star.png';
+
+// Volunteering
+import gooderaActivity from '../assets/images/volunteering/goodera-activity.png';
+import gooderaPacking from '../assets/images/volunteering/goodera-packing.png';
+import gooderaTeam from '../assets/images/volunteering/goodera-team.png';
+
+const workEvents = [
+  {
+    id: 'servicegipfel',
+    title: 'European ServiceGipfel 2025',
+    location: 'STATION Berlin, Germany',
+    date: 'Jun 2025',
+    type: 'Product Launch',
+    category: 'work',
+    cover: sgStage,
+    images: [sgStage, sgTranslations, sgTeam, sgConcept],
+    description: 'Launched Meet.Live at the largest Mercedes-Benz customer service conference in Europe. Our AI-powered speech-to-speech translation system delivered real-time multilingual communication for 4,000+ service leaders across 8 European countries, enabling seamless cross-border collaboration without human interpreters.',
+    highlights: [
+      'Real-time speech translation serving 4,000+ live attendees',
+      '8 European languages: English, French, Italian, Spanish, Czech, Polish, Hungarian, German',
+      'Sub-second latency with custom ASR models fine-tuned for automotive domain',
+      'Voice cloning for natural-sounding translations preserving speaker identity',
+      'Zero downtime across 3-day conference with 99.9% uptime',
+      'Mercedes-Benz global customer service transformation initiative'
+    ],
+    tags: ['ASR', 'Speech-to-Speech', 'Whisper', 'LLMs', 'Voice Cloning', 'FastAPI', 'WebSocket', 'Kubernetes', 'Production']
+  },
+  {
+    id: 'syncx-award',
+    title: 'IT Innovation Award 2024 - SyncX',
+    location: 'Mercedes-Benz R&D Center',
+    date: 'Feb 2024',
+    type: 'Award',
+    category: 'work',
+    cover: syncxTeam,
+    images: [syncxTeam, syncxTrophy],
+    description: 'Awarded the IT Innovation Award 2024 at Mercedes-Benz R&D Center for SyncX - our real-time enterprise translation solution. Recognized for pushing boundaries and putting AI to its best use, breaking language barriers across the organization.',
+    highlights: [
+      'IT Innovation Award 2024 at Mercedes-Benz R&D Center',
+      'SyncX - Real-time enterprise translation system',
+      'Breaking language barriers across global teams',
+      'Team recognition: Safdar Hashmi, Ishani Biswas',
+      'Leadership recognition from Umang Dharmik',
+      'Cornerstone achievement in AI-driven innovation'
+    ],
+    tags: ['Innovation Award', 'SyncX', 'Translation', 'AI', 'Mercedes-Benz', 'Enterprise', 'Recognition']
+  },
+  {
+    id: 'innovation-pulse',
+    title: 'Mercedes-Benz R&D Center Innovation Pulse - Panel Speaker',
+    location: 'Mercedes-Benz R&D Center',
+    date: 'Dec 2023',
+    type: 'Panel',
+    category: 'work',
+    cover: innovationPulsePanel,
+    images: [innovationPulsePanel, innovationPulseBts],
+    description: 'Panel speaker at Mercedes-Benz R&D Center Innovation Pulse, discussing the importance of intrapreneurship and the journey from idea to production. Shared insights on turning concepts from 0→1→100, covering the full lifecycle from ideation to PoC to MVP to productionization.',
+    highlights: [
+      'Panel speaker on intrapreneurship and innovation culture',
+      'Journey from idea to production: 0→1→100 framework',
+      'Best practices for PoC to MVP to production transitions',
+      'Part of Innovation Collective initiative at Mercedes-Benz R&D Center',
+      'Educate | Inspire | Collaborate mission',
+      'Internal knowledge sharing for driving innovation'
+    ],
+    tags: ['Intrapreneurship', 'Innovation', 'Panel', 'PoC', 'MVP', 'Production', 'Mercedes-Benz', 'Speaker']
+  },
+  {
+    id: 'meetia-award',
+    title: 'Intrapreneurship Award 2023 - Meet.IA',
+    location: 'Mercedes-Benz R&D Center',
+    date: 'Feb 2023',
+    type: 'Award',
+    category: 'work',
+    cover: meetiaStage,
+    images: [meetiaStage, meetiaTeam, meetiaWinner, meetiaTrophy],
+    description: 'Awarded the Intrapreneurship Award 2023 at Mercedes-Benz R&D Center for Meet.IA - an AI-based solution for elevated meetings. The product provides multilingual captions, generates Minutes of Meeting, abstracts, summaries, and tracks sentiment analysis.',
+    highlights: [
+      'Intrapreneurship Award Winner at Innovation Collective 2023',
+      'Meet.IA - AI solution for elevated meetings',
+      'Multilingual captions and real-time translation',
+      'Automated MoM generation, abstracts, and summaries',
+      'Sentiment tracking and meeting analytics',
+      'Team: Madhavi Singh, Manish Marwah, Mentor: Arpit Doshi'
+    ],
+    tags: ['Intrapreneurship', 'Meet.IA', 'NLP', 'ASR', 'Translation', 'AI', 'Mercedes-Benz', 'Award']
+  },
+  {
+    id: 'meetia-poster',
+    title: 'Meet.IA - Poster Presentation',
+    location: 'Mercedes-Benz R&D Center',
+    date: 'Feb 2023',
+    type: 'Poster Session',
+    category: 'work',
+    cover: meetiaPosterDemo,
+    images: [meetiaPosterDemo, meetiaPosterCrowd, meetiaPosterTalk],
+    description: 'Technical poster presentation at Innovation Collective 2023, demonstrating how Meet.IA revolutionizes the meeting experience. Presented the end-to-end architecture covering real-time ASR, multilingual translation, sentiment analysis, and automated summarization to Mercedes-Benz R&D Center employees and leadership.',
+    highlights: [
+      'Technical deep-dive into Meet.IA architecture',
+      'Live demo of real-time speech-to-text and translation',
+      'End-to-end ML pipeline walkthrough',
+      'Sentiment analysis and meeting analytics showcase',
+      'Engaged with employees and leadership at Innovation Collective',
+      'Featured at Mercedes-Benz innovation showcase'
+    ],
+    tags: ['Meet.IA', 'Poster', 'ASR', 'NLP', 'Translation', 'Sentiment Analysis', 'Demo', 'Technical']
+  },
+  {
+    id: 'silver-star',
+    title: 'Silver Star Award - Pioneering Spirit',
+    location: 'Mercedes-Benz R&D Center',
+    date: 'Dec 2022',
+    type: 'Award',
+    category: 'work',
+    cover: silverStarCert,
+    images: [silverStarCert],
+    description: 'Received the Silver Star Departmental Award at Mercedes-Benz R&D Center, recognized for pioneering spirit. Within 8 months at Mercedes-Benz R&D Center, contributed to AI/ML projects, produced MVPs, and identified reusable market solutions.',
+    highlights: [
+      'Silver Star Departmental Award recognition',
+      'Recognized core value: Pioneering Spirit',
+      'AI/ML project contributions within first 8 months',
+      'MVP development and market solution identification',
+      'Leadership 2020 principles alignment',
+      'Appreciated by Madhavi Singh'
+    ],
+    tags: ['Silver Star', 'Pioneering Spirit', 'Award', 'AI/ML', 'MVP', 'Mercedes-Benz', 'Recognition']
+  }
+];
+
+const publicEvents = [
+  {
+    id: 'technoverse',
+    title: 'Technoverse AI Conclave 2026',
+    location: 'MIT ADT University, Pune',
+    date: 'Jan 2026',
+    type: 'Keynote',
+    category: 'public',
+    cover: technoversAward,
+    images: [technoversAward, technoverseKeynote, technoverseSpeakers],
+    description: 'Delivered keynote address on "Decoding Ancient Algorithms: The Intersection of Generative AI and Indian Knowledge Systems" at MIT ADT\'s flagship AI conference. Explored how Sanskrit\'s computational linguistics principles can inform modern LLM architectures, tokenization strategies for low-resource Indic languages, and building culturally-aware AI systems.',
+    highlights: [
+      'Keynote speaker at MIT ADT University\'s premier AI conference',
+      'Research on Sanskrit computational linguistics and LLM tokenization',
+      'Novel approaches for efficient Indic language model training',
+      'Collaboration with School of Vedic Sciences on AI-heritage preservation',
+      'Audience of 500+ AI researchers, students, and industry practitioners',
+      'Panel discussion on responsible AI development in Indian context'
+    ],
+    tags: ['Generative AI', 'LLMs', 'NLP', 'Transformers', 'Tokenization', 'Sanskrit', 'Indic Languages', 'Research']
+  },
+  {
+    id: 'bits-convocation',
+    title: 'BITS Pilani M.Tech Convocation 2025',
+    location: 'BITS Pilani, Hyderabad Campus',
+    date: 'Sep 2025',
+    type: 'Graduation',
+    category: 'public',
+    cover: bitsGraduation,
+    images: [bitsGraduation, bitsConvocationHall, bitsConvocationStage],
+    description: 'Graduated with M.Tech in Artificial Intelligence & Machine Learning from Birla Institute of Technology and Science, Pilani through the Work Integrated Learning Programme (WILP). Completed a rigorous two-year program alongside full-time work, applying cutting-edge Generative AI and machine learning models to solve complex enterprise problems.',
+    highlights: [
+      'M.Tech in Artificial Intelligence & Machine Learning',
+      'Work Integrated Learning Programme (WILP) - studied while working full-time',
+      'Thesis on Generative AI applications in enterprise systems',
+      'BITS Pilani - one of India\'s premier engineering institutions',
+      'Specialization in deep learning, NLP, and machine learning systems',
+      'Part of BITSAA alumni community'
+    ],
+    tags: ['M.Tech', 'AI/ML', 'BITS Pilani', 'WILP', 'Deep Learning', 'NLP', 'Machine Learning', 'Education']
+  },
+  {
+    id: 'iitk-campus',
+    title: 'IIT Kanpur Campus Residency',
+    location: 'IIT Kanpur',
+    date: 'Aug 2025',
+    type: 'Campus Week',
+    category: 'public',
+    cover: iitkFlightLab,
+    images: [iitkFlightLab, iitkCohort, iitkCampus],
+    description: 'A transformative week at Indian Institute of Technology, Kanpur as part of my Masters program. The immersive campus experience balanced theoretical knowledge with practical application, featuring sessions with renowned faculty on machine learning, signal processing, and AI research methodologies.',
+    highlights: [
+      'Week-long immersive residency at IIT Kanpur campus',
+      'Sessions with Prof. Ketan Rajawat, Dr. Ashutosh Modi, and other faculty',
+      'Hands-on experience at the Flight Laboratory and research facilities',
+      'Balance between theoretical foundations and practical applications',
+      'Networking with fellow AI/ML enthusiasts and mentors',
+      'Exposure to cutting-edge research in the growing technology space'
+    ],
+    tags: ['IIT Kanpur', 'Masters', 'AI/ML', 'Research', 'Campus Residency', 'Machine Learning', 'Signal Processing']
+  },
+  {
+    id: 'botcraft',
+    title: 'Botcraft - Conversational AI Workshop',
+    location: 'Amrita Vishwa Vidyapeetham, Bengaluru',
+    date: 'Nov 2024',
+    type: 'Speaker & Judge',
+    category: 'public',
+    cover: botcraftGroup,
+    images: [botcraftGroup, botcraftLecture, botcraftJudging],
+    description: 'Speaker and Judge at Botcraft, a 2-day Workshop + Ideathon Hackathon on Conversational AI organized by Amrita Vishwa Vidyapeetham and IEEE CIS Student Chapter. Delivered hands-on sessions on implementing RAG and LLM concepts, judged 15+ team solutions, and shared career guidance with aspiring AI enthusiasts.',
+    highlights: [
+      'Speaker delivering hands-on workshop on RAG and LLM implementation',
+      'Hackathon judge evaluating 15+ team solutions on conversational AI',
+      'Collaborated with IEEE CIS Student Chapter - ASEB',
+      'Shared career insights and corporate guidance with students',
+      'Covered practical LLM concepts and real-world AI applications',
+      '2-day intensive workshop + ideathon format'
+    ],
+    tags: ['RAG', 'LLMs', 'Conversational AI', 'Workshop', 'Hackathon', 'IEEE', 'Speaker', 'Judge']
+  },
+  {
+    id: 'goodera-volunteering',
+    title: 'Goodera School Kit Drive',
+    location: 'Red Hat India, Bengaluru',
+    date: 'Mar 2026',
+    type: 'Volunteering',
+    category: 'public',
+    cover: gooderaTeam,
+    images: [gooderaActivity, gooderaPacking, gooderaTeam],
+    description: 'Participated in a heartwarming volunteering initiative with Goodera at Red Hat, assembling school bags filled with essential supplies for economically weaker students. A fun team-building activity with a meaningful impact - creating opportunities for children to focus on learning.',
+    highlights: [
+      'Assembled school kits with stationery, notebooks, and supplies',
+      'Red Hat One Community volunteering initiative',
+      'Team collaboration with colleagues across departments',
+      'Supporting education for underprivileged students',
+      'Interactive activities and team challenges',
+      'Partnered with Goodera for social impact'
+    ],
+    tags: ['Volunteering', 'CSR', 'Red Hat', 'Goodera', 'Education', 'Community', 'Social Impact', 'Team Building']
+  }
+];
+
+// Sort all events by date (newest first)
+const parseDate = (dateStr: string): number => {
+  const months: Record<string, number> = { 'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5, 'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11 };
+  const parts = dateStr.split(' ');
+  const month = months[parts[0]] ?? 0;
+  const year = parseInt(parts[1]);
+  return new Date(year, month).getTime();
+};
+
+const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.date) - parseDate(a.date));
+---
+
+<div class="events-carousel">
+  <!-- Carousel Track -->
+  <div class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide carousel-track" id="events-track">
+    {allEvents.map((event) => (
+      <div 
+        class="event-card snap-center shrink-0 w-[85vw] md:w-[500px] cursor-pointer group first:ml-[calc(50vw-42.5vw)] md:first:ml-[calc(50vw-250px)] last:mr-[calc(50vw-42.5vw)] md:last:mr-[calc(50vw-250px)]"
+        data-event-id={event.id}
+      >
+        <div class="relative rounded-xl border border-border bg-elevated overflow-hidden transition-all duration-300 hover:border-green/50">
+          <!-- Cover Image -->
+          <div class="relative aspect-[16/9] overflow-hidden">
+            <Image 
+              src={event.cover} 
+              alt={event.title}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+            
+            <!-- Type badge -->
+            <div class="absolute top-4 left-4">
+              <span class="px-3 py-1 rounded-full bg-green/90 text-background text-xs font-medium">{event.type}</span>
+            </div>
+            
+            <!-- Image count -->
+            <div class="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/80 backdrop-blur-sm">
+              <svg class="w-3.5 h-3.5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="text-xs text-foreground">{event.images.length}</span>
+            </div>
+            
+            <!-- Title overlay -->
+            <div class="absolute bottom-0 left-0 right-0 p-5">
+              <p class="text-xs text-green font-mono mb-1">{event.date}</p>
+              <h3 class="text-lg font-semibold text-foreground group-hover:text-green transition-colors">{event.title}</h3>
+              <p class="text-sm text-secondary mt-1">{event.location}</p>
+            </div>
+          </div>
+          
+          <!-- Preview content -->
+          <div class="p-4 pt-0">
+            <p class="text-sm text-secondary line-clamp-3">{event.description}</p>
+            
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              {event.tags.slice(0, 5).map((tag) => (
+                <span class="px-2 py-0.5 rounded bg-subtle text-xs text-secondary">{tag}</span>
+              ))}
+              {event.tags.length > 5 && (
+                <span class="px-2 py-0.5 rounded bg-green/10 text-xs text-green">+{event.tags.length - 5}</span>
+              )}
+            </div>
+            
+            <div class="flex justify-end mt-3">
+              <span class="text-xs text-green flex items-center gap-1 group-hover:gap-2 transition-all">
+                View details
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <!-- Navigation -->
+  <div class="flex items-center justify-center gap-4 mt-6">
+    <!-- Prev button -->
+    <button id="prev-btn" class="p-2 rounded-full border border-border hover:border-green hover:text-green transition-all" aria-label="Previous">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    
+    <!-- Dots -->
+    <div class="flex gap-2">
+      {allEvents.map((_, i) => (
+        <button 
+          class="scroll-dot w-2 h-2 rounded-full bg-border transition-all duration-300"
+          data-index={i}
+          aria-label={`Go to slide ${i + 1}`}
+        ></button>
+      ))}
+    </div>
+    
+    <!-- Next button -->
+    <button id="next-btn" class="p-2 rounded-full border border-border hover:border-green hover:text-green transition-all" aria-label="Next">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Modal for event details -->
+<div id="event-modal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-background/95 backdrop-blur-sm"></div>
+  
+  <div class="relative h-full overflow-y-auto" id="modal-overlay">
+    <div class="container-main py-8 md:py-16 min-h-full flex items-center justify-center">
+      <!-- Close button -->
+      <button id="modal-close" class="fixed top-4 right-4 md:top-8 md:right-8 z-10 p-2 rounded-full bg-elevated border border-border hover:border-green transition-colors">
+        <svg class="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div id="modal-content" class="max-w-4xl mx-auto" onclick="event.stopPropagation()">
+        <!-- Content injected by JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ allEvents }}>
+(function() {
+  const events = allEvents;
+  const track = document.getElementById('events-track');
+  const dots = document.querySelectorAll('.scroll-dot');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const cards = document.querySelectorAll('.event-card');
+  const modal = document.getElementById('event-modal');
+  const modalContent = document.getElementById('modal-content');
+  const modalClose = document.getElementById('modal-close');
+  
+  // Auto-scroll carousel
+  let currentIndex = 0;
+  let autoScrollInterval = null;
+  const totalSlides = events.length;
+  const AUTO_SCROLL_DELAY = 5000;
+  
+  const getCardWidth = () => {
+    const card = track?.querySelector('.event-card');
+    return card ? card.offsetWidth + 24 : 524; // card width + gap
+  };
+  
+  const updateDots = () => {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('bg-green', i === currentIndex);
+      dot.classList.toggle('w-6', i === currentIndex);
+      dot.classList.toggle('bg-border', i !== currentIndex);
+      dot.classList.toggle('w-2', i !== currentIndex);
+    });
+  };
+  
+  const goToSlide = (index) => {
+    if (!track || !cards.length) return;
+    currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+    
+    // Scroll so that the target card is centered
+    const card = cards[currentIndex];
+    if (card) {
+      const trackRect = track.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const scrollLeft = track.scrollLeft + cardRect.left - trackRect.left - (trackRect.width / 2) + (cardRect.width / 2);
+      track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+    updateDots();
+  };
+  
+  const nextSlide = () => goToSlide(currentIndex + 1);
+  const prevSlide = () => goToSlide(currentIndex - 1);
+  
+  const startAutoScroll = () => {
+    stopAutoScroll();
+    autoScrollInterval = setInterval(nextSlide, AUTO_SCROLL_DELAY);
+  };
+  
+  const stopAutoScroll = () => {
+    if (autoScrollInterval) {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = null;
+    }
+  };
+  
+  // Navigation buttons
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      stopAutoScroll();
+      startAutoScroll();
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      stopAutoScroll();
+      startAutoScroll();
+    });
+  }
+  
+  // Dot navigation
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      goToSlide(i);
+      stopAutoScroll();
+      startAutoScroll();
+    });
+  });
+  
+  if (track) {
+    track.addEventListener('mouseenter', stopAutoScroll);
+    track.addEventListener('mouseleave', startAutoScroll);
+    
+    // Update currentIndex on manual scroll - find which card is closest to center
+    track.addEventListener('scroll', () => {
+      const trackRect = track.getBoundingClientRect();
+      const trackCenter = trackRect.left + trackRect.width / 2;
+      
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+      
+      cards.forEach((card, i) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const distance = Math.abs(cardCenter - trackCenter);
+        
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = i;
+        }
+      });
+      
+      if (currentIndex !== closestIndex) {
+        currentIndex = closestIndex;
+        updateDots();
+      }
+    });
+  }
+  
+  startAutoScroll();
+  updateDots();
+  
+  // Center first card on load
+  setTimeout(() => goToSlide(0), 100);
+  
+  // Modal functionality
+  const openModal = (eventId) => {
+    const event = events.find(e => e.id === eventId);
+    if (!event || !modal || !modalContent) return;
+    
+    let currentImageIndex = 0;
+    const imageCount = event.images.length;
+    
+    modalContent.innerHTML = `
+      <div class="max-w-2xl mx-auto">
+        <div class="bg-elevated rounded-xl border border-border overflow-hidden">
+          
+          <!-- Header -->
+          <div class="p-4 border-b border-border">
+            <h2 class="text-lg font-semibold text-foreground">${event.title}</h2>
+            <p class="text-sm text-secondary mt-1">${event.location} • ${event.date}</p>
+          </div>
+          
+          <!-- Image Carousel -->
+          <div class="relative">
+            <div class="relative aspect-[16/9] overflow-hidden">
+              ${event.images.map((img, i) => `
+                <img 
+                  src="${img.src}" 
+                  alt="${event.title}" 
+                  class="modal-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === 0 ? 'opacity-100' : 'opacity-0'}"
+                  data-index="${i}"
+                />
+              `).join('')}
+            </div>
+            
+            ${imageCount > 1 ? `
+              <button class="modal-img-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button class="modal-img-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+              <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                ${event.images.map((_, i) => `
+                  <button class="modal-dot w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-white' : 'bg-white/50'}" data-index="${i}"></button>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+          
+          <!-- Content -->
+          <div class="p-4">
+            <p class="text-sm text-secondary">${event.description}</p>
+            
+            <ul class="mt-3 space-y-1.5">
+              ${event.highlights.map(h => `
+                <li class="text-sm text-secondary flex gap-2">
+                  <span class="text-green">▹</span>
+                  <span>${h}</span>
+                </li>
+              `).join('')}
+            </ul>
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+              ${event.tags.map(tag => `
+                <span class="px-2 py-1 rounded bg-subtle text-xs text-secondary">${tag}</span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Image carousel navigation inside modal
+    const slides = modalContent.querySelectorAll('.modal-slide');
+    const modalDots = modalContent.querySelectorAll('.modal-dot');
+    const prevImgBtn = modalContent.querySelector('.modal-img-prev');
+    const nextImgBtn = modalContent.querySelector('.modal-img-next');
+    const currentSpan = modalContent.querySelector('.modal-img-current');
+    
+    const showImage = (index) => {
+      currentImageIndex = ((index % imageCount) + imageCount) % imageCount;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('opacity-100', i === currentImageIndex);
+        slide.classList.toggle('opacity-0', i !== currentImageIndex);
+      });
+      modalDots.forEach((dot, i) => {
+        dot.classList.toggle('bg-white', i === currentImageIndex);
+        dot.classList.toggle('w-4', i === currentImageIndex);
+        dot.classList.toggle('bg-white/50', i !== currentImageIndex);
+        dot.classList.toggle('w-2', i !== currentImageIndex);
+      });
+      if (currentSpan) currentSpan.textContent = currentImageIndex + 1;
+    };
+    
+    if (prevImgBtn) prevImgBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); resetAutoSlide(); });
+    if (nextImgBtn) nextImgBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); resetAutoSlide(); });
+    modalDots.forEach((dot, i) => {
+      dot.addEventListener('click', (e) => { e.stopPropagation(); showImage(i); resetAutoSlide(); });
+    });
+    
+    // Auto-scroll images every 3 seconds
+    let modalAutoSlide = setInterval(() => {
+      showImage(currentImageIndex + 1);
+    }, 3000);
+    
+    const resetAutoSlide = () => {
+      clearInterval(modalAutoSlide);
+      modalAutoSlide = setInterval(() => {
+        showImage(currentImageIndex + 1);
+      }, 3000);
+    };
+    
+    // Store interval ID to clear on modal close
+    modal.dataset.autoSlide = modalAutoSlide;
+    
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  };
+  
+  const closeModal = () => {
+    if (modal) {
+      // Clear auto-slide interval
+      if (modal.dataset.autoSlide) {
+        clearInterval(parseInt(modal.dataset.autoSlide));
+      }
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  };
+  
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const eventId = card.dataset.eventId;
+      openModal(eventId);
+    });
+  });
+  
+  const modalOverlay = document.getElementById('modal-overlay');
+  if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
+</script>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

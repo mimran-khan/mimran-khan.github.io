@@ -1,0 +1,54 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-background text-foreground">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    
+    <!-- Global Magnetic Button Effect -->
+    <script is:inline>
+    (function() {
+      function initMagneticButtons() {
+        document.querySelectorAll('.btn').forEach(function(btn) {
+          if (btn.dataset.magnetic) return;
+          btn.dataset.magnetic = 'true';
+          
+          btn.addEventListener('mousemove', function(e) {
+            var rect = btn.getBoundingClientRect();
+            var x = e.clientX - rect.left - rect.width / 2;
+            var y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = 'translate(' + (x * 0.35) + 'px, ' + (y * 0.35) + 'px)';
+          });
+          
+          btn.addEventListener('mouseleave', function() {
+            btn.style.transform = 'translate(0, 0)';
+          });
+        });
+      }
+      
+      initMagneticButtons();
+      document.addEventListener('astro:page-load', initMagneticButtons);
+    })();
+    </script>
+  </body>
+</html>

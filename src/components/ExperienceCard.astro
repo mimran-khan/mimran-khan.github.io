@@ -1,0 +1,45 @@
+---
+interface Props {
+  company: string;
+  role: string;
+  startDate: string;
+  endDate?: string;
+  location: string;
+  highlights: string[];
+}
+
+const { company, role, startDate, endDate, location, highlights } = Astro.props;
+const dateRange = endDate ? `${startDate} — ${endDate}` : `${startDate} — Present`;
+const isPresent = !endDate;
+---
+
+<article class="card group">
+  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+    <div>
+      <h3 class="text-h3 text-foreground group-hover:text-green transition-colors">
+        {role}
+      </h3>
+      <p class="text-body text-secondary">
+        {company}
+      </p>
+    </div>
+    <div class="flex flex-col items-start sm:items-end gap-0.5 shrink-0">
+      <div class="flex items-center gap-2">
+        {isPresent && (
+          <span class="w-2 h-2 rounded-full bg-green animate-pulse"></span>
+        )}
+        <span class="text-small font-mono text-green">{dateRange}</span>
+      </div>
+      <span class="text-small text-secondary">{location}</span>
+    </div>
+  </div>
+  
+  <ul class="space-y-2">
+    {highlights.map((highlight) => (
+      <li class="flex gap-3 text-small text-secondary">
+        <span class="shrink-0 mt-1.5 text-green">▹</span>
+        <span>{highlight}</span>
+      </li>
+    ))}
+  </ul>
+</article>

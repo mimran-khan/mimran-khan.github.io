@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+import iitk from '../assets/images/education/iitk.png';
+import bits from '../assets/images/education/bits-pillani.png';
+import vtu from '../assets/images/education/vtu.png';
+
+const education = [
+  { institution: 'Amrita Vishwa Vidyapeetham', degree: 'PhD (Ongoing)', field: 'AI & ML', year: 'Ongoing', logo: bits },
+  { institution: 'IIT Kanpur', degree: 'Masters', field: 'AI & ML', year: '2025', logo: iitk },
+  { institution: 'BITS Pilani', degree: 'M.Tech', field: 'AI & ML', year: '2024', logo: bits },
+  { institution: 'VTU', degree: 'B.E.', field: 'Computer Science', year: '2019', logo: vtu },
+];
+---
+
+<BaseLayout title="Education Timeline Demo" description="Choose a timeline style">
+  <div class="container-main py-12 space-y-24">
+    <div class="text-center">
+      <h1 class="text-h1 text-foreground mb-4">Education Timeline Styles</h1>
+      <p class="text-secondary">Premium designs - pick your favorite</p>
+    </div>
+
+    <!-- STYLE 1: Glassmorphism Cards -->
+    <section class="space-y-6">
+      <h2 class="text-lg font-medium text-green">Style 1: Glassmorphism Flow</h2>
+      
+      <div class="relative">
+        <!-- Ambient glow -->
+        <div class="absolute -inset-4 bg-gradient-to-r from-green/5 via-cyan/5 to-green/5 blur-3xl -z-10"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {education.map((edu, i) => (
+            <div class="group relative">
+              <!-- Glow effect on hover -->
+              <div class="absolute -inset-0.5 bg-gradient-to-r from-green/50 to-cyan/50 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
+              
+              <div class="relative p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                <!-- Year floating badge -->
+                <div class="absolute -top-3 right-4 px-3 py-1 rounded-full bg-green/20 backdrop-blur-md border border-green/30 text-green text-xs font-mono">
+                  {edu.year}
+                </div>
+                
+                <!-- Logo with ring -->
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center p-2.5 mb-5">
+                  <Image src={edu.logo} alt={edu.institution} class="w-full h-full object-contain" />
+                </div>
+                
+                <h3 class="text-base font-semibold text-foreground group-hover:text-green transition-colors">{edu.degree}</h3>
+                <p class="text-sm text-secondary mt-1">{edu.field}</p>
+                <p class="text-xs text-text-muted mt-3 pt-3 border-t border-white/5">{edu.institution}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- STYLE 2: Bento Grid -->
+    <section class="space-y-6">
+      <h2 class="text-lg font-medium text-green">Style 2: Bento Grid</h2>
+      
+      <div class="grid grid-cols-6 gap-4">
+        {education.map((edu, i) => (
+          <div class={`group relative overflow-hidden rounded-2xl border border-border bg-elevated hover:border-green/30 transition-all duration-300 ${i === 0 ? 'col-span-6 md:col-span-3 row-span-2' : i === 1 ? 'col-span-6 md:col-span-3' : 'col-span-6 md:col-span-3'}`}>
+            
+            <div class={`p-6 h-full flex ${i === 0 ? 'flex-col justify-between min-h-[200px]' : 'flex-row items-center gap-4'}`}>
+              {i === 0 ? (
+                <>
+                  <div class="flex items-start justify-between">
+                    <div class="w-16 h-16 rounded-2xl bg-subtle border border-border flex items-center justify-center p-3">
+                      <Image src={edu.logo} alt={edu.institution} class="w-full h-full object-contain" />
+                    </div>
+                    <span class="px-3 py-1.5 rounded-full bg-green text-background text-xs font-bold">{edu.year}</span>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-foreground group-hover:text-green transition-colors">{edu.degree}</h3>
+                    <p class="text-sm text-secondary mt-1">{edu.field}</p>
+                    <p class="text-sm text-text-muted mt-2">{edu.institution}</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div class="w-12 h-12 shrink-0 rounded-xl bg-subtle border border-border flex items-center justify-center p-2">
+                    <Image src={edu.logo} alt={edu.institution} class="w-full h-full object-contain" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors">{edu.degree}</h3>
+                    <p class="text-xs text-secondary">{edu.institution}</p>
+                  </div>
+                  <span class="shrink-0 px-2.5 py-1 rounded-full bg-green/10 text-green text-xs font-mono">{edu.year}</span>
+                </>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- STYLE 3: Linear-style Beam Timeline -->
+    <section class="space-y-6">
+      <h2 class="text-lg font-medium text-green">Style 3: Beam Timeline (Linear Style)</h2>
+      
+      <div class="relative max-w-3xl mx-auto">
+        {education.map((edu, i) => (
+          <div class="timeline-beam-item group relative flex gap-8" style={`--delay: ${i * 0.1}s`}>
+            <!-- Left: Year -->
+            <div class="w-20 shrink-0 text-right pt-1">
+              <span class="text-sm font-mono text-green">{edu.year}</span>
+            </div>
+            
+            <!-- Center: Line and dot -->
+            <div class="relative flex flex-col items-center">
+              <div class="w-3 h-3 rounded-full bg-green shadow-[0_0_12px_rgba(63,185,80,0.5)] z-10"></div>
+              {i < education.length - 1 && (
+                <div class="w-px flex-1 bg-gradient-to-b from-green/50 to-border min-h-[80px]"></div>
+              )}
+            </div>
+            
+            <!-- Right: Content -->
+            <div class="flex-1 pb-8">
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 shrink-0 rounded-xl bg-elevated border border-border group-hover:border-green/50 flex items-center justify-center p-2 transition-all">
+                  <Image src={edu.logo} alt={edu.institution} class="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <h3 class="text-base font-semibold text-foreground group-hover:text-green transition-colors">{edu.degree}</h3>
+                  <p class="text-sm text-secondary">{edu.field}</p>
+                  <p class="text-xs text-text-muted mt-1">{edu.institution}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- STYLE 4: Notion-style Database -->
+    <section class="space-y-6">
+      <h2 class="text-lg font-medium text-green">Style 4: Database View (Notion Style)</h2>
+      
+      <div class="rounded-xl border border-border overflow-hidden">
+        <!-- Header -->
+        <div class="grid grid-cols-12 gap-4 px-5 py-3 bg-subtle/50 border-b border-border text-xs font-medium text-secondary uppercase tracking-wider">
+          <div class="col-span-1"></div>
+          <div class="col-span-3">Degree</div>
+          <div class="col-span-3">Field</div>
+          <div class="col-span-3">Institution</div>
+          <div class="col-span-2 text-right">Year</div>
+        </div>
+        
+        <!-- Rows -->
+        {education.map((edu, i) => (
+          <div class="group grid grid-cols-12 gap-4 px-5 py-4 border-b border-border last:border-0 hover:bg-elevated/50 transition-colors">
+            <div class="col-span-1 flex items-center">
+              <div class="w-8 h-8 rounded-lg bg-subtle border border-border flex items-center justify-center p-1.5 group-hover:border-green/50 transition-all">
+                <Image src={edu.logo} alt={edu.institution} class="w-full h-full object-contain" />
+              </div>
+            </div>
+            <div class="col-span-3 flex items-center">
+              <span class="text-sm font-medium text-foreground group-hover:text-green transition-colors">{edu.degree}</span>
+            </div>
+            <div class="col-span-3 flex items-center">
+              <span class="text-sm text-secondary">{edu.field}</span>
+            </div>
+            <div class="col-span-3 flex items-center">
+              <span class="text-sm text-text-muted">{edu.institution}</span>
+            </div>
+            <div class="col-span-2 flex items-center justify-end">
+              <span class="px-2 py-0.5 rounded bg-green/10 text-green text-xs font-mono">{edu.year}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- STYLE 5: Apple-style Progress -->
+    <section class="space-y-6">
+      <h2 class="text-lg font-medium text-green">Style 5: Progress Journey</h2>
+      
+      <div class="relative">
+        <!-- Progress bar background -->
+        <div class="absolute top-8 left-0 right-0 h-1 bg-border rounded-full"></div>
+        <!-- Progress bar filled -->
+        <div class="absolute top-8 left-0 h-1 bg-gradient-to-r from-green via-cyan to-green rounded-full" style="width: 100%"></div>
+        
+        <div class="relative flex justify-between">
+          {education.slice().reverse().map((edu, i) => (
+            <div class="group flex flex-col items-center text-center" style="width: 22%;">
+              <!-- Milestone dot -->
+              <div class="relative">
+                <div class="w-4 h-4 rounded-full bg-background border-4 border-green z-10 relative group-hover:scale-125 transition-transform"></div>
+                <div class="absolute inset-0 rounded-full bg-green/30 animate-ping"></div>
+              </div>
+              
+              <!-- Content card -->
+              <div class="mt-6 p-4 rounded-xl bg-elevated border border-border group-hover:border-green/30 transition-all w-full">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-subtle border border-border flex items-center justify-center p-2 mb-3">
+                  <Image src={edu.logo} alt={edu.institution} class="w-full h-full object-contain" />
+                </div>
+                <span class="inline-block px-2 py-0.5 rounded-full bg-green/10 text-green text-xs font-mono mb-2">{edu.year}</span>
+                <h3 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors">{edu.degree}</h3>
+                <p class="text-xs text-secondary mt-1">{edu.field}</p>
+                <p class="text-xs text-text-muted mt-1">{edu.institution}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .timeline-beam-item {
+    opacity: 0;
+    animation: fadeSlide 0.5s ease-out forwards;
+    animation-delay: var(--delay);
+  }
+  
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>

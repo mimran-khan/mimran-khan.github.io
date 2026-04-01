@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+
+import proj1 from '../assets/images/projects/proj_1.jpg';
+import proj2 from '../assets/images/projects/proj_2.jpg';
+import proj3 from '../assets/images/projects/proj_3.jpg';
+import proj4 from '../assets/images/projects/proj_4.jpg';
+import proj5 from '../assets/images/projects/proj_5.jpg';
+import proj6 from '../assets/images/projects/proj_6.jpg';
+import sgTranslations from '../assets/images/projects/servicegipfel-translations.png';
+import sgTeam from '../assets/images/projects/servicegipfel-team.png';
+import sgConcept from '../assets/images/projects/servicegipfel-concept.png';
+import sgStage from '../assets/images/projects/servicegipfel-stage.png';
+
+const images = [
+  { src: sgStage, alt: 'ServiceGipfel 2025 Main Stage', caption: 'ServiceGipfel 2025 - Berlin' },
+  { src: sgTranslations, alt: 'Live AI Translation', caption: 'Meet.Live - 8 Language Translation' },
+  { src: sgTeam, alt: 'Team at Mercedes CLA Launch', caption: 'Mercedes-Benz CLA Launch' },
+  { src: sgConcept, alt: 'Mercedes Concept Car', caption: 'Future Mobility Showcase' },
+  { src: proj1, alt: 'AI Agent Architecture', caption: 'Multi-Agent System Design' },
+  { src: proj2, alt: 'ML Pipeline', caption: 'Enterprise ML Pipeline' },
+];
+---
+
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+  {images.map((image, index) => (
+    <div class="group relative aspect-[4/3] rounded-lg overflow-hidden border border-border bg-elevated">
+      <Image 
+        src={image.src}
+        alt={image.alt}
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div class="absolute bottom-0 left-0 right-0 p-3">
+          <p class="text-small font-mono text-green">{`0${index + 1}`}</p>
+          <p class="text-small text-foreground">{image.caption}</p>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
