@@ -89,8 +89,8 @@ app = graph.compile()`;
 ---
 
 <BaseLayout
-  title="The Agentic Development Lifecycle | Imran Khan"
-  description="How multi-agent systems, hierarchical architectures, and agent promotion/demotion patterns are rewriting the rules of software engineering. Deep dive into ADLC, MCP, A2A, and the future of development."
+  title="Agents All the Way Down: The Architecture Nobody Talks About | Imran Khan"
+  description="90% of developers use AI tools daily — but almost nobody understands how hierarchical agent swarms actually ship code. Inside the promotion/demotion loops, protocol wars, and failure modes rewriting software engineering."
 >
 
   <style>
@@ -183,10 +183,10 @@ app = graph.compile()`;
       </div>
       
       <h1 class="text-display text-foreground mb-4">
-        The Agentic Development Lifecycle
+        Agents All the Way Down
       </h1>
       <p class="text-h2 text-secondary font-normal mb-6">
-        How Multi-Agent Systems Are Rewriting the Rules of Software Engineering
+        The Architecture Nobody Talks About — How Agent Swarms Actually Ship Code
       </p>
       
       <div class="flex flex-wrap gap-2 mb-6">
@@ -1016,4 +1016,31 @@ app = graph.compile()`;
       </div>
     </div>
   </article>
+
+  <!-- View Counter -->
+  <section class="border-t border-border py-6">
+    <div class="container-main max-w-4xl flex items-center justify-center gap-2 text-small text-secondary font-mono">
+      <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      <span id="blog-view-count" class="text-green">--</span>
+      <span>views</span>
+    </div>
+  </section>
+
+  <script>
+    fetch('https://api.counterapi.dev/v1/mimran-khan-blog-adlc/views/up')
+      .then(r => r.json())
+      .then(data => {
+        const el = document.getElementById('blog-view-count');
+        if (el && data.count !== undefined) {
+          el.textContent = data.count.toLocaleString();
+        }
+      })
+      .catch(() => {
+        const el = document.getElementById('blog-view-count');
+        if (el) el.textContent = '\u221E';
+      });
+  </script>
 </BaseLayout>
