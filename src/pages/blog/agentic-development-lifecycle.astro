@@ -1,0 +1,927 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const codeRouting = `<span class="text-cyan">class</span> <span class="text-foreground">AgentRouter</span>:
+    <span class="text-cyan">def</span> <span class="text-foreground">__init__</span>(self, candidates: list[Agent]):
+        <span class="text-text-muted"># Initialize beliefs with uniform priors</span>
+        self.beliefs = {a.id: BetaDistribution(1, 1) for a in candidates}
+        self.failure_counts = defaultdict(int)
+
+    <span class="text-cyan">def</span> <span class="text-foreground">delegate</span>(self, task: Task) -&gt; Agent:
+        <span class="text-text-muted"># Thompson sampling: promote high-performers probabilistically</span>
+        scores = {
+            agent_id: belief.sample()
+            for agent_id, belief in self.beliefs.items()
+        }
+        <span class="text-cyan">return</span> max(scores, key=scores.get)
+
+    <span class="text-cyan">def</span> <span class="text-foreground">on_result</span>(self, agent_id: str, judge_verdict: Verdict):
+        <span class="text-text-muted"># Update beliefs based on judge evaluation</span>
+        <span class="text-cyan">if</span> judge_verdict.passed:
+            self.beliefs[agent_id].record_success()
+            self.failure_counts[agent_id] = 0
+        <span class="text-cyan">else</span>:
+            self.beliefs[agent_id].record_failure()
+            self.failure_counts[agent_id] += 1
+
+        <span class="text-text-muted"># Demotion: repeated failures trigger model downgrade</span>
+        <span class="text-cyan">if</span> self.failure_counts[agent_id] &gt;= 3:
+            self.<span class="text-foreground">demote</span>(agent_id)
+
+    <span class="text-cyan">def</span> <span class="text-foreground">demote</span>(self, agent_id: str):
+        <span class="text-text-muted"># Options: switch model, lower temperature, require evidence</span>
+        agent = self.agents[agent_id]
+        agent.model = agent.fallback_model
+        agent.require_citations = True
+        self.beliefs[agent_id] = BetaDistribution(1, 5)  <span class="text-text-muted"># pessimistic prior</span>`;
+
+const codeContract = `{
+  "task": "implement_feature",
+  "input": { "spec": "...", "context_files": ["..."] },
+  "output": { "files_changed": ["..."], "tests_added": 3 },
+  "constraints": { "max_tokens": 50000, "timeout_ms": 120000 }
+}`;
+
+const codeLangGraph = `<span class="text-cyan">from</span> langgraph.graph <span class="text-cyan">import</span> StateGraph, END
+<span class="text-cyan">from</span> langgraph.prebuilt <span class="text-cyan">import</span> create_react_agent
+<span class="text-cyan">from</span> typing <span class="text-cyan">import</span> TypedDict, Literal
+
+<span class="text-cyan">class</span> <span class="text-foreground">AgentState</span>(TypedDict):
+    task: str
+    plan: str
+    code: str
+    review: str
+    status: Literal["planning", "coding", "reviewing", "done"]
+
+<span class="text-cyan">def</span> <span class="text-foreground">supervisor</span>(state: AgentState) -&gt; dict:
+    <span class="text-text-muted">"""Route to the next agent based on current state."""</span>
+    <span class="text-cyan">if</span> <span class="text-cyan">not</span> state.get("plan"):
+        <span class="text-cyan">return</span> {"status": "planning"}
+    <span class="text-cyan">if</span> <span class="text-cyan">not</span> state.get("code"):
+        <span class="text-cyan">return</span> {"status": "coding"}
+    <span class="text-cyan">if</span> <span class="text-cyan">not</span> state.get("review"):
+        <span class="text-cyan">return</span> {"status": "reviewing"}
+    <span class="text-cyan">return</span> {"status": "done"}
+
+<span class="text-cyan">def</span> <span class="text-foreground">route</span>(state: AgentState) -&gt; str:
+    <span class="text-cyan">return</span> state["status"]
+
+<span class="text-text-muted"># Build the graph</span>
+graph = StateGraph(AgentState)
+graph.add_node("supervisor", supervisor)
+graph.add_node("planner", planner_agent)
+graph.add_node("coder", coder_agent)
+graph.add_node("reviewer", reviewer_agent)
+
+graph.set_entry_point("supervisor")
+graph.add_conditional_edges("supervisor", route, {
+    "planning": "planner",
+    "coding": "coder",
+    "reviewing": "reviewer",
+    "done": END,
+})
+
+<span class="text-text-muted"># Each worker returns to supervisor for next routing decision</span>
+<span class="text-cyan">for</span> node <span class="text-cyan">in</span> ["planner", "coder", "reviewer"]:
+    graph.add_edge(node, "supervisor")
+
+app = graph.compile()`;
+---
+
+<BaseLayout
+  title="The Agentic Development Lifecycle | Imran Khan"
+  description="How multi-agent systems, hierarchical architectures, and agent promotion/demotion patterns are rewriting the rules of software engineering. Deep dive into ADLC, MCP, A2A, and the future of development."
+>
+  <!-- Article Header -->
+  <section class="pt-16 pb-8 border-b border-border">
+    <div class="container-main max-w-4xl">
+      <a href="/#blog" class="inline-flex items-center gap-2 text-small text-secondary hover:text-green transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Back to home
+      </a>
+      
+      <div class="flex items-center gap-2 mb-4">
+        <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded">Deep Dive</span>
+        <span class="text-small text-secondary">Apr 29, 2026</span>
+        <span class="text-text-muted">|</span>
+        <span class="text-small text-secondary">18 min read</span>
+      </div>
+      
+      <h1 class="text-display text-foreground mb-4">
+        The Agentic Development Lifecycle
+      </h1>
+      <p class="text-h2 text-secondary font-normal mb-6">
+        How Multi-Agent Systems Are Rewriting the Rules of Software Engineering
+      </p>
+      
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Agentic AI</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Multi-Agent Systems</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">MCP</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">A2A Protocol</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">LangGraph</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Software Engineering</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold">IK</div>
+        <div>
+          <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
+          <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="py-8 border-b border-border bg-elevated/50">
+    <div class="container-main max-w-4xl">
+      <div class="font-mono text-sm">
+        <p class="text-green mb-3">$ cat table_of_contents.md</p>
+        <nav class="space-y-1.5 text-secondary">
+          <a href="#death-of-sdlc" class="block hover:text-green transition-colors">01. The Death of Linear SDLC</a>
+          <a href="#hierarchical-architectures" class="block hover:text-green transition-colors">02. Hierarchical Agent Architectures</a>
+          <a href="#promotion-demotion" class="block hover:text-green transition-colors">03. Agent Promotion & Demotion</a>
+          <a href="#protocol-wars" class="block hover:text-green transition-colors">04. The Protocol Wars: MCP vs A2A</a>
+          <a href="#skills" class="block hover:text-green transition-colors">05. Skills: The New Unit of Intelligence</a>
+          <a href="#failure-modes" class="block hover:text-green transition-colors">06. Why Multi-Agent Systems Break</a>
+          <a href="#developer-role" class="block hover:text-green transition-colors">07. The Developer's New Role</a>
+          <a href="#building" class="block hover:text-green transition-colors">08. Building Your First Hierarchical Agent System</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="py-12">
+    <div class="container-main max-w-4xl">
+      <div class="prose-terminal space-y-16">
+
+        <!-- Part 1 -->
+        <section id="death-of-sdlc">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">01 //</span> The Death of Linear SDLC
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Here's a number that should make every engineering leader pause: according to <a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">JetBrains' AI Pulse survey (January 2026)</a>, <strong class="text-foreground">90% of professional developers</strong> now use AI tools regularly at work. Not experimenting. Not evaluating. Using. Daily.
+          </p>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Claude Code adoption jumped <strong class="text-foreground">6x in under a year</strong> to reach 18% work adoption, tying with Cursor. GitHub Copilot still leads at 29%, but its growth has stalled. The shift toward best-of-breed agents over ecosystem lock-in is unmistakable.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            But the real disruption isn't which tool developers use. It's that the <strong class="text-foreground">Software Development Life Cycle (SDLC)</strong> as we've known it for decades is fundamentally breaking down. The sequential pipeline of requirements, design, develop, test, deploy was designed for humans writing code one function at a time. When agents can generate, validate, and deploy in parallel, that pipeline doesn't just get faster. It ceases to make sense.
+          </p>
+
+          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
+            <p class="text-small font-mono text-green mb-4">$ diff SDLC ADLC</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <p class="text-small font-mono text-red-400 mb-2">--- SDLC (Sequential)</p>
+                <div class="space-y-1 text-small text-secondary font-mono">
+                  <p>Requirements</p>
+                  <p class="text-text-muted pl-2">&#8595;</p>
+                  <p>Design</p>
+                  <p class="text-text-muted pl-2">&#8595;</p>
+                  <p>Develop</p>
+                  <p class="text-text-muted pl-2">&#8595;</p>
+                  <p>Test</p>
+                  <p class="text-text-muted pl-2">&#8595;</p>
+                  <p>Deploy</p>
+                  <p class="text-text-muted pl-2">&#8595;</p>
+                  <p>Maintain</p>
+                </div>
+              </div>
+              <div>
+                <p class="text-small font-mono text-green mb-2">+++ ADLC (Concurrent Loop)</p>
+                <div class="space-y-1 text-small text-secondary font-mono">
+                  <p>Intent &nbsp;&nbsp;&nbsp;&harr; Generate</p>
+                  <p class="text-text-muted pl-2">&#8597; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8597;</p>
+                  <p>Observe &harr; Validate</p>
+                  <p class="text-text-muted pl-2">&#8597; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8597;</p>
+                  <p>Deploy &nbsp;&harr; Govern</p>
+                  <p class="text-green mt-2">// All modes run concurrently</p>
+                  <p class="text-green">// Loops, not gates</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The <a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Agentic Development Life Cycle (ADLC)</a> isn't SDLC with AI bolted on. It's a different operating model, redesigned for a world where the primary execution unit is an agent, not a human. The <a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">ADLC manifesto</a> puts it bluntly:
+          </p>
+          
+          <blockquote class="border-l-2 border-green pl-4 py-2 mb-6">
+            <p class="text-body text-foreground italic">"ADLC is not SDLC with AI tools added. It is a different operating model — redesigned for a world where the primary execution unit is an agent, not a human."</p>
+            <p class="text-small text-secondary mt-2">— adlc.io</p>
+          </blockquote>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Three fundamental shifts define ADLC:
+          </p>
+          
+          <div class="space-y-4 mb-6">
+            <div class="flex items-start gap-3">
+              <span class="text-green font-mono text-sm shrink-0">01</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Concurrency over Sequencing</p>
+                <p class="text-small text-secondary">Six modes (Intent, Generate, Validate, Govern, Deploy, Observe) operate simultaneously, not as sequential gates. An agent can write code while another validates the previous output and a third monitors production.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green font-mono text-sm shrink-0">02</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Bets over Requirements</p>
+                <p class="text-small text-secondary">Planning favors hypotheses with resolution signals (a "Bet Register") over static specifications treated as truth. Because agents make change cheap, you validate assumptions through rapid iteration, not extensive upfront design.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green font-mono text-sm shrink-0">03</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Governance over Execution</p>
+                <p class="text-small text-secondary">When agents handle execution, the bottleneck shifts to governance — verifying outputs, enforcing policies, maintaining architectural coherence. Humans move from writing code to setting guardrails.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed">
+            <a href="https://www.arthur.ai/blog/introducing-adlc" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Arthur.ai's take on ADLC</a> adds the reliability dimension: the core of the lifecycle is an "Agent Development Flywheel" where live usage reveals failure modes, which grow eval suites, which ship improvements with regression-aware metrics. Building agents is less about writing code and more about building trust through continuous validation.
+          </p>
+        </section>
+
+        <!-- Part 2 -->
+        <section id="hierarchical-architectures">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">02 //</span> Hierarchical Agent Architectures
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            If ADLC is the operating model, multi-agent architectures are the execution engine. The question isn't whether to use multiple agents — it's how to organize them. Four dominant patterns have emerged, each optimized for different coordination needs:
+          </p>
+
+          <!-- Architecture Patterns Table -->
+          <div class="overflow-x-auto mb-8">
+            <table class="w-full text-small border border-border rounded-lg overflow-hidden">
+              <thead>
+                <tr class="bg-elevated">
+                  <th class="text-left p-3 font-mono text-green border-b border-border">Pattern</th>
+                  <th class="text-left p-3 font-mono text-green border-b border-border">Control Flow</th>
+                  <th class="text-left p-3 font-mono text-green border-b border-border">Best For</th>
+                  <th class="text-left p-3 font-mono text-green border-b border-border">Risk</th>
+                </tr>
+              </thead>
+              <tbody class="text-secondary">
+                <tr class="border-b border-border">
+                  <td class="p-3 font-medium text-foreground">Supervisor</td>
+                  <td class="p-3">Central planner routes to specialists</td>
+                  <td class="p-3">Quality gates, branching</td>
+                  <td class="p-3">Supervisor bottleneck</td>
+                </tr>
+                <tr class="border-b border-border">
+                  <td class="p-3 font-medium text-foreground">Router</td>
+                  <td class="p-3">Lightweight classifier picks one path</td>
+                  <td class="p-3">Latency-sensitive, clear intents</td>
+                  <td class="p-3">Wrong route = expensive recovery</td>
+                </tr>
+                <tr class="border-b border-border">
+                  <td class="p-3 font-medium text-foreground">Pipeline</td>
+                  <td class="p-3">Fixed A &rarr; B &rarr; C stages</td>
+                  <td class="p-3">Stable transformation chains</td>
+                  <td class="p-3">Early errors cascade downstream</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium text-foreground">Swarm</td>
+                  <td class="p-3">Loose coordination, shared state</td>
+                  <td class="p-3">Exploration, fan-out tasks</td>
+                  <td class="p-3">Deadlocks, duplicate work</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The real power comes from <strong class="text-foreground">nesting</strong> these patterns. Hierarchical systems compose supervisors at multiple levels: a department-level coordinator delegates to team supervisors, who delegate to specialized workers. Each layer provides <strong class="text-foreground">scope sanitization</strong> (agents only see their sub-problem), <strong class="text-foreground">reduced hallucination surface</strong>, and <strong class="text-foreground">checkpointing at layer boundaries</strong>.
+          </p>
+
+          <!-- Hierarchical Architecture Diagram -->
+          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
+            <p class="text-small font-mono text-green mb-4">$ tree --agents hierarchy.yml</p>
+            <div class="font-mono text-sm text-secondary">
+              <p class="text-foreground">Orchestrator <span class="text-green">(strategic planning, task decomposition)</span></p>
+              <p>├── <span class="text-cyan">CodeSupervisor</span> <span class="text-text-muted">// manages development agents</span></p>
+              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">ArchitectAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">design decisions, API contracts</span></p>
+              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">ImplementAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">writes production code</span></p>
+              <p>│&nbsp;&nbsp; └── <span class="text-foreground">TestAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">generates tests, runs coverage</span></p>
+              <p>├── <span class="text-cyan">ReviewSupervisor</span> <span class="text-text-muted">// manages quality agents</span></p>
+              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">SecurityAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">vulnerability scanning</span></p>
+              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">PerformanceAgent</span> &nbsp;&nbsp;<span class="text-text-muted">bottleneck analysis</span></p>
+              <p>│&nbsp;&nbsp; └── <span class="text-foreground">StyleAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">code conventions, linting</span></p>
+              <p>└── <span class="text-cyan">DeploySupervisor</span> <span class="text-text-muted">// manages release agents</span></p>
+              <p>&nbsp;&nbsp;&nbsp; ├── <span class="text-foreground">BuildAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">CI/CD pipeline execution</span></p>
+              <p>&nbsp;&nbsp;&nbsp; ├── <span class="text-foreground">MonitorAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">observability, alerting</span></p>
+              <p>&nbsp;&nbsp;&nbsp; └── <span class="text-foreground">RollbackAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">incident response, revert</span></p>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            This is already happening in production. Research systems like <a href="https://arxiv.org/abs/2506.12508" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AgentOrchestra</a> demonstrate hierarchical "conductors" decomposing tasks and delegating to specialists with MCP-oriented tool management. Coding assistants like Cursor's subagent architecture already use parallel context windows with a lead orchestrator — an industrial-scale hierarchical swarm.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed">
+            The LangGraph framework expresses this as a stateful graph: nodes are agents or tools, edges are conditional on shared state. <a href="https://changelog.langchain.com/announcements/langgraph-supervisor-a-library-for-hierarchical-multi-agent-systems" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">LangGraph Supervisor</a> provides a library specifically for hierarchical multi-agent setups. CrewAI achieves it through <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">process=Process.hierarchical</code> with a <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">manager_llm</code>. AutoGen uses group chat managers with LLM-based speaker selection.
+          </p>
+        </section>
+
+        <!-- Part 3 -->
+        <section id="promotion-demotion">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">03 //</span> Agent Promotion & Demotion
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Here's where it gets interesting. In human organizations, promotion and demotion are formal HR processes. In multi-agent systems, they're <strong class="text-foreground">dynamic routing decisions</strong> — probabilistic, continuous, and automated.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Think of it this way: every time the orchestrator delegates a task, it's making a hiring decision. Every time it evaluates the result, it's conducting a performance review. And unlike human organizations, these reviews happen in milliseconds.
+          </p>
+
+          <div class="space-y-8 mb-8">
+            <!-- Mechanism 1 -->
+            <div class="bg-elevated border border-border rounded-lg p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-green font-mono text-sm">01</span>
+                <h3 class="text-h3 text-foreground">Bandit-Style Routing (REDEREF Pattern)</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed mb-4">
+                The <a href="https://arxiv.org/abs/2603.13256" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">REDEREF framework</a> applies Thompson sampling to maintain beliefs about which agents deliver positive marginal value. It's explore-exploit for agent selection: high-performing agents get promoted (selected more frequently), consistently failing agents get demoted (selected less often, eventually bypassed).
+              </p>
+              <p class="text-body text-secondary leading-relaxed">
+                The results are significant: <strong class="text-foreground">~28% token reduction</strong>, <strong class="text-foreground">~17% fewer agent calls</strong>, and <strong class="text-foreground">~19% faster time-to-success</strong> — while matching the success rate of exhaustive delegation. Promotion/demotion happens through updated beliefs, not organizational restructuring.
+              </p>
+            </div>
+
+            <!-- Mechanism 2 -->
+            <div class="bg-elevated border border-border rounded-lg p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-green font-mono text-sm">02</span>
+                <h3 class="text-h3 text-foreground">Judge-Based Demotion</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed mb-4">
+                A calibrated judge (programmatic or LLM-based) sits at handoff boundaries and evaluates outputs. When an agent fails verification, the judge triggers credit assignment and re-routing. This is functional demotion — the agent didn't get fired, it just lost trust.
+              </p>
+              <p class="text-body text-secondary leading-relaxed">
+                The critical insight is using <strong class="text-foreground">cross-model judges</strong> to avoid monoculture blind spots. If the same model family plans and verifies, they share inductive biases. A GPT-4 judge reviewing Claude's output (or vice versa) catches errors that self-evaluation misses.
+              </p>
+            </div>
+
+            <!-- Mechanism 3 -->
+            <div class="bg-elevated border border-border rounded-lg p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-green font-mono text-sm">03</span>
+                <h3 class="text-h3 text-foreground">Topology Promotion (AdaptOrch)</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed">
+                <a href="https://arxiv.org/abs/2602.16873" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AdaptOrch</a> argues that as frontier models converge in raw benchmark scores, orchestration topology dominates performance. Rather than promoting individual agents, it promotes <strong class="text-foreground">entire structural patterns</strong>. A task dependency DAG gets analyzed, and the system selects the optimal topology: parallel for independent subtasks, sequential for dependencies, hierarchical for complex decomposition.
+              </p>
+            </div>
+          </div>
+
+          <!-- Code Example -->
+          <div class="bg-elevated border border-border rounded-lg overflow-hidden mb-6">
+            <div class="flex items-center gap-2 px-4 py-2 bg-subtle border-b border-border">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green/60"></div>
+              </div>
+              <span class="text-xs font-mono text-secondary">agent_routing.py</span>
+            </div>
+            <pre class="p-4 text-sm font-mono text-secondary overflow-x-auto"><code set:html={codeRouting} /></pre>
+          </div>
+        </section>
+
+        <!-- Part 4 -->
+        <section id="protocol-wars">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">04 //</span> The Protocol Wars: MCP vs A2A
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Multi-agent systems need standards for communication. Two protocols have emerged as the dominant contenders, but they solve <strong class="text-foreground">different problems at different layers</strong>. Understanding which to use — and when — is critical.
+          </p>
+
+          <!-- Protocol Comparison Diagram -->
+          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
+            <p class="text-small font-mono text-green mb-4">$ explain --protocols mcp a2a</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="border border-border rounded-lg p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="w-2 h-2 rounded-full bg-cyan"></div>
+                  <p class="font-mono text-foreground font-medium">MCP (Model Context Protocol)</p>
+                </div>
+                <p class="text-small text-green font-mono mb-2">// Vertical: Agent ↕ Tools</p>
+                <div class="space-y-2 text-small text-secondary">
+                  <p>Client↔Server bridge for tools</p>
+                  <p>Discovery: <code class="px-1 bg-subtle rounded text-xs">tools/list</code></p>
+                  <p>Invocation: <code class="px-1 bg-subtle rounded text-xs">tools/call</code></p>
+                  <p>Resources + Prompts</p>
+                  <p class="text-text-muted mt-2">Answers: "What capabilities exist?"</p>
+                </div>
+              </div>
+              <div class="border border-border rounded-lg p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="w-2 h-2 rounded-full bg-green"></div>
+                  <p class="font-mono text-foreground font-medium">A2A (Agent-to-Agent)</p>
+                </div>
+                <p class="text-small text-green font-mono mb-2">// Horizontal: Agent ↔ Agent</p>
+                <div class="space-y-2 text-small text-secondary">
+                  <p>Agent discovery via Agent Cards</p>
+                  <p>Task delegation + negotiation</p>
+                  <p>Artifact exchange</p>
+                  <p>JSON-RPC / gRPC / HTTP</p>
+                  <p class="text-text-muted mt-2">Answers: "How do agents collaborate?"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">MCP</a>, introduced by Anthropic, standardizes how any model or agent connects to external tools and data sources. Think of it as the USB standard for AI: a universal connector that lets agents discover and invoke capabilities without hardcoded integrations. An agent can attach to a database MCP server, a GitHub MCP server, and a Slack MCP server — each exposing tools through the same protocol.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            <a href="https://a2aproject.github.io/A2A/latest/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">A2A</a> solves a different problem: how do agents find and commission work from each other across trust boundaries? Its core concepts — Agent Cards (discoverable at <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">/.well-known/agent.json</code>), Tasks, Messages, and Artifacts — enable cross-organizational agent collaboration.
+          </p>
+
+          <!-- Protocol Stack Diagram -->
+          <div class="bg-elevated border border-border rounded-lg p-6 mb-6">
+            <p class="text-small font-mono text-green mb-4">$ cat protocol_stack.yml</p>
+            <div class="font-mono text-sm">
+              <div class="border border-border rounded p-3 mb-2 text-center">
+                <p class="text-foreground">Application Layer</p>
+                <p class="text-text-muted text-xs">Your multi-agent system</p>
+              </div>
+              <div class="flex items-center justify-center text-text-muted mb-2">&#8595;</div>
+              <div class="border border-green/50 rounded p-3 mb-2 text-center bg-green/5">
+                <p class="text-green">A2A — Agent-to-Agent Protocol</p>
+                <p class="text-text-muted text-xs">Agent discovery, task delegation, artifact exchange</p>
+              </div>
+              <div class="flex items-center justify-center text-text-muted mb-2">&#8595;</div>
+              <div class="border border-cyan/50 rounded p-3 mb-2 text-center bg-cyan/5">
+                <p class="text-cyan">MCP — Model Context Protocol</p>
+                <p class="text-text-muted text-xs">Tool discovery, invocation, resources, prompts</p>
+              </div>
+              <div class="flex items-center justify-center text-text-muted mb-2">&#8595;</div>
+              <div class="border border-border rounded p-3 text-center">
+                <p class="text-secondary">External Systems</p>
+                <p class="text-text-muted text-xs">Databases, APIs, file systems, SaaS</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed">
+            The mental model: <strong class="text-foreground">MCP is the vertical axis</strong> (connecting agents to tools and data), <strong class="text-foreground">A2A is the horizontal axis</strong> (connecting agent runtimes to each other). Teams often use both: MCP for tool integration within a stack, A2A when agents span organizational boundaries.
+          </p>
+        </section>
+
+        <!-- Part 5 -->
+        <section id="skills">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">05 //</span> Skills: The New Unit of Intelligence
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Models have parameters. Agents have tools. But what makes an agent actually good at a specific task? <strong class="text-foreground">Skills</strong>. A skill is a versionable package of procedural expertise — instructions, scripts, references, and assets centered on a <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">SKILL.md</code> file.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Anthropic's engineering team</a> frames skills as the bridge between raw model capability and reliable task execution. The <a href="https://agentskills.io/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Agent Skills specification</a> formalizes four layers:
+          </p>
+
+          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
+            <p class="text-small font-mono text-green mb-4">$ cat skill_taxonomy.json</p>
+            <div class="space-y-4 font-mono text-sm">
+              <div class="flex items-start gap-3">
+                <span class="text-green shrink-0">L4</span>
+                <div>
+                  <p class="text-foreground">Policy / Guardrails</p>
+                  <p class="text-text-muted text-xs">What must never happen — rules, allowlists, approvals</p>
+                </div>
+              </div>
+              <div class="border-l border-border ml-3 h-3"></div>
+              <div class="flex items-start gap-3">
+                <span class="text-green shrink-0">L3</span>
+                <div>
+                  <p class="text-foreground">Skill / Playbook</p>
+                  <p class="text-text-muted text-xs">How to use primitives — SKILL.md, checklists, conventions</p>
+                </div>
+              </div>
+              <div class="border-l border-border ml-3 h-3"></div>
+              <div class="flex items-start gap-3">
+                <span class="text-green shrink-0">L2</span>
+                <div>
+                  <p class="text-foreground">Tool / Integration</p>
+                  <p class="text-text-muted text-xs">What primitives exist — MCP servers, REST APIs, DB bindings</p>
+                </div>
+              </div>
+              <div class="border-l border-border ml-3 h-3"></div>
+              <div class="flex items-start gap-3">
+                <span class="text-green shrink-0">L1</span>
+                <div>
+                  <p class="text-foreground">Data / Context</p>
+                  <p class="text-text-muted text-xs">Ground truth — docs, RAG corpora, runbooks, schemas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The key innovation is <strong class="text-foreground">progressive loading</strong>. Skills don't dump their entire contents into the agent's context. Instead:
+          </p>
+
+          <div class="space-y-3 mb-6">
+            <div class="flex items-start gap-3 bg-elevated border border-border rounded-lg p-4">
+              <span class="text-green font-mono text-sm shrink-0">1</span>
+              <div>
+                <p class="text-small text-foreground font-medium">Always On: Metadata Band</p>
+                <p class="text-xs text-secondary">Name + description (~100 tokens). Always present so the agent knows the skill exists.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-elevated border border-border rounded-lg p-4">
+              <span class="text-green font-mono text-sm shrink-0">2</span>
+              <div>
+                <p class="text-small text-foreground font-medium">On Relevance: Full SKILL.md</p>
+                <p class="text-xs text-secondary">Agent reads the complete instructions when the task matches the skill's domain.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-elevated border border-border rounded-lg p-4">
+              <span class="text-green font-mono text-sm shrink-0">3</span>
+              <div>
+                <p class="text-small text-foreground font-medium">On Subtask: Deep Resources</p>
+                <p class="text-xs text-secondary">references/, scripts/, assets/ loaded only for specific sub-problems.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Platform Comparison -->
+          <div class="overflow-x-auto mb-6">
+            <table class="w-full text-small border border-border rounded-lg overflow-hidden">
+              <thead>
+                <tr class="bg-elevated">
+                  <th class="text-left p-3 font-mono text-green border-b border-border">Dimension</th>
+                  <th class="text-left p-3 font-mono text-green border-b border-border">Agent Skills / Claude</th>
+                  <th class="text-left p-3 font-mono text-green border-b border-border">Cursor Skills</th>
+                  <th class="text-left p-3 font-mono text-green border-b border-border">GPT Actions</th>
+                </tr>
+              </thead>
+              <tbody class="text-secondary">
+                <tr class="border-b border-border">
+                  <td class="p-3 font-medium text-foreground">Artifact</td>
+                  <td class="p-3">SKILL.md + scripts/</td>
+                  <td class="p-3">SKILL.md folder</td>
+                  <td class="p-3">OpenAPI spec</td>
+                </tr>
+                <tr class="border-b border-border">
+                  <td class="p-3 font-medium text-foreground">Activation</td>
+                  <td class="p-3">Model selects via metadata</td>
+                  <td class="p-3">Auto or explicit</td>
+                  <td class="p-3">Function calling</td>
+                </tr>
+                <tr class="border-b border-border">
+                  <td class="p-3 font-medium text-foreground">Strength</td>
+                  <td class="p-3">Deep procedural knowledge</td>
+                  <td class="p-3">Repo/workspace integration</td>
+                  <td class="p-3">SaaS integration</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-medium text-foreground">Composition</td>
+                  <td class="p-3">Skill + MCP tools</td>
+                  <td class="p-3">Skill + MCP tools</td>
+                  <td class="p-3">Chained HTTP calls</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed">
+            The convergence is clear: <strong class="text-foreground">skills teach workflow</strong>; <strong class="text-foreground">MCP/APIs supply interfaces</strong>. Organizations are building internal "skill registries" — approved git namespaces with semver tags and SBOM-style audits. Skills are becoming dependencies, managed with the same rigor as npm packages or Python libraries.
+          </p>
+        </section>
+
+        <!-- Part 6 -->
+        <section id="failure-modes">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">06 //</span> Why Multi-Agent Systems Break
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Multi-agent systems fail in ways that single-agent systems don't. Understanding these failure modes is prerequisite knowledge for anyone building hierarchical architectures.
+          </p>
+
+          <div class="space-y-6 mb-8">
+            <!-- Failure Mode 1 -->
+            <div class="border-l-2 border-red-500/50 pl-4">
+              <h3 class="text-h3 text-foreground mb-2">Coordination Failures</h3>
+              <div class="space-y-2 text-body text-secondary leading-relaxed">
+                <p><strong class="text-foreground">Partial observability:</strong> Agents can't see each other's full scratchpad. Badly chosen shared state causes either under-sharing (agents block waiting for context) or over-sharing (context rot from irrelevant information).</p>
+                <p><strong class="text-foreground">Synchronization:</strong> Parallel workers editing the same codebase need merge semantics — CRDT-like logs, single-writer artifacts, or supervisor arbitration. Without this, you get silent conflicts.</p>
+                <p><strong class="text-foreground">Non-determinism:</strong> Different temperatures, tool availability, and prompt variations make replay for debugging nearly impossible without structured traces.</p>
+              </div>
+            </div>
+
+            <!-- Failure Mode 2 -->
+            <div class="border-l-2 border-yellow-500/50 pl-4">
+              <h3 class="text-h3 text-foreground mb-2">Trust Failures</h3>
+              <div class="space-y-2 text-body text-secondary leading-relaxed">
+                <p><strong class="text-foreground">No inherent trust:</strong> Treat another agent's output as untrusted input until validated through schemas, unit tests, retrieval citations, or a second model with a different inductive bias.</p>
+                <p><strong class="text-foreground">Monoculture risk:</strong> Using the same model family for planning and verification shares blind spots. If Claude writes code and Claude reviews it, systematic errors pass through. Cross-model judges, static analysis, and code execution are the countermeasures.</p>
+              </div>
+            </div>
+
+            <!-- Failure Mode 3 -->
+            <div class="border-l-2 border-orange-500/50 pl-4">
+              <h3 class="text-h3 text-foreground mb-2">Error Cascades</h3>
+              <div class="space-y-2 text-body text-secondary leading-relaxed">
+                <p><strong class="text-foreground">The cascade pattern:</strong> One wrong intermediate artifact becomes "ground truth" for downstream agents. Conformity bias amplifies the error — subsequent agents are reluctant to contradict their predecessor.</p>
+                <p><strong class="text-foreground">Mitigations:</strong> Provenance/lineage tracking on every claim. Edge validators (lightweight checks between agents). Narrow interfaces (structured outputs with schemas). Supervisor gating before merge. OpenTelemetry-style spans per agent/tool invocation.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-elevated border border-border rounded-lg p-6">
+            <p class="text-small font-mono text-green mb-4">$ cat error_cascade_flow.txt</p>
+            <div class="font-mono text-sm text-secondary">
+              <p><span class="text-foreground">Agent_A</span> generates code with subtle bug</p>
+              <p class="text-text-muted pl-2">&#8595; <span class="text-yellow-500/80">no edge validator</span></p>
+              <p><span class="text-foreground">Agent_B</span> writes tests that pass (tests match the bug)</p>
+              <p class="text-text-muted pl-2">&#8595; <span class="text-yellow-500/80">conformity bias</span></p>
+              <p><span class="text-foreground">Agent_C</span> reviews and approves (same model, same blind spot)</p>
+              <p class="text-text-muted pl-2">&#8595; <span class="text-yellow-500/80">monoculture</span></p>
+              <p><span class="text-foreground">Agent_D</span> deploys to production</p>
+              <p class="text-text-muted pl-2">&#8595; <span class="text-red-400">cascade complete</span></p>
+              <p class="text-red-400 mt-2">// Bug discovered by users, not by the agent system</p>
+              <p class="text-green mt-3">// Fix: Cross-model judges + edge validators + provenance</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 7 -->
+        <section id="developer-role">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">07 //</span> The Developer's New Role
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            <a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC forecasts</a> that by 2030, <strong class="text-foreground">70% of developers will partner with autonomous agents</strong>, shifting emphasis to planning, design, and orchestration. Developers aren't just using AI agents — they're building them.
+          </p>
+
+          <blockquote class="border-l-2 border-green pl-4 py-2 mb-6">
+            <p class="text-body text-foreground italic">"The new paradigm is characterized by developers who are simultaneously users, creators, and governors of intelligent systems."</p>
+            <p class="text-small text-secondary mt-2">— IDC Developer/DevOps FutureScape</p>
+          </blockquote>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The skills that matter are shifting. Here's what's rising and what's declining:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div class="bg-elevated border border-border rounded-lg p-5">
+              <p class="text-small font-mono text-green mb-3">// Rising</p>
+              <div class="space-y-2 text-small text-secondary">
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Task decomposition & delegation</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Verification discipline (evals, static analysis)</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Observability & tracing for agent paths</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Risk literacy (prompt injection, trust)</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Skill authoring & tool engineering</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">System design & architecture</span></p>
+              </div>
+            </div>
+            <div class="bg-elevated border border-border rounded-lg p-5">
+              <p class="text-small font-mono text-secondary mb-3">// Declining</p>
+              <div class="space-y-2 text-small text-secondary">
+                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Boilerplate code writing</p>
+                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Manual test case authoring</p>
+                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Configuration management</p>
+                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Documentation as afterthought</p>
+                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Solo debugging sessions</p>
+                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Manual code review (fully)</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Four new hybrid roles are emerging at the intersection of engineering and AI governance:
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="text-green font-mono text-sm shrink-0 w-6">01</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Skill Author / Technical Writer</p>
+                <p class="text-small text-secondary">Encodes institutional knowledge into versionable SKILL.md packages with progressive structure, worked examples, and deterministic scripts.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green font-mono text-sm shrink-0 w-6">02</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Tooling Engineer</p>
+                <p class="text-small text-secondary">Builds MCP servers, designs OpenAPI surfaces, handles auth, ensures idempotent actions, and instruments tool failures with observability.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green font-mono text-sm shrink-0 w-6">03</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Governance & Security Reviewer</p>
+                <p class="text-small text-secondary">Treats skills as dependencies — reviews scripts, audits network calls, checks for instruction injection, monitors data egress paths.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green font-mono text-sm shrink-0 w-6">04</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Evals Owner</p>
+                <p class="text-small text-secondary">Designs task suites and rubrics that prove whether a skill, agent, or system actually reduces failures — Anthropic's "start with evaluation" principle.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 8 -->
+        <section id="building">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">08 //</span> Building Your First Hierarchical Agent System
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Theory is useful. Shipping is better. Here's a practical checklist for building your first hierarchical multi-agent system:
+          </p>
+
+          <div class="space-y-6 mb-8">
+            <div class="bg-elevated border border-border rounded-lg p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">1</span>
+                <h3 class="text-h3 text-foreground">Define the Contract</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed mb-3">Every agent boundary needs a typed payload. What goes in, what comes out, what errors look like.</p>
+              <div class="bg-subtle rounded p-3 font-mono text-xs text-secondary overflow-x-auto">
+                <pre><code set:html={codeContract} /></pre>
+              </div>
+            </div>
+
+            <div class="bg-elevated border border-border rounded-lg p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">2</span>
+                <h3 class="text-h3 text-foreground">Pick Topology from Task Structure</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed">Analyze your task dependency graph. Parallelizable subtasks? Use fan-out swarm. Tight dependencies? Pipeline. Complex with quality gates? Hierarchical supervisor. Don't over-architect — start with supervisor and evolve.</p>
+            </div>
+
+            <div class="bg-elevated border border-border rounded-lg p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">3</span>
+                <h3 class="text-h3 text-foreground">Attach Tools via MCP</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed">Each agent gets a scoped set of MCP servers. The ImplementAgent gets filesystem + git. The SecurityAgent gets vulnerability scanners. The DeployAgent gets CI/CD APIs. Narrow tool access is scope sanitization in practice.</p>
+            </div>
+
+            <div class="bg-elevated border border-border rounded-lg p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">4</span>
+                <h3 class="text-h3 text-foreground">Add a Routing Policy</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed">Start with a static supervisor (explicit rules for delegation). Graduate to bandit-style beliefs when you have enough usage data. The REDEREF pattern works well as a drop-in upgrade — no fine-tuning required.</p>
+            </div>
+
+            <div class="bg-elevated border border-border rounded-lg p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">5</span>
+                <h3 class="text-h3 text-foreground">Instrument and Gate</h3>
+              </div>
+              <p class="text-body text-secondary leading-relaxed">Traces on every agent/tool invocation (OpenTelemetry spans). Judges at every handoff boundary. Kill switches for runaway delegation loops. And always — always — a maximum recursion depth.</p>
+            </div>
+          </div>
+
+          <!-- LangGraph Example -->
+          <div class="bg-elevated border border-border rounded-lg overflow-hidden mb-6">
+            <div class="flex items-center gap-2 px-4 py-2 bg-subtle border-b border-border">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green/60"></div>
+              </div>
+              <span class="text-xs font-mono text-secondary">supervisor_graph.py — LangGraph Hierarchical Pattern</span>
+            </div>
+            <pre class="p-4 text-sm font-mono text-secondary overflow-x-auto"><code set:html={codeLangGraph} /></pre>
+          </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="border-t border-border pt-12">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">// </span> Conclusion: The Human in the Loop
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The agentic development lifecycle isn't about replacing developers. It's about <strong class="text-foreground">changing what development means</strong>. The developer of 2026 isn't someone who types code all day. They're a conductor of agent orchestras — decomposing problems, designing contracts, verifying outputs, and governing autonomous systems.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The skills that matter have shifted from syntax fluency to system thinking. From writing functions to designing agent hierarchies. From debugging individual lines to tracing multi-agent error cascades. From memorizing APIs to authoring skills that teach agents how to use them.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The infrastructure is maturing rapidly. MCP standardizes tool access. A2A enables cross-boundary collaboration. Frameworks like LangGraph, CrewAI, and AutoGen make hierarchical orchestration accessible. Research on agent routing (REDEREF) and topology selection (AdaptOrch) brings rigor to what was previously ad-hoc prompt engineering.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-8">
+            But the hardest problem isn't technical. It's organizational. <a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC predicts</a> a <strong class="text-foreground">35% increase</strong> in spending on AI governance and monitoring by 2029, driven by multi-agent complexity. Companies that treat agentic systems as "just better autocomplete" will be outpaced by those that embrace the full lifecycle shift: from sequential pipelines to concurrent loops, from static requirements to adaptive bets, from human execution to human governance.
+          </p>
+
+          <div class="bg-elevated border border-green/30 rounded-lg p-6">
+            <p class="text-small font-mono text-green mb-3">$ echo "TL;DR"</p>
+            <div class="space-y-2 text-body text-secondary">
+              <p>The future of software engineering is <strong class="text-foreground">not writing code</strong>. It's designing the systems that write, validate, and govern code. Master the ADLC, understand multi-agent topologies, and learn to build trust through evaluation — because the agents are already here, and they're waiting for better orchestration.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- References -->
+        <section class="border-t border-border pt-12">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">// </span> References & Further Reading
+          </div>
+          
+          <div class="space-y-3 text-small text-secondary">
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[1]</span>
+              <p><a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">JetBrains AI Pulse, January 2026</a> — "Which AI Coding Tools Do Developers Actually Use at Work?"</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[2]</span>
+              <p><a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">ADLC Manifesto</a> — Agentic Development Life Cycle operating model</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[3]</span>
+              <p><a href="https://www.arthur.ai/blog/introducing-adlc" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Arthur.ai</a> — "Introducing The Agent Development Lifecycle (ADLC)"</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[4]</span>
+              <p><a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC FutureScape</a> — "Developers aren't just using AI agents, they're building them"</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[5]</span>
+              <p><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Model Context Protocol (MCP)</a> — Anthropic's universal tool connector specification</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[6]</span>
+              <p><a href="https://a2aproject.github.io/A2A/latest/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">A2A Specification</a> — Agent-to-Agent interoperability protocol</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[7]</span>
+              <p><a href="https://arxiv.org/abs/2603.13256" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">REDEREF (arXiv:2603.13256)</a> — Training-free agentic AI with Thompson sampling routing</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[8]</span>
+              <p><a href="https://arxiv.org/abs/2602.16873" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AdaptOrch (arXiv:2602.16873)</a> — Task-DAG-driven topology selection for multi-agent systems</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[9]</span>
+              <p><a href="https://arxiv.org/abs/2506.12508" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AgentOrchestra (arXiv:2506.12508)</a> — Hierarchical planning with MCP-oriented tool management</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[10]</span>
+              <p><a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Anthropic Engineering</a> — "Equipping agents for the real world with Agent Skills"</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[11]</span>
+              <p><a href="https://agentskills.io/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Agent Skills Specification</a> — Open standard for agent skill packages</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-green font-mono shrink-0">[12]</span>
+              <p><a href="https://changelog.langchain.com/announcements/langgraph-supervisor-a-library-for-hierarchical-multi-agent-systems" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">LangGraph Supervisor</a> — Library for hierarchical multi-agent systems</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Author Footer -->
+        <section class="border-t border-border pt-8">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-lg font-bold shrink-0">IK</div>
+            <div>
+              <p class="text-body text-foreground font-medium">Mohammed Imran Khan</p>
+              <p class="text-small text-secondary">Senior ML Engineer at Red Hat, building AI Agent Platforms. Ex-Principal ML Engineer at Mercedes-Benz R&D Center. PhD Scholar in AI & ML. Passionate about multi-agent systems, agentic AI, and the future of software engineering.</p>
+              <div class="flex items-center gap-3 mt-2">
+                <a href="https://linkedin.com/in/mohdimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">LinkedIn</a>
+                <a href="https://github.com/mimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">GitHub</a>
+                <a href="mailto:mohammed_imran.khan@outlook.com" class="text-small text-green hover:underline">Email</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </article>
+</BaseLayout>
