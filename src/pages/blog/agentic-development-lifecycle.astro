@@ -92,16 +92,91 @@ app = graph.compile()`;
   title="The Agentic Development Lifecycle | Imran Khan"
   description="How multi-agent systems, hierarchical architectures, and agent promotion/demotion patterns are rewriting the rules of software engineering. Deep dive into ADLC, MCP, A2A, and the future of development."
 >
-  <!-- Article Header -->
-  <section class="pt-16 pb-8 border-b border-border">
-    <div class="container-main max-w-4xl">
+
+  <style>
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes dash-flow {
+      to { stroke-dashoffset: -20; }
+    }
+    .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+    .animate-dash { animation: dash-flow 1.5s linear infinite; }
+    .diagram-node {
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+    .diagram-node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.2);
+    }
+    .glow-green { box-shadow: 0 0 15px rgba(63, 185, 80, 0.15), inset 0 0 15px rgba(63, 185, 80, 0.05); }
+    .glow-cyan { box-shadow: 0 0 15px rgba(57, 211, 213, 0.15), inset 0 0 15px rgba(57, 211, 213, 0.05); }
+    .glow-red { box-shadow: 0 0 15px rgba(248, 81, 73, 0.15), inset 0 0 15px rgba(248, 81, 73, 0.05); }
+    .glow-yellow { box-shadow: 0 0 15px rgba(210, 153, 34, 0.15), inset 0 0 15px rgba(210, 153, 34, 0.05); }
+    .grid-bg {
+      background-image: 
+        linear-gradient(rgba(63, 185, 80, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 185, 80, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+
+  <!-- Hero Banner -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-green/5 via-transparent to-cyan/5"></div>
+    
+    <!-- Floating particles -->
+    <div class="absolute top-20 left-[10%] w-2 h-2 rounded-full bg-green/30 animate-float" style="animation-delay: 0s;"></div>
+    <div class="absolute top-40 right-[15%] w-1.5 h-1.5 rounded-full bg-cyan/30 animate-float" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-32 left-[25%] w-1 h-1 rounded-full bg-green/20 animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute top-32 right-[30%] w-2.5 h-2.5 rounded-full bg-cyan/20 animate-float" style="animation-delay: 0.5s;"></div>
+    <div class="absolute bottom-20 right-[20%] w-1.5 h-1.5 rounded-full bg-green/25 animate-float" style="animation-delay: 1.5s;"></div>
+    
+    <div class="relative container-main max-w-4xl pt-16 pb-12">
       <a href="/#blog" class="inline-flex items-center gap-2 text-small text-secondary hover:text-green transition-colors mb-8">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
         Back to home
       </a>
+
+      <!-- Mini Architecture Preview -->
+      <div class="flex justify-center mb-8">
+        <svg viewBox="0 0 400 120" class="w-full max-w-md" xmlns="http://www.w3.org/2000/svg">
+          <!-- Central orchestrator -->
+          <circle cx="200" cy="60" r="22" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="1.5"/>
+          <text x="200" y="64" text-anchor="middle" fill="rgb(63,185,80)" font-size="10" font-family="monospace">ORCH</text>
+          <!-- Left agents -->
+          <circle cx="80" cy="35" r="16" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1" opacity="0.8"/>
+          <text x="80" y="39" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">CODE</text>
+          <circle cx="80" cy="85" r="16" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1" opacity="0.8"/>
+          <text x="80" y="89" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">TEST</text>
+          <!-- Right agents -->
+          <circle cx="320" cy="35" r="16" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1" opacity="0.8"/>
+          <text x="320" y="39" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">REVW</text>
+          <circle cx="320" cy="85" r="16" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1" opacity="0.8"/>
+          <text x="320" y="89" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">DEPL</text>
+          <!-- Connection lines -->
+          <line x1="96" y1="40" x2="178" y2="55" stroke="rgb(63,185,80)" stroke-width="0.8" stroke-dasharray="4,3" class="animate-dash"/>
+          <line x1="96" y1="80" x2="178" y2="65" stroke="rgb(63,185,80)" stroke-width="0.8" stroke-dasharray="4,3" class="animate-dash" style="animation-delay: 0.3s"/>
+          <line x1="222" y1="55" x2="304" y2="40" stroke="rgb(63,185,80)" stroke-width="0.8" stroke-dasharray="4,3" class="animate-dash" style="animation-delay: 0.6s"/>
+          <line x1="222" y1="65" x2="304" y2="80" stroke="rgb(63,185,80)" stroke-width="0.8" stroke-dasharray="4,3" class="animate-dash" style="animation-delay: 0.9s"/>
+          <!-- Judge nodes -->
+          <rect x="140" y="8" width="24" height="14" rx="3" fill="rgba(210,153,34,0.15)" stroke="rgb(210,153,34)" stroke-width="0.8"/>
+          <text x="152" y="18" text-anchor="middle" fill="rgb(210,153,34)" font-size="6" font-family="monospace">JDG</text>
+          <rect x="236" y="98" width="24" height="14" rx="3" fill="rgba(210,153,34,0.15)" stroke="rgb(210,153,34)" stroke-width="0.8"/>
+          <text x="248" y="108" text-anchor="middle" fill="rgb(210,153,34)" font-size="6" font-family="monospace">JDG</text>
+        </svg>
+      </div>
       
       <div class="flex items-center gap-2 mb-4">
-        <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded">Deep Dive</span>
+        <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded border border-green/20">Deep Dive</span>
         <span class="text-small text-secondary">Apr 29, 2026</span>
         <span class="text-text-muted">|</span>
         <span class="text-small text-secondary">18 min read</span>
@@ -124,7 +199,7 @@ app = graph.compile()`;
       </div>
 
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold">IK</div>
+        <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
         <div>
           <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
           <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
@@ -138,7 +213,7 @@ app = graph.compile()`;
     <div class="container-main max-w-4xl">
       <div class="font-mono text-sm">
         <p class="text-green mb-3">$ cat table_of_contents.md</p>
-        <nav class="space-y-1.5 text-secondary">
+        <nav class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 text-secondary">
           <a href="#death-of-sdlc" class="block hover:text-green transition-colors">01. The Death of Linear SDLC</a>
           <a href="#hierarchical-architectures" class="block hover:text-green transition-colors">02. Hierarchical Agent Architectures</a>
           <a href="#promotion-demotion" class="block hover:text-green transition-colors">03. Agent Promotion & Demotion</a>
@@ -146,7 +221,7 @@ app = graph.compile()`;
           <a href="#skills" class="block hover:text-green transition-colors">05. Skills: The New Unit of Intelligence</a>
           <a href="#failure-modes" class="block hover:text-green transition-colors">06. Why Multi-Agent Systems Break</a>
           <a href="#developer-role" class="block hover:text-green transition-colors">07. The Developer's New Role</a>
-          <a href="#building" class="block hover:text-green transition-colors">08. Building Your First Hierarchical Agent System</a>
+          <a href="#building" class="block hover:text-green transition-colors">08. Building Your First System</a>
         </nav>
       </div>
     </div>
@@ -157,239 +232,373 @@ app = graph.compile()`;
     <div class="container-main max-w-4xl">
       <div class="prose-terminal space-y-16">
 
-        <!-- Part 1 -->
+        <!-- Part 1: Death of SDLC -->
         <section id="death-of-sdlc">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">01 //</span> The Death of Linear SDLC
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            Here's a number that should make every engineering leader pause: according to <a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">JetBrains' AI Pulse survey (January 2026)</a>, <strong class="text-foreground">90% of professional developers</strong> now use AI tools regularly at work. Not experimenting. Not evaluating. Using. Daily.
-          </p>
-          
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            Claude Code adoption jumped <strong class="text-foreground">6x in under a year</strong> to reach 18% work adoption, tying with Cursor. GitHub Copilot still leads at 29%, but its growth has stalled. The shift toward best-of-breed agents over ecosystem lock-in is unmistakable.
+            Here's a number that should make every engineering leader pause: according to <a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">JetBrains' AI Pulse survey (January 2026)</a>, <strong class="text-foreground">90% of professional developers</strong> now use AI tools regularly at work. Claude Code adoption jumped <strong class="text-foreground">6x in under a year</strong> to 18% work adoption. The shift is unmistakable.
           </p>
 
           <p class="text-body text-secondary leading-relaxed mb-6">
-            But the real disruption isn't which tool developers use. It's that the <strong class="text-foreground">Software Development Life Cycle (SDLC)</strong> as we've known it for decades is fundamentally breaking down. The sequential pipeline of requirements, design, develop, test, deploy was designed for humans writing code one function at a time. When agents can generate, validate, and deploy in parallel, that pipeline doesn't just get faster. It ceases to make sense.
+            But the real disruption isn't which tool developers use. It's that the <strong class="text-foreground">SDLC</strong> as we've known it for decades is fundamentally breaking down. When agents can generate, validate, and deploy in parallel, the sequential pipeline ceases to make sense.
           </p>
 
-          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
-            <p class="text-small font-mono text-green mb-4">$ diff SDLC ADLC</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <p class="text-small font-mono text-red-400 mb-2">--- SDLC (Sequential)</p>
-                <div class="space-y-1 text-small text-secondary font-mono">
-                  <p>Requirements</p>
-                  <p class="text-text-muted pl-2">&#8595;</p>
-                  <p>Design</p>
-                  <p class="text-text-muted pl-2">&#8595;</p>
-                  <p>Develop</p>
-                  <p class="text-text-muted pl-2">&#8595;</p>
-                  <p>Test</p>
-                  <p class="text-text-muted pl-2">&#8595;</p>
-                  <p>Deploy</p>
-                  <p class="text-text-muted pl-2">&#8595;</p>
-                  <p>Maintain</p>
+          <!-- ADLC Hexagonal Diagram -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-8 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-br from-green/5 via-transparent to-cyan/5"></div>
+            <p class="relative text-small font-mono text-green mb-6 text-center">SDLC (Linear Pipeline) vs ADLC (Concurrent Loop)</p>
+            
+            <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <!-- SDLC Side -->
+              <div class="relative">
+                <p class="text-xs font-mono text-red-400 text-center mb-4 uppercase tracking-wider">Traditional SDLC</p>
+                <div class="flex flex-col items-center gap-1">
+                  <div class="diagram-node w-40 py-2.5 rounded-lg bg-red-500/5 border border-red-500/20 text-center text-sm text-red-400 font-mono">Requirements</div>
+                  <svg class="w-4 h-6" viewBox="0 0 16 24"><path d="M8 0 L8 20 M4 16 L8 22 L12 16" stroke="rgb(248,81,73)" stroke-width="1.5" fill="none" opacity="0.4"/></svg>
+                  <div class="diagram-node w-40 py-2.5 rounded-lg bg-red-500/5 border border-red-500/20 text-center text-sm text-red-400 font-mono">Design</div>
+                  <svg class="w-4 h-6" viewBox="0 0 16 24"><path d="M8 0 L8 20 M4 16 L8 22 L12 16" stroke="rgb(248,81,73)" stroke-width="1.5" fill="none" opacity="0.4"/></svg>
+                  <div class="diagram-node w-40 py-2.5 rounded-lg bg-red-500/5 border border-red-500/20 text-center text-sm text-red-400 font-mono">Develop</div>
+                  <svg class="w-4 h-6" viewBox="0 0 16 24"><path d="M8 0 L8 20 M4 16 L8 22 L12 16" stroke="rgb(248,81,73)" stroke-width="1.5" fill="none" opacity="0.4"/></svg>
+                  <div class="diagram-node w-40 py-2.5 rounded-lg bg-red-500/5 border border-red-500/20 text-center text-sm text-red-400 font-mono">Test</div>
+                  <svg class="w-4 h-6" viewBox="0 0 16 24"><path d="M8 0 L8 20 M4 16 L8 22 L12 16" stroke="rgb(248,81,73)" stroke-width="1.5" fill="none" opacity="0.4"/></svg>
+                  <div class="diagram-node w-40 py-2.5 rounded-lg bg-red-500/5 border border-red-500/20 text-center text-sm text-red-400 font-mono">Deploy</div>
                 </div>
+                <p class="text-xs text-red-400/60 text-center mt-3 font-mono">Sequential gates, one-way flow</p>
               </div>
-              <div>
-                <p class="text-small font-mono text-green mb-2">+++ ADLC (Concurrent Loop)</p>
-                <div class="space-y-1 text-small text-secondary font-mono">
-                  <p>Intent &nbsp;&nbsp;&nbsp;&harr; Generate</p>
-                  <p class="text-text-muted pl-2">&#8597; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8597;</p>
-                  <p>Observe &harr; Validate</p>
-                  <p class="text-text-muted pl-2">&#8597; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8597;</p>
-                  <p>Deploy &nbsp;&harr; Govern</p>
-                  <p class="text-green mt-2">// All modes run concurrently</p>
-                  <p class="text-green">// Loops, not gates</p>
+
+              <!-- ADLC Side -->
+              <div class="relative">
+                <p class="text-xs font-mono text-green text-center mb-4 uppercase tracking-wider">Agentic ADLC</p>
+                <div class="flex justify-center">
+                  <svg viewBox="0 0 260 240" class="w-56 sm:w-64" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Outer glow ring -->
+                    <circle cx="130" cy="120" r="95" fill="none" stroke="rgba(63,185,80,0.08)" stroke-width="30"/>
+                    <!-- Connection ring -->
+                    <circle cx="130" cy="120" r="85" fill="none" stroke="rgba(63,185,80,0.15)" stroke-width="1" stroke-dasharray="6,4" class="animate-dash"/>
+                    <!-- Hexagonal nodes -->
+                    <g transform="translate(130,35)">
+                      <rect x="-32" y="-14" width="64" height="28" rx="6" fill="rgba(63,185,80,0.12)" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                      <text x="0" y="5" text-anchor="middle" fill="rgb(63,185,80)" font-size="11" font-family="monospace" font-weight="600">Intent</text>
+                    </g>
+                    <g transform="translate(204,77)">
+                      <rect x="-35" y="-14" width="70" height="28" rx="6" fill="rgba(57,211,213,0.12)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                      <text x="0" y="5" text-anchor="middle" fill="rgb(57,211,213)" font-size="11" font-family="monospace" font-weight="600">Generate</text>
+                    </g>
+                    <g transform="translate(204,163)">
+                      <rect x="-35" y="-14" width="70" height="28" rx="6" fill="rgba(63,185,80,0.12)" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                      <text x="0" y="5" text-anchor="middle" fill="rgb(63,185,80)" font-size="11" font-family="monospace" font-weight="600">Validate</text>
+                    </g>
+                    <g transform="translate(130,205)">
+                      <rect x="-32" y="-14" width="64" height="28" rx="6" fill="rgba(57,211,213,0.12)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                      <text x="0" y="5" text-anchor="middle" fill="rgb(57,211,213)" font-size="11" font-family="monospace" font-weight="600">Govern</text>
+                    </g>
+                    <g transform="translate(56,163)">
+                      <rect x="-32" y="-14" width="64" height="28" rx="6" fill="rgba(63,185,80,0.12)" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                      <text x="0" y="5" text-anchor="middle" fill="rgb(63,185,80)" font-size="11" font-family="monospace" font-weight="600">Deploy</text>
+                    </g>
+                    <g transform="translate(56,77)">
+                      <rect x="-35" y="-14" width="70" height="28" rx="6" fill="rgba(57,211,213,0.12)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                      <text x="0" y="5" text-anchor="middle" fill="rgb(57,211,213)" font-size="11" font-family="monospace" font-weight="600">Observe</text>
+                    </g>
+                    <!-- Bi-directional arrows between nodes -->
+                    <line x1="155" y1="42" x2="175" y2="63" stroke="rgba(63,185,80,0.4)" stroke-width="1" stroke-dasharray="3,2" class="animate-dash"/>
+                    <line x1="210" y1="98" x2="210" y2="145" stroke="rgba(63,185,80,0.4)" stroke-width="1" stroke-dasharray="3,2" class="animate-dash" style="animation-delay:0.3s"/>
+                    <line x1="175" y1="177" x2="155" y2="198" stroke="rgba(63,185,80,0.4)" stroke-width="1" stroke-dasharray="3,2" class="animate-dash" style="animation-delay:0.6s"/>
+                    <line x1="105" y1="198" x2="85" y2="177" stroke="rgba(63,185,80,0.4)" stroke-width="1" stroke-dasharray="3,2" class="animate-dash" style="animation-delay:0.9s"/>
+                    <line x1="50" y1="145" x2="50" y2="98" stroke="rgba(63,185,80,0.4)" stroke-width="1" stroke-dasharray="3,2" class="animate-dash" style="animation-delay:1.2s"/>
+                    <line x1="85" y1="63" x2="105" y2="42" stroke="rgba(63,185,80,0.4)" stroke-width="1" stroke-dasharray="3,2" class="animate-dash" style="animation-delay:1.5s"/>
+                    <!-- Cross connections (concurrent) -->
+                    <line x1="130" y1="49" x2="130" y2="191" stroke="rgba(63,185,80,0.08)" stroke-width="0.5"/>
+                    <line x1="56" y1="91" x2="204" y2="149" stroke="rgba(63,185,80,0.08)" stroke-width="0.5"/>
+                    <line x1="56" y1="149" x2="204" y2="91" stroke="rgba(63,185,80,0.08)" stroke-width="0.5"/>
+                  </svg>
                 </div>
+                <p class="text-xs text-green/60 text-center mt-3 font-mono">Concurrent modes, loops not gates</p>
               </div>
             </div>
           </div>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            The <a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Agentic Development Life Cycle (ADLC)</a> isn't SDLC with AI bolted on. It's a different operating model, redesigned for a world where the primary execution unit is an agent, not a human. The <a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">ADLC manifesto</a> puts it bluntly:
-          </p>
-          
-          <blockquote class="border-l-2 border-green pl-4 py-2 mb-6">
+          <blockquote class="border-l-2 border-green pl-4 py-2 mb-6 bg-green/5 rounded-r-lg pr-4">
             <p class="text-body text-foreground italic">"ADLC is not SDLC with AI tools added. It is a different operating model — redesigned for a world where the primary execution unit is an agent, not a human."</p>
-            <p class="text-small text-secondary mt-2">— adlc.io</p>
+            <p class="text-small text-secondary mt-2">— <a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">adlc.io</a></p>
           </blockquote>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            Three fundamental shifts define ADLC:
-          </p>
-          
           <div class="space-y-4 mb-6">
-            <div class="flex items-start gap-3">
-              <span class="text-green font-mono text-sm shrink-0">01</span>
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">01</span>
               <div>
                 <p class="text-body text-foreground font-medium">Concurrency over Sequencing</p>
-                <p class="text-small text-secondary">Six modes (Intent, Generate, Validate, Govern, Deploy, Observe) operate simultaneously, not as sequential gates. An agent can write code while another validates the previous output and a third monitors production.</p>
+                <p class="text-small text-secondary">Six modes operate simultaneously. An agent can write code while another validates the previous output and a third monitors production.</p>
               </div>
             </div>
-            <div class="flex items-start gap-3">
-              <span class="text-green font-mono text-sm shrink-0">02</span>
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">02</span>
               <div>
                 <p class="text-body text-foreground font-medium">Bets over Requirements</p>
-                <p class="text-small text-secondary">Planning favors hypotheses with resolution signals (a "Bet Register") over static specifications treated as truth. Because agents make change cheap, you validate assumptions through rapid iteration, not extensive upfront design.</p>
+                <p class="text-small text-secondary">Planning favors hypotheses with resolution signals. Because agents make change cheap, you validate assumptions through rapid iteration.</p>
               </div>
             </div>
-            <div class="flex items-start gap-3">
-              <span class="text-green font-mono text-sm shrink-0">03</span>
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">03</span>
               <div>
                 <p class="text-body text-foreground font-medium">Governance over Execution</p>
-                <p class="text-small text-secondary">When agents handle execution, the bottleneck shifts to governance — verifying outputs, enforcing policies, maintaining architectural coherence. Humans move from writing code to setting guardrails.</p>
+                <p class="text-small text-secondary">When agents handle execution, the bottleneck shifts to governance — verifying outputs, enforcing policies, maintaining architectural coherence.</p>
               </div>
             </div>
           </div>
 
           <p class="text-body text-secondary leading-relaxed">
-            <a href="https://www.arthur.ai/blog/introducing-adlc" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Arthur.ai's take on ADLC</a> adds the reliability dimension: the core of the lifecycle is an "Agent Development Flywheel" where live usage reveals failure modes, which grow eval suites, which ship improvements with regression-aware metrics. Building agents is less about writing code and more about building trust through continuous validation.
+            <a href="https://www.arthur.ai/blog/introducing-adlc" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Arthur.ai's take on ADLC</a> adds the reliability dimension: the core of the lifecycle is an "Agent Development Flywheel" where live usage reveals failure modes, which grow eval suites, which ship improvements with regression-aware metrics.
           </p>
         </section>
 
-        <!-- Part 2 -->
+        <!-- Part 2: Hierarchical Architectures -->
         <section id="hierarchical-architectures">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">02 //</span> Hierarchical Agent Architectures
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            If ADLC is the operating model, multi-agent architectures are the execution engine. The question isn't whether to use multiple agents — it's how to organize them. Four dominant patterns have emerged, each optimized for different coordination needs:
+            If ADLC is the operating model, multi-agent architectures are the execution engine. Four dominant patterns have emerged:
           </p>
 
-          <!-- Architecture Patterns Table -->
-          <div class="overflow-x-auto mb-8">
-            <table class="w-full text-small border border-border rounded-lg overflow-hidden">
-              <thead>
-                <tr class="bg-elevated">
-                  <th class="text-left p-3 font-mono text-green border-b border-border">Pattern</th>
-                  <th class="text-left p-3 font-mono text-green border-b border-border">Control Flow</th>
-                  <th class="text-left p-3 font-mono text-green border-b border-border">Best For</th>
-                  <th class="text-left p-3 font-mono text-green border-b border-border">Risk</th>
-                </tr>
-              </thead>
-              <tbody class="text-secondary">
-                <tr class="border-b border-border">
-                  <td class="p-3 font-medium text-foreground">Supervisor</td>
-                  <td class="p-3">Central planner routes to specialists</td>
-                  <td class="p-3">Quality gates, branching</td>
-                  <td class="p-3">Supervisor bottleneck</td>
-                </tr>
-                <tr class="border-b border-border">
-                  <td class="p-3 font-medium text-foreground">Router</td>
-                  <td class="p-3">Lightweight classifier picks one path</td>
-                  <td class="p-3">Latency-sensitive, clear intents</td>
-                  <td class="p-3">Wrong route = expensive recovery</td>
-                </tr>
-                <tr class="border-b border-border">
-                  <td class="p-3 font-medium text-foreground">Pipeline</td>
-                  <td class="p-3">Fixed A &rarr; B &rarr; C stages</td>
-                  <td class="p-3">Stable transformation chains</td>
-                  <td class="p-3">Early errors cascade downstream</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-medium text-foreground">Swarm</td>
-                  <td class="p-3">Loose coordination, shared state</td>
-                  <td class="p-3">Exploration, fan-out tasks</td>
-                  <td class="p-3">Deadlocks, duplicate work</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            The real power comes from <strong class="text-foreground">nesting</strong> these patterns. Hierarchical systems compose supervisors at multiple levels: a department-level coordinator delegates to team supervisors, who delegate to specialized workers. Each layer provides <strong class="text-foreground">scope sanitization</strong> (agents only see their sub-problem), <strong class="text-foreground">reduced hallucination surface</strong>, and <strong class="text-foreground">checkpointing at layer boundaries</strong>.
-          </p>
-
-          <!-- Hierarchical Architecture Diagram -->
-          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
-            <p class="text-small font-mono text-green mb-4">$ tree --agents hierarchy.yml</p>
-            <div class="font-mono text-sm text-secondary">
-              <p class="text-foreground">Orchestrator <span class="text-green">(strategic planning, task decomposition)</span></p>
-              <p>├── <span class="text-cyan">CodeSupervisor</span> <span class="text-text-muted">// manages development agents</span></p>
-              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">ArchitectAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">design decisions, API contracts</span></p>
-              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">ImplementAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">writes production code</span></p>
-              <p>│&nbsp;&nbsp; └── <span class="text-foreground">TestAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">generates tests, runs coverage</span></p>
-              <p>├── <span class="text-cyan">ReviewSupervisor</span> <span class="text-text-muted">// manages quality agents</span></p>
-              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">SecurityAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">vulnerability scanning</span></p>
-              <p>│&nbsp;&nbsp; ├── <span class="text-foreground">PerformanceAgent</span> &nbsp;&nbsp;<span class="text-text-muted">bottleneck analysis</span></p>
-              <p>│&nbsp;&nbsp; └── <span class="text-foreground">StyleAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">code conventions, linting</span></p>
-              <p>└── <span class="text-cyan">DeploySupervisor</span> <span class="text-text-muted">// manages release agents</span></p>
-              <p>&nbsp;&nbsp;&nbsp; ├── <span class="text-foreground">BuildAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">CI/CD pipeline execution</span></p>
-              <p>&nbsp;&nbsp;&nbsp; ├── <span class="text-foreground">MonitorAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">observability, alerting</span></p>
-              <p>&nbsp;&nbsp;&nbsp; └── <span class="text-foreground">RollbackAgent</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-text-muted">incident response, revert</span></p>
+          <!-- Visual Architecture Patterns -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div class="diagram-node rounded-xl border border-border p-5 bg-elevated glow-green">
+              <div class="flex justify-center mb-3">
+                <svg viewBox="0 0 120 80" class="w-28" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="60" cy="15" r="10" fill="rgba(63,185,80,0.15)" stroke="rgb(63,185,80)" stroke-width="1"/>
+                  <text x="60" y="18" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">S</text>
+                  <circle cx="25" cy="65" r="8" fill="rgba(57,211,213,0.1)" stroke="rgb(57,211,213)" stroke-width="0.8"/><text x="25" y="68" text-anchor="middle" fill="rgb(57,211,213)" font-size="6" font-family="monospace">W</text>
+                  <circle cx="60" cy="65" r="8" fill="rgba(57,211,213,0.1)" stroke="rgb(57,211,213)" stroke-width="0.8"/><text x="60" y="68" text-anchor="middle" fill="rgb(57,211,213)" font-size="6" font-family="monospace">W</text>
+                  <circle cx="95" cy="65" r="8" fill="rgba(57,211,213,0.1)" stroke="rgb(57,211,213)" stroke-width="0.8"/><text x="95" y="68" text-anchor="middle" fill="rgb(57,211,213)" font-size="6" font-family="monospace">W</text>
+                  <line x1="55" y1="24" x2="30" y2="57" stroke="rgba(63,185,80,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+                  <line x1="60" y1="25" x2="60" y2="57" stroke="rgba(63,185,80,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+                  <line x1="65" y1="24" x2="90" y2="57" stroke="rgba(63,185,80,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+                </svg>
+              </div>
+              <p class="text-foreground font-mono text-sm font-medium text-center">Supervisor</p>
+              <p class="text-xs text-secondary text-center mt-1">Central planner routes to specialists</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-border p-5 bg-elevated glow-cyan">
+              <div class="flex justify-center mb-3">
+                <svg viewBox="0 0 120 80" class="w-28" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="40" y="5" width="40" height="20" rx="4" fill="rgba(57,211,213,0.1)" stroke="rgb(57,211,213)" stroke-width="1"/>
+                  <text x="60" y="18" text-anchor="middle" fill="rgb(57,211,213)" font-size="7" font-family="monospace">Router</text>
+                  <circle cx="25" cy="65" r="8" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="0.8"/><text x="25" y="68" text-anchor="middle" fill="rgb(63,185,80)" font-size="6" font-family="monospace">A</text>
+                  <circle cx="60" cy="65" r="8" fill="rgba(110,118,129,0.1)" stroke="rgb(110,118,129)" stroke-width="0.8"/><text x="60" y="68" text-anchor="middle" fill="rgb(110,118,129)" font-size="6" font-family="monospace">B</text>
+                  <circle cx="95" cy="65" r="8" fill="rgba(110,118,129,0.1)" stroke="rgb(110,118,129)" stroke-width="0.8"/><text x="95" y="68" text-anchor="middle" fill="rgb(110,118,129)" font-size="6" font-family="monospace">C</text>
+                  <line x1="52" y1="25" x2="30" y2="57" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                  <line x1="60" y1="25" x2="60" y2="57" stroke="rgba(110,118,129,0.3)" stroke-width="0.6" stroke-dasharray="2,2"/>
+                  <line x1="68" y1="25" x2="90" y2="57" stroke="rgba(110,118,129,0.3)" stroke-width="0.6" stroke-dasharray="2,2"/>
+                </svg>
+              </div>
+              <p class="text-foreground font-mono text-sm font-medium text-center">Router</p>
+              <p class="text-xs text-secondary text-center mt-1">Intent classifier picks one path</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-border p-5 bg-elevated glow-green">
+              <div class="flex justify-center mb-3">
+                <svg viewBox="0 0 120 80" class="w-28" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="40" r="10" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="1"/><text x="20" y="43" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">A</text>
+                  <circle cx="60" cy="40" r="10" fill="rgba(57,211,213,0.1)" stroke="rgb(57,211,213)" stroke-width="1"/><text x="60" y="43" text-anchor="middle" fill="rgb(57,211,213)" font-size="7" font-family="monospace">B</text>
+                  <circle cx="100" cy="40" r="10" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="1"/><text x="100" y="43" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">C</text>
+                  <line x1="30" y1="40" x2="50" y2="40" stroke="rgb(63,185,80)" stroke-width="1" marker-end="url(#arrowG)"/>
+                  <line x1="70" y1="40" x2="90" y2="40" stroke="rgb(63,185,80)" stroke-width="1" marker-end="url(#arrowG)"/>
+                  <defs><marker id="arrowG" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6" fill="rgb(63,185,80)"/></marker></defs>
+                </svg>
+              </div>
+              <p class="text-foreground font-mono text-sm font-medium text-center">Pipeline</p>
+              <p class="text-xs text-secondary text-center mt-1">Fixed sequential stages</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-border p-5 bg-elevated glow-cyan">
+              <div class="flex justify-center mb-3">
+                <svg viewBox="0 0 120 80" class="w-28" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="35" cy="25" r="9" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="0.8"/><text x="35" y="28" text-anchor="middle" fill="rgb(63,185,80)" font-size="6" font-family="monospace">A</text>
+                  <circle cx="85" cy="25" r="9" fill="rgba(57,211,213,0.1)" stroke="rgb(57,211,213)" stroke-width="0.8"/><text x="85" y="28" text-anchor="middle" fill="rgb(57,211,213)" font-size="6" font-family="monospace">B</text>
+                  <circle cx="35" cy="60" r="9" fill="rgba(57,211,213,0.1)" stroke="rgb(57,211,213)" stroke-width="0.8"/><text x="35" y="63" text-anchor="middle" fill="rgb(57,211,213)" font-size="6" font-family="monospace">C</text>
+                  <circle cx="85" cy="60" r="9" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="0.8"/><text x="85" y="63" text-anchor="middle" fill="rgb(63,185,80)" font-size="6" font-family="monospace">D</text>
+                  <line x1="44" y1="25" x2="76" y2="25" stroke="rgba(63,185,80,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+                  <line x1="44" y1="60" x2="76" y2="60" stroke="rgba(63,185,80,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+                  <line x1="35" y1="34" x2="35" y2="51" stroke="rgba(63,185,80,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+                  <line x1="85" y1="34" x2="85" y2="51" stroke="rgba(63,185,80,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+                  <line x1="43" y1="31" x2="77" y2="54" stroke="rgba(63,185,80,0.2)" stroke-width="0.5" stroke-dasharray="2,2"/>
+                  <line x1="43" y1="54" x2="77" y2="31" stroke="rgba(63,185,80,0.2)" stroke-width="0.5" stroke-dasharray="2,2"/>
+                  <rect x="50" y="33" width="20" height="14" rx="3" fill="rgba(210,153,34,0.1)" stroke="rgb(210,153,34)" stroke-width="0.6"/>
+                  <text x="60" y="43" text-anchor="middle" fill="rgb(210,153,34)" font-size="6" font-family="monospace">MEM</text>
+                </svg>
+              </div>
+              <p class="text-foreground font-mono text-sm font-medium text-center">Swarm</p>
+              <p class="text-xs text-secondary text-center mt-1">Loose coordination, shared memory</p>
             </div>
           </div>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            This is already happening in production. Research systems like <a href="https://arxiv.org/abs/2506.12508" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AgentOrchestra</a> demonstrate hierarchical "conductors" decomposing tasks and delegating to specialists with MCP-oriented tool management. Coding assistants like Cursor's subagent architecture already use parallel context windows with a lead orchestrator — an industrial-scale hierarchical swarm.
-          </p>
+          <!-- Hierarchical Nesting Diagram -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-b from-green/3 to-transparent"></div>
+            <p class="relative text-small font-mono text-green mb-6 text-center">Hierarchical Nesting: Department &#8594; Team &#8594; Worker</p>
+            
+            <div class="relative flex justify-center">
+              <svg viewBox="0 0 520 300" class="w-full max-w-lg" xmlns="http://www.w3.org/2000/svg">
+                <!-- L1: Orchestrator -->
+                <rect x="195" y="5" width="130" height="36" rx="8" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="1.5"/>
+                <text x="260" y="27" text-anchor="middle" fill="rgb(63,185,80)" font-size="12" font-family="monospace" font-weight="600">Orchestrator</text>
+                
+                <!-- L2: Supervisors -->
+                <rect x="25" y="90" width="130" height="32" rx="6" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                <text x="90" y="110" text-anchor="middle" fill="rgb(57,211,213)" font-size="10" font-family="monospace">CodeSupervisor</text>
+                
+                <rect x="195" y="90" width="130" height="32" rx="6" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                <text x="260" y="110" text-anchor="middle" fill="rgb(57,211,213)" font-size="10" font-family="monospace">ReviewSupervisor</text>
+                
+                <rect x="365" y="90" width="130" height="32" rx="6" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                <text x="430" y="110" text-anchor="middle" fill="rgb(57,211,213)" font-size="10" font-family="monospace">DeploySupervisor</text>
+                
+                <!-- L1 -> L2 connections -->
+                <line x1="230" y1="41" x2="110" y2="90" stroke="rgba(63,185,80,0.3)" stroke-width="1" stroke-dasharray="4,3" class="animate-dash"/>
+                <line x1="260" y1="41" x2="260" y2="90" stroke="rgba(63,185,80,0.3)" stroke-width="1" stroke-dasharray="4,3" class="animate-dash" style="animation-delay:0.4s"/>
+                <line x1="290" y1="41" x2="410" y2="90" stroke="rgba(63,185,80,0.3)" stroke-width="1" stroke-dasharray="4,3" class="animate-dash" style="animation-delay:0.8s"/>
+                
+                <!-- L3: Workers -->
+                <!-- Code workers -->
+                <rect x="5" y="170" width="75" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="42" y="187" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Architect</text>
+                <rect x="87" y="170" width="85" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="130" y="187" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Implement</text>
+                <rect x="50" y="210" width="65" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="82" y="227" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Test</text>
+                
+                <!-- Review workers -->
+                <rect x="195" y="170" width="70" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="230" y="187" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Security</text>
+                <rect x="272" y="170" width="65" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="305" y="187" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Perf</text>
+                <rect x="230" y="210" width="60" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="260" y="227" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Style</text>
+                
+                <!-- Deploy workers -->
+                <rect x="375" y="170" width="55" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="402" y="187" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Build</text>
+                <rect x="437" y="170" width="70" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="472" y="187" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Monitor</text>
+                <rect x="395" y="210" width="75" height="26" rx="5" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.3)" stroke-width="0.8"/>
+                <text x="432" y="227" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Rollback</text>
+                
+                <!-- L2 -> L3 connections -->
+                <line x1="60" y1="122" x2="42" y2="170" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                <line x1="90" y1="122" x2="130" y2="170" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                <line x1="75" y1="122" x2="82" y2="210" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                
+                <line x1="240" y1="122" x2="230" y2="170" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                <line x1="260" y1="122" x2="305" y2="170" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                <line x1="250" y1="122" x2="260" y2="210" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                
+                <line x1="410" y1="122" x2="402" y2="170" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                <line x1="430" y1="122" x2="472" y2="170" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+                <line x1="420" y1="122" x2="432" y2="210" stroke="rgba(57,211,213,0.25)" stroke-width="0.8"/>
+
+                <!-- Layer labels -->
+                <text x="510" y="27" text-anchor="end" fill="rgba(63,185,80,0.4)" font-size="8" font-family="monospace">L1</text>
+                <text x="510" y="110" text-anchor="end" fill="rgba(57,211,213,0.4)" font-size="8" font-family="monospace">L2</text>
+                <text x="510" y="195" text-anchor="end" fill="rgba(139,148,158,0.4)" font-size="8" font-family="monospace">L3</text>
+              </svg>
+            </div>
+          </div>
 
           <p class="text-body text-secondary leading-relaxed">
-            The LangGraph framework expresses this as a stateful graph: nodes are agents or tools, edges are conditional on shared state. <a href="https://changelog.langchain.com/announcements/langgraph-supervisor-a-library-for-hierarchical-multi-agent-systems" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">LangGraph Supervisor</a> provides a library specifically for hierarchical multi-agent setups. CrewAI achieves it through <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">process=Process.hierarchical</code> with a <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">manager_llm</code>. AutoGen uses group chat managers with LLM-based speaker selection.
+            This is already happening in production. <a href="https://arxiv.org/abs/2506.12508" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AgentOrchestra</a> demonstrates hierarchical "conductors" with MCP-oriented tool management. <a href="https://changelog.langchain.com/announcements/langgraph-supervisor-a-library-for-hierarchical-multi-agent-systems" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">LangGraph Supervisor</a> provides a library specifically for this. CrewAI achieves it with <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">Process.hierarchical</code>.
           </p>
         </section>
 
-        <!-- Part 3 -->
+        <!-- Part 3: Promotion & Demotion -->
         <section id="promotion-demotion">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">03 //</span> Agent Promotion & Demotion
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            Here's where it gets interesting. In human organizations, promotion and demotion are formal HR processes. In multi-agent systems, they're <strong class="text-foreground">dynamic routing decisions</strong> — probabilistic, continuous, and automated.
+            In human organizations, promotion and demotion are formal HR processes. In multi-agent systems, they're <strong class="text-foreground">dynamic routing decisions</strong> — probabilistic, continuous, and automated. Every delegation is a hiring decision. Every evaluation is a performance review. In milliseconds.
           </p>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            Think of it this way: every time the orchestrator delegates a task, it's making a hiring decision. Every time it evaluates the result, it's conducting a performance review. And unlike human organizations, these reviews happen in milliseconds.
-          </p>
-
-          <div class="space-y-8 mb-8">
-            <!-- Mechanism 1 -->
-            <div class="bg-elevated border border-border rounded-lg p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="text-green font-mono text-sm">01</span>
-                <h3 class="text-h3 text-foreground">Bandit-Style Routing (REDEREF Pattern)</h3>
-              </div>
-              <p class="text-body text-secondary leading-relaxed mb-4">
-                The <a href="https://arxiv.org/abs/2603.13256" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">REDEREF framework</a> applies Thompson sampling to maintain beliefs about which agents deliver positive marginal value. It's explore-exploit for agent selection: high-performing agents get promoted (selected more frequently), consistently failing agents get demoted (selected less often, eventually bypassed).
-              </p>
-              <p class="text-body text-secondary leading-relaxed">
-                The results are significant: <strong class="text-foreground">~28% token reduction</strong>, <strong class="text-foreground">~17% fewer agent calls</strong>, and <strong class="text-foreground">~19% faster time-to-success</strong> — while matching the success rate of exhaustive delegation. Promotion/demotion happens through updated beliefs, not organizational restructuring.
-              </p>
-            </div>
-
-            <!-- Mechanism 2 -->
-            <div class="bg-elevated border border-border rounded-lg p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="text-green font-mono text-sm">02</span>
-                <h3 class="text-h3 text-foreground">Judge-Based Demotion</h3>
-              </div>
-              <p class="text-body text-secondary leading-relaxed mb-4">
-                A calibrated judge (programmatic or LLM-based) sits at handoff boundaries and evaluates outputs. When an agent fails verification, the judge triggers credit assignment and re-routing. This is functional demotion — the agent didn't get fired, it just lost trust.
-              </p>
-              <p class="text-body text-secondary leading-relaxed">
-                The critical insight is using <strong class="text-foreground">cross-model judges</strong> to avoid monoculture blind spots. If the same model family plans and verifies, they share inductive biases. A GPT-4 judge reviewing Claude's output (or vice versa) catches errors that self-evaluation misses.
-              </p>
-            </div>
-
-            <!-- Mechanism 3 -->
-            <div class="bg-elevated border border-border rounded-lg p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="text-green font-mono text-sm">03</span>
-                <h3 class="text-h3 text-foreground">Topology Promotion (AdaptOrch)</h3>
-              </div>
-              <p class="text-body text-secondary leading-relaxed">
-                <a href="https://arxiv.org/abs/2602.16873" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AdaptOrch</a> argues that as frontier models converge in raw benchmark scores, orchestration topology dominates performance. Rather than promoting individual agents, it promotes <strong class="text-foreground">entire structural patterns</strong>. A task dependency DAG gets analyzed, and the system selects the optimal topology: parallel for independent subtasks, sequential for dependencies, hierarchical for complex decomposition.
-              </p>
+          <!-- Promotion/Demotion Flow Diagram -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-r from-green/3 via-transparent to-red-500/3"></div>
+            <p class="relative text-small font-mono text-green mb-6 text-center">Agent Routing: Thompson Sampling Belief Updates</p>
+            <div class="relative flex justify-center">
+              <svg viewBox="0 0 460 200" class="w-full max-w-lg" xmlns="http://www.w3.org/2000/svg">
+                <!-- Task Input -->
+                <rect x="5" y="80" width="65" height="40" rx="6" fill="rgba(210,153,34,0.1)" stroke="rgb(210,153,34)" stroke-width="1.2"/>
+                <text x="37" y="97" text-anchor="middle" fill="rgb(210,153,34)" font-size="9" font-family="monospace">New</text>
+                <text x="37" y="110" text-anchor="middle" fill="rgb(210,153,34)" font-size="9" font-family="monospace">Task</text>
+                
+                <!-- Router/Sampler -->
+                <rect x="110" y="65" width="100" height="70" rx="8" fill="rgba(63,185,80,0.08)" stroke="rgb(63,185,80)" stroke-width="1.5"/>
+                <text x="160" y="90" text-anchor="middle" fill="rgb(63,185,80)" font-size="10" font-family="monospace" font-weight="600">Thompson</text>
+                <text x="160" y="105" text-anchor="middle" fill="rgb(63,185,80)" font-size="10" font-family="monospace" font-weight="600">Sampler</text>
+                <text x="160" y="125" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="7" font-family="monospace">beliefs + explore</text>
+                
+                <!-- Agents with scores -->
+                <rect x="260" y="15" width="75" height="45" rx="6" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="1"/>
+                <text x="297" y="33" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace">Agent A</text>
+                <text x="297" y="50" text-anchor="middle" fill="rgba(63,185,80,0.6)" font-size="8" font-family="monospace">score: 0.87</text>
+                
+                <rect x="260" y="78" width="75" height="45" rx="6" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1"/>
+                <text x="297" y="96" text-anchor="middle" fill="rgb(57,211,213)" font-size="9" font-family="monospace">Agent B</text>
+                <text x="297" y="113" text-anchor="middle" fill="rgba(57,211,213,0.6)" font-size="8" font-family="monospace">score: 0.62</text>
+                
+                <rect x="260" y="141" width="75" height="45" rx="6" fill="rgba(248,81,73,0.08)" stroke="rgba(248,81,73,0.5)" stroke-width="1"/>
+                <text x="297" y="159" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="9" font-family="monospace">Agent C</text>
+                <text x="297" y="176" text-anchor="middle" fill="rgba(248,81,73,0.5)" font-size="8" font-family="monospace">score: 0.23</text>
+                
+                <!-- Judge -->
+                <rect x="380" y="72" width="70" height="55" rx="6" fill="rgba(210,153,34,0.08)" stroke="rgb(210,153,34)" stroke-width="1.2"/>
+                <text x="415" y="95" text-anchor="middle" fill="rgb(210,153,34)" font-size="10" font-family="monospace" font-weight="600">Judge</text>
+                <text x="415" y="115" text-anchor="middle" fill="rgba(210,153,34,0.5)" font-size="7" font-family="monospace">cross-model</text>
+                
+                <!-- Arrows -->
+                <line x1="70" y1="100" x2="110" y2="100" stroke="rgb(210,153,34)" stroke-width="1" marker-end="url(#arrY)"/>
+                <line x1="210" y1="85" x2="260" y2="37" stroke="rgb(63,185,80)" stroke-width="1.2" marker-end="url(#arrG2)"/>
+                <line x1="210" y1="100" x2="260" y2="100" stroke="rgba(57,211,213,0.4)" stroke-width="0.6" stroke-dasharray="3,2"/>
+                <line x1="210" y1="115" x2="260" y2="163" stroke="rgba(248,81,73,0.3)" stroke-width="0.5" stroke-dasharray="3,2"/>
+                <line x1="335" y1="37" x2="380" y2="85" stroke="rgba(63,185,80,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+                
+                <!-- Feedback loop -->
+                <path d="M415 127 L415 185 L160 185 L160 135" fill="none" stroke="rgba(210,153,34,0.3)" stroke-width="0.8" stroke-dasharray="4,3" class="animate-dash"/>
+                <text x="290" y="178" text-anchor="middle" fill="rgba(210,153,34,0.5)" font-size="7" font-family="monospace">update beliefs</text>
+                
+                <defs>
+                  <marker id="arrY" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6" fill="rgb(210,153,34)"/></marker>
+                  <marker id="arrG2" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6" fill="rgb(63,185,80)"/></marker>
+                </defs>
+              </svg>
             </div>
           </div>
 
-          <!-- Code Example -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-green/5">
+              <p class="text-green font-mono text-xs mb-2 uppercase tracking-wider">Bandit Routing</p>
+              <p class="text-h3 text-foreground mb-2">REDEREF</p>
+              <p class="text-xs text-secondary mb-3">Thompson sampling over agent beliefs.</p>
+              <div class="space-y-1">
+                <p class="text-xs text-green font-mono">-28% tokens</p>
+                <p class="text-xs text-green font-mono">-17% agent calls</p>
+                <p class="text-xs text-green font-mono">-19% time-to-success</p>
+              </div>
+            </div>
+            <div class="diagram-node rounded-xl border border-yellow-500/20 p-5 bg-yellow-500/5">
+              <p class="text-yellow-500 font-mono text-xs mb-2 uppercase tracking-wider">Judge Demotion</p>
+              <p class="text-h3 text-foreground mb-2">Cross-Model</p>
+              <p class="text-xs text-secondary">Calibrated judges at handoff boundaries trigger re-routing on failure. Different model families catch different blind spots.</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-cyan/20 p-5 bg-cyan/5">
+              <p class="text-cyan font-mono text-xs mb-2 uppercase tracking-wider">Topology</p>
+              <p class="text-h3 text-foreground mb-2">AdaptOrch</p>
+              <p class="text-xs text-secondary">Task dependency DAG selects optimal topology. Promotes entire structural patterns, not individual agents.</p>
+            </div>
+          </div>
+
           <div class="bg-elevated border border-border rounded-lg overflow-hidden mb-6">
             <div class="flex items-center gap-2 px-4 py-2 bg-subtle border-b border-border">
               <div class="flex gap-1.5">
@@ -403,408 +612,336 @@ app = graph.compile()`;
           </div>
         </section>
 
-        <!-- Part 4 -->
+        <!-- Part 4: Protocol Wars -->
         <section id="protocol-wars">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">04 //</span> The Protocol Wars: MCP vs A2A
           </div>
-          
+
           <p class="text-body text-secondary leading-relaxed mb-6">
-            Multi-agent systems need standards for communication. Two protocols have emerged as the dominant contenders, but they solve <strong class="text-foreground">different problems at different layers</strong>. Understanding which to use — and when — is critical.
+            Two protocols have emerged as dominant — but they solve <strong class="text-foreground">different problems at different layers</strong>.
           </p>
 
-          <!-- Protocol Comparison Diagram -->
-          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
-            <p class="text-small font-mono text-green mb-4">$ explain --protocols mcp a2a</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="border border-border rounded-lg p-4">
-                <div class="flex items-center gap-2 mb-3">
-                  <div class="w-2 h-2 rounded-full bg-cyan"></div>
-                  <p class="font-mono text-foreground font-medium">MCP (Model Context Protocol)</p>
-                </div>
-                <p class="text-small text-green font-mono mb-2">// Vertical: Agent ↕ Tools</p>
-                <div class="space-y-2 text-small text-secondary">
-                  <p>Client↔Server bridge for tools</p>
-                  <p>Discovery: <code class="px-1 bg-subtle rounded text-xs">tools/list</code></p>
-                  <p>Invocation: <code class="px-1 bg-subtle rounded text-xs">tools/call</code></p>
-                  <p>Resources + Prompts</p>
-                  <p class="text-text-muted mt-2">Answers: "What capabilities exist?"</p>
-                </div>
-              </div>
-              <div class="border border-border rounded-lg p-4">
-                <div class="flex items-center gap-2 mb-3">
-                  <div class="w-2 h-2 rounded-full bg-green"></div>
-                  <p class="font-mono text-foreground font-medium">A2A (Agent-to-Agent)</p>
-                </div>
-                <p class="text-small text-green font-mono mb-2">// Horizontal: Agent ↔ Agent</p>
-                <div class="space-y-2 text-small text-secondary">
-                  <p>Agent discovery via Agent Cards</p>
-                  <p>Task delegation + negotiation</p>
-                  <p>Artifact exchange</p>
-                  <p>JSON-RPC / gRPC / HTTP</p>
-                  <p class="text-text-muted mt-2">Answers: "How do agents collaborate?"</p>
-                </div>
-              </div>
+          <!-- Visual Protocol Architecture -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-8 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-b from-cyan/3 via-transparent to-green/3"></div>
+            <p class="relative text-small font-mono text-green mb-6 text-center">Protocol Stack: MCP (Vertical) + A2A (Horizontal)</p>
+            
+            <div class="relative flex justify-center">
+              <svg viewBox="0 0 500 320" class="w-full max-w-lg" xmlns="http://www.w3.org/2000/svg">
+                <!-- A2A horizontal band -->
+                <rect x="30" y="60" width="440" height="80" rx="10" fill="rgba(63,185,80,0.04)" stroke="rgb(63,185,80)" stroke-width="1" stroke-dasharray="6,4"/>
+                <text x="250" y="52" text-anchor="middle" fill="rgb(63,185,80)" font-size="10" font-family="monospace" font-weight="600">A2A Protocol Layer — Agent-to-Agent Communication</text>
+                
+                <!-- Agent nodes on A2A -->
+                <rect x="55" y="75" width="100" height="50" rx="8" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                <text x="105" y="97" text-anchor="middle" fill="rgb(57,211,213)" font-size="10" font-family="monospace">Agent A</text>
+                <text x="105" y="115" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">your system</text>
+                
+                <rect x="200" y="75" width="100" height="50" rx="8" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                <text x="250" y="97" text-anchor="middle" fill="rgb(57,211,213)" font-size="10" font-family="monospace">Agent B</text>
+                <text x="250" y="115" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">partner org</text>
+                
+                <rect x="345" y="75" width="100" height="50" rx="8" fill="rgba(57,211,213,0.08)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                <text x="395" y="97" text-anchor="middle" fill="rgb(57,211,213)" font-size="10" font-family="monospace">Agent C</text>
+                <text x="395" y="115" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">3rd party</text>
+                
+                <!-- A2A arrows -->
+                <line x1="155" y1="100" x2="200" y2="100" stroke="rgb(63,185,80)" stroke-width="1" stroke-dasharray="4,2" class="animate-dash"/>
+                <line x1="300" y1="100" x2="345" y2="100" stroke="rgb(63,185,80)" stroke-width="1" stroke-dasharray="4,2" class="animate-dash" style="animation-delay:0.5s"/>
+                
+                <!-- MCP vertical connections from Agent A -->
+                <line x1="105" y1="125" x2="105" y2="175" stroke="rgb(57,211,213)" stroke-width="1" stroke-dasharray="4,2" class="animate-dash" style="animation-delay:0.3s"/>
+                <text x="120" y="160" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">MCP</text>
+                
+                <line x1="250" y1="125" x2="250" y2="175" stroke="rgb(57,211,213)" stroke-width="1" stroke-dasharray="4,2" class="animate-dash" style="animation-delay:0.6s"/>
+                <text x="265" y="160" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">MCP</text>
+                
+                <line x1="395" y1="125" x2="395" y2="175" stroke="rgb(57,211,213)" stroke-width="1" stroke-dasharray="4,2" class="animate-dash" style="animation-delay:0.9s"/>
+                <text x="410" y="160" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">MCP</text>
+                
+                <!-- MCP Servers -->
+                <rect x="50" y="175" width="110" height="120" rx="8" fill="rgba(57,211,213,0.03)" stroke="rgba(57,211,213,0.3)" stroke-width="0.8"/>
+                <text x="105" y="195" text-anchor="middle" fill="rgba(57,211,213,0.6)" font-size="8" font-family="monospace">MCP Servers</text>
+                <rect x="60" y="205" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="105" y="220" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">GitHub</text>
+                <rect x="60" y="233" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="105" y="248" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Database</text>
+                <rect x="60" y="261" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="105" y="276" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Slack</text>
+                
+                <rect x="195" y="175" width="110" height="120" rx="8" fill="rgba(57,211,213,0.03)" stroke="rgba(57,211,213,0.3)" stroke-width="0.8"/>
+                <text x="250" y="195" text-anchor="middle" fill="rgba(57,211,213,0.6)" font-size="8" font-family="monospace">MCP Servers</text>
+                <rect x="205" y="205" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="250" y="220" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Analytics</text>
+                <rect x="205" y="233" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="250" y="248" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">CRM</text>
+                <rect x="205" y="261" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="250" y="276" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Search</text>
+                
+                <rect x="340" y="175" width="110" height="120" rx="8" fill="rgba(57,211,213,0.03)" stroke="rgba(57,211,213,0.3)" stroke-width="0.8"/>
+                <text x="395" y="195" text-anchor="middle" fill="rgba(57,211,213,0.6)" font-size="8" font-family="monospace">MCP Servers</text>
+                <rect x="350" y="205" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="395" y="220" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Payments</text>
+                <rect x="350" y="233" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="395" y="248" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Storage</text>
+                <rect x="350" y="261" width="90" height="22" rx="4" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.2)" stroke-width="0.6"/><text x="395" y="276" text-anchor="middle" fill="rgb(139,148,158)" font-size="8" font-family="monospace">Monitoring</text>
+              </svg>
             </div>
-          </div>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">MCP</a>, introduced by Anthropic, standardizes how any model or agent connects to external tools and data sources. Think of it as the USB standard for AI: a universal connector that lets agents discover and invoke capabilities without hardcoded integrations. An agent can attach to a database MCP server, a GitHub MCP server, and a Slack MCP server — each exposing tools through the same protocol.
-          </p>
-
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            <a href="https://a2aproject.github.io/A2A/latest/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">A2A</a> solves a different problem: how do agents find and commission work from each other across trust boundaries? Its core concepts — Agent Cards (discoverable at <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">/.well-known/agent.json</code>), Tasks, Messages, and Artifacts — enable cross-organizational agent collaboration.
-          </p>
-
-          <!-- Protocol Stack Diagram -->
-          <div class="bg-elevated border border-border rounded-lg p-6 mb-6">
-            <p class="text-small font-mono text-green mb-4">$ cat protocol_stack.yml</p>
-            <div class="font-mono text-sm">
-              <div class="border border-border rounded p-3 mb-2 text-center">
-                <p class="text-foreground">Application Layer</p>
-                <p class="text-text-muted text-xs">Your multi-agent system</p>
+            <div class="relative grid grid-cols-2 gap-4 mt-6 max-w-sm mx-auto text-center">
+              <div class="px-3 py-2 rounded-lg bg-green/5 border border-green/20">
+                <p class="text-xs font-mono text-green">A2A = Horizontal</p>
+                <p class="text-[10px] text-secondary mt-0.5">Agent &#8596; Agent</p>
               </div>
-              <div class="flex items-center justify-center text-text-muted mb-2">&#8595;</div>
-              <div class="border border-green/50 rounded p-3 mb-2 text-center bg-green/5">
-                <p class="text-green">A2A — Agent-to-Agent Protocol</p>
-                <p class="text-text-muted text-xs">Agent discovery, task delegation, artifact exchange</p>
-              </div>
-              <div class="flex items-center justify-center text-text-muted mb-2">&#8595;</div>
-              <div class="border border-cyan/50 rounded p-3 mb-2 text-center bg-cyan/5">
-                <p class="text-cyan">MCP — Model Context Protocol</p>
-                <p class="text-text-muted text-xs">Tool discovery, invocation, resources, prompts</p>
-              </div>
-              <div class="flex items-center justify-center text-text-muted mb-2">&#8595;</div>
-              <div class="border border-border rounded p-3 text-center">
-                <p class="text-secondary">External Systems</p>
-                <p class="text-text-muted text-xs">Databases, APIs, file systems, SaaS</p>
+              <div class="px-3 py-2 rounded-lg bg-cyan/5 border border-cyan/20">
+                <p class="text-xs font-mono text-cyan">MCP = Vertical</p>
+                <p class="text-[10px] text-secondary mt-0.5">Agent &#8596; Tools</p>
               </div>
             </div>
           </div>
 
           <p class="text-body text-secondary leading-relaxed">
-            The mental model: <strong class="text-foreground">MCP is the vertical axis</strong> (connecting agents to tools and data), <strong class="text-foreground">A2A is the horizontal axis</strong> (connecting agent runtimes to each other). Teams often use both: MCP for tool integration within a stack, A2A when agents span organizational boundaries.
+            <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">MCP</a> is the USB standard for AI tools. <a href="https://a2aproject.github.io/A2A/latest/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">A2A</a> enables cross-org agent collaboration via Agent Cards at <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">/.well-known/agent.json</code>. Teams use both: MCP within a stack, A2A across trust boundaries.
           </p>
         </section>
 
-        <!-- Part 5 -->
+        <!-- Part 5: Skills -->
         <section id="skills">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">05 //</span> Skills: The New Unit of Intelligence
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            Models have parameters. Agents have tools. But what makes an agent actually good at a specific task? <strong class="text-foreground">Skills</strong>. A skill is a versionable package of procedural expertise — instructions, scripts, references, and assets centered on a <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">SKILL.md</code> file.
+            Models have parameters. Agents have tools. But what makes an agent actually good at a specific task? <strong class="text-foreground">Skills</strong> — versionable packages of procedural expertise centered on <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">SKILL.md</code>. <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Anthropic's engineering team</a> and the <a href="https://agentskills.io/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Agent Skills spec</a> formalize four layers:
           </p>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Anthropic's engineering team</a> frames skills as the bridge between raw model capability and reliable task execution. The <a href="https://agentskills.io/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Agent Skills specification</a> formalizes four layers:
-          </p>
-
-          <div class="bg-elevated border border-border rounded-lg p-6 mb-8">
-            <p class="text-small font-mono text-green mb-4">$ cat skill_taxonomy.json</p>
-            <div class="space-y-4 font-mono text-sm">
-              <div class="flex items-start gap-3">
-                <span class="text-green shrink-0">L4</span>
-                <div>
-                  <p class="text-foreground">Policy / Guardrails</p>
-                  <p class="text-text-muted text-xs">What must never happen — rules, allowlists, approvals</p>
+          <!-- Skill Stack Diagram -->
+          <div class="relative mb-8">
+            <div class="space-y-2">
+              <div class="diagram-node rounded-xl border border-red-500/20 p-4 bg-red-500/5 glow-red">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400 font-mono text-xs border border-red-500/20">L4</span>
+                  <div>
+                    <p class="text-foreground font-medium text-sm">Policy / Guardrails</p>
+                    <p class="text-xs text-secondary">What must never happen — rules, allowlists, human approval gates</p>
+                  </div>
                 </div>
               </div>
-              <div class="border-l border-border ml-3 h-3"></div>
-              <div class="flex items-start gap-3">
-                <span class="text-green shrink-0">L3</span>
-                <div>
-                  <p class="text-foreground">Skill / Playbook</p>
-                  <p class="text-text-muted text-xs">How to use primitives — SKILL.md, checklists, conventions</p>
+              <div class="diagram-node rounded-xl border border-yellow-500/20 p-4 bg-yellow-500/5 glow-yellow">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500 font-mono text-xs border border-yellow-500/20">L3</span>
+                  <div>
+                    <p class="text-foreground font-medium text-sm">Skill / Playbook</p>
+                    <p class="text-xs text-secondary">How to use primitives — SKILL.md, checklists, org conventions</p>
+                  </div>
                 </div>
               </div>
-              <div class="border-l border-border ml-3 h-3"></div>
-              <div class="flex items-start gap-3">
-                <span class="text-green shrink-0">L2</span>
-                <div>
-                  <p class="text-foreground">Tool / Integration</p>
-                  <p class="text-text-muted text-xs">What primitives exist — MCP servers, REST APIs, DB bindings</p>
+              <div class="diagram-node rounded-xl border border-cyan/20 p-4 bg-cyan/5 glow-cyan">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-cyan/10 flex items-center justify-center text-cyan font-mono text-xs border border-cyan/20">L2</span>
+                  <div>
+                    <p class="text-foreground font-medium text-sm">Tool / Integration</p>
+                    <p class="text-xs text-secondary">What primitives exist — MCP servers, REST APIs, DB bindings</p>
+                  </div>
                 </div>
               </div>
-              <div class="border-l border-border ml-3 h-3"></div>
-              <div class="flex items-start gap-3">
-                <span class="text-green shrink-0">L1</span>
-                <div>
-                  <p class="text-foreground">Data / Context</p>
-                  <p class="text-text-muted text-xs">Ground truth — docs, RAG corpora, runbooks, schemas</p>
+              <div class="diagram-node rounded-xl border border-green/20 p-4 bg-green/5 glow-green">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-xs border border-green/20">L1</span>
+                  <div>
+                    <p class="text-foreground font-medium text-sm">Data / Context</p>
+                    <p class="text-xs text-secondary">Ground truth — docs, RAG corpora, runbooks, schemas</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            The key innovation is <strong class="text-foreground">progressive loading</strong>. Skills don't dump their entire contents into the agent's context. Instead:
-          </p>
-
-          <div class="space-y-3 mb-6">
-            <div class="flex items-start gap-3 bg-elevated border border-border rounded-lg p-4">
-              <span class="text-green font-mono text-sm shrink-0">1</span>
-              <div>
-                <p class="text-small text-foreground font-medium">Always On: Metadata Band</p>
-                <p class="text-xs text-secondary">Name + description (~100 tokens). Always present so the agent knows the skill exists.</p>
-              </div>
+          <!-- Progressive Loading -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+            <div class="diagram-node rounded-xl border border-green/20 p-4 bg-elevated text-center">
+              <div class="w-10 h-10 rounded-full bg-green/10 border border-green/30 flex items-center justify-center mx-auto mb-2 text-green font-mono text-sm">1</div>
+              <p class="text-sm text-foreground font-medium">Always On</p>
+              <p class="text-xs text-secondary mt-1">Name + description</p>
+              <p class="text-xs text-green font-mono mt-1">~100 tokens</p>
             </div>
-            <div class="flex items-start gap-3 bg-elevated border border-border rounded-lg p-4">
-              <span class="text-green font-mono text-sm shrink-0">2</span>
-              <div>
-                <p class="text-small text-foreground font-medium">On Relevance: Full SKILL.md</p>
-                <p class="text-xs text-secondary">Agent reads the complete instructions when the task matches the skill's domain.</p>
-              </div>
+            <div class="diagram-node rounded-xl border border-cyan/20 p-4 bg-elevated text-center">
+              <div class="w-10 h-10 rounded-full bg-cyan/10 border border-cyan/30 flex items-center justify-center mx-auto mb-2 text-cyan font-mono text-sm">2</div>
+              <p class="text-sm text-foreground font-medium">On Relevance</p>
+              <p class="text-xs text-secondary mt-1">Full SKILL.md</p>
+              <p class="text-xs text-cyan font-mono mt-1">~2K tokens</p>
             </div>
-            <div class="flex items-start gap-3 bg-elevated border border-border rounded-lg p-4">
-              <span class="text-green font-mono text-sm shrink-0">3</span>
-              <div>
-                <p class="text-small text-foreground font-medium">On Subtask: Deep Resources</p>
-                <p class="text-xs text-secondary">references/, scripts/, assets/ loaded only for specific sub-problems.</p>
-              </div>
+            <div class="diagram-node rounded-xl border border-yellow-500/20 p-4 bg-elevated text-center">
+              <div class="w-10 h-10 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center mx-auto mb-2 text-yellow-500 font-mono text-sm">3</div>
+              <p class="text-sm text-foreground font-medium">On Subtask</p>
+              <p class="text-xs text-secondary mt-1">references/ scripts/</p>
+              <p class="text-xs text-yellow-500 font-mono mt-1">as needed</p>
             </div>
-          </div>
-
-          <!-- Platform Comparison -->
-          <div class="overflow-x-auto mb-6">
-            <table class="w-full text-small border border-border rounded-lg overflow-hidden">
-              <thead>
-                <tr class="bg-elevated">
-                  <th class="text-left p-3 font-mono text-green border-b border-border">Dimension</th>
-                  <th class="text-left p-3 font-mono text-green border-b border-border">Agent Skills / Claude</th>
-                  <th class="text-left p-3 font-mono text-green border-b border-border">Cursor Skills</th>
-                  <th class="text-left p-3 font-mono text-green border-b border-border">GPT Actions</th>
-                </tr>
-              </thead>
-              <tbody class="text-secondary">
-                <tr class="border-b border-border">
-                  <td class="p-3 font-medium text-foreground">Artifact</td>
-                  <td class="p-3">SKILL.md + scripts/</td>
-                  <td class="p-3">SKILL.md folder</td>
-                  <td class="p-3">OpenAPI spec</td>
-                </tr>
-                <tr class="border-b border-border">
-                  <td class="p-3 font-medium text-foreground">Activation</td>
-                  <td class="p-3">Model selects via metadata</td>
-                  <td class="p-3">Auto or explicit</td>
-                  <td class="p-3">Function calling</td>
-                </tr>
-                <tr class="border-b border-border">
-                  <td class="p-3 font-medium text-foreground">Strength</td>
-                  <td class="p-3">Deep procedural knowledge</td>
-                  <td class="p-3">Repo/workspace integration</td>
-                  <td class="p-3">SaaS integration</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-medium text-foreground">Composition</td>
-                  <td class="p-3">Skill + MCP tools</td>
-                  <td class="p-3">Skill + MCP tools</td>
-                  <td class="p-3">Chained HTTP calls</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
 
           <p class="text-body text-secondary leading-relaxed">
-            The convergence is clear: <strong class="text-foreground">skills teach workflow</strong>; <strong class="text-foreground">MCP/APIs supply interfaces</strong>. Organizations are building internal "skill registries" — approved git namespaces with semver tags and SBOM-style audits. Skills are becoming dependencies, managed with the same rigor as npm packages or Python libraries.
+            The convergence: <strong class="text-foreground">skills teach workflow</strong>; <strong class="text-foreground">MCP/APIs supply interfaces</strong>. Skills are becoming dependencies, managed with the same rigor as npm packages.
           </p>
         </section>
 
-        <!-- Part 6 -->
+        <!-- Part 6: Failure Modes -->
         <section id="failure-modes">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">06 //</span> Why Multi-Agent Systems Break
           </div>
-          
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            Multi-agent systems fail in ways that single-agent systems don't. Understanding these failure modes is prerequisite knowledge for anyone building hierarchical architectures.
-          </p>
 
-          <div class="space-y-6 mb-8">
-            <!-- Failure Mode 1 -->
-            <div class="border-l-2 border-red-500/50 pl-4">
-              <h3 class="text-h3 text-foreground mb-2">Coordination Failures</h3>
-              <div class="space-y-2 text-body text-secondary leading-relaxed">
-                <p><strong class="text-foreground">Partial observability:</strong> Agents can't see each other's full scratchpad. Badly chosen shared state causes either under-sharing (agents block waiting for context) or over-sharing (context rot from irrelevant information).</p>
-                <p><strong class="text-foreground">Synchronization:</strong> Parallel workers editing the same codebase need merge semantics — CRDT-like logs, single-writer artifacts, or supervisor arbitration. Without this, you get silent conflicts.</p>
-                <p><strong class="text-foreground">Non-determinism:</strong> Different temperatures, tool availability, and prompt variations make replay for debugging nearly impossible without structured traces.</p>
-              </div>
+          <!-- Error Cascade Visual -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/2 to-red-500/5"></div>
+            <p class="relative text-small font-mono text-red-400 mb-6 text-center">Error Cascade: How a Single Bug Propagates Through the Agent Graph</p>
+            
+            <div class="relative flex justify-center">
+              <svg viewBox="0 0 440 150" class="w-full max-w-md" xmlns="http://www.w3.org/2000/svg">
+                <!-- Agent A - bug origin -->
+                <rect x="5" y="50" width="80" height="50" rx="8" fill="rgba(248,81,73,0.08)" stroke="rgba(248,81,73,0.5)" stroke-width="1.2"/>
+                <text x="45" y="72" text-anchor="middle" fill="rgba(248,81,73,0.9)" font-size="9" font-family="monospace">CodeAgent</text>
+                <text x="45" y="88" text-anchor="middle" fill="rgba(248,81,73,0.5)" font-size="7" font-family="monospace">subtle bug</text>
+                <circle cx="45" cy="45" r="3" fill="rgb(248,81,73)" class="animate-pulse-glow"/>
+                
+                <!-- Arrow 1 -->
+                <line x1="85" y1="75" x2="115" y2="75" stroke="rgba(248,81,73,0.5)" stroke-width="1" marker-end="url(#arrR)"/>
+                <text x="100" y="68" text-anchor="middle" fill="rgba(210,153,34,0.6)" font-size="6" font-family="monospace">no check</text>
+                
+                <!-- Agent B -->
+                <rect x="115" y="50" width="80" height="50" rx="8" fill="rgba(248,81,73,0.06)" stroke="rgba(248,81,73,0.4)" stroke-width="1"/>
+                <text x="155" y="72" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="9" font-family="monospace">TestAgent</text>
+                <text x="155" y="88" text-anchor="middle" fill="rgba(248,81,73,0.4)" font-size="7" font-family="monospace">tests pass!</text>
+                
+                <!-- Arrow 2 -->
+                <line x1="195" y1="75" x2="225" y2="75" stroke="rgba(248,81,73,0.4)" stroke-width="1" marker-end="url(#arrR)"/>
+                <text x="210" y="68" text-anchor="middle" fill="rgba(210,153,34,0.6)" font-size="6" font-family="monospace">bias</text>
+                
+                <!-- Agent C -->
+                <rect x="225" y="50" width="90" height="50" rx="8" fill="rgba(248,81,73,0.04)" stroke="rgba(248,81,73,0.3)" stroke-width="1"/>
+                <text x="270" y="72" text-anchor="middle" fill="rgba(248,81,73,0.7)" font-size="9" font-family="monospace">ReviewAgent</text>
+                <text x="270" y="88" text-anchor="middle" fill="rgba(248,81,73,0.4)" font-size="7" font-family="monospace">LGTM</text>
+                
+                <!-- Arrow 3 -->
+                <line x1="315" y1="75" x2="345" y2="75" stroke="rgba(248,81,73,0.3)" stroke-width="1" marker-end="url(#arrR)"/>
+                
+                <!-- Agent D - explosion -->
+                <rect x="345" y="45" width="85" height="60" rx="8" fill="rgba(248,81,73,0.1)" stroke="rgb(248,81,73)" stroke-width="1.5"/>
+                <text x="387" y="72" text-anchor="middle" fill="rgb(248,81,73)" font-size="9" font-family="monospace" font-weight="600">PRODUCTION</text>
+                <text x="387" y="90" text-anchor="middle" fill="rgba(248,81,73,0.6)" font-size="7" font-family="monospace">users find bug</text>
+                
+                <!-- Labels -->
+                <text x="45" y="125" text-anchor="middle" fill="rgba(248,81,73,0.4)" font-size="7" font-family="monospace">origin</text>
+                <text x="155" y="125" text-anchor="middle" fill="rgba(248,81,73,0.4)" font-size="7" font-family="monospace">conformity</text>
+                <text x="270" y="125" text-anchor="middle" fill="rgba(248,81,73,0.4)" font-size="7" font-family="monospace">monoculture</text>
+                <text x="387" y="125" text-anchor="middle" fill="rgba(248,81,73,0.5)" font-size="7" font-family="monospace">cascade</text>
+                
+                <defs><marker id="arrR" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6" fill="rgba(248,81,73,0.6)"/></marker></defs>
+              </svg>
             </div>
-
-            <!-- Failure Mode 2 -->
-            <div class="border-l-2 border-yellow-500/50 pl-4">
-              <h3 class="text-h3 text-foreground mb-2">Trust Failures</h3>
-              <div class="space-y-2 text-body text-secondary leading-relaxed">
-                <p><strong class="text-foreground">No inherent trust:</strong> Treat another agent's output as untrusted input until validated through schemas, unit tests, retrieval citations, or a second model with a different inductive bias.</p>
-                <p><strong class="text-foreground">Monoculture risk:</strong> Using the same model family for planning and verification shares blind spots. If Claude writes code and Claude reviews it, systematic errors pass through. Cross-model judges, static analysis, and code execution are the countermeasures.</p>
-              </div>
-            </div>
-
-            <!-- Failure Mode 3 -->
-            <div class="border-l-2 border-orange-500/50 pl-4">
-              <h3 class="text-h3 text-foreground mb-2">Error Cascades</h3>
-              <div class="space-y-2 text-body text-secondary leading-relaxed">
-                <p><strong class="text-foreground">The cascade pattern:</strong> One wrong intermediate artifact becomes "ground truth" for downstream agents. Conformity bias amplifies the error — subsequent agents are reluctant to contradict their predecessor.</p>
-                <p><strong class="text-foreground">Mitigations:</strong> Provenance/lineage tracking on every claim. Edge validators (lightweight checks between agents). Narrow interfaces (structured outputs with schemas). Supervisor gating before merge. OpenTelemetry-style spans per agent/tool invocation.</p>
-              </div>
+            
+            <div class="relative mt-4 p-3 rounded-lg bg-green/5 border border-green/20 text-center">
+              <p class="text-xs font-mono text-green">Fix: Cross-model judges + edge validators + provenance tracking + narrow interfaces</p>
             </div>
           </div>
 
-          <div class="bg-elevated border border-border rounded-lg p-6">
-            <p class="text-small font-mono text-green mb-4">$ cat error_cascade_flow.txt</p>
-            <div class="font-mono text-sm text-secondary">
-              <p><span class="text-foreground">Agent_A</span> generates code with subtle bug</p>
-              <p class="text-text-muted pl-2">&#8595; <span class="text-yellow-500/80">no edge validator</span></p>
-              <p><span class="text-foreground">Agent_B</span> writes tests that pass (tests match the bug)</p>
-              <p class="text-text-muted pl-2">&#8595; <span class="text-yellow-500/80">conformity bias</span></p>
-              <p><span class="text-foreground">Agent_C</span> reviews and approves (same model, same blind spot)</p>
-              <p class="text-text-muted pl-2">&#8595; <span class="text-yellow-500/80">monoculture</span></p>
-              <p><span class="text-foreground">Agent_D</span> deploys to production</p>
-              <p class="text-text-muted pl-2">&#8595; <span class="text-red-400">cascade complete</span></p>
-              <p class="text-red-400 mt-2">// Bug discovered by users, not by the agent system</p>
-              <p class="text-green mt-3">// Fix: Cross-model judges + edge validators + provenance</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border-l-2 border-red-500/50 pl-4 py-2">
+              <h3 class="text-sm text-foreground font-medium mb-2">Coordination</h3>
+              <p class="text-xs text-secondary">Partial observability, sync conflicts, non-deterministic replay.</p>
+            </div>
+            <div class="border-l-2 border-yellow-500/50 pl-4 py-2">
+              <h3 class="text-sm text-foreground font-medium mb-2">Trust</h3>
+              <p class="text-xs text-secondary">No inherent trust. Same model family shares blind spots.</p>
+            </div>
+            <div class="border-l-2 border-orange-500/50 pl-4 py-2">
+              <h3 class="text-sm text-foreground font-medium mb-2">Error Cascades</h3>
+              <p class="text-xs text-secondary">Wrong intermediate becomes "ground truth" for downstream.</p>
             </div>
           </div>
         </section>
 
-        <!-- Part 7 -->
+        <!-- Part 7: Developer Role -->
         <section id="developer-role">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">07 //</span> The Developer's New Role
           </div>
           
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            <a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC forecasts</a> that by 2030, <strong class="text-foreground">70% of developers will partner with autonomous agents</strong>, shifting emphasis to planning, design, and orchestration. Developers aren't just using AI agents — they're building them.
-          </p>
-
-          <blockquote class="border-l-2 border-green pl-4 py-2 mb-6">
+          <blockquote class="border-l-2 border-green pl-4 py-2 mb-6 bg-green/5 rounded-r-lg pr-4">
             <p class="text-body text-foreground italic">"The new paradigm is characterized by developers who are simultaneously users, creators, and governors of intelligent systems."</p>
-            <p class="text-small text-secondary mt-2">— IDC Developer/DevOps FutureScape</p>
+            <p class="text-small text-secondary mt-2">— <a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC FutureScape</a> — 70% of developers will partner with autonomous agents by 2030</p>
           </blockquote>
 
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            The skills that matter are shifting. Here's what's rising and what's declining:
-          </p>
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <div class="bg-elevated border border-border rounded-lg p-5">
-              <p class="text-small font-mono text-green mb-3">// Rising</p>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-green/5">
+              <p class="text-small font-mono text-green mb-3 uppercase tracking-wider">Rising Skills</p>
               <div class="space-y-2 text-small text-secondary">
                 <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Task decomposition & delegation</span></p>
-                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Verification discipline (evals, static analysis)</span></p>
-                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Observability & tracing for agent paths</span></p>
-                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Risk literacy (prompt injection, trust)</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Verification & evals discipline</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Observability & agent tracing</span></p>
+                <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Risk literacy (prompt injection)</span></p>
                 <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">Skill authoring & tool engineering</span></p>
                 <p class="flex items-center gap-2"><span class="text-green">&#9650;</span> <span class="text-foreground">System design & architecture</span></p>
               </div>
             </div>
-            <div class="bg-elevated border border-border rounded-lg p-5">
-              <p class="text-small font-mono text-secondary mb-3">// Declining</p>
+            <div class="diagram-node rounded-xl border border-red-500/20 p-5 bg-red-500/5">
+              <p class="text-small font-mono text-red-400 mb-3 uppercase tracking-wider">Declining</p>
               <div class="space-y-2 text-small text-secondary">
                 <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Boilerplate code writing</p>
                 <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Manual test case authoring</p>
                 <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Configuration management</p>
                 <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Documentation as afterthought</p>
                 <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Solo debugging sessions</p>
-                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Manual code review (fully)</p>
-              </div>
-            </div>
-          </div>
-
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            Four new hybrid roles are emerging at the intersection of engineering and AI governance:
-          </p>
-
-          <div class="space-y-3">
-            <div class="flex items-start gap-3">
-              <span class="text-green font-mono text-sm shrink-0 w-6">01</span>
-              <div>
-                <p class="text-body text-foreground font-medium">Skill Author / Technical Writer</p>
-                <p class="text-small text-secondary">Encodes institutional knowledge into versionable SKILL.md packages with progressive structure, worked examples, and deterministic scripts.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-green font-mono text-sm shrink-0 w-6">02</span>
-              <div>
-                <p class="text-body text-foreground font-medium">Tooling Engineer</p>
-                <p class="text-small text-secondary">Builds MCP servers, designs OpenAPI surfaces, handles auth, ensures idempotent actions, and instruments tool failures with observability.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-green font-mono text-sm shrink-0 w-6">03</span>
-              <div>
-                <p class="text-body text-foreground font-medium">Governance & Security Reviewer</p>
-                <p class="text-small text-secondary">Treats skills as dependencies — reviews scripts, audits network calls, checks for instruction injection, monitors data egress paths.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-green font-mono text-sm shrink-0 w-6">04</span>
-              <div>
-                <p class="text-body text-foreground font-medium">Evals Owner</p>
-                <p class="text-small text-secondary">Designs task suites and rubrics that prove whether a skill, agent, or system actually reduces failures — Anthropic's "start with evaluation" principle.</p>
+                <p class="flex items-center gap-2"><span class="text-red-400">&#9660;</span> Exhaustive manual code review</p>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Part 8 -->
+        <!-- Part 8: Building -->
         <section id="building">
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">08 //</span> Building Your First Hierarchical Agent System
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            Theory is useful. Shipping is better. Here's a practical checklist for building your first hierarchical multi-agent system:
+            Theory is useful. Shipping is better. Five steps to your first hierarchical multi-agent system:
           </p>
 
-          <div class="space-y-6 mb-8">
-            <div class="bg-elevated border border-border rounded-lg p-5">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">1</span>
-                <h3 class="text-h3 text-foreground">Define the Contract</h3>
+          <div class="space-y-4 mb-8">
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">1</span>
+                <h3 class="text-foreground font-medium">Define the Contract</h3>
               </div>
-              <p class="text-body text-secondary leading-relaxed mb-3">Every agent boundary needs a typed payload. What goes in, what comes out, what errors look like.</p>
-              <div class="bg-subtle rounded p-3 font-mono text-xs text-secondary overflow-x-auto">
+              <p class="text-small text-secondary ml-11">Typed payloads between agents: what goes in, what comes out, what errors look like.</p>
+              <div class="ml-11 mt-2 bg-subtle rounded p-3 font-mono text-xs text-secondary overflow-x-auto">
                 <pre><code set:html={codeContract} /></pre>
               </div>
             </div>
-
-            <div class="bg-elevated border border-border rounded-lg p-5">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">2</span>
-                <h3 class="text-h3 text-foreground">Pick Topology from Task Structure</h3>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">2</span>
+                <h3 class="text-foreground font-medium">Pick Topology from Task Structure</h3>
               </div>
-              <p class="text-body text-secondary leading-relaxed">Analyze your task dependency graph. Parallelizable subtasks? Use fan-out swarm. Tight dependencies? Pipeline. Complex with quality gates? Hierarchical supervisor. Don't over-architect — start with supervisor and evolve.</p>
+              <p class="text-small text-secondary ml-11">Fan-out for parallel. Pipeline for sequential. Hierarchical supervisor for complex quality gates. Start simple.</p>
             </div>
-
-            <div class="bg-elevated border border-border rounded-lg p-5">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">3</span>
-                <h3 class="text-h3 text-foreground">Attach Tools via MCP</h3>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">3</span>
+                <h3 class="text-foreground font-medium">Attach Tools via MCP</h3>
               </div>
-              <p class="text-body text-secondary leading-relaxed">Each agent gets a scoped set of MCP servers. The ImplementAgent gets filesystem + git. The SecurityAgent gets vulnerability scanners. The DeployAgent gets CI/CD APIs. Narrow tool access is scope sanitization in practice.</p>
+              <p class="text-small text-secondary ml-11">Scoped access: ImplementAgent gets filesystem + git. SecurityAgent gets vulnerability scanners. Narrow access = scope sanitization.</p>
             </div>
-
-            <div class="bg-elevated border border-border rounded-lg p-5">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">4</span>
-                <h3 class="text-h3 text-foreground">Add a Routing Policy</h3>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">4</span>
+                <h3 class="text-foreground font-medium">Add a Routing Policy</h3>
               </div>
-              <p class="text-body text-secondary leading-relaxed">Start with a static supervisor (explicit rules for delegation). Graduate to bandit-style beliefs when you have enough usage data. The REDEREF pattern works well as a drop-in upgrade — no fine-tuning required.</p>
+              <p class="text-small text-secondary ml-11">Start static (explicit rules). Graduate to bandit-style beliefs (REDEREF) when you have usage data. No fine-tuning required.</p>
             </div>
-
-            <div class="bg-elevated border border-border rounded-lg p-5">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-xs">5</span>
-                <h3 class="text-h3 text-foreground">Instrument and Gate</h3>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">5</span>
+                <h3 class="text-foreground font-medium">Instrument and Gate</h3>
               </div>
-              <p class="text-body text-secondary leading-relaxed">Traces on every agent/tool invocation (OpenTelemetry spans). Judges at every handoff boundary. Kill switches for runaway delegation loops. And always — always — a maximum recursion depth.</p>
+              <p class="text-small text-secondary ml-11">OpenTelemetry spans per agent/tool. Judges at handoffs. Kill switches. Always a max recursion depth.</p>
             </div>
           </div>
 
-          <!-- LangGraph Example -->
-          <div class="bg-elevated border border-border rounded-lg overflow-hidden mb-6">
+          <div class="bg-elevated border border-border rounded-lg overflow-hidden">
             <div class="flex items-center gap-2 px-4 py-2 bg-subtle border-b border-border">
               <div class="flex gap-1.5">
                 <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
@@ -824,26 +961,18 @@ app = graph.compile()`;
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            The agentic development lifecycle isn't about replacing developers. It's about <strong class="text-foreground">changing what development means</strong>. The developer of 2026 isn't someone who types code all day. They're a conductor of agent orchestras — decomposing problems, designing contracts, verifying outputs, and governing autonomous systems.
-          </p>
-
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            The skills that matter have shifted from syntax fluency to system thinking. From writing functions to designing agent hierarchies. From debugging individual lines to tracing multi-agent error cascades. From memorizing APIs to authoring skills that teach agents how to use them.
-          </p>
-
-          <p class="text-body text-secondary leading-relaxed mb-6">
-            The infrastructure is maturing rapidly. MCP standardizes tool access. A2A enables cross-boundary collaboration. Frameworks like LangGraph, CrewAI, and AutoGen make hierarchical orchestration accessible. Research on agent routing (REDEREF) and topology selection (AdaptOrch) brings rigor to what was previously ad-hoc prompt engineering.
+            The agentic development lifecycle isn't about replacing developers. It's about <strong class="text-foreground">changing what development means</strong>. The developer of 2026 is a conductor of agent orchestras — decomposing problems, designing contracts, verifying outputs, and governing autonomous systems.
           </p>
 
           <p class="text-body text-secondary leading-relaxed mb-8">
-            But the hardest problem isn't technical. It's organizational. <a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC predicts</a> a <strong class="text-foreground">35% increase</strong> in spending on AI governance and monitoring by 2029, driven by multi-agent complexity. Companies that treat agentic systems as "just better autocomplete" will be outpaced by those that embrace the full lifecycle shift: from sequential pipelines to concurrent loops, from static requirements to adaptive bets, from human execution to human governance.
+            The infrastructure is maturing rapidly. MCP standardizes tool access. A2A enables cross-boundary collaboration. Frameworks like LangGraph, CrewAI, and AutoGen make orchestration accessible. Research on agent routing (REDEREF) and topology selection (AdaptOrch) brings rigor to what was previously ad-hoc. <a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC predicts</a> a <strong class="text-foreground">35% increase</strong> in AI governance spending by 2029.
           </p>
 
-          <div class="bg-elevated border border-green/30 rounded-lg p-6">
+          <div class="diagram-node rounded-xl border border-green/30 p-6 bg-green/5 glow-green">
             <p class="text-small font-mono text-green mb-3">$ echo "TL;DR"</p>
-            <div class="space-y-2 text-body text-secondary">
-              <p>The future of software engineering is <strong class="text-foreground">not writing code</strong>. It's designing the systems that write, validate, and govern code. Master the ADLC, understand multi-agent topologies, and learn to build trust through evaluation — because the agents are already here, and they're waiting for better orchestration.</p>
-            </div>
+            <p class="text-body text-secondary">
+              The future of software engineering is <strong class="text-foreground">not writing code</strong>. It's designing the systems that write, validate, and govern code. Master the ADLC, understand multi-agent topologies, and learn to build trust through evaluation — because the agents are already here.
+            </p>
           </div>
         </section>
 
@@ -852,66 +981,29 @@ app = graph.compile()`;
           <div class="font-mono text-sm text-green mb-6">
             <span class="text-secondary">// </span> References & Further Reading
           </div>
-          
-          <div class="space-y-3 text-small text-secondary">
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[1]</span>
-              <p><a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">JetBrains AI Pulse, January 2026</a> — "Which AI Coding Tools Do Developers Actually Use at Work?"</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[2]</span>
-              <p><a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">ADLC Manifesto</a> — Agentic Development Life Cycle operating model</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[3]</span>
-              <p><a href="https://www.arthur.ai/blog/introducing-adlc" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Arthur.ai</a> — "Introducing The Agent Development Lifecycle (ADLC)"</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[4]</span>
-              <p><a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">IDC FutureScape</a> — "Developers aren't just using AI agents, they're building them"</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[5]</span>
-              <p><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Model Context Protocol (MCP)</a> — Anthropic's universal tool connector specification</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[6]</span>
-              <p><a href="https://a2aproject.github.io/A2A/latest/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">A2A Specification</a> — Agent-to-Agent interoperability protocol</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[7]</span>
-              <p><a href="https://arxiv.org/abs/2603.13256" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">REDEREF (arXiv:2603.13256)</a> — Training-free agentic AI with Thompson sampling routing</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[8]</span>
-              <p><a href="https://arxiv.org/abs/2602.16873" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AdaptOrch (arXiv:2602.16873)</a> — Task-DAG-driven topology selection for multi-agent systems</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[9]</span>
-              <p><a href="https://arxiv.org/abs/2506.12508" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">AgentOrchestra (arXiv:2506.12508)</a> — Hierarchical planning with MCP-oriented tool management</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[10]</span>
-              <p><a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Anthropic Engineering</a> — "Equipping agents for the real world with Agent Skills"</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[11]</span>
-              <p><a href="https://agentskills.io/specification" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">Agent Skills Specification</a> — Open standard for agent skill packages</p>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-green font-mono shrink-0">[12]</span>
-              <p><a href="https://changelog.langchain.com/announcements/langgraph-supervisor-a-library-for-hierarchical-multi-agent-systems" target="_blank" rel="noopener noreferrer" class="text-green hover:underline">LangGraph Supervisor</a> — Library for hierarchical multi-agent systems</p>
-            </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-small text-secondary">
+            <a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[1]</span> JetBrains AI Pulse, Jan 2026</a>
+            <a href="https://adlc.io/" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[2]</span> ADLC Manifesto</a>
+            <a href="https://www.arthur.ai/blog/introducing-adlc" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[3]</span> Arthur.ai — Agent Dev Lifecycle</a>
+            <a href="https://www.idc.com/resource-center/blog/developers-arent-just-using-ai-agents-theyre-building-them/" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[4]</span> IDC FutureScape</a>
+            <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[5]</span> Model Context Protocol (MCP)</a>
+            <a href="https://a2aproject.github.io/A2A/latest/specification" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[6]</span> A2A Specification</a>
+            <a href="https://arxiv.org/abs/2603.13256" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[7]</span> REDEREF — Thompson Sampling</a>
+            <a href="https://arxiv.org/abs/2602.16873" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[8]</span> AdaptOrch — Topology Selection</a>
+            <a href="https://arxiv.org/abs/2506.12508" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[9]</span> AgentOrchestra</a>
+            <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[10]</span> Anthropic — Agent Skills</a>
+            <a href="https://agentskills.io/specification" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[11]</span> Agent Skills Specification</a>
+            <a href="https://changelog.langchain.com/announcements/langgraph-supervisor-a-library-for-hierarchical-multi-agent-systems" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 hover:text-green transition-colors"><span class="text-green font-mono shrink-0">[12]</span> LangGraph Supervisor</a>
           </div>
         </section>
 
-        <!-- Author Footer -->
+        <!-- Author -->
         <section class="border-t border-border pt-8">
           <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-lg font-bold shrink-0">IK</div>
+            <div class="w-14 h-14 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-lg font-bold shrink-0 border border-green/30">IK</div>
             <div>
               <p class="text-body text-foreground font-medium">Mohammed Imran Khan</p>
-              <p class="text-small text-secondary">Senior ML Engineer at Red Hat, building AI Agent Platforms. Ex-Principal ML Engineer at Mercedes-Benz R&D Center. PhD Scholar in AI & ML. Passionate about multi-agent systems, agentic AI, and the future of software engineering.</p>
+              <p class="text-small text-secondary">Senior ML Engineer at Red Hat. Ex-Principal ML Engineer at Mercedes-Benz R&D Center. PhD Scholar. Building multi-agent systems and agentic AI platforms.</p>
               <div class="flex items-center gap-3 mt-2">
                 <a href="https://linkedin.com/in/mohdimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">LinkedIn</a>
                 <a href="https://github.com/mimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">GitHub</a>
