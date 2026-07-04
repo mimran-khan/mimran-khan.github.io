@@ -17,7 +17,7 @@ const codeStrategy = `<span class="text-cyan">class</span> <span class="text-for
         <span class="text-cyan">return</span> max(valid, key=<span class="text-cyan">lambda</span> s: s.confidence, default=None)`;
 
 const codeRisk = `<span class="text-cyan">class</span> <span class="text-foreground">RiskEngine</span>:
-    <span class="text-text-muted"># 9 gates — every signal must pass ALL before execution</span>
+    <span class="text-text-muted"># 9 gates - every signal must pass ALL before execution</span>
 
     <span class="text-cyan">def</span> <span class="text-foreground">check_gates</span>(self, signal: Signal) -&gt; GateResult:
         gates = [
@@ -41,7 +41,7 @@ const codeRisk = `<span class="text-cyan">class</span> <span class="text-foregro
 const codeCLI = `<span class="text-cyan">$</span> df trade
 
 [09:15:01] Engine started in PAPER mode
-[09:15:02] WebSocket connected — streaming Nifty ticks
+[09:15:02] WebSocket connected - streaming Nifty ticks
 [09:22:15] SIGNAL  Stochastic Cross  BUY  conf=72
 [09:22:15] RISK    9/9 gates passed
 [09:22:16] ENTRY   NIFTY 24500 CE @ ₹185.40  qty=50
@@ -51,7 +51,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
 
 <BaseLayout
   title="DeltaForge: Building an Autonomous Options Trading System"
-  description="How I built DeltaForge — an autonomous intraday Nifty options trading system with multi-strategy signals, 9-gate risk management, compound sizing, and paper-live parity. From strategy to production."
+  description="How I built DeltaForge, an autonomous intraday Nifty options trading system with multi-strategy signals, 9-gate risk management, compound sizing, and paper-live parity. From strategy to production."
   image="/og-image.svg"
   keywords="DeltaForge, Autonomous Trading, Options Trading, Nifty Options, Algorithmic Trading, Risk Management, Intraday Trading, Trading Bot, Quantitative Finance, Python Trading System"
   publishedDate="2025-05-01"
@@ -227,12 +227,23 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
         <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Quantitative Finance</span>
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 mb-6">
         <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
         <div>
           <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
           <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
         </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <a href="https://github.com/mimran-khan/deltaforge" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-elevated hover:border-green/50 transition-all text-sm text-secondary hover:text-green">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          Source Code
+        </a>
+        <a href="https://mimran-khan.github.io/deltaforge/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-elevated hover:border-cyan/50 transition-all text-sm text-secondary hover:text-cyan">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+          Live Dashboard
+        </a>
       </div>
     </div>
   </section>
@@ -268,7 +279,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            I trade Nifty 50 options intraday. Like most retail traders, I had a strategy that backtested beautifully but bled money in production. The problem was never the strategy — it was <strong class="text-foreground">me</strong>. Late entries because I was in a meeting. Emotional exits because a candle looked scary. Position sizing that fluctuated with confidence rather than math.
+            I trade Nifty 50 options intraday. Like most retail traders, I had a strategy that backtested beautifully but bled money in production. The problem was never the strategy. It was <strong class="text-foreground">me</strong>. Late entries because I was in a meeting. Emotional exits because a candle looked scary. Position sizing that fluctuated with confidence rather than math.
           </p>
 
           <p class="text-body text-secondary leading-relaxed mb-6">
@@ -322,7 +333,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            DeltaForge is a pipeline — not unlike a CI/CD system, but for money. Market data flows in from the left, passes through strategy evaluation, risk filtering, and position management, then exits as either an executed trade or a rejected signal.
+            DeltaForge is a pipeline, not unlike a CI/CD system, but for money. Market data flows in from the left, passes through strategy evaluation, risk filtering, and position management, then exits as either an executed trade or a rejected signal.
           </p>
 
           <!-- Architecture Diagram -->
@@ -398,27 +409,27 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div class="diagram-node rounded-xl border border-cyan/20 p-4 bg-cyan/5">
               <p class="text-cyan font-mono text-xs mb-2 uppercase tracking-wider">Market Data</p>
-              <p class="text-xs text-secondary"><code class="text-foreground">market_feed.py</code> — SmartWebSocketV2 real-time ticks</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">candle_builder.py</code> — Tick to OHLCV aggregation</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">indicators_extended.py</code> — HTF (15m) indicators</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">market_feed.py</code> - SmartWebSocketV2 real-time ticks</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">candle_builder.py</code> - Tick to OHLCV aggregation</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">indicators_extended.py</code> - HTF (15m) indicators</p>
             </div>
             <div class="diagram-node rounded-xl border border-green/20 p-4 bg-green/5">
               <p class="text-green font-mono text-xs mb-2 uppercase tracking-wider">Signal Generation</p>
-              <p class="text-xs text-secondary"><code class="text-foreground">multi_strategy_engine.py</code> — 5 parallel strategies</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">premium_model.py</code> — Black-Scholes delta/theta</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">strike_selector.py</code> — ATM strike selection</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">multi_strategy_engine.py</code> - 5 parallel strategies</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">premium_model.py</code> - Black-Scholes delta/theta</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">strike_selector.py</code> - ATM strike selection</p>
             </div>
             <div class="diagram-node rounded-xl border border-yellow-500/20 p-4 bg-yellow-500/5">
               <p class="text-yellow-500 font-mono text-xs mb-2 uppercase tracking-wider">Risk &amp; Execution</p>
-              <p class="text-xs text-secondary"><code class="text-foreground">risk_engine.py</code> — 9-gate pre-trade filter</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">capital_tracker.py</code> — Equity + compound sizing</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">position_manager.py</code> — Lifecycle + trailing SL</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">risk_engine.py</code> - 9-gate pre-trade filter</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">capital_tracker.py</code> - Equity + compound sizing</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">position_manager.py</code> - Lifecycle + trailing SL</p>
             </div>
             <div class="diagram-node rounded-xl border border-border p-4 bg-elevated">
               <p class="text-secondary font-mono text-xs mb-2 uppercase tracking-wider">Infrastructure</p>
-              <p class="text-xs text-secondary"><code class="text-foreground">broker.py</code> — Angel One SmartAPI wrapper</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">alerts/</code> — Slack, iMessage, Telegram</p>
-              <p class="text-xs text-secondary mt-1"><code class="text-foreground">dashboard/</code> — FastAPI + WebSocket UI</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">broker.py</code> - Angel One SmartAPI wrapper</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">alerts/</code> - Slack, iMessage, Telegram</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">dashboard/</code> - FastAPI + WebSocket UI</p>
             </div>
           </div>
         </section>
@@ -430,7 +441,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            A single strategy is brittle. Markets are regime-dependent — what works in trending days fails on mean-reversion days. DeltaForge runs <strong class="text-foreground">five strategies in parallel</strong>, each generating a signal with a confidence score. The engine picks the highest-confidence signal above threshold.
+            A single strategy is brittle. Markets are regime-dependent: what works in trending days fails on mean-reversion days. DeltaForge runs <strong class="text-foreground">five strategies in parallel</strong>, each generating a signal with a confidence score. The engine picks the highest-confidence signal above threshold.
           </p>
 
           <div class="space-y-3 mb-8">
@@ -617,7 +628,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
           </div>
 
           <p class="text-body text-secondary leading-relaxed mb-6">
-            The key distinction: <strong class="text-foreground">Reject</strong> means the signal is skipped but trading continues. <strong class="text-foreground">HALT</strong> means the system stops for the entire session. Gates 1-5 trigger halts because they indicate something structurally wrong — you're losing too much money and need to stop.
+            The key distinction: <strong class="text-foreground">Reject</strong> means the signal is skipped but trading continues. <strong class="text-foreground">HALT</strong> means the system stops for the entire session. Gates 1-5 trigger halts because they indicate something structurally wrong: you're losing too much money and need to stop.
           </p>
 
           <div class="bg-elevated border border-border rounded-lg overflow-hidden">
@@ -640,7 +651,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            Fixed lot sizing leaves money on the table when you're winning and amplifies losses when you're not. DeltaForge uses <strong class="text-foreground">compound position sizing</strong> that scales with your equity curve — but throttles aggressively during drawdowns.
+            Fixed lot sizing leaves money on the table when you're winning and amplifies losses when you're not. DeltaForge uses <strong class="text-foreground">compound position sizing</strong> that scales with your equity curve, but throttles aggressively during drawdowns.
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -723,7 +734,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
                 <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
                 <div class="w-3 h-3 rounded-full bg-green/60"></div>
               </div>
-              <span class="text-xs font-mono text-secondary">terminal — df trade</span>
+              <span class="text-xs font-mono text-secondary">terminal - df trade</span>
             </div>
             <pre class="p-4 text-sm font-mono text-secondary overflow-x-auto"><code set:html={codeCLI} /></pre>
           </div>
@@ -736,7 +747,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
           </div>
           
           <p class="text-body text-secondary leading-relaxed mb-6">
-            An autonomous trading system without a kill switch is a ticking bomb. DeltaForge's kill switch is an <strong class="text-foreground">independent watchdog process</strong> — completely separate from the main trading engine. If the engine hangs, crashes, or enters an infinite loop, the kill switch still works.
+            An autonomous trading system without a kill switch is a ticking bomb. DeltaForge's kill switch is an <strong class="text-foreground">independent watchdog process</strong>, completely separate from the main trading engine. If the engine hangs, crashes, or enters an infinite loop, the kill switch still works.
           </p>
 
           <!-- Kill Switch Architecture -->
@@ -800,7 +811,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
             </div>
             <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
               <span class="text-red-400 font-mono text-sm font-bold">2</span>
-              <p class="text-small text-secondary"><strong class="text-foreground">CLI:</strong> <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">df halt</code> — instant stop from terminal</p>
+              <p class="text-small text-secondary"><strong class="text-foreground">CLI:</strong> <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">df halt</code> - instant stop from terminal</p>
             </div>
             <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
               <span class="text-red-400 font-mono text-sm font-bold">3</span>
@@ -808,7 +819,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
             </div>
             <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
               <span class="text-red-400 font-mono text-sm font-bold">4</span>
-              <p class="text-small text-secondary"><strong class="text-foreground">Manual:</strong> Create the halt file on disk — works even if everything else is broken</p>
+              <p class="text-small text-secondary"><strong class="text-foreground">Manual:</strong> Create the halt file on disk. Works even if everything else is broken</p>
             </div>
           </div>
         </section>
@@ -829,14 +840,14 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
                 <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">1</span>
                 <h3 class="text-foreground font-medium">Risk management is the product</h3>
               </div>
-              <p class="text-small text-secondary ml-11">The strategy is the easy part. Risk management — drawdown tiers, position sizing, circuit breakers — is what keeps you in the game long enough for your edge to compound.</p>
+              <p class="text-small text-secondary ml-11">The strategy is the easy part. Risk management (drawdown tiers, position sizing, circuit breakers) is what keeps you in the game long enough for your edge to compound.</p>
             </div>
             <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
               <div class="flex items-center gap-3 mb-2">
                 <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">2</span>
                 <h3 class="text-foreground font-medium">Paper-live parity is non-negotiable</h3>
               </div>
-              <p class="text-small text-secondary ml-11">If your backtest uses different code than your live engine, you're not backtesting — you're writing fiction. One engine, three modes, zero divergence.</p>
+              <p class="text-small text-secondary ml-11">If your backtest uses different code than your live engine, you're not backtesting. You're writing fiction. One engine, three modes, zero divergence.</p>
             </div>
             <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
               <div class="flex items-center gap-3 mb-2">
