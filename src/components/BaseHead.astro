@@ -3,11 +3,62 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  keywords?: string;
+  publishedDate?: string;
+  modifiedDate?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/og-default.png' } = Astro.props;
-const fullTitle = title === 'Home' ? 'Imran Khan | ML Engineer' : `${title} | Imran Khan`;
+const { title, description, image = '/og-default.png', keywords, publishedDate, modifiedDate } = Astro.props;
+const fullTitle = title === 'Home' ? 'Imran Khan | Senior ML Engineer | Agentic AI & LLMs' : `${title} | Imran Khan`;
+const isBlog = Astro.url.pathname.startsWith('/blog');
+const siteUrl = 'https://mimran-khan.github.io';
+
+const defaultKeywords = 'Imran Khan, Mohammed Imran Khan, ML Engineer, Senior ML Engineer, Red Hat, Mercedes-Benz, Agentic AI, Multi-Agent Systems, LLMs, RAG, LangGraph, IIT Kanpur, BITS Pilani, PhD, AI Engineer, Machine Learning, NLP, Deep Learning';
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mohammed Imran Khan",
+  "alternateName": "Imran Khan",
+  "url": siteUrl,
+  "image": `${siteUrl}/og-default.png`,
+  "jobTitle": "Senior ML Engineer",
+  "worksFor": { "@type": "Organization", "name": "Red Hat" },
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "IIT Kanpur" },
+    { "@type": "CollegeOrUniversity", "name": "BITS Pilani" },
+    { "@type": "CollegeOrUniversity", "name": "Amrita Vishwa Vidyapeetham" }
+  ],
+  "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Multi-Agent Systems", "Large Language Models", "RAG", "NLP", "Deep Learning", "Agentic AI"],
+  "sameAs": [
+    "https://github.com/mimran-khan",
+    "https://linkedin.com/in/mimran-khan"
+  ]
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Imran Khan - ML Engineer",
+  "url": siteUrl,
+  "description": "Portfolio and blog of Mohammed Imran Khan — Senior ML Engineer, Agentic AI specialist",
+  "author": personSchema
+};
+
+const blogSchema = isBlog ? {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": `${siteUrl}${image}`,
+  "url": canonicalURL.toString(),
+  "author": { "@type": "Person", "name": "Mohammed Imran Khan", "url": siteUrl },
+  "publisher": { "@type": "Person", "name": "Mohammed Imran Khan", "url": siteUrl },
+  ...(publishedDate && { "datePublished": publishedDate }),
+  ...(modifiedDate && { "dateModified": modifiedDate }),
+  "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalURL.toString() }
+} : null;
 ---
 
 <meta charset="utf-8" />
@@ -16,27 +67,40 @@ const fullTitle = title === 'Home' ? 'Imran Khan | ML Engineer' : `${title} | Im
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="canonical" href={canonicalURL} />
+<link rel="sitemap" href="/sitemap.xml" />
 
 <title>{fullTitle}</title>
 <meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
 <meta name="author" content="Mohammed Imran Khan" />
-<meta name="robots" content="index, follow" />
+<meta name="keywords" content={keywords || defaultKeywords} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#000000" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
 
-<meta property="og:type" content={Astro.url.pathname.startsWith('/blog') ? 'article' : 'website'} />
+<meta property="og:type" content={isBlog ? 'article' : 'website'} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.site)} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Imran Khan | ML Engineer" />
+<meta property="og:locale" content="en_US" />
+{isBlog && publishedDate && <meta property="article:published_time" content={publishedDate} />}
+{isBlog && modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
+{isBlog && <meta property="article:author" content="Mohammed Imran Khan" />}
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={fullTitle} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.site)} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL.toString()} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(image, Astro.site).toString()} />
+<meta name="twitter:creator" content="@mimran_khan" />
+
+<script type="application/ld+json" set:html={JSON.stringify(isBlog ? blogSchema : websiteSchema)} />
+{!isBlog && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />}
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
