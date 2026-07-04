@@ -1,0 +1,978 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const codeStrategy = `<span class="text-cyan">class</span> <span class="text-foreground">MultiStrategyEngine</span>:
+    strategies = [
+        StochasticCross(),
+        PullbackInTrend(),
+        SupertrendFlip(),
+        VWAPBias(),
+        RSIMeanReversion(),
+    ]
+
+    <span class="text-cyan">def</span> <span class="text-foreground">evaluate</span>(self, candle: OHLCV) -&gt; Signal | None:
+        <span class="text-text-muted"># Run all strategies in parallel, pick highest confidence</span>
+        signals = [s.check(candle) <span class="text-cyan">for</span> s <span class="text-cyan">in</span> self.strategies]
+        valid = [s <span class="text-cyan">for</span> s <span class="text-cyan">in</span> signals <span class="text-cyan">if</span> s <span class="text-cyan">and</span> s.confidence &gt;= 50]
+        <span class="text-cyan">return</span> max(valid, key=<span class="text-cyan">lambda</span> s: s.confidence, default=None)`;
+
+const codeRisk = `<span class="text-cyan">class</span> <span class="text-foreground">RiskEngine</span>:
+    <span class="text-text-muted"># 9 gates — every signal must pass ALL before execution</span>
+
+    <span class="text-cyan">def</span> <span class="text-foreground">check_gates</span>(self, signal: Signal) -&gt; GateResult:
+        gates = [
+            self._gate_system_active,       <span class="text-text-muted"># 0: not halted</span>
+            self._gate_min_capital,          <span class="text-text-muted"># 1: capital &gt;= ₹3,000</span>
+            self._gate_daily_loss,           <span class="text-text-muted"># 2: daily loss &lt; 25%</span>
+            self._gate_weekly_loss,          <span class="text-text-muted"># 3: weekly loss &lt; 50%</span>
+            self._gate_consecutive_losses,   <span class="text-text-muted"># 4: streak &lt; 5</span>
+            self._gate_drawdown,             <span class="text-text-muted"># 5: drawdown &lt; 35%</span>
+            self._gate_vix,                  <span class="text-text-muted"># 5.5: VIX ≤ 18</span>
+            self._gate_expiry_day,           <span class="text-text-muted"># 6: not expiry</span>
+            self._gate_entry_window,         <span class="text-text-muted"># 7: within hours</span>
+            self._gate_confidence,           <span class="text-text-muted"># 8: conf ≥ 50</span>
+        ]
+        <span class="text-cyan">for</span> gate <span class="text-cyan">in</span> gates:
+            result = gate(signal)
+            <span class="text-cyan">if not</span> result.passed:
+                <span class="text-cyan">return</span> result  <span class="text-text-muted"># REJECT or HALT</span>
+        <span class="text-cyan">return</span> GateResult(passed=True)`;
+
+const codeCLI = `<span class="text-cyan">$</span> df trade
+
+[09:15:01] Engine started in PAPER mode
+[09:15:02] WebSocket connected — streaming Nifty ticks
+[09:22:15] SIGNAL  Stochastic Cross  BUY  conf=72
+[09:22:15] RISK    9/9 gates passed
+[09:22:16] ENTRY   NIFTY 24500 CE @ ₹185.40  qty=50
+[10:14:33] EXIT    ₹213.20  P&amp;L +₹1,390  (+15.0%)
+[15:30:00] EOD     3 trades | Net P&amp;L +₹3,820 | Capital ₹13,820`;
+---
+
+<BaseLayout
+  title="DeltaForge: Building an Autonomous Options Trading System"
+  description="How I built DeltaForge — an autonomous intraday Nifty options trading system with multi-strategy signals, 9-gate risk management, compound sizing, and paper-live parity. From strategy to production."
+  image="/og-image.svg"
+>
+
+  <style>
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes dash-flow {
+      to { stroke-dashoffset: -20; }
+    }
+    
+    .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+    .animate-dash { animation: dash-flow 1.5s linear infinite; }
+    .diagram-node {
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+    .diagram-node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.2);
+    }
+    .glow-green { box-shadow: 0 0 15px rgba(63, 185, 80, 0.15), inset 0 0 15px rgba(63, 185, 80, 0.05); }
+    .glow-cyan { box-shadow: 0 0 15px rgba(57, 211, 213, 0.15), inset 0 0 15px rgba(57, 211, 213, 0.05); }
+    .glow-red { box-shadow: 0 0 15px rgba(248, 81, 73, 0.15), inset 0 0 15px rgba(248, 81, 73, 0.05); }
+    .glow-yellow { box-shadow: 0 0 15px rgba(210, 153, 34, 0.15), inset 0 0 15px rgba(210, 153, 34, 0.05); }
+    .grid-bg {
+      background-image: 
+        linear-gradient(rgba(63, 185, 80, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 185, 80, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+
+  <!-- Hero Banner -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-green/8 via-background to-cyan/8"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(63,185,80,0.06)_0%,transparent_70%)]"></div>
+    
+    <div class="relative container-main max-w-5xl pt-12 pb-10">
+      <a href="/#blog" class="inline-flex items-center gap-2 text-small text-secondary hover:text-green transition-colors mb-6">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Back to home
+      </a>
+
+      <!-- Hero: Trading System Visualization -->
+      <div class="relative rounded-2xl border border-border overflow-hidden mb-8 bg-[#080c10]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(63,185,80,0.08)_0%,transparent_60%)]"></div>
+        <div class="absolute inset-0 grid-bg opacity-60"></div>
+        
+        <svg viewBox="0 0 800 340" class="relative w-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="glow-g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(63,185,80,0.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+            <radialGradient id="glow-c" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(57,211,213,0.2)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+            <radialGradient id="glow-y" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(210,153,34,0.2)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+          </defs>
+
+          <!-- Background glow -->
+          <circle cx="130" cy="170" r="100" fill="url(#glow-c)"/>
+          <circle cx="400" cy="170" r="120" fill="url(#glow-g)"/>
+          <circle cx="670" cy="170" r="100" fill="url(#glow-y)"/>
+
+          <!-- Data flow arrows -->
+          <line x1="195" y1="170" x2="265" y2="170" stroke="rgba(57,211,213,0.4)" stroke-width="1.5" stroke-dasharray="6,4" class="animate-dash"/>
+          <line x1="535" y1="170" x2="600" y2="170" stroke="rgba(63,185,80,0.4)" stroke-width="1.5" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:0.5s"/>
+
+          <!-- Market Feed (left) -->
+          <rect x="50" y="130" width="145" height="80" rx="12" fill="rgba(57,211,213,0.06)" stroke="rgb(57,211,213)" stroke-width="1.5"/>
+          <text x="122" y="155" text-anchor="middle" fill="rgb(57,211,213)" font-size="11" font-family="monospace" font-weight="600">Market Feed</text>
+          <text x="122" y="172" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="8" font-family="monospace">Angel One WebSocket</text>
+          <!-- Candlestick visualization -->
+          <rect x="80" y="182" width="3" height="18" fill="rgba(63,185,80,0.6)"/><line x1="81.5" y1="180" x2="81.5" y2="204" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
+          <rect x="92" y="186" width="3" height="12" fill="rgba(248,81,73,0.6)"/><line x1="93.5" y1="183" x2="93.5" y2="201" stroke="rgba(248,81,73,0.4)" stroke-width="0.8"/>
+          <rect x="104" y="180" width="3" height="16" fill="rgba(63,185,80,0.6)"/><line x1="105.5" y1="178" x2="105.5" y2="200" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
+          <rect x="116" y="184" width="3" height="14" fill="rgba(63,185,80,0.6)"/><line x1="117.5" y1="181" x2="117.5" y2="202" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
+          <rect x="128" y="178" width="3" height="20" fill="rgba(63,185,80,0.6)"/><line x1="129.5" y1="175" x2="129.5" y2="202" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
+          <rect x="140" y="182" width="3" height="10" fill="rgba(248,81,73,0.6)"/><line x1="141.5" y1="179" x2="141.5" y2="196" stroke="rgba(248,81,73,0.4)" stroke-width="0.8"/>
+          <rect x="152" y="176" width="3" height="22" fill="rgba(63,185,80,0.6)"/><line x1="153.5" y1="174" x2="153.5" y2="202" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
+
+          <!-- Strategy Engine (center) -->
+          <rect x="265" y="100" width="270" height="140" rx="14" fill="rgba(63,185,80,0.05)" stroke="rgb(63,185,80)" stroke-width="1.8"/>
+          <text x="400" y="125" text-anchor="middle" fill="rgb(63,185,80)" font-size="12" font-family="monospace" font-weight="700">MultiStrategyEngine</text>
+          
+          <!-- Strategy nodes inside -->
+          <rect x="280" y="140" width="105" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+          <text x="332" y="156" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">Stochastic Cross</text>
+          
+          <rect x="395" y="140" width="125" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+          <text x="457" y="156" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">Pullback-in-Trend</text>
+          
+          <rect x="280" y="172" width="105" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+          <text x="332" y="188" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">Supertrend Flip</text>
+          
+          <rect x="395" y="172" width="78" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+          <text x="434" y="188" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">VWAP Bias</text>
+          
+          <rect x="480" y="172" width="42" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+          <text x="501" y="188" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">RSI</text>
+
+          <!-- Confidence output -->
+          <rect x="340" y="210" width="120" height="20" rx="4" fill="rgba(63,185,80,0.1)" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
+          <text x="400" y="224" text-anchor="middle" fill="rgb(63,185,80)" font-size="8" font-family="monospace">conf=72 BUY</text>
+
+          <!-- Risk Engine (right) -->
+          <rect x="600" y="120" width="150" height="100" rx="12" fill="rgba(210,153,34,0.06)" stroke="rgb(210,153,34)" stroke-width="1.5"/>
+          <text x="675" y="145" text-anchor="middle" fill="rgb(210,153,34)" font-size="11" font-family="monospace" font-weight="600">RiskEngine</text>
+          <text x="675" y="162" text-anchor="middle" fill="rgba(210,153,34,0.5)" font-size="8" font-family="monospace">9 gates</text>
+          
+          <!-- Gate visualization -->
+          <rect x="620" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="638" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="656" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="674" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="692" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="710" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="620" y="190" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="638" y="190" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+          <rect x="656" y="190" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
+
+          <!-- Kill Switch -->
+          <rect x="640" y="255" width="90" height="30" rx="6" fill="rgba(248,81,73,0.08)" stroke="rgba(248,81,73,0.5)" stroke-width="1"/>
+          <text x="685" y="274" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="9" font-family="monospace">Kill Switch</text>
+          <line x1="685" y1="255" x2="685" y2="220" stroke="rgba(248,81,73,0.3)" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+          <!-- Execution output -->
+          <rect x="640" y="60" width="90" height="30" rx="6" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="1"/>
+          <text x="685" y="79" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace">EXECUTE</text>
+          <line x1="685" y1="90" x2="685" y2="120" stroke="rgba(63,185,80,0.3)" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+          <!-- Floating particles -->
+          <circle cx="200" cy="100" r="1.5" fill="rgba(57,211,213,0.3)" class="animate-float"/>
+          <circle cx="550" cy="80" r="1.2" fill="rgba(63,185,80,0.3)" class="animate-float" style="animation-delay:1s"/>
+          <circle cx="700" cy="300" r="1" fill="rgba(248,81,73,0.3)" class="animate-float" style="animation-delay:2s"/>
+          <circle cx="100" cy="280" r="1.3" fill="rgba(57,211,213,0.2)" class="animate-float" style="animation-delay:1.5s"/>
+
+          <!-- Title -->
+          <text x="400" y="30" text-anchor="middle" fill="rgba(63,185,80,0.12)" font-size="14" font-family="monospace" letter-spacing="8">DELTAFORGE TRADING SYSTEM</text>
+          
+          <!-- Bottom: Alerts + Dashboard -->
+          <rect x="50" y="290" width="700" height="22" rx="4" fill="rgba(63,185,80,0.02)" stroke="rgba(63,185,80,0.08)" stroke-width="0.5"/>
+          <text x="400" y="305" text-anchor="middle" fill="rgba(63,185,80,0.25)" font-size="7" font-family="monospace">Slack Alerts | iMessage | Telegram | FastAPI Dashboard | SQLite Performance DB | Live Equity Curve</text>
+        </svg>
+      </div>
+      
+      <div class="flex items-center gap-2 mb-4">
+        <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded border border-green/20">Build Log</span>
+        <span class="text-small text-secondary">Jul 4, 2026</span>
+        <span class="text-text-muted">|</span>
+        <span class="text-small text-secondary">14 min read</span>
+      </div>
+      
+      <h1 class="text-display text-foreground mb-4">
+        DeltaForge: Building an Autonomous Options Trading System
+      </h1>
+      <p class="text-h2 text-secondary font-normal mb-6">
+        Your strategy deserves better than a spreadsheet and a prayer.
+      </p>
+      
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Trading Systems</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Options</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Nifty 50</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Risk Management</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Python</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Quantitative Finance</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
+        <div>
+          <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
+          <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="py-8 border-b border-border bg-elevated/50">
+    <div class="container-main max-w-4xl">
+      <div class="font-mono text-sm">
+        <p class="text-green mb-3">$ cat table_of_contents.md</p>
+        <nav class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 text-secondary">
+          <a href="#why" class="block hover:text-green transition-colors">01. Why I Built This</a>
+          <a href="#architecture" class="block hover:text-green transition-colors">02. System Architecture</a>
+          <a href="#strategies" class="block hover:text-green transition-colors">03. Multi-Strategy Engine</a>
+          <a href="#risk" class="block hover:text-green transition-colors">04. The 9-Gate Risk Model</a>
+          <a href="#sizing" class="block hover:text-green transition-colors">05. Compound Position Sizing</a>
+          <a href="#parity" class="block hover:text-green transition-colors">06. Paper-Live Parity</a>
+          <a href="#kill-switch" class="block hover:text-green transition-colors">07. The Kill Switch</a>
+          <a href="#lessons" class="block hover:text-green transition-colors">08. Lessons Learned</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="py-12">
+    <div class="container-main max-w-4xl">
+      <div class="prose-terminal space-y-16">
+
+        <!-- Part 1: Why -->
+        <section id="why">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">01 //</span> Why I Built This
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            I trade Nifty 50 options intraday. Like most retail traders, I had a strategy that backtested beautifully but bled money in production. The problem was never the strategy — it was <strong class="text-foreground">me</strong>. Late entries because I was in a meeting. Emotional exits because a candle looked scary. Position sizing that fluctuated with confidence rather than math.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The tools available were either <strong class="text-foreground">overpriced terminals</strong> (&#8377;2K-15K/month) that couldn't be customized, or <strong class="text-foreground">fragile scripts</strong> taped together with cron jobs and prayers. I wanted something different: a production-grade system where I define the rules once, and the machine executes them with zero emotion, every single session. So I built one.
+          </p>
+
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-br from-red-500/3 via-transparent to-green/3"></div>
+            <p class="relative text-small font-mono text-green mb-6 text-center">The Retail Trader's Problem</p>
+            
+            <div class="relative grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div class="diagram-node rounded-xl border border-red-500/20 p-4 bg-red-500/5">
+                <p class="text-red-400 font-mono text-xs mb-2 uppercase tracking-wider">Manual Trading</p>
+                <ul class="text-xs text-secondary space-y-1.5">
+                  <li>You click buttons all day</li>
+                  <li>"I'll stop at 5% loss" (you won't)</li>
+                  <li>Fixed lots, guesswork sizing</li>
+                  <li>Copy-paste into Excel</li>
+                </ul>
+              </div>
+              <div class="diagram-node rounded-xl border border-yellow-500/20 p-4 bg-yellow-500/5">
+                <p class="text-yellow-500 font-mono text-xs mb-2 uppercase tracking-wider">Paid Terminals</p>
+                <ul class="text-xs text-secondary space-y-1.5">
+                  <li>Alerts, but you still click</li>
+                  <li>Basic SL/target</li>
+                  <li>Separate backtest logic</li>
+                  <li>&#8377;2,000&#8211;&#8377;15,000/mo</li>
+                </ul>
+              </div>
+              <div class="diagram-node rounded-xl border border-green/20 p-4 bg-green/5">
+                <p class="text-green font-mono text-xs mb-2 uppercase tracking-wider">DeltaForge</p>
+                <ul class="text-xs text-secondary space-y-1.5">
+                  <li>Fully autonomous execution</li>
+                  <li>9-gate risk + kill switch</li>
+                  <li>Same engine: backtest = live</li>
+                  <li>Free, open source</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <blockquote class="border-l-2 border-green pl-4 py-2 mb-6 bg-green/5 rounded-r-lg pr-4">
+            <p class="text-body text-foreground italic">"Stop watching charts. Start trading systems."</p>
+          </blockquote>
+        </section>
+
+        <!-- Part 2: Architecture -->
+        <section id="architecture">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">02 //</span> System Architecture
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            DeltaForge is a pipeline — not unlike a CI/CD system, but for money. Market data flows in from the left, passes through strategy evaluation, risk filtering, and position management, then exits as either an executed trade or a rejected signal.
+          </p>
+
+          <!-- Architecture Diagram -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-b from-green/3 to-transparent"></div>
+            <p class="relative text-small font-mono text-green mb-6 text-center">Data Flow: Tick &#8594; Signal &#8594; Risk &#8594; Execute</p>
+            
+            <div class="relative flex justify-center">
+              <svg viewBox="0 0 560 220" class="w-full max-w-xl" xmlns="http://www.w3.org/2000/svg">
+                <!-- WebSocket -->
+                <rect x="5" y="80" width="90" height="60" rx="8" fill="rgba(57,211,213,0.06)" stroke="rgb(57,211,213)" stroke-width="1.2"/>
+                <text x="50" y="103" text-anchor="middle" fill="rgb(57,211,213)" font-size="9" font-family="monospace" font-weight="600">WebSocket</text>
+                <text x="50" y="118" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">tick stream</text>
+                <text x="50" y="132" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">Nifty + MCX</text>
+
+                <!-- Arrow -->
+                <line x1="95" y1="110" x2="125" y2="110" stroke="rgba(57,211,213,0.4)" stroke-width="1" stroke-dasharray="4,3" class="animate-dash"/>
+
+                <!-- CandleBuilder -->
+                <rect x="125" y="85" width="85" height="50" rx="8" fill="rgba(63,185,80,0.06)" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                <text x="167" y="106" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace" font-weight="600">Candle</text>
+                <text x="167" y="120" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace" font-weight="600">Builder</text>
+                <text x="167" y="133" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="7" font-family="monospace">tick&#8594;OHLCV</text>
+
+                <!-- Arrow -->
+                <line x1="210" y1="110" x2="240" y2="110" stroke="rgba(63,185,80,0.4)" stroke-width="1" stroke-dasharray="4,3" class="animate-dash" style="animation-delay:0.3s"/>
+
+                <!-- Strategy Engine -->
+                <rect x="240" y="75" width="110" height="70" rx="8" fill="rgba(63,185,80,0.08)" stroke="rgb(63,185,80)" stroke-width="1.5"/>
+                <text x="295" y="100" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace" font-weight="700">Strategy</text>
+                <text x="295" y="114" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace" font-weight="700">Engine</text>
+                <text x="295" y="132" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="7" font-family="monospace">5 strategies</text>
+
+                <!-- Arrow -->
+                <line x1="350" y1="110" x2="380" y2="110" stroke="rgba(210,153,34,0.4)" stroke-width="1" stroke-dasharray="4,3" class="animate-dash" style="animation-delay:0.6s"/>
+
+                <!-- Risk Engine -->
+                <rect x="380" y="80" width="85" height="60" rx="8" fill="rgba(210,153,34,0.06)" stroke="rgb(210,153,34)" stroke-width="1.2"/>
+                <text x="422" y="103" text-anchor="middle" fill="rgb(210,153,34)" font-size="9" font-family="monospace" font-weight="600">Risk</text>
+                <text x="422" y="117" text-anchor="middle" fill="rgb(210,153,34)" font-size="9" font-family="monospace" font-weight="600">Engine</text>
+                <text x="422" y="133" text-anchor="middle" fill="rgba(210,153,34,0.5)" font-size="7" font-family="monospace">9 gates</text>
+
+                <!-- Pass arrow -->
+                <line x1="465" y1="100" x2="490" y2="80" stroke="rgba(63,185,80,0.5)" stroke-width="1.2"/>
+                <text x="488" y="72" text-anchor="middle" fill="rgba(63,185,80,0.6)" font-size="7" font-family="monospace">pass</text>
+
+                <!-- Reject arrow -->
+                <line x1="465" y1="120" x2="490" y2="145" stroke="rgba(248,81,73,0.4)" stroke-width="1"/>
+                <text x="495" y="155" text-anchor="middle" fill="rgba(248,81,73,0.5)" font-size="7" font-family="monospace">reject</text>
+
+                <!-- Position Manager -->
+                <rect x="490" y="55" width="60" height="40" rx="6" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                <text x="520" y="72" text-anchor="middle" fill="rgb(63,185,80)" font-size="8" font-family="monospace" font-weight="600">Position</text>
+                <text x="520" y="84" text-anchor="middle" fill="rgb(63,185,80)" font-size="8" font-family="monospace" font-weight="600">Mgr</text>
+
+                <!-- Skip -->
+                <circle cx="500" cy="155" r="14" fill="rgba(248,81,73,0.05)" stroke="rgba(248,81,73,0.3)" stroke-width="0.8"/>
+                <text x="500" y="159" text-anchor="middle" fill="rgba(248,81,73,0.6)" font-size="7" font-family="monospace">skip</text>
+
+                <!-- Kill Switch (bottom) -->
+                <rect x="370" y="170" width="100" height="30" rx="6" fill="rgba(248,81,73,0.06)" stroke="rgba(248,81,73,0.4)" stroke-width="0.8"/>
+                <text x="420" y="189" text-anchor="middle" fill="rgba(248,81,73,0.7)" font-size="8" font-family="monospace">Kill Switch</text>
+                <line x1="420" y1="170" x2="420" y2="140" stroke="rgba(248,81,73,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+
+                <!-- Capital Tracker (top) -->
+                <rect x="370" y="20" width="100" height="28" rx="5" fill="rgba(210,153,34,0.05)" stroke="rgba(210,153,34,0.3)" stroke-width="0.8"/>
+                <text x="420" y="38" text-anchor="middle" fill="rgba(210,153,34,0.7)" font-size="8" font-family="monospace">CapitalTracker</text>
+                <line x1="420" y1="48" x2="420" y2="80" stroke="rgba(210,153,34,0.2)" stroke-width="0.6" stroke-dasharray="3,2"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="diagram-node rounded-xl border border-cyan/20 p-4 bg-cyan/5">
+              <p class="text-cyan font-mono text-xs mb-2 uppercase tracking-wider">Market Data</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">market_feed.py</code> — SmartWebSocketV2 real-time ticks</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">candle_builder.py</code> — Tick to OHLCV aggregation</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">indicators_extended.py</code> — HTF (15m) indicators</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-green/20 p-4 bg-green/5">
+              <p class="text-green font-mono text-xs mb-2 uppercase tracking-wider">Signal Generation</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">multi_strategy_engine.py</code> — 5 parallel strategies</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">premium_model.py</code> — Black-Scholes delta/theta</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">strike_selector.py</code> — ATM strike selection</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-yellow-500/20 p-4 bg-yellow-500/5">
+              <p class="text-yellow-500 font-mono text-xs mb-2 uppercase tracking-wider">Risk &amp; Execution</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">risk_engine.py</code> — 9-gate pre-trade filter</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">capital_tracker.py</code> — Equity + compound sizing</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">position_manager.py</code> — Lifecycle + trailing SL</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-border p-4 bg-elevated">
+              <p class="text-secondary font-mono text-xs mb-2 uppercase tracking-wider">Infrastructure</p>
+              <p class="text-xs text-secondary"><code class="text-foreground">broker.py</code> — Angel One SmartAPI wrapper</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">alerts/</code> — Slack, iMessage, Telegram</p>
+              <p class="text-xs text-secondary mt-1"><code class="text-foreground">dashboard/</code> — FastAPI + WebSocket UI</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 3: Strategies -->
+        <section id="strategies">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">03 //</span> Multi-Strategy Engine
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            A single strategy is brittle. Markets are regime-dependent — what works in trending days fails on mean-reversion days. DeltaForge runs <strong class="text-foreground">five strategies in parallel</strong>, each generating a signal with a confidence score. The engine picks the highest-confidence signal above threshold.
+          </p>
+
+          <div class="space-y-3 mb-8">
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">01</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Stochastic Cross</p>
+                <p class="text-small text-secondary">%K crosses back from extreme zone (&lt;25 or &gt;75). EMA(9) vs EMA(21) confirms direction. HTF RSI boosts confidence when aligned.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">02</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Pullback-in-Trend</p>
+                <p class="text-small text-secondary">15-minute RSI confirms trend (|RSI-50| &ge; 10). Four LTF oscillators (RSI, Stochastic, CCI, Williams %R) detect pullback exhaustion.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">03</span>
+              <div>
+                <p class="text-body text-foreground font-medium">Supertrend Flip</p>
+                <p class="text-small text-secondary">Supertrend(10,3) direction change with EMA + ADX confirmation. Fast Supertrend(7,2) boosts when both agree. ADX &ge; 15 required.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">04</span>
+              <div>
+                <p class="text-body text-foreground font-medium">VWAP Bias</p>
+                <p class="text-small text-secondary">Intraday VWAP with daily reset. Signals aligned with VWAP position get +5 confidence boost. Acts as a conviction multiplier.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-elevated/50 border border-border hover:border-green/30 transition-colors">
+              <span class="w-8 h-8 rounded-lg bg-green/10 flex items-center justify-center text-green font-mono text-sm shrink-0 border border-green/20">05</span>
+              <div>
+                <p class="text-body text-foreground font-medium">RSI Mean Reversion</p>
+                <p class="text-small text-secondary">Buy oversold dips (RSI &lt; 38) in uptrends, sell overbought (&gt; 62) in downtrends. Requires HTF confirmation and EMA20 alignment.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-elevated border border-border rounded-lg overflow-hidden mb-6">
+            <div class="flex items-center gap-2 px-4 py-2 bg-subtle border-b border-border">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green/60"></div>
+              </div>
+              <span class="text-xs font-mono text-secondary">multi_strategy_engine.py</span>
+            </div>
+            <pre class="p-4 text-sm font-mono text-secondary overflow-x-auto"><code set:html={codeStrategy} /></pre>
+          </div>
+
+          <!-- Indicator Table -->
+          <div class="rounded-xl border border-border overflow-hidden">
+            <table class="w-full text-sm">
+              <thead class="bg-subtle">
+                <tr>
+                  <th class="px-4 py-2.5 text-left font-mono text-xs text-green uppercase tracking-wider">Category</th>
+                  <th class="px-4 py-2.5 text-left font-mono text-xs text-green uppercase tracking-wider">Indicators</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr><td class="px-4 py-2 text-xs text-foreground font-medium">Trend</td><td class="px-4 py-2 text-xs text-secondary">EMA(9, 20, 21, 50), Supertrend(10,3), Supertrend(7,2)</td></tr>
+                <tr><td class="px-4 py-2 text-xs text-foreground font-medium">Momentum</td><td class="px-4 py-2 text-xs text-secondary">RSI(14), Stochastic(14,3), CCI(20), Williams %R(14)</td></tr>
+                <tr><td class="px-4 py-2 text-xs text-foreground font-medium">Volume</td><td class="px-4 py-2 text-xs text-secondary">VWAP (intraday), Volume SMA(20)</td></tr>
+                <tr><td class="px-4 py-2 text-xs text-foreground font-medium">Volatility</td><td class="px-4 py-2 text-xs text-secondary">ATR(14), Bollinger Bands %B</td></tr>
+                <tr><td class="px-4 py-2 text-xs text-foreground font-medium">Multi-TF</td><td class="px-4 py-2 text-xs text-secondary">15-minute RSI via candle resampling</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 p-4 rounded-lg bg-elevated/50 border border-green/20">
+            <p class="text-xs font-mono text-green mb-2">Walk-Forward Backtest (100+ days, Nifty 5m data, realistic costs)</p>
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <p class="text-h3 text-foreground">~76%</p>
+                <p class="text-xs text-secondary">Win Rate</p>
+              </div>
+              <div>
+                <p class="text-h3 text-foreground">2.62</p>
+                <p class="text-xs text-secondary">Profit Factor</p>
+              </div>
+              <div>
+                <p class="text-h3 text-foreground">100+</p>
+                <p class="text-xs text-secondary">Days Tested</p>
+              </div>
+            </div>
+            <p class="text-xs text-secondary mt-3 text-center italic">Includes brokerage, STT, stamp duty, and slippage. Past performance does not guarantee future results.</p>
+          </div>
+        </section>
+
+        <!-- Part 4: Risk -->
+        <section id="risk">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">04 //</span> The 9-Gate Risk Model
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            This is the part that actually matters. A strategy that's 55% accurate with <strong class="text-foreground">rigorous risk management</strong> will outperform a 75% strategy with none. Every signal must pass through all nine gates sequentially. A single failure means the trade is either rejected (signal skipped) or the system halts entirely.
+          </p>
+
+          <!-- Gate Flow Visual -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-b from-green/3 via-transparent to-red-500/3"></div>
+            <p class="relative text-small font-mono text-green mb-6 text-center">9-Gate Risk Filter: Signal &#8594; Validation &#8594; Execute or Reject</p>
+            
+            <div class="relative flex justify-center">
+              <svg viewBox="0 0 480 240" class="w-full max-w-lg" xmlns="http://www.w3.org/2000/svg">
+                <!-- Signal input -->
+                <rect x="5" y="100" width="60" height="40" rx="6" fill="rgba(63,185,80,0.1)" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                <text x="35" y="117" text-anchor="middle" fill="rgb(63,185,80)" font-size="8" font-family="monospace" font-weight="600">Signal</text>
+                <text x="35" y="131" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="7" font-family="monospace">conf=72</text>
+
+                <!-- Gates cascade -->
+                <rect x="85" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="99" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G0</text>
+                <rect x="118" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="132" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G1</text>
+                <rect x="151" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="165" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G2</text>
+                <rect x="184" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="198" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G3</text>
+                <rect x="217" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="231" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G4</text>
+                <rect x="250" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="264" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G5</text>
+                <rect x="283" y="90" width="32" height="60" rx="4" fill="rgba(210,153,34,0.08)" stroke="rgba(210,153,34,0.5)" stroke-width="0.8"/><text x="299" y="124" text-anchor="middle" fill="rgb(210,153,34)" font-size="7" font-family="monospace">G5.5</text>
+                <rect x="320" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="334" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G6</text>
+                <rect x="353" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="367" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G7</text>
+                <rect x="386" y="90" width="28" height="60" rx="4" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="0.8"/><text x="400" y="124" text-anchor="middle" fill="rgb(63,185,80)" font-size="7" font-family="monospace">G8</text>
+
+                <!-- Arrow through gates -->
+                <line x1="65" y1="120" x2="85" y2="120" stroke="rgba(63,185,80,0.5)" stroke-width="1" stroke-dasharray="3,2" class="animate-dash"/>
+
+                <!-- Output: Approved -->
+                <rect x="430" y="85" width="45" height="30" rx="6" fill="rgba(63,185,80,0.15)" stroke="rgb(63,185,80)" stroke-width="1.2"/>
+                <text x="452" y="104" text-anchor="middle" fill="rgb(63,185,80)" font-size="8" font-family="monospace" font-weight="700">GO</text>
+                <line x1="414" y1="105" x2="430" y2="100" stroke="rgba(63,185,80,0.5)" stroke-width="1"/>
+
+                <!-- Output: HALT (below) -->
+                <rect x="170" y="180" width="55" height="26" rx="5" fill="rgba(248,81,73,0.1)" stroke="rgba(248,81,73,0.5)" stroke-width="1"/>
+                <text x="197" y="197" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="8" font-family="monospace" font-weight="600">HALT</text>
+                <line x1="180" y1="150" x2="185" y2="180" stroke="rgba(248,81,73,0.3)" stroke-width="0.7" stroke-dasharray="3,2"/>
+                <text x="160" y="170" fill="rgba(248,81,73,0.5)" font-size="6" font-family="monospace">G1-G5 fail</text>
+
+                <!-- Output: REJECT (below) -->
+                <rect x="330" y="180" width="60" height="26" rx="5" fill="rgba(210,153,34,0.1)" stroke="rgba(210,153,34,0.5)" stroke-width="1"/>
+                <text x="360" y="197" text-anchor="middle" fill="rgba(210,153,34,0.8)" font-size="8" font-family="monospace" font-weight="600">REJECT</text>
+                <line x1="340" y1="150" x2="348" y2="180" stroke="rgba(210,153,34,0.3)" stroke-width="0.7" stroke-dasharray="3,2"/>
+                <text x="320" y="170" fill="rgba(210,153,34,0.5)" font-size="6" font-family="monospace">G5.5-G8 fail</text>
+
+                <!-- Labels for gates -->
+                <text x="99" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">halt?</text>
+                <text x="132" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">cap</text>
+                <text x="165" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">daily</text>
+                <text x="198" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">week</text>
+                <text x="231" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">streak</text>
+                <text x="264" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">DD</text>
+                <text x="299" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">VIX</text>
+                <text x="334" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">exp</text>
+                <text x="367" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">time</text>
+                <text x="400" y="80" text-anchor="middle" fill="rgba(139,148,158,0.4)" font-size="5" font-family="monospace">conf</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Gate Reference -->
+          <div class="rounded-xl border border-border overflow-hidden mb-8">
+            <table class="w-full text-sm">
+              <thead class="bg-subtle">
+                <tr>
+                  <th class="px-3 py-2.5 text-left font-mono text-xs text-green uppercase tracking-wider w-14">Gate</th>
+                  <th class="px-3 py-2.5 text-left font-mono text-xs text-green uppercase tracking-wider">Check</th>
+                  <th class="px-3 py-2.5 text-left font-mono text-xs text-green uppercase tracking-wider w-20">On Fail</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">0</td><td class="px-3 py-2 text-xs text-secondary">System not halted</td><td class="px-3 py-2 text-xs text-yellow-500 font-mono">Reject</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">1</td><td class="px-3 py-2 text-xs text-secondary">Capital &ge; &#8377;3,000</td><td class="px-3 py-2 text-xs text-red-400 font-mono font-bold">HALT</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">2</td><td class="px-3 py-2 text-xs text-secondary">Daily loss &lt; 25% of day-start capital</td><td class="px-3 py-2 text-xs text-red-400 font-mono font-bold">HALT</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">3</td><td class="px-3 py-2 text-xs text-secondary">Weekly loss &lt; 50% of starting capital</td><td class="px-3 py-2 text-xs text-red-400 font-mono font-bold">HALT</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">4</td><td class="px-3 py-2 text-xs text-secondary">Consecutive losses &lt; 5</td><td class="px-3 py-2 text-xs text-red-400 font-mono font-bold">HALT</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">5</td><td class="px-3 py-2 text-xs text-secondary">Drawdown &lt; 35% from peak</td><td class="px-3 py-2 text-xs text-red-400 font-mono font-bold">HALT</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">5.5</td><td class="px-3 py-2 text-xs text-secondary">India VIX &le; 18</td><td class="px-3 py-2 text-xs text-yellow-500 font-mono">Reject</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">6</td><td class="px-3 py-2 text-xs text-secondary">Not Nifty expiry day</td><td class="px-3 py-2 text-xs text-yellow-500 font-mono">Reject</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">7</td><td class="px-3 py-2 text-xs text-secondary">Within entry window (9:20-14:30)</td><td class="px-3 py-2 text-xs text-yellow-500 font-mono">Reject</td></tr>
+                <tr><td class="px-3 py-2 text-xs text-foreground font-mono">8</td><td class="px-3 py-2 text-xs text-secondary">Signal confidence &ge; 50</td><td class="px-3 py-2 text-xs text-yellow-500 font-mono">Reject</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The key distinction: <strong class="text-foreground">Reject</strong> means the signal is skipped but trading continues. <strong class="text-foreground">HALT</strong> means the system stops for the entire session. Gates 1-5 trigger halts because they indicate something structurally wrong — you're losing too much money and need to stop.
+          </p>
+
+          <div class="bg-elevated border border-border rounded-lg overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-2 bg-subtle border-b border-border">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green/60"></div>
+              </div>
+              <span class="text-xs font-mono text-secondary">risk_engine.py</span>
+            </div>
+            <pre class="p-4 text-sm font-mono text-secondary overflow-x-auto"><code set:html={codeRisk} /></pre>
+          </div>
+        </section>
+
+        <!-- Part 5: Position Sizing -->
+        <section id="sizing">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">05 //</span> Compound Position Sizing
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Fixed lot sizing leaves money on the table when you're winning and amplifies losses when you're not. DeltaForge uses <strong class="text-foreground">compound position sizing</strong> that scales with your equity curve — but throttles aggressively during drawdowns.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-green/5 glow-green">
+              <p class="text-green font-mono text-xs mb-2 uppercase tracking-wider">Drawdown &lt; 20%</p>
+              <p class="text-h3 text-foreground mb-1">Full Size</p>
+              <p class="text-xs text-secondary">1 lot per &#8377;3,000 deployable capital. Maximum 50 lots.</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-yellow-500/20 p-5 bg-yellow-500/5 glow-yellow">
+              <p class="text-yellow-500 font-mono text-xs mb-2 uppercase tracking-wider">Drawdown 20-35%</p>
+              <p class="text-h3 text-foreground mb-1">Half Size</p>
+              <p class="text-xs text-secondary">Reduce exposure. Protect capital. Wait for recovery signal.</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-red-500/20 p-5 bg-red-500/5 glow-red">
+              <p class="text-red-400 font-mono text-xs mb-2 uppercase tracking-wider">Drawdown &ge; 35%</p>
+              <p class="text-h3 text-foreground mb-1">HALT</p>
+              <p class="text-xs text-secondary">No trades. System stops. Manual review required.</p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-green font-mono text-sm">&#8594;</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">Deploy ratio:</strong> 60% of total capital is deployable</p>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-green font-mono text-sm">&#8594;</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">Lot sizing:</strong> 1 lot per &#8377;3,000 of deployable capital (configurable)</p>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-green font-mono text-sm">&#8594;</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">Atomic state:</strong> <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">capital.json</code> written via tmp + rename (crash-safe)</p>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-green font-mono text-sm">&#8594;</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">Options model:</strong> Black-Scholes delta&#8776;0.70, slightly ITM, 15% SL, 2hr max hold</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 6: Parity -->
+        <section id="parity">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">06 //</span> Paper-Live Parity
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Most trading systems have a dirty secret: the backtest code and the live code are different. Different indicator calculations, different order logic, different assumptions. You validate a strategy in backtest, deploy it live, and it behaves differently. DeltaForge eliminates this by using <strong class="text-foreground">the exact same engine</strong> across all modes.
+          </p>
+
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8">
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div class="p-4 rounded-lg bg-cyan/5 border border-cyan/20">
+                <p class="text-cyan font-mono text-sm font-bold mb-1">Backtest</p>
+                <p class="text-xs text-secondary">Historical replay</p>
+                <p class="text-xs text-cyan/60 mt-2 font-mono">same engine</p>
+              </div>
+              <div class="p-4 rounded-lg bg-green/5 border border-green/20">
+                <p class="text-green font-mono text-sm font-bold mb-1">Paper</p>
+                <p class="text-xs text-secondary">Simulated fills</p>
+                <p class="text-xs text-green/60 mt-2 font-mono">same engine</p>
+              </div>
+              <div class="p-4 rounded-lg bg-yellow-500/5 border border-yellow-500/20">
+                <p class="text-yellow-500 font-mono text-sm font-bold mb-1">Live</p>
+                <p class="text-xs text-secondary">Real execution</p>
+                <p class="text-xs text-yellow-500/60 mt-2 font-mono">same engine</p>
+              </div>
+            </div>
+            <p class="text-xs text-center text-secondary mt-4 font-mono">Signal generation &#8226; Risk gates &#8226; Position sizing &#8226; Indicators &#8212; ALL identical</p>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The only difference between modes is what happens <em>after</em> the position manager decides to trade: paper mode simulates the fill with a realistic premium model (brokerage &#8377;20/order + STT + stamp duty + &#8377;1.5 slippage), while live mode hits the Angel One SmartAPI.
+          </p>
+
+          <div class="bg-elevated border border-border rounded-lg overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-2 bg-subtle border-b border-border">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green/60"></div>
+              </div>
+              <span class="text-xs font-mono text-secondary">terminal — df trade</span>
+            </div>
+            <pre class="p-4 text-sm font-mono text-secondary overflow-x-auto"><code set:html={codeCLI} /></pre>
+          </div>
+        </section>
+
+        <!-- Part 7: Kill Switch -->
+        <section id="kill-switch">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">07 //</span> The Kill Switch
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            An autonomous trading system without a kill switch is a ticking bomb. DeltaForge's kill switch is an <strong class="text-foreground">independent watchdog process</strong> — completely separate from the main trading engine. If the engine hangs, crashes, or enters an infinite loop, the kill switch still works.
+          </p>
+
+          <!-- Kill Switch Architecture -->
+          <div class="relative bg-elevated border border-border rounded-xl p-4 sm:p-6 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-br from-red-500/3 via-transparent to-transparent"></div>
+            <p class="relative text-small font-mono text-red-400 mb-6 text-center">Kill Switch: Independent Watchdog via File-Based Signaling</p>
+            
+            <div class="relative flex justify-center">
+              <svg viewBox="0 0 420 160" class="w-full max-w-md" xmlns="http://www.w3.org/2000/svg">
+                <!-- Main Process -->
+                <rect x="5" y="20" width="170" height="70" rx="8" fill="rgba(63,185,80,0.04)" stroke="rgba(63,185,80,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+                <text x="90" y="38" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="8" font-family="monospace">Main Process</text>
+                <rect x="15" y="47" width="70" height="28" rx="5" fill="rgba(63,185,80,0.06)" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
+                <text x="50" y="65" text-anchor="middle" fill="rgb(63,185,80)" font-size="8" font-family="monospace">Engine</text>
+                <rect x="95" y="47" width="70" height="28" rx="5" fill="rgba(210,153,34,0.06)" stroke="rgba(210,153,34,0.4)" stroke-width="0.8"/>
+                <text x="130" y="65" text-anchor="middle" fill="rgb(210,153,34)" font-size="8" font-family="monospace">RiskEngine</text>
+
+                <!-- Halt file (center) -->
+                <rect x="195" y="45" width="55" height="34" rx="4" fill="rgba(248,81,73,0.1)" stroke="rgba(248,81,73,0.5)" stroke-width="1.2"/>
+                <text x="222" y="60" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="7" font-family="monospace">halt</text>
+                <text x="222" y="72" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="7" font-family="monospace">file</text>
+
+                <!-- Read arrow -->
+                <line x1="165" y1="62" x2="195" y2="62" stroke="rgba(210,153,34,0.4)" stroke-width="0.8"/>
+                <text x="180" y="56" text-anchor="middle" fill="rgba(210,153,34,0.4)" font-size="6" font-family="monospace">read</text>
+
+                <!-- Watchdog -->
+                <rect x="280" y="20" width="130" height="70" rx="8" fill="rgba(248,81,73,0.04)" stroke="rgba(248,81,73,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+                <text x="345" y="38" text-anchor="middle" fill="rgba(248,81,73,0.5)" font-size="8" font-family="monospace">Watchdog (independent)</text>
+                <rect x="300" y="47" width="90" height="28" rx="5" fill="rgba(248,81,73,0.08)" stroke="rgba(248,81,73,0.5)" stroke-width="0.8"/>
+                <text x="345" y="65" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="8" font-family="monospace">KillSwitch</text>
+
+                <!-- Write arrow -->
+                <line x1="300" y1="62" x2="250" y2="62" stroke="rgba(248,81,73,0.4)" stroke-width="0.8"/>
+                <text x="275" y="56" text-anchor="middle" fill="rgba(248,81,73,0.4)" font-size="6" font-family="monospace">write</text>
+
+                <!-- Manual triggers -->
+                <rect x="100" y="120" width="60" height="24" rx="5" fill="rgba(57,211,213,0.06)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+                <text x="130" y="136" text-anchor="middle" fill="rgb(57,211,213)" font-size="7" font-family="monospace">df halt</text>
+                <line x1="160" y1="132" x2="200" y2="79" stroke="rgba(57,211,213,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+
+                <rect x="190" y="120" width="80" height="24" rx="5" fill="rgba(57,211,213,0.06)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+                <text x="230" y="136" text-anchor="middle" fill="rgb(57,211,213)" font-size="7" font-family="monospace">Dashboard</text>
+                <line x1="222" y1="120" x2="222" y2="79" stroke="rgba(57,211,213,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+
+                <rect x="300" y="120" width="85" height="24" rx="5" fill="rgba(57,211,213,0.06)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
+                <text x="342" y="136" text-anchor="middle" fill="rgb(57,211,213)" font-size="7" font-family="monospace">Auto (breach)</text>
+                <line x1="342" y1="120" x2="342" y2="75" stroke="rgba(57,211,213,0.3)" stroke-width="0.6" stroke-dasharray="3,2"/>
+              </svg>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Why file-based? Because it works even when the main process is hung. No IPC, no shared memory, no sockets. Just a file on disk. If the file exists, trading stops. Period. The risk engine checks it before every gate evaluation.
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-red-400 font-mono text-sm font-bold">1</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">Automatic:</strong> Drawdown or consecutive loss breach triggers automatic halt</p>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-red-400 font-mono text-sm font-bold">2</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">CLI:</strong> <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">df halt</code> — instant stop from terminal</p>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-red-400 font-mono text-sm font-bold">3</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">Dashboard:</strong> Toggle in the web UI at <code class="px-1 py-0.5 bg-subtle rounded text-foreground text-xs">localhost:8900</code></p>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-elevated/50 border border-border">
+              <span class="text-red-400 font-mono text-sm font-bold">4</span>
+              <p class="text-small text-secondary"><strong class="text-foreground">Manual:</strong> Create the halt file on disk — works even if everything else is broken</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 8: Lessons -->
+        <section id="lessons">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">08 //</span> Lessons Learned
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Building DeltaForge taught me things no blog post or course ever could. Here's what I'd tell anyone building a similar system:
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">1</span>
+                <h3 class="text-foreground font-medium">Risk management is the product</h3>
+              </div>
+              <p class="text-small text-secondary ml-11">The strategy is the easy part. Risk management — drawdown tiers, position sizing, circuit breakers — is what keeps you in the game long enough for your edge to compound.</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">2</span>
+                <h3 class="text-foreground font-medium">Paper-live parity is non-negotiable</h3>
+              </div>
+              <p class="text-small text-secondary ml-11">If your backtest uses different code than your live engine, you're not backtesting — you're writing fiction. One engine, three modes, zero divergence.</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">3</span>
+                <h3 class="text-foreground font-medium">Your kill switch must be independent</h3>
+              </div>
+              <p class="text-small text-secondary ml-11">If the kill switch runs in the same process as the trading engine, it dies with the engine. File-based signaling survives hangs, crashes, and infinite loops.</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">4</span>
+                <h3 class="text-foreground font-medium">Alerts are your eyes when you're away</h3>
+              </div>
+              <p class="text-small text-secondary ml-11">Instant Slack/iMessage/Telegram for every entry, exit, error, and EOD summary. You should know what your system did before you check it.</p>
+            </div>
+            <div class="diagram-node rounded-xl border border-green/20 p-5 bg-elevated hover:bg-green/5 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-green/10 flex items-center justify-center text-green font-mono text-sm border border-green/30">5</span>
+                <h3 class="text-foreground font-medium">Multiple strategies beat single-strategy optimization</h3>
+              </div>
+              <p class="text-small text-secondary ml-11">Markets are regime-dependent. A trending strategy fails on range days. Running five strategies with confidence scoring adapts to whatever the market throws at you.</p>
+            </div>
+          </div>
+
+          <!-- TL;DR -->
+          <div class="diagram-node rounded-xl border border-green/30 p-6 bg-green/5 glow-green">
+            <p class="text-small font-mono text-green mb-3">$ echo "TL;DR"</p>
+            <p class="text-body text-secondary">
+              DeltaForge is what happens when you stop treating trading as a hobby and start treating it as a <strong class="text-foreground">systems engineering problem</strong>. Define your rules. Let the machine execute. Sleep well.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-4">
+              <a href="https://github.com/mimran-khan/deltaforge" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-mono bg-green/10 text-green rounded border border-green/20 hover:bg-green/20 transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                View on GitHub
+              </a>
+              <a href="https://mimran-khan.github.io/deltaforge/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-mono bg-cyan/10 text-cyan rounded border border-cyan/20 hover:bg-cyan/20 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                Live Dashboard
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- What's Next -->
+        <section class="border-t border-border pt-12">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">// </span> What's Next
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            DeltaForge is shipped and trading, but the roadmap is far from done:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div class="p-4 rounded-lg bg-green/5 border border-green/20">
+              <p class="text-xs font-mono text-green uppercase tracking-wider mb-2">Shipped</p>
+              <ul class="text-xs text-secondary space-y-1">
+                <li>Multi-strategy engine</li>
+                <li>Multi-asset (MCX + CDS)</li>
+                <li>Adaptive risk system</li>
+                <li>Walk-forward backtest</li>
+                <li>Automated scheduling</li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-lg bg-cyan/5 border border-cyan/20">
+              <p class="text-xs font-mono text-cyan uppercase tracking-wider mb-2">Next</p>
+              <ul class="text-xs text-secondary space-y-1">
+                <li>BankNifty support</li>
+                <li>ML-based regime detection</li>
+                <li>Strategy marketplace</li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-lg bg-yellow-500/5 border border-yellow-500/20">
+              <p class="text-xs font-mono text-yellow-500 uppercase tracking-wider mb-2">Future</p>
+              <ul class="text-xs text-secondary space-y-1">
+                <li>Mobile companion alerts</li>
+                <li>Cloud sync</li>
+                <li>Broker-agnostic execution</li>
+                <li>Community strategies</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Disclaimer -->
+        <section class="border-t border-border pt-8">
+          <div class="rounded-xl border border-yellow-500/30 p-5 bg-yellow-500/5">
+            <p class="text-yellow-500 font-mono text-xs uppercase tracking-wider mb-2">Disclaimer</p>
+            <p class="text-xs text-secondary leading-relaxed">
+              DeltaForge is <strong class="text-foreground">educational software</strong>, not financial advice. Options trading involves substantial risk of loss and is not suitable for all investors. Past performance (backtested or otherwise) does not guarantee future results. The author is not a registered financial advisor. Use at your own risk. See the full <a href="https://github.com/mimran-khan/deltaforge/blob/main/DISCLAIMER.md" target="_blank" rel="noopener noreferrer" class="text-yellow-500 hover:underline">disclaimer</a>.
+            </p>
+          </div>
+        </section>
+
+        <!-- Author -->
+        <section class="border-t border-border pt-8">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-lg font-bold shrink-0 border border-green/30">IK</div>
+            <div>
+              <p class="text-body text-foreground font-medium">Mohammed Imran Khan</p>
+              <p class="text-small text-secondary">Senior ML Engineer at Red Hat. Ex-Principal ML Engineer at Mercedes-Benz R&D Center. PhD Scholar. Building autonomous trading systems and agentic AI platforms.</p>
+              <div class="flex items-center gap-3 mt-2">
+                <a href="https://linkedin.com/in/mohdimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">LinkedIn</a>
+                <a href="https://github.com/mimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">GitHub</a>
+                <a href="mailto:mohammed_imran.khan@outlook.com" class="text-small text-green hover:underline">Email</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- View Counter -->
+  <section class="border-t border-border py-6">
+    <div class="container-main max-w-4xl flex items-center justify-center gap-2 text-small text-secondary font-mono">
+      <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      <span id="blog-view-count" class="text-green">--</span>
+      <span>views</span>
+    </div>
+  </section>
+
+  <script>
+    fetch('https://api.counterapi.dev/v1/mimran-khan-blog-deltaforge/views/up')
+      .then(r => r.json())
+      .then(data => {
+        const el = document.getElementById('blog-view-count');
+        if (el && data.count !== undefined) {
+          el.textContent = data.count.toLocaleString();
+        }
+      })
+      .catch(() => {
+        const el = document.getElementById('blog-view-count');
+        if (el) el.textContent = '\u221E';
+      });
+  </script>
+</BaseLayout>

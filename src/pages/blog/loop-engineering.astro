@@ -1,0 +1,522 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const codeLoop = `<span class="text-cyan">name</span>: daily-triage
+<span class="text-cyan">trigger</span>: cron("0 9 * * MON-FRI")
+<span class="text-cyan">isolation</span>: worktree
+
+<span class="text-cyan">steps</span>:
+  - <span class="text-foreground">discover</span>:
+      <span class="text-cyan">run</span>: scan_ci_failures + open_issues + recent_commits
+      <span class="text-cyan">write_to</span>: state/triage.md
+
+  - <span class="text-foreground">act</span>:
+      <span class="text-cyan">for_each</span>: finding in state/triage.md
+      <span class="text-cyan">spawn</span>: implementer(finding)
+      <span class="text-cyan">isolation</span>: worktree
+
+  - <span class="text-foreground">verify</span>:
+      <span class="text-cyan">agent</span>: reviewer  <span class="text-text-muted"># different model</span>
+      <span class="text-cyan">check</span>: tests_pass AND lint_clean AND diff_reasonable
+
+  - <span class="text-foreground">ship</span>:
+      <span class="text-cyan">if</span>: verified
+      <span class="text-cyan">run</span>: open_pr + link_issue + notify_slack
+
+<span class="text-cyan">guardrails</span>:
+  <span class="text-cyan">max_iterations</span>: 3
+  <span class="text-cyan">budget</span>: $5/run
+  <span class="text-cyan">halt_on</span>: no_progress(2)`;
+
+const codeDeltaForge = `<span class="text-text-muted"># DeltaForge — loop engineering before the term existed</span>
+
+<span class="text-cyan">class</span> <span class="text-foreground">DailyScheduler</span>:
+    <span class="text-text-muted"># AUTOMATION: LaunchAgent wakes Mac at 08:25</span>
+    <span class="text-text-muted"># ISOLATION: separate process per component</span>
+    <span class="text-text-muted"># STATE: capital.json + trades.db + HALT file</span>
+
+    <span class="text-cyan">def</span> <span class="text-foreground">run_day</span>(self):
+        self.login()              <span class="text-text-muted"># retry 3x, 30s between</span>
+        self.start_engine()       <span class="text-text-muted"># MAKER: generates signals</span>
+        self.start_kill_switch()  <span class="text-text-muted"># CHECKER: independent process</span>
+        self.start_monitor()      <span class="text-text-muted"># CONNECTOR: Slack alerts</span>
+
+        <span class="text-cyan">while</span> market_open():
+            self.engine.tick()    <span class="text-text-muted"># scan → risk → execute</span>
+
+        self.square_off_all()
+        self.generate_report()    <span class="text-text-muted"># STATE: persists to disk</span>`;
+---
+
+<BaseLayout
+  title="Loop Engineering: The Paradigm That Kills Prompt Engineering"
+  description="You shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents. Here's why this is the biggest shift in developer workflow since CI/CD — and what it means for the agentic world."
+  image="/og-image.svg"
+>
+
+  <style>
+    @keyframes rotate-loop {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes dash-flow {
+      to { stroke-dashoffset: -20; }
+    }
+    
+    .animate-rotate { animation: rotate-loop 20s linear infinite; }
+    .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+    .animate-dash { animation: dash-flow 1.5s linear infinite; }
+    .grid-bg {
+      background-image: 
+        linear-gradient(rgba(63, 185, 80, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 185, 80, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .glow-green { box-shadow: 0 0 15px rgba(63, 185, 80, 0.15), inset 0 0 15px rgba(63, 185, 80, 0.05); }
+    .glow-cyan { box-shadow: 0 0 15px rgba(57, 211, 213, 0.15), inset 0 0 15px rgba(57, 211, 213, 0.05); }
+    .glow-violet { box-shadow: 0 0 15px rgba(139, 92, 246, 0.15), inset 0 0 15px rgba(139, 92, 246, 0.05); }
+  </style>
+
+  <!-- Hero Banner -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-green/8 via-background to-violet-500/8"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(63,185,80,0.06)_0%,transparent_70%)]"></div>
+    
+    <div class="relative container-main max-w-5xl pt-12 pb-10">
+      <a href="/#blog" class="inline-flex items-center gap-2 text-small text-secondary hover:text-green transition-colors mb-6">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Back to home
+      </a>
+
+      <!-- Hero: Loop Diagram -->
+      <div class="relative rounded-2xl border border-border overflow-hidden mb-8 bg-[#080c10]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(63,185,80,0.08)_0%,transparent_60%)]"></div>
+        <div class="absolute inset-0 grid-bg opacity-60"></div>
+        
+        <svg viewBox="0 0 800 300" class="relative w-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="glow-center" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(63,185,80,0.2)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+            <marker id="arrow-green" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+              <polygon points="0 0, 6 2, 0 4" fill="rgba(63,185,80,0.6)"/>
+            </marker>
+          </defs>
+
+          <!-- Central glow -->
+          <circle cx="400" cy="150" r="130" fill="url(#glow-center)"/>
+
+          <!-- Rotating outer ring -->
+          <g class="animate-rotate" style="transform-origin: 400px 150px">
+            <circle cx="400" cy="150" r="110" fill="none" stroke="rgba(63,185,80,0.12)" stroke-width="1" stroke-dasharray="4,8"/>
+          </g>
+
+          <!-- Loop nodes -->
+          <!-- Trigger -->
+          <rect x="55" y="125" width="100" height="50" rx="8" fill="rgba(139,92,246,0.08)" stroke="rgba(139,92,246,0.5)" stroke-width="1.2"/>
+          <text x="105" y="147" text-anchor="middle" fill="rgb(139,92,246)" font-size="9" font-family="monospace" font-weight="600">TRIGGER</text>
+          <text x="105" y="163" text-anchor="middle" fill="rgba(139,92,246,0.5)" font-size="7" font-family="monospace">cron / webhook</text>
+
+          <!-- Discover -->
+          <rect x="195" y="55" width="100" height="50" rx="8" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.5)" stroke-width="1.2"/>
+          <text x="245" y="77" text-anchor="middle" fill="rgb(57,211,213)" font-size="9" font-family="monospace" font-weight="600">DISCOVER</text>
+          <text x="245" y="93" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="7" font-family="monospace">scan + triage</text>
+
+          <!-- Isolate -->
+          <rect x="335" y="30" width="100" height="50" rx="8" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="1.2"/>
+          <text x="385" y="52" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace" font-weight="600">ISOLATE</text>
+          <text x="385" y="68" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="7" font-family="monospace">worktree / sandbox</text>
+
+          <!-- Build -->
+          <rect x="475" y="55" width="100" height="50" rx="8" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="1.2"/>
+          <text x="525" y="77" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace" font-weight="600">BUILD</text>
+          <text x="525" y="93" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="7" font-family="monospace">maker agent</text>
+
+          <!-- Verify -->
+          <rect x="615" y="125" width="100" height="50" rx="8" fill="rgba(210,153,34,0.08)" stroke="rgba(210,153,34,0.5)" stroke-width="1.2"/>
+          <text x="665" y="147" text-anchor="middle" fill="rgb(210,153,34)" font-size="9" font-family="monospace" font-weight="600">VERIFY</text>
+          <text x="665" y="163" text-anchor="middle" fill="rgba(210,153,34,0.5)" font-size="7" font-family="monospace">checker agent</text>
+
+          <!-- Ship -->
+          <rect x="525" y="210" width="100" height="50" rx="8" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="1.2"/>
+          <text x="575" y="232" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace" font-weight="600">SHIP</text>
+          <text x="575" y="248" text-anchor="middle" fill="rgba(63,185,80,0.5)" font-size="7" font-family="monospace">PR + notify</text>
+
+          <!-- State (center bottom) -->
+          <rect x="300" y="220" width="120" height="50" rx="8" fill="rgba(139,92,246,0.08)" stroke="rgba(139,92,246,0.5)" stroke-width="1.2"/>
+          <text x="360" y="242" text-anchor="middle" fill="rgb(139,92,246)" font-size="9" font-family="monospace" font-weight="600">STATE</text>
+          <text x="360" y="258" text-anchor="middle" fill="rgba(139,92,246,0.5)" font-size="7" font-family="monospace">memory / progress</text>
+
+          <!-- Flow arrows -->
+          <line x1="155" y1="145" x2="193" y2="95" stroke="rgba(63,185,80,0.4)" stroke-width="1.2" stroke-dasharray="6,4" class="animate-dash" marker-end="url(#arrow-green)"/>
+          <line x1="295" y1="75" x2="333" y2="60" stroke="rgba(63,185,80,0.4)" stroke-width="1.2" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:0.3s" marker-end="url(#arrow-green)"/>
+          <line x1="435" y1="55" x2="473" y2="70" stroke="rgba(63,185,80,0.4)" stroke-width="1.2" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:0.6s" marker-end="url(#arrow-green)"/>
+          <line x1="575" y1="90" x2="625" y2="130" stroke="rgba(63,185,80,0.4)" stroke-width="1.2" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:0.9s" marker-end="url(#arrow-green)"/>
+          <line x1="650" y1="175" x2="610" y2="210" stroke="rgba(63,185,80,0.4)" stroke-width="1.2" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:1.2s" marker-end="url(#arrow-green)"/>
+          <line x1="525" y1="240" x2="422" y2="245" stroke="rgba(63,185,80,0.4)" stroke-width="1.2" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:1.5s" marker-end="url(#arrow-green)"/>
+          <line x1="300" y1="240" x2="130" y2="177" stroke="rgba(139,92,246,0.4)" stroke-width="1.2" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:1.8s" marker-end="url(#arrow-green)"/>
+
+          <!-- Floating particles -->
+          <circle cx="250" cy="180" r="1.5" fill="rgba(57,211,213,0.4)" class="animate-float"/>
+          <circle cx="500" cy="160" r="1.2" fill="rgba(63,185,80,0.4)" class="animate-float" style="animation-delay:1s"/>
+          <circle cx="380" cy="130" r="1.8" fill="rgba(139,92,246,0.3)" class="animate-float" style="animation-delay:2s"/>
+
+          <!-- Title watermark -->
+          <text x="400" y="155" text-anchor="middle" fill="rgba(63,185,80,0.06)" font-size="18" font-family="monospace" letter-spacing="6">THE LOOP</text>
+        </svg>
+      </div>
+      
+      <div class="flex items-center gap-2 mb-4">
+        <span class="px-2 py-0.5 text-xs font-mono bg-violet-500/10 text-violet-400 rounded border border-violet-500/20">Opinion</span>
+        <span class="text-small text-secondary">Jul 4, 2026</span>
+        <span class="text-text-muted">|</span>
+        <span class="text-small text-secondary">6 min read</span>
+      </div>
+      
+      <h1 class="text-display text-foreground mb-4">
+        Loop Engineering: The Paradigm That Kills Prompt Engineering
+      </h1>
+      <p class="text-h2 text-secondary font-normal mb-6">
+        You shouldn't be prompting your agents anymore. You should be designing systems that prompt them for you.
+      </p>
+      
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Loop Engineering</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Agentic AI</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Workflow</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Systems Design</span>
+        <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">DevEx</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
+        <div>
+          <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
+          <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="py-8 border-b border-border bg-elevated/50">
+    <div class="container-main max-w-4xl">
+      <div class="font-mono text-sm">
+        <p class="text-green mb-3">$ cat table_of_contents.md</p>
+        <nav class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 text-secondary">
+          <a href="#shift" class="block hover:text-green transition-colors">01. The Shift</a>
+          <a href="#primitives" class="block hover:text-green transition-colors">02. Six Primitives of a Loop</a>
+          <a href="#changes" class="block hover:text-green transition-colors">03. What This Changes</a>
+          <a href="#danger" class="block hover:text-green transition-colors">04. The Danger</a>
+          <a href="#closing" class="block hover:text-green transition-colors">05. Build the Loop</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="py-12">
+    <div class="container-main max-w-4xl">
+      <div class="prose-terminal space-y-16">
+
+        <!-- Cold Open -->
+        <section>
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Every morning at 8:25, my Mac wakes itself up. A LaunchAgent fires. DeltaForge logs into my broker, connects a WebSocket, starts the trading engine, spawns an independent kill-switch process, and begins scanning for signals. By 9:15, it's placing trades. By 3:30, it squares off, generates a P&L report, and sends me a Slack message. I don't touch anything.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            I built that system months ago. Scheduler triggers the engine. Engine proposes trades. Risk engine verifies. Kill switch watches from outside. State persists to disk. The <strong class="text-foreground">system prompts itself</strong> — I just designed the loop.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Then I looked at my coding workflow and realized I was still the one typing prompts into AI tools. One turn at a time. Read the output. Type the next thing. The irony hit hard: I'd automated trading but was still manually operating my coding agents like it was 2024.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed">
+            That irony has a name now. <strong class="text-foreground">Loop engineering.</strong>
+          </p>
+        </section>
+
+        <!-- Section 1: The Shift -->
+        <section id="shift">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">01 //</span> The Shift
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The progression is clear in hindsight. Each layer absorbed the one below it:
+          </p>
+
+          <!-- Four Layers Visual -->
+          <div class="relative bg-elevated border border-border rounded-xl p-6 mb-8 overflow-hidden grid-bg">
+            <div class="absolute inset-0 bg-gradient-to-b from-green/3 to-transparent"></div>
+            <div class="relative space-y-4">
+              <div class="flex items-center gap-4 opacity-40">
+                <span class="font-mono text-xs text-secondary w-24 shrink-0">2022–2024</span>
+                <div class="flex-1 border border-border/50 rounded-lg px-4 py-2.5 bg-background/50">
+                  <span class="font-mono text-sm text-secondary">Prompt Engineering</span>
+                  <span class="text-xs text-text-muted ml-3">"What should I say to the model?"</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 opacity-55">
+                <span class="font-mono text-xs text-secondary w-24 shrink-0">2025</span>
+                <div class="flex-1 border border-border/50 rounded-lg px-4 py-2.5 bg-background/50">
+                  <span class="font-mono text-sm text-secondary">Context Engineering</span>
+                  <span class="text-xs text-text-muted ml-3">"What information fills the window?"</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 opacity-70">
+                <span class="font-mono text-xs text-secondary w-24 shrink-0">Early 2026</span>
+                <div class="flex-1 border border-border/50 rounded-lg px-4 py-2.5 bg-background/50">
+                  <span class="font-mono text-sm text-secondary">Harness Engineering</span>
+                  <span class="text-xs text-text-muted ml-3">"What environment does it run in?"</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="font-mono text-xs text-green w-24 shrink-0">Mid 2026</span>
+                <div class="flex-1 border border-green/30 rounded-lg px-4 py-2.5 bg-green/5 glow-green">
+                  <span class="font-mono text-sm text-green font-bold">Loop Engineering</span>
+                  <span class="text-xs text-green/60 ml-3">"What system designs itself?"</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Peter Steinberger put it bluntly: you shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents. Boris Cherny, who leads Claude Code at Anthropic, reportedly uninstalled his IDE after not opening it for a month. His job, as he described it, is to write loops.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The key distinction: a <strong class="text-foreground">harness</strong> runs a fixed script for one session. A <strong class="text-foreground">loop</strong> decides its own next action, spawns helpers, feeds itself, and runs on a timer. The harness supports you. The loop replaces you as the person who prompts.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed">
+            The bottleneck shifted from "how do I phrase this?" to something entirely different: <strong class="text-foreground">who decides the next turn, what evidence is required before proceeding, and what does 'done' mean?</strong>
+          </p>
+        </section>
+
+        <!-- Section 2: The Six Primitives -->
+        <section id="primitives">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">02 //</span> Six Primitives of a Loop
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-8">
+            Every production loop I've seen — whether it's shipping code or shipping trades — has the same six structural pieces. Not features. Primitives.
+          </p>
+
+          <!-- Primitives Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div class="bg-elevated border border-violet-500/20 rounded-xl p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center text-violet-400 font-mono text-xs font-bold">1</span>
+                <h4 class="font-mono text-sm text-violet-400">Automations</h4>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">The heartbeat. Cron, webhooks, CI signals. The loop starts without you. If you have to press "go," it's not a loop — it's a script with a human dependency.</p>
+            </div>
+
+            <div class="bg-elevated border border-cyan/20 rounded-xl p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-6 h-6 rounded-md bg-cyan/10 flex items-center justify-center text-cyan font-mono text-xs font-bold">2</span>
+                <h4 class="font-mono text-sm text-cyan">Isolation</h4>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">Worktrees, sandboxes, containers. Two agents working the same repo can't collide on the same files. The second you run parallel agents without isolation, you've built a merge conflict factory.</p>
+            </div>
+
+            <div class="bg-elevated border border-green/20 rounded-xl p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center text-green font-mono text-xs font-bold">3</span>
+                <h4 class="font-mono text-sm text-green">Skills</h4>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">Project knowledge on disk. Without skills, the loop re-derives your conventions from zero each run — a goldfish with compute. With skills, it compounds. The difference between a tool and a teammate.</p>
+            </div>
+
+            <div class="bg-elevated border border-green/20 rounded-xl p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center text-green font-mono text-xs font-bold">4</span>
+                <h4 class="font-mono text-sm text-green">Connectors</h4>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">MCP, APIs, integrations. A loop that can only see the filesystem is a tiny loop. The one that opens PRs, links tickets, queries Sentry, and pings Slack — that's a loop that acts in your actual environment.</p>
+            </div>
+
+            <div class="bg-elevated border border-yellow-500/20 rounded-xl p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-6 h-6 rounded-md bg-yellow-500/10 flex items-center justify-center text-yellow-500 font-mono text-xs font-bold">5</span>
+                <h4 class="font-mono text-sm text-yellow-500">Sub-agents</h4>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">Maker/checker. The model that wrote code is too generous grading its own homework. A second agent — different model, different instructions — catches what the first talked itself into.</p>
+            </div>
+
+            <div class="bg-elevated border border-violet-500/20 rounded-xl p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center text-violet-400 font-mono text-xs font-bold">6</span>
+                <h4 class="font-mono text-sm text-violet-400">State</h4>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">External memory — markdown files, databases, progress boards. The agent forgets between runs. The repo doesn't. State is the spine that lets tomorrow's run pick up where today's stopped.</p>
+            </div>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Here's the part that surprised me: I already had all six in my trading system. APScheduler as automation. Separate-process kill switch as the sub-agent checker. <code class="text-green bg-green/10 px-1 rounded">capital.json</code> as state. Slack as connector. Adaptive mode as skill memory. I just didn't call it loop engineering.
+          </p>
+
+          <!-- Code: DeltaForge as Loop -->
+          <div class="bg-[#0d1117] border border-border rounded-xl overflow-hidden mb-6">
+            <div class="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-elevated/50">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-green/50"></div>
+              </div>
+              <span class="font-mono text-xs text-secondary ml-2">deltaforge_as_loop.py</span>
+            </div>
+            <pre class="p-4 text-xs font-mono text-secondary overflow-x-auto leading-relaxed"><Fragment set:html={codeDeltaForge} /></pre>
+          </div>
+
+          <!-- Code: Conceptual Loop Config -->
+          <div class="bg-[#0d1117] border border-border rounded-xl overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-elevated/50">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-green/50"></div>
+              </div>
+              <span class="font-mono text-xs text-secondary ml-2">loop.yaml — conceptual config</span>
+            </div>
+            <pre class="p-4 text-xs font-mono text-secondary overflow-x-auto leading-relaxed"><Fragment set:html={codeLoop} /></pre>
+          </div>
+        </section>
+
+        <!-- Section 3: What This Changes -->
+        <section id="changes">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">03 //</span> What This Changes
+          </div>
+          
+          <h3 class="text-h2 text-foreground mb-4">Agents that compound</h3>
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            First run: cold start, re-derives everything from scratch. Tenth run: knows your conventions, your architecture, your edge cases. Skills plus state equals memory across sessions. This is the structural difference between a tool you use and a teammate you trust.
+          </p>
+          <p class="text-body text-secondary leading-relaxed mb-8">
+            Analysis of 40,000+ GitHub repos shows CLAUDE.md and AGENTS.md adoption exploding in sequence — teams are learning that the cost of teaching the agent once is paid back on every subsequent run. The loop compounds.
+          </p>
+
+          <h3 class="text-h2 text-foreground mb-4">Maker/checker enables unattended trust</h3>
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Stripe ships 1,300+ merged PRs per week with zero human-written code. Max 2 CI rounds. Cyclotron resolved 1,088 production Sentry issues in 30 days, saving 840 engineering hours. These numbers aren't theoretical — they're running today.
+          </p>
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The structural move that makes this possible: the verifier is a <strong class="text-foreground">different</strong> model than the maker. Always. The agent that wrote the code must never be the one grading it.
+          </p>
+
+          <div class="border-l-2 border-green pl-4 py-2 mb-8 bg-green/5 rounded-r-lg pr-4">
+            <p class="text-body text-foreground italic">"I built DeltaForge's risk engine as an independent process specifically so it survives if the trading engine hangs. Same principle — the checker can't depend on the maker's process staying healthy."</p>
+          </div>
+
+          <h3 class="text-h2 text-foreground mb-4">The 10x engineer is now a systems architect</h3>
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The new 10x engineer doesn't write 10x the code. They build the system that writes it. Your job becomes: designing workflows, building verification infrastructure, maintaining repo health for agent consumption.
+          </p>
+          <p class="text-body text-secondary leading-relaxed">
+            But here's the constraint nobody talks about: <strong class="text-foreground">you are the GIL of your AI agents.</strong> Your review bandwidth is the actual bottleneck — not how many agents you can spawn. Ten parallel loops are worthless if you can't review what they produce. This is why the maker/checker split matters so much: it extends your review bandwidth by handling the obvious stuff before it reaches you.
+          </p>
+        </section>
+
+        <!-- Section 4: The Danger -->
+        <section id="danger">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">04 //</span> The Danger
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-8">
+            Loops amplify. That's the feature and the failure mode. They amplify quality when designed well, and they amplify rot when designed poorly. Three specific ways this goes wrong:
+          </p>
+
+          <!-- Danger cards -->
+          <div class="space-y-6 mb-8">
+            <div class="bg-elevated border border-red-500/20 rounded-xl p-6">
+              <h4 class="font-mono text-sm text-red-400 mb-3">Comprehension Debt</h4>
+              <p class="text-body text-secondary leading-relaxed">
+                The faster the loop ships code you didn't write, the wider the gap between what exists and what you actually understand. The bill that hurts isn't the token bill. It's the afternoon six months from now when production breaks inside a system no human has read.
+              </p>
+            </div>
+
+            <div class="bg-elevated border border-yellow-500/20 rounded-xl p-6">
+              <h4 class="font-mono text-sm text-yellow-500 mb-3">Cognitive Surrender</h4>
+              <p class="text-body text-secondary leading-relaxed">
+                Two people can build the exact same loop and get opposite outcomes. One uses it to move faster on work they understand deeply. The other uses it to avoid understanding the work at all. The loop doesn't know the difference. You do. Designing the loop is the cure when done with judgment, and the accelerant of rot when done to avoid thinking.
+              </p>
+            </div>
+
+            <div class="bg-elevated border border-red-500/20 rounded-xl p-6">
+              <h4 class="font-mono text-sm text-red-400 mb-3">Runaway Cost</h4>
+              <p class="text-body text-secondary leading-relaxed mb-4">
+                Uber burned their entire 2026 AI budget in four months. A poorly-configured loop reportedly produced a $47,000 overnight bill. Gartner estimates agentic AI requires 5–30x more tokens per task than standard chatbot interactions.
+              </p>
+              <p class="text-body text-secondary leading-relaxed">
+                The guard-rail trinity is non-negotiable: <strong class="text-foreground">hard iteration cap</strong> + <strong class="text-foreground">no-progress detection</strong> + <strong class="text-foreground">spend ceiling</strong>. Without all three, what you're running isn't a loop. It's a fire hose pointed at your billing page.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Closing -->
+        <section id="closing">
+          <div class="font-mono text-sm text-green mb-6">
+            <span class="text-secondary">05 //</span> Build the Loop. Stay the Engineer.
+          </div>
+          
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            I built DeltaForge with a kill switch because I don't trust any system — including my own — to run without independent supervision. The same instinct applies here. The kill switch isn't a lack of confidence in the system. It's the proof that you understand the system well enough to know where it can fail.
+          </p>
+
+          <div class="border-l-2 border-green pl-4 py-3 mb-6 bg-green/5 rounded-r-lg pr-4">
+            <p class="text-h2 text-foreground italic leading-relaxed">"The leverage point moved. Prompting was about what you say. Loop engineering is about what you build. And what you build reveals whether you're using the loop to think faster — or to avoid thinking entirely."</p>
+          </div>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            The work didn't get easier. It got structural. You're no longer writing prompts — you're designing the system that makes prompts unnecessary. You're defining what "done" means, what evidence is required, who checks whom, and when to stop.
+          </p>
+
+          <p class="text-body text-secondary leading-relaxed mb-6">
+            Next comes fleets — many loops coordinating, negotiating budgets, supervising each other. The skill after "write loops" will be "design the org chart of agents." But that's another post.
+          </p>
+
+          <p class="text-body text-foreground leading-relaxed font-medium">
+            For now: build the loop. But build it like someone who intends to stay the engineer — not just the person who presses go.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- Related Posts -->
+  <section class="py-12 border-t border-border bg-elevated/30">
+    <div class="container-main max-w-4xl">
+      <h3 class="font-mono text-sm text-green mb-6">$ ls related/</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="/blog/agents-all-the-way-down" class="group block bg-elevated border border-border rounded-lg p-5 hover:border-green/50 transition-all">
+          <span class="text-xs font-mono text-cyan">Deep Dive</span>
+          <h4 class="text-foreground group-hover:text-green transition-colors mt-1 mb-2">Agents All the Way Down</h4>
+          <p class="text-xs text-secondary">The multi-agent architecture nobody talks about — hierarchical swarms, promotion loops, and failure modes.</p>
+        </a>
+        <a href="/blog/deltaforge" class="group block bg-elevated border border-border rounded-lg p-5 hover:border-green/50 transition-all">
+          <span class="text-xs font-mono text-green">Build Log</span>
+          <h4 class="text-foreground group-hover:text-green transition-colors mt-1 mb-2">DeltaForge: Autonomous Trading</h4>
+          <p class="text-xs text-secondary">An autonomous options trading system with 9-gate risk, compound sizing, and a kill switch. Loop engineering in production.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
