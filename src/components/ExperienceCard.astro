@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { company, role, startDate, endDate, location, highlights } = Astro.props;
-const dateRange = endDate ? `${startDate} — ${endDate}` : `${startDate} — Present`;
+const dateRange = endDate ? `${startDate} - ${endDate}` : `${startDate} - Present`;
 const isPresent = !endDate;
 ---
 

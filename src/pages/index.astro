@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import AchievementCard from '../components/AchievementCard.astro';
 import EducationTimeline from '../components/EducationTimeline.astro';
 import EventsCarousel from '../components/EventsCarousel.astro';
 import { getCollection } from 'astro:content';
@@ -14,15 +13,7 @@ import vtu from '../assets/images/education/vtu.png';
 import amrita from '../assets/images/education/amrita.png';
 
 const experiences = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-const achievements = (await getCollection('achievements')).sort((a, b) => a.data.order - b.data.order);
-
-const stats = [
-  { value: '6+', label: 'Years' },
-  { value: '3', label: 'Patents' },
-  { value: '7', label: 'Awards' },
-  { value: '10+', label: 'AI Products' },
-];
+const projects = (await getCollection('projects')).filter(p => p.data.featured).sort((a, b) => a.data.order - b.data.order);
 
 const skillGroups = [
   {
@@ -44,10 +35,6 @@ const skillGroups = [
   {
     category: 'Infrastructure',
     skills: ['Python', 'FastAPI', 'MLOps', 'Kubernetes', 'Docker', 'SQL']
-  },
-  {
-    category: 'Automation',
-    skills: ['RPA', 'Automation Anywhere', 'UiPath', 'Process Automation']
   }
 ];
 
@@ -58,6 +45,7 @@ const education = [
     field: 'AI & ML',
     year: 'Ongoing',
     logo: amrita,
+    note: 'Part-time research alongside industry work',
   },
   {
     institution: 'IIT Kanpur',
@@ -65,6 +53,7 @@ const education = [
     field: 'AI & ML',
     year: '2025',
     logo: iitk,
+    note: '',
   },
   {
     institution: 'BITS Pilani',
@@ -72,6 +61,7 @@ const education = [
     field: 'AI & ML',
     year: '2024',
     logo: bits,
+    note: '',
   },
   {
     institution: 'VTU',
@@ -79,6 +69,7 @@ const education = [
     field: 'Computer Science',
     year: '2019',
     logo: vtu,
+    note: '',
   },
 ];
 ---
@@ -89,37 +80,44 @@ const education = [
 >
   <Hero />
   
-  <!-- Stats -->
+  <!-- Now Building - Spotlight -->
   <section class="border-y border-border py-8">
     <div class="container-main">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map(({ value, label }) => (
-          <div class="text-center">
-            <p class="text-h1 font-mono text-green">{value}</p>
-            <p class="text-small text-secondary uppercase tracking-wider">{label}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="https://mimran-khan.github.io/deltaforge/" target="_blank" rel="noopener noreferrer" class="group flex items-start gap-4 p-5 rounded-xl border border-border bg-elevated hover:border-green/50 transition-all">
+          <div class="w-12 h-12 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+            <span class="font-mono text-green text-lg font-bold">&#916;F</span>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section class="section">
-    <div class="container-main">
-      <p class="section-heading">Tech Stack</p>
-      <div class="space-y-6">
-        {skillGroups.map((group) => (
           <div>
-            <p class="text-small text-green font-mono mb-3">// {group.category}</p>
-            <div class="flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
-                <span class="px-3 py-1.5 rounded-lg bg-elevated border border-border hover:border-green/50 transition-all duration-300 cursor-default text-sm text-foreground">
-                  {skill}
-                </span>
-              ))}
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors">DeltaForge</h3>
+              <span class="flex items-center gap-1 text-[10px] text-green font-mono"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>LIVE</span>
+            </div>
+            <p class="text-xs text-secondary mb-2">Autonomous Nifty options trading engine with 5 strategies, 9 risk gates, and compound position sizing.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">Live since Jun 2026</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">5 strategies</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">9 risk gates</span>
             </div>
           </div>
-        ))}
+        </a>
+        <a href="https://github.com/redhat-data-and-ai" target="_blank" rel="noopener noreferrer" class="group flex items-start gap-4 p-5 rounded-xl border border-border bg-elevated hover:border-cyan/50 transition-all">
+          <div class="w-12 h-12 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-sm font-semibold text-foreground group-hover:text-cyan transition-colors">AI Agent Platform</h3>
+              <span class="text-[10px] text-cyan font-mono">@ Red Hat</span>
+            </div>
+            <p class="text-xs text-secondary mb-2">MCP servers, A2A protocol, and multi-agent orchestration. Open source tooling for building production-grade AI agents.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">MCP</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">A2A Protocol</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">Open Source</span>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -129,264 +127,103 @@ const education = [
     <div class="container-main">
       <p class="section-heading">Blog</p>
       
-      <div class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-      <!-- Blog Post: Loop Engineering -->
-      <a 
-        href="/blog/loop-engineering" 
-        class="group block bg-elevated border border-border rounded-lg overflow-hidden hover:border-violet-500/50 transition-all duration-300"
-      >
-        <div class="flex flex-col md:flex-row">
-          <!-- Compact thumbnail -->
-          <div class="md:w-72 lg:w-80 shrink-0 bg-gradient-to-br from-violet-500/10 via-background to-green/10 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-border">
-            <div class="text-center">
-              <div class="relative inline-block">
-                <svg width="80" height="80" viewBox="0 0 80 80" class="mx-auto">
-                  <circle cx="40" cy="40" r="28" fill="none" stroke="rgba(139,92,246,0.3)" stroke-width="1.5" stroke-dasharray="4,6"/>
-                  <path d="M40 12 A28 28 0 0 1 68 40" fill="none" stroke="rgba(63,185,80,0.7)" stroke-width="2.5" stroke-linecap="round"/>
-                  <path d="M68 40 A28 28 0 0 1 40 68" fill="none" stroke="rgba(57,211,213,0.7)" stroke-width="2.5" stroke-linecap="round"/>
-                  <path d="M40 68 A28 28 0 0 1 12 40" fill="none" stroke="rgba(139,92,246,0.7)" stroke-width="2.5" stroke-linecap="round"/>
-                  <path d="M12 40 A28 28 0 0 1 40 12" fill="none" stroke="rgba(210,153,34,0.7)" stroke-width="2.5" stroke-linecap="round"/>
-                  <polygon points="40,9 43,15 37,15" fill="rgba(63,185,80,0.8)"/>
-                  <circle cx="40" cy="40" r="8" fill="rgba(63,185,80,0.1)" stroke="rgba(63,185,80,0.4)" stroke-width="1"/>
-                  <text x="40" y="44" text-anchor="middle" fill="rgba(63,185,80,0.8)" font-size="8" font-family="monospace" font-weight="bold">&#8734;</text>
-                </svg>
+        <!-- Blog: Loop Engineering -->
+        <a href="/blog/loop-engineering" class="group block rounded-xl overflow-hidden border border-border hover:border-violet-500/50 transition-all duration-300">
+          <div class="relative h-40 overflow-hidden">
+            <img src="/og-blog-loop-engineering.png" alt="Loop Engineering" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-4 right-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 text-[10px] font-mono bg-violet-500/20 text-violet-300 rounded backdrop-blur-sm">Opinion</span>
+                <span class="text-[10px] text-white/70">6 min read</span>
               </div>
-              <div class="text-xs text-secondary mt-2 font-mono">Autonomous Loop</div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-violet-300 transition-colors">
+                Loop Engineering: The Paradigm That Kills Prompt Engineering
+              </h3>
             </div>
           </div>
-          
-          <!-- Content -->
-          <div class="flex-1 p-6">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-0.5 text-xs font-mono bg-violet-500/10 text-violet-400 rounded border border-violet-500/20">Opinion</span>
-              <span class="text-small text-secondary">Jul 4, 2026</span>
-              <span class="text-text-muted">|</span>
-              <span class="text-small text-secondary">6 min read</span>
-            </div>
-            <h3 class="text-h2 text-foreground group-hover:text-violet-400 transition-colors mb-2">
-              Loop Engineering: The Paradigm That Kills Prompt Engineering
-            </h3>
-            <p class="text-body text-secondary mb-4">
-              You shouldn't be prompting your agents anymore. Design systems that prompt them for you. The biggest shift in developer workflow since CI/CD — and what it means for the agentic world.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Loop Engineering</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Agentic AI</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Workflow</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Systems Design</span>
-            </div>
-            <div class="flex items-center gap-4 text-small text-secondary">
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                6 primitives
-              </span>
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                Strong opinions
-              </span>
-              <span class="hidden sm:flex items-center gap-1 ml-auto text-violet-400 group-hover:translate-x-1 transition-transform">
-                Read article
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-              </span>
+          <div class="bg-elevated p-4">
+            <p class="text-xs text-secondary line-clamp-2">Design systems that prompt your agents for you. The biggest shift in developer workflow since CI/CD.</p>
+            <div class="flex items-center justify-between mt-3">
+              <span class="text-[10px] text-secondary">Jul 4, 2026</span>
+              <span class="text-[10px] text-violet-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
 
-      <!-- Blog Post: DeltaForge -->
-      <a 
-        href="/blog/deltaforge" 
-        class="group block bg-elevated border border-border rounded-lg overflow-hidden hover:border-green/50 transition-all duration-300"
-      >
-        <div class="flex flex-col md:flex-row">
-          <!-- Compact thumbnail -->
-          <div class="md:w-72 lg:w-80 shrink-0 bg-gradient-to-br from-green/10 via-background to-cyan/10 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-border">
-            <div class="text-center">
-              <div class="font-mono text-green text-2xl font-bold mb-1">&#916;F</div>
-              <div class="font-mono text-green text-sm font-bold">DeltaForge</div>
-              <div class="text-xs text-secondary mt-2">Autonomous Trading</div>
-              <div class="flex items-center justify-center gap-1 mt-3">
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
-                <span class="w-2 h-2 rounded-full bg-yellow-500/60"></span>
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
-                <span class="w-2 h-2 rounded-full bg-green/60"></span>
+        <!-- Blog: DeltaForge -->
+        <a href="/blog/deltaforge" class="group block rounded-xl overflow-hidden border border-border hover:border-green/50 transition-all duration-300">
+          <div class="relative h-40 overflow-hidden">
+            <img src="/og-blog-deltaforge.jpg" alt="DeltaForge" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-4 right-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 text-[10px] font-mono bg-green/20 text-green rounded backdrop-blur-sm">Build Log</span>
+                <span class="text-[10px] text-white/70">14 min read</span>
               </div>
-              <div class="text-[10px] text-secondary mt-1 font-mono">9 risk gates</div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-green transition-colors">
+                DeltaForge: Building an Autonomous Options Trading System
+              </h3>
             </div>
           </div>
-          
-          <!-- Content -->
-          <div class="flex-1 p-6">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded border border-green/20">New</span>
-              <span class="text-small text-secondary">Jul 4, 2026</span>
-              <span class="text-text-muted">|</span>
-              <span class="text-small text-secondary">14 min read</span>
-            </div>
-            <h3 class="text-h2 text-foreground group-hover:text-green transition-colors mb-2">
-              DeltaForge: Building an Autonomous Options Trading System
-            </h3>
-            <p class="text-body text-secondary mb-4">
-              How I built an autonomous Nifty options trading system with multi-strategy signals, 9-gate risk management, compound sizing, and a kill switch. Same engine, same signals — backtest to production.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Trading Systems</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Options</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Risk Mgmt</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Python</span>
-            </div>
-            <div class="flex items-center gap-4 text-small text-secondary">
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                5 strategies
-              </span>
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                9-gate risk
-              </span>
-              <span class="hidden sm:flex items-center gap-1 ml-auto text-green group-hover:translate-x-1 transition-transform">
-                Read article
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-              </span>
+          <div class="bg-elevated p-4">
+            <p class="text-xs text-secondary line-clamp-2">Multi-strategy signals, 9-gate risk management, compound sizing, and a kill switch. Backtest to production.</p>
+            <div class="flex items-center justify-between mt-3">
+              <span class="text-[10px] text-secondary">Jun 5, 2026</span>
+              <span class="text-[10px] text-green group-hover:translate-x-1 transition-transform flex items-center gap-1">Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
 
-      <!-- Blog Post: Agents All the Way Down -->
-      <a 
-        href="/blog/agents-all-the-way-down" 
-        class="group block bg-elevated border border-border rounded-lg overflow-hidden hover:border-green/50 transition-all duration-300"
-      >
-        <div class="flex flex-col md:flex-row">
-          <!-- Compact thumbnail -->
-          <div class="md:w-72 lg:w-80 shrink-0 bg-gradient-to-br from-green/10 via-background to-cyan/10 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-border">
-            <div class="text-center">
-              <div class="relative inline-block">
-                <div class="w-12 h-12 rounded-full bg-green/10 border border-green/30 flex items-center justify-center mx-auto">
-                  <span class="font-mono text-green text-sm font-bold">L1</span>
-                </div>
-                <div class="flex items-center justify-center gap-3 mt-2">
-                  <div class="w-8 h-8 rounded-md bg-cyan/10 border border-cyan/30 flex items-center justify-center">
-                    <span class="font-mono text-cyan text-[10px]">L2</span>
-                  </div>
-                  <div class="w-8 h-8 rounded-md bg-cyan/10 border border-cyan/30 flex items-center justify-center">
-                    <span class="font-mono text-cyan text-[10px]">L2</span>
-                  </div>
-                  <div class="w-8 h-8 rounded-md bg-cyan/10 border border-cyan/30 flex items-center justify-center">
-                    <span class="font-mono text-cyan text-[10px]">L2</span>
-                  </div>
-                </div>
+        <!-- Blog: Agents All the Way Down -->
+        <a href="/blog/agents-all-the-way-down" class="group block rounded-xl overflow-hidden border border-border hover:border-green/50 transition-all duration-300">
+          <div class="relative h-40 overflow-hidden">
+            <img src="/og-blog-agents-all-the-way-down.png" alt="Agents All the Way Down" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-4 right-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 text-[10px] font-mono bg-green/20 text-green rounded backdrop-blur-sm">Deep Dive</span>
+                <span class="text-[10px] text-white/70">18 min read</span>
               </div>
-              <div class="text-xs text-secondary mt-3 font-mono">Agent Hierarchy</div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-green transition-colors">
+                Agents All the Way Down: The Architecture Nobody Talks About
+              </h3>
             </div>
           </div>
-          
-          <!-- Content -->
-          <div class="flex-1 p-6">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded border border-green/20">Deep Dive</span>
-              <span class="text-small text-secondary">Apr 29, 2026</span>
-              <span class="text-text-muted">|</span>
-              <span class="text-small text-secondary">18 min read</span>
-            </div>
-            <h3 class="text-h2 text-foreground group-hover:text-green transition-colors mb-2">
-              Agents All the Way Down: The Architecture Nobody Talks About
-            </h3>
-            <p class="text-body text-secondary mb-4">
-              90% of devs use AI tools daily - but almost nobody understands how hierarchical agent swarms actually ship code. Inside the promotion loops, protocol wars, and failure modes.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Agentic AI</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Multi-Agent</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">MCP</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">A2A</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">LangGraph</span>
-            </div>
-            <div class="flex items-center gap-4 text-small text-secondary">
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-                8 sections
-              </span>
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                Code examples
-              </span>
-              <span class="hidden sm:flex items-center gap-1 ml-auto text-green group-hover:translate-x-1 transition-transform">
-                Read article
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-              </span>
+          <div class="bg-elevated p-4">
+            <p class="text-xs text-secondary line-clamp-2">How hierarchical agent swarms actually ship code. Promotion loops, protocol wars, and failure modes.</p>
+            <div class="flex items-center justify-between mt-3">
+              <span class="text-[10px] text-secondary">Apr 29, 2026</span>
+              <span class="text-[10px] text-green group-hover:translate-x-1 transition-transform flex items-center gap-1">Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
 
-      <!-- Blog Post: Claude Code Source -->
-      <a 
-        href="https://mimran-khan.github.io/claude-code-source/" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="group block bg-elevated border border-border rounded-lg overflow-hidden hover:border-green/50 transition-all duration-300"
-      >
-        <div class="flex flex-col md:flex-row">
-          <!-- Thumbnail -->
-          <div class="md:w-72 lg:w-80 shrink-0 bg-gradient-to-br from-green/10 via-background to-cyan/10 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-border">
-            <div class="text-center">
-              <div class="text-6xl mb-2">🔓</div>
-              <div class="font-mono text-green text-lg font-bold">ClaudeCode</div>
-              <div class="text-xs text-secondary mt-1">512K+ Lines Exposed</div>
+        <!-- Blog: Claude Code Source -->
+        <a href="/blog/claude-code-source" class="group block rounded-xl overflow-hidden border border-border hover:border-green/50 transition-all duration-300">
+          <div class="relative h-40 overflow-hidden">
+            <img src="/og-blog-claude-code-source.png" alt="Claude Code Source Exposed" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-4 right-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 text-[10px] font-mono bg-green/20 text-green rounded backdrop-blur-sm">Featured</span>
+                <span class="text-[10px] text-white/70">10 min read</span>
+              </div>
+              <h3 class="text-sm font-semibold text-white group-hover:text-green transition-colors">
+                Claude Code Leaked | Anthropic's AI Agent Source Exposed
+              </h3>
             </div>
           </div>
-          
-          <!-- Content -->
-          <div class="flex-1 p-6">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded">Featured</span>
-              <span class="text-small text-secondary">Mar 31, 2026</span>
-            </div>
-            <h3 class="text-h2 text-foreground group-hover:text-green transition-colors mb-2">
-              Claude Code Leaked | 512K Lines of Anthropic's AI Agent Source Code Exposed
-            </h3>
-            <p class="text-body text-secondary mb-4">
-              Deep dive analysis of the leaked Claude Code source - 512,000+ lines of TypeScript revealing how Anthropic built the most advanced AI coding assistant. Explore the agentic loop, 40+ tools, and architectural patterns.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Agentic AI</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Claude Code</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">Source Analysis</span>
-              <span class="px-2 py-1 text-xs bg-background border border-border rounded">TypeScript</span>
-            </div>
-            <div class="flex items-center gap-4 text-small text-secondary">
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                10 min read
-              </span>
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                512K+ lines analyzed
-              </span>
-              <span class="hidden sm:flex items-center gap-1 ml-auto text-green group-hover:translate-x-1 transition-transform">
-                Read article
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-              </span>
+          <div class="bg-elevated p-4">
+            <p class="text-xs text-secondary line-clamp-2">Deep dive into Anthropic's most advanced AI coding assistant. The agentic loop, 40+ tools, and architectural patterns.</p>
+            <div class="flex items-center justify-between mt-3">
+              <span class="text-[10px] text-secondary">Mar 31, 2026</span>
+              <span class="text-[10px] text-green group-hover:translate-x-1 transition-transform flex items-center gap-1">Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
 
       </div>
     </div>
@@ -407,6 +244,27 @@ const education = [
             location={exp.data.location}
             highlights={exp.data.highlights}
           />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Tech Stack</p>
+      <div class="space-y-6">
+        {skillGroups.map((group) => (
+          <div>
+            <p class="text-small text-green font-mono mb-3">// {group.category}</p>
+            <div class="flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <span class="px-3 py-1.5 rounded-lg bg-elevated border border-border hover:border-green/50 transition-all duration-300 cursor-default text-sm text-foreground">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -449,121 +307,97 @@ const education = [
     </div>
   </section>
 
-  <!-- Certifications -->
+  <!-- Credentials -->
   <section class="section border-t border-border">
     <div class="container-main">
-      <p class="section-heading">Certifications</p>
+      <p class="section-heading">Credentials</p>
       
-      <div class="space-y-6">
-        <!-- Cloud & AI Platforms -->
+      <div class="space-y-8">
+        <!-- Patents -->
         <div>
-          <p class="text-small text-green font-mono mb-3">// Cloud & AI Platforms</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Azure AI Engineer Associate - Microsoft</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Azure AI Fundamentals - Microsoft</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Generative AI Fundamentals - Google Cloud</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">LLMs & Transformers - Google Cloud</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Image Generation & Captioning - Google Cloud</span>
+          <p class="text-small text-green font-mono mb-3">// Patents (3)</p>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2025</span>
+              <span class="text-foreground">Multimodal Sign Language Translation with CHGCMA</span>
+              <span class="text-xs text-secondary hidden sm:inline">Mercedes-Benz R&D</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2024</span>
+              <span class="text-foreground">Multimodal Generative AI for Service Personalization</span>
+              <span class="text-xs text-secondary hidden sm:inline">MIT WPU</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2024</span>
+              <span class="text-foreground">Cognitive Models for Enhanced UX & Design Creativity</span>
+              <span class="text-xs text-secondary hidden sm:inline">MIT WPU</span>
+            </div>
           </div>
         </div>
 
-        <!-- Machine Learning & AI -->
+        <!-- Awards -->
         <div>
-          <p class="text-small text-green font-mono mb-3">// Machine Learning & AI</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Machine Learning Specialization - Stanford</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Advanced Learning Algorithms - Stanford</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">ML Foundations - University of Washington</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">GANs - DeepLearning.AI</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">NLP with Python - Udemy</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Computer Vision & OpenCV - Udemy</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">OpenAI API & GPT - Udemy</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">AI Ethics - Udemy</span>
+          <p class="text-small text-green font-mono mb-3">// Awards</p>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2024</span>
+              <span class="text-foreground">IT Innovation Award - SyncX</span>
+              <span class="text-xs text-secondary hidden sm:inline">Mercedes-Benz R&D</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2023</span>
+              <span class="text-foreground">Intrapreneurship Award - Meet.IA</span>
+              <span class="text-xs text-secondary hidden sm:inline">Mercedes-Benz R&D</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2022</span>
+              <span class="text-foreground">Silver Star - Pioneering Spirit</span>
+              <span class="text-xs text-secondary hidden sm:inline">Mercedes-Benz R&D</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2022</span>
+              <span class="text-foreground">Best Cognitive Solution Award</span>
+              <span class="text-xs text-secondary hidden sm:inline">Amayztech</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2020</span>
+              <span class="text-foreground">Top Employee of the Year</span>
+              <span class="text-xs text-secondary hidden sm:inline">HGS</span>
+            </div>
           </div>
         </div>
 
-        <!-- RPA & Automation -->
+        <!-- Certifications -->
         <div>
-          <p class="text-small text-green font-mono mb-3">// RPA & Automation</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Master RPA Professional - Automation Anywhere</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Advanced RPA Professional - Automation Anywhere</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Level I Certification - Robocorp</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">AI Center & Specialized AI - UiPath</span>
+          <p class="text-small text-green font-mono mb-4">// Certifications</p>
+          <div class="space-y-4">
+            <div>
+              <p class="text-xs text-secondary font-mono mb-2 uppercase tracking-wider">AI & Machine Learning</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Azure AI Engineer Associate - Microsoft</span>
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Machine Learning Specialization - Stanford</span>
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Generative AI Fundamentals - Google Cloud</span>
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">LLMs & Transformers - Google Cloud</span>
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">GANs - DeepLearning.AI</span>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-secondary font-mono mb-2 uppercase tracking-wider">Engineering & DevOps</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">DevSecOps Grey Belt - Mercedes-Benz</span>
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">GitHub Professional Certificate</span>
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Master RPA Professional - Automation Anywhere</span>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-secondary font-mono mb-2 uppercase tracking-wider">Management & Process</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">SAFe 5 Advanced Scrum Master - Scaled Agile</span>
+                <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Six Sigma Black Belt - PMI</span>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- Project Management & Agile -->
-        <div>
-          <p class="text-small text-green font-mono mb-3">// Project Management & Agile</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">SAFe 5 Advanced Scrum Master - Scaled Agile</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Six Sigma Black Belt - PMI</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Six Sigma Green Belt - PMI</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">PMI-ACP Cert Prep - PMI</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Project Management Foundations - Google</span>
-          </div>
-        </div>
-
-        <!-- DevOps & Development -->
-        <div>
-          <p class="text-small text-green font-mono mb-3">// DevOps & Development</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">DevSecOps Grey Belt - Mercedes-Benz</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">GitHub Professional Certificate</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">SQL Bootcamp - Udemy</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">Power Apps & Automate - Microsoft</span>
-            <span class="px-3 py-1.5 bg-elevated border border-border rounded-lg text-small text-foreground">iOS & Swift Development - Udemy</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Patents -->
-  <section class="section border-t border-border">
-    <div class="container-main">
-      <p class="section-heading">Patents</p>
-      
-      <div class="space-y-3">
-        <div class="flex items-start gap-4 py-3 border-b border-border">
-          <span class="text-small font-mono text-green shrink-0 w-16">2025</span>
-          <div>
-            <p class="text-body text-foreground">Multimodal Sign Language Translation with CHGCMA</p>
-            <p class="text-small text-secondary">Pending - Mercedes-Benz R&D Center</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4 py-3 border-b border-border">
-          <span class="text-small font-mono text-green shrink-0 w-16">2024</span>
-          <div>
-            <p class="text-body text-foreground">Multimodal Generative AI for Service Personalization</p>
-            <p class="text-small text-secondary">Pending - MIT World Peace University</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4 py-3 border-b border-border last:border-0">
-          <span class="text-small font-mono text-green shrink-0 w-16">2024</span>
-          <div>
-            <p class="text-body text-foreground">Cognitive Models for Enhanced UX & Design Creativity</p>
-            <p class="text-small text-secondary">Pending - MIT World Peace University</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Achievements -->
-  <section class="section border-t border-border">
-    <div class="container-main">
-      <p class="section-heading">Awards</p>
-      
-      <div class="card">
-        {achievements.map((achievement) => (
-          <AchievementCard
-            title={achievement.data.title}
-            description={achievement.data.description}
-            year={achievement.data.year}
-          />
-        ))}
       </div>
     </div>
   </section>

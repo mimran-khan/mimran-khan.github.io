@@ -1,13 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import profileImage from '../assets/images/profile.png';
-
-const jsonContent = `{
-  "agentic_ai": ["MCP", "A2A", "LangGraph", "CrewAI", "AutoGen", "OpenAI Agents SDK", "PydanticAI", "Deep Agents"],
-  "machine_learning": ["PyTorch", "Transformers", "Diffusion Models", "RL", "XGBoost", "Sklearn"],
-  "architecture": ["System Design", "MLOps", "LLMOps", "Microservices", "Event-Driven", "K8s"],
-  "strategy": ["0→1 Products", "Enterprise AI", "LLM Evals", "AI Roadmaps"]
-}`;
 ---
 
 <section class="relative min-h-[70vh] flex items-center pt-16 overflow-hidden">
@@ -38,7 +31,7 @@ const jsonContent = `{
               Mohammed Imran Khan
             </h1>
             <p class="text-h3 text-secondary font-normal">
-              Senior ML Engineer <span class="text-green">@</span> Red Hat
+              I build autonomous AI systems that run in production.
             </p>
           </div>
           <Image 
@@ -54,27 +47,50 @@ const jsonContent = `{
       <div class="terminal mt-6 sm:mt-8 space-y-2 sm:space-y-3 opacity-0 animate-slide-up delay-200">
         <div class="flex items-start gap-2">
           <span class="text-green shrink-0">&gt;</span>
-          <span class="text-foreground text-sm sm:text-base">Agentic AI | Multi-Agent Orchestration, MCP Servers, LangGraph, A2A Protocol</span>
+          <span class="text-foreground text-sm sm:text-base">AI Engineering Leader. Ex-Mercedes-Benz R&D. Now at Red Hat.</span>
         </div>
         <div class="flex items-start gap-2">
           <span class="text-green shrink-0">&gt;</span>
-          <span class="text-foreground text-sm sm:text-base">AI Architecture | System Design, MLOps Pipelines, Production-grade LLM Infra</span>
+          <span class="text-foreground text-sm sm:text-base">Led AI/ML team at Mercedes-Benz - architecture, code reviews, production delivery</span>
         </div>
         <div class="flex items-start gap-2">
           <span class="text-green shrink-0">&gt;</span>
-          <span class="text-foreground text-sm sm:text-base">Tech Strategy | 0→1 AI Products, Platform Architecture, PoC to Production</span>
+          <span class="text-foreground text-sm sm:text-base">Built real-time speech translation serving 4,000 live attendees across 8 languages</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="text-green shrink-0">&gt;</span>
+          <span class="text-foreground text-sm sm:text-base">Now building AI Agent Platform at Red Hat - MCP, A2A, multi-agent orchestration</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="text-green shrink-0">&gt;</span>
+          <span class="text-foreground text-sm sm:text-base">Agentic AI | Multi-Agent Systems | LLMs | Production ML Infrastructure</span>
         </div>
       </div>
 
-      <div class="terminal mt-6 sm:mt-8 opacity-0 animate-slide-up delay-300">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="terminal-prompt">$</span>
-          <span class="terminal-command text-sm sm:text-base">cat focus.json</span>
+      <!-- Quick proof stats -->
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6 mt-6 opacity-0 animate-slide-up delay-200">
+        <div class="flex items-center gap-2">
+          <span class="text-green font-mono text-sm font-bold">3</span>
+          <span class="text-xs text-secondary">Patents</span>
         </div>
-        <pre class="bg-elevated/90 backdrop-blur-md border border-border/50 rounded-md p-3 sm:p-4 font-mono text-[10px] sm:text-xs md:text-sm text-green whitespace-pre-wrap break-words">{jsonContent}</pre>
+        <div class="w-px h-4 bg-border"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-green font-mono text-sm font-bold">5</span>
+          <span class="text-xs text-secondary">Awards</span>
+        </div>
+        <div class="w-px h-4 bg-border"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-green font-mono text-sm font-bold">10+</span>
+          <span class="text-xs text-secondary">AI Products shipped</span>
+        </div>
+        <div class="w-px h-4 bg-border"></div>
+        <div class="flex items-center gap-2">
+          <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span><span class="text-green font-mono text-sm font-bold">Active</span></span>
+          <span class="text-xs text-secondary">PhD Research</span>
+        </div>
       </div>
 
-      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mt-8 sm:mt-10 opacity-0 animate-slide-up delay-400">
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mt-8 sm:mt-10 opacity-0 animate-slide-up delay-300">
         <a href="#contact" class="btn btn-primary">
           Get in Touch
         </a>

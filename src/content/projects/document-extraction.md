@@ -7,7 +7,7 @@ techStack:
   - Python
   - Computer Vision
   - PDF Processing
-featured: true
+featured: false
 order: 6
 ---
 

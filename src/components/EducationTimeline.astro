@@ -7,6 +7,7 @@ interface Education {
   field: string;
   year: string;
   logo: ImageMetadata;
+  note?: string;
 }
 
 interface Props {
@@ -38,6 +39,7 @@ const { items } = Astro.props;
         <h3 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors">{edu.degree}</h3>
         <p class="text-xs text-secondary mt-1">{edu.field}</p>
         <p class="text-xs text-text-muted mt-0.5">{edu.institution}</p>
+        {edu.note && <p class="text-[10px] text-green/70 font-mono mt-1.5">{edu.note}</p>}
       </div>
       
       <!-- Bottom line accent -->

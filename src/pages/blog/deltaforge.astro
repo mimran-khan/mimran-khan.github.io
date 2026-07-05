@@ -52,7 +52,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
 <BaseLayout
   title="DeltaForge: Building an Autonomous Options Trading System"
   description="How I built DeltaForge, an autonomous intraday Nifty options trading system with multi-strategy signals, 9-gate risk management, compound sizing, and paper-live parity. From strategy to production."
-  image="/og-image.svg"
+  image="/og-blog-deltaforge.jpg"
   keywords="DeltaForge, Autonomous Trading, Options Trading, Nifty Options, Algorithmic Trading, Risk Management, Intraday Trading, Trading Bot, Quantitative Finance, Python Trading System"
   publishedDate="2025-05-01"
 >
@@ -105,108 +105,14 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
         Back to home
       </a>
 
-      <!-- Hero: Trading System Visualization -->
-      <div class="relative rounded-2xl border border-border overflow-hidden mb-8 bg-[#080c10]">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(63,185,80,0.08)_0%,transparent_60%)]"></div>
-        <div class="absolute inset-0 grid-bg opacity-60"></div>
-        
-        <svg viewBox="0 0 800 340" class="relative w-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <radialGradient id="glow-g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(63,185,80,0.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-            <radialGradient id="glow-c" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(57,211,213,0.2)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-            <radialGradient id="glow-y" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(210,153,34,0.2)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-          </defs>
-
-          <!-- Background glow -->
-          <circle cx="130" cy="170" r="100" fill="url(#glow-c)"/>
-          <circle cx="400" cy="170" r="120" fill="url(#glow-g)"/>
-          <circle cx="670" cy="170" r="100" fill="url(#glow-y)"/>
-
-          <!-- Data flow arrows -->
-          <line x1="195" y1="170" x2="265" y2="170" stroke="rgba(57,211,213,0.4)" stroke-width="1.5" stroke-dasharray="6,4" class="animate-dash"/>
-          <line x1="535" y1="170" x2="600" y2="170" stroke="rgba(63,185,80,0.4)" stroke-width="1.5" stroke-dasharray="6,4" class="animate-dash" style="animation-delay:0.5s"/>
-
-          <!-- Market Feed (left) -->
-          <rect x="50" y="130" width="145" height="80" rx="12" fill="rgba(57,211,213,0.06)" stroke="rgb(57,211,213)" stroke-width="1.5"/>
-          <text x="122" y="155" text-anchor="middle" fill="rgb(57,211,213)" font-size="11" font-family="monospace" font-weight="600">Market Feed</text>
-          <text x="122" y="172" text-anchor="middle" fill="rgba(57,211,213,0.5)" font-size="8" font-family="monospace">Angel One WebSocket</text>
-          <!-- Candlestick visualization -->
-          <rect x="80" y="182" width="3" height="18" fill="rgba(63,185,80,0.6)"/><line x1="81.5" y1="180" x2="81.5" y2="204" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
-          <rect x="92" y="186" width="3" height="12" fill="rgba(248,81,73,0.6)"/><line x1="93.5" y1="183" x2="93.5" y2="201" stroke="rgba(248,81,73,0.4)" stroke-width="0.8"/>
-          <rect x="104" y="180" width="3" height="16" fill="rgba(63,185,80,0.6)"/><line x1="105.5" y1="178" x2="105.5" y2="200" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
-          <rect x="116" y="184" width="3" height="14" fill="rgba(63,185,80,0.6)"/><line x1="117.5" y1="181" x2="117.5" y2="202" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
-          <rect x="128" y="178" width="3" height="20" fill="rgba(63,185,80,0.6)"/><line x1="129.5" y1="175" x2="129.5" y2="202" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
-          <rect x="140" y="182" width="3" height="10" fill="rgba(248,81,73,0.6)"/><line x1="141.5" y1="179" x2="141.5" y2="196" stroke="rgba(248,81,73,0.4)" stroke-width="0.8"/>
-          <rect x="152" y="176" width="3" height="22" fill="rgba(63,185,80,0.6)"/><line x1="153.5" y1="174" x2="153.5" y2="202" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
-
-          <!-- Strategy Engine (center) -->
-          <rect x="265" y="100" width="270" height="140" rx="14" fill="rgba(63,185,80,0.05)" stroke="rgb(63,185,80)" stroke-width="1.8"/>
-          <text x="400" y="125" text-anchor="middle" fill="rgb(63,185,80)" font-size="12" font-family="monospace" font-weight="700">MultiStrategyEngine</text>
-          
-          <!-- Strategy nodes inside -->
-          <rect x="280" y="140" width="105" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
-          <text x="332" y="156" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">Stochastic Cross</text>
-          
-          <rect x="395" y="140" width="125" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
-          <text x="457" y="156" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">Pullback-in-Trend</text>
-          
-          <rect x="280" y="172" width="105" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
-          <text x="332" y="188" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">Supertrend Flip</text>
-          
-          <rect x="395" y="172" width="78" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
-          <text x="434" y="188" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">VWAP Bias</text>
-          
-          <rect x="480" y="172" width="42" height="24" rx="5" fill="rgba(57,211,213,0.08)" stroke="rgba(57,211,213,0.4)" stroke-width="0.8"/>
-          <text x="501" y="188" text-anchor="middle" fill="rgb(57,211,213)" font-size="8" font-family="monospace">RSI</text>
-
-          <!-- Confidence output -->
-          <rect x="340" y="210" width="120" height="20" rx="4" fill="rgba(63,185,80,0.1)" stroke="rgba(63,185,80,0.4)" stroke-width="0.8"/>
-          <text x="400" y="224" text-anchor="middle" fill="rgb(63,185,80)" font-size="8" font-family="monospace">conf=72 BUY</text>
-
-          <!-- Risk Engine (right) -->
-          <rect x="600" y="120" width="150" height="100" rx="12" fill="rgba(210,153,34,0.06)" stroke="rgb(210,153,34)" stroke-width="1.5"/>
-          <text x="675" y="145" text-anchor="middle" fill="rgb(210,153,34)" font-size="11" font-family="monospace" font-weight="600">RiskEngine</text>
-          <text x="675" y="162" text-anchor="middle" fill="rgba(210,153,34,0.5)" font-size="8" font-family="monospace">9 gates</text>
-          
-          <!-- Gate visualization -->
-          <rect x="620" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="638" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="656" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="674" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="692" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="710" y="172" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="620" y="190" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="638" y="190" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-          <rect x="656" y="190" width="14" height="14" rx="2" fill="rgba(63,185,80,0.3)" stroke="rgba(63,185,80,0.5)" stroke-width="0.6"/>
-
-          <!-- Kill Switch -->
-          <rect x="640" y="255" width="90" height="30" rx="6" fill="rgba(248,81,73,0.08)" stroke="rgba(248,81,73,0.5)" stroke-width="1"/>
-          <text x="685" y="274" text-anchor="middle" fill="rgba(248,81,73,0.8)" font-size="9" font-family="monospace">Kill Switch</text>
-          <line x1="685" y1="255" x2="685" y2="220" stroke="rgba(248,81,73,0.3)" stroke-width="0.8" stroke-dasharray="3,3"/>
-
-          <!-- Execution output -->
-          <rect x="640" y="60" width="90" height="30" rx="6" fill="rgba(63,185,80,0.08)" stroke="rgba(63,185,80,0.5)" stroke-width="1"/>
-          <text x="685" y="79" text-anchor="middle" fill="rgb(63,185,80)" font-size="9" font-family="monospace">EXECUTE</text>
-          <line x1="685" y1="90" x2="685" y2="120" stroke="rgba(63,185,80,0.3)" stroke-width="0.8" stroke-dasharray="3,3"/>
-
-          <!-- Floating particles -->
-          <circle cx="200" cy="100" r="1.5" fill="rgba(57,211,213,0.3)" class="animate-float"/>
-          <circle cx="550" cy="80" r="1.2" fill="rgba(63,185,80,0.3)" class="animate-float" style="animation-delay:1s"/>
-          <circle cx="700" cy="300" r="1" fill="rgba(248,81,73,0.3)" class="animate-float" style="animation-delay:2s"/>
-          <circle cx="100" cy="280" r="1.3" fill="rgba(57,211,213,0.2)" class="animate-float" style="animation-delay:1.5s"/>
-
-          <!-- Title -->
-          <text x="400" y="30" text-anchor="middle" fill="rgba(63,185,80,0.12)" font-size="14" font-family="monospace" letter-spacing="8">DELTAFORGE TRADING SYSTEM</text>
-          
-          <!-- Bottom: Alerts + Dashboard -->
-          <rect x="50" y="290" width="700" height="22" rx="4" fill="rgba(63,185,80,0.02)" stroke="rgba(63,185,80,0.08)" stroke-width="0.5"/>
-          <text x="400" y="305" text-anchor="middle" fill="rgba(63,185,80,0.25)" font-size="7" font-family="monospace">Slack Alerts | iMessage | Telegram | FastAPI Dashboard | SQLite Performance DB | Live Equity Curve</text>
-        </svg>
+      <!-- Hero: Banner Image -->
+      <div class="rounded-2xl border border-border overflow-hidden mb-8">
+        <img src="/og-blog-deltaforge.jpg" alt="DeltaForge Trading System" class="w-full h-auto" />
       </div>
       
       <div class="flex items-center gap-2 mb-4">
         <span class="px-2 py-0.5 text-xs font-mono bg-green/10 text-green rounded border border-green/20">Build Log</span>
-        <span class="text-small text-secondary">Jul 4, 2026</span>
+        <span class="text-small text-secondary">Jun 5, 2026</span>
         <span class="text-text-muted">|</span>
         <span class="text-small text-secondary">14 min read</span>
       </div>
