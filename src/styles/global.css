@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  [id] {
+    scroll-margin-top: 4.5rem;
+  }
+
   :root {
     --color-bg: 13 17 23;
     --color-bg-elevated: 22 27 34;
@@ -57,11 +61,11 @@
   }
 
   .section {
-    @apply py-16 md:py-20;
+    @apply py-10 md:py-12;
   }
 
   .section-heading {
-    @apply text-xs font-medium uppercase tracking-widest text-green mb-8;
+    @apply text-xs font-medium uppercase tracking-widest text-green mb-6;
   }
 
   .card {
@@ -196,6 +200,10 @@
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+
+/* Hide scrollbar for sliders */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* Magnetic button effect - applied via JS */
 .btn {

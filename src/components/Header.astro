@@ -1,16 +1,17 @@
 ---
 const navLinks = [
-  { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#blog', label: 'Blog' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/series/demystifying-ai', label: 'Series' },
+  { href: '/#blog', label: 'Blog' },
+  { href: '/#projects', label: 'Projects' },
+  { href: '/#contact', label: 'Contact' },
 ];
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
   <nav class="container-main flex items-center justify-between h-14">
-    <a href="/" id="logo-scramble" class="font-mono text-green hover:text-green-dim transition-colors" data-text="~/imran-khan">
-      ~/imran-khan
+    <a href="/" id="logo-link" class="font-mono text-green hover:text-green-dim transition-colors cursor-pointer relative z-10 py-2 no-underline" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){event.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}else{window.location.href='/';}">
+      <span id="logo-text">~/imran-khan</span>
     </a>
     
     <div class="flex items-center gap-1">
@@ -99,7 +100,7 @@ const navLinks = [
   </div>
 </div>
 
-<script>
+<script is:inline>
   // Mobile menu toggle
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
@@ -157,14 +158,14 @@ const navLinks = [
     }
   });
 
-  // Text scramble effect for logo - cycles through 3 names: imran-khan, mimran-khan, predatorroxy
-  const logo = document.getElementById('logo-scramble');
-  if (logo) {
+  // Text scramble effect for logo
+  const logoText = document.getElementById('logo-text');
+  if (logoText) {
     const names = ['imran-khan', 'mimran-khan', 'predatorroxy'];
     let nameIndex = 0;
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*<>[]{}|';
     
-    let phase = 'hold'; // Start by showing first name
+    let phase = 'hold';
     let revealIndex = 0;
     let holdCount = 0;
     
@@ -174,8 +175,7 @@ const navLinks = [
       const currentText = getCurrentText();
       
       if (phase === 'scramble') {
-        // Scramble for a bit, then start revealing
-        logo.textContent = currentText
+        logoText.textContent = currentText
           .split('')
           .map((char) => {
             if (char === ' ' || char === '/' || char === '~') return char;
@@ -184,14 +184,13 @@ const navLinks = [
           .join('');
         
         holdCount++;
-        if (holdCount > 40) { // ~2 seconds of scrambling
+        if (holdCount > 40) {
           phase = 'reveal';
           revealIndex = 0;
           holdCount = 0;
         }
       } else if (phase === 'reveal') {
-        // Progressively reveal text from left to right
-        logo.textContent = currentText
+        logoText.textContent = currentText
           .split('')
           .map((char, i) => {
             if (char === ' ' || char === '/' || char === '~') return char;
@@ -206,11 +205,9 @@ const navLinks = [
           holdCount = 0;
         }
       } else if (phase === 'hold') {
-        // Show current name for a while
-        logo.textContent = currentText;
+        logoText.textContent = currentText;
         holdCount++;
-        if (holdCount > 100) { // ~5 seconds of showing name
-          // Move to next name and start scramble
+        if (holdCount > 100) {
           nameIndex = (nameIndex + 1) % names.length;
           phase = 'scramble';
           holdCount = 0;

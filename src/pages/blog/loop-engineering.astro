@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
 
 const codeLoop = `<span class="text-cyan">name</span>: daily-triage
 <span class="text-cyan">trigger</span>: cron("0 9 * * MON-FRI")
@@ -53,7 +54,7 @@ const codeDeltaForge = `<span class="text-text-muted"># DeltaForge - loop engine
   description="You shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents. Here's why this is the biggest shift in developer workflow since CI/CD, and what it means for the agentic world."
   image="/og-blog-loop-engineering.png"
   keywords="Loop Engineering, Prompt Engineering, Agentic AI, Coding Agents, CI/CD, AI Workflows, Multi-Agent Systems, Developer Workflow, Autonomous Agents, LLM Agents"
-  publishedDate="2025-06-15"
+  publishedDate="2026-07-04"
 >
 
   <style>
@@ -198,12 +199,15 @@ const codeDeltaForge = `<span class="text-text-muted"># DeltaForge - loop engine
         <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">DevEx</span>
       </div>
 
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
-        <div>
-          <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
-          <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
+          <div>
+            <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
+            <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
+          </div>
         </div>
+        <ShareButtons title="Loop Engineering: The Paradigm That Kills Prompt Engineering" url="/blog/loop-engineering" />
       </div>
     </div>
   </section>
@@ -263,7 +267,7 @@ const codeDeltaForge = `<span class="text-text-muted"># DeltaForge - loop engine
             <div class="absolute inset-0 bg-gradient-to-b from-green/3 to-transparent"></div>
             <div class="relative space-y-4">
               <div class="flex items-center gap-4 opacity-40">
-                <span class="font-mono text-xs text-secondary w-24 shrink-0">2022–2024</span>
+                <span class="font-mono text-xs text-secondary w-24 shrink-0">2022-2024</span>
                 <div class="flex-1 border border-border/50 rounded-lg px-4 py-2.5 bg-background/50">
                   <span class="font-mono text-sm text-secondary">Prompt Engineering</span>
                   <span class="text-xs text-text-muted ml-3">"What should I say to the model?"</span>
@@ -462,7 +466,7 @@ const codeDeltaForge = `<span class="text-text-muted"># DeltaForge - loop engine
             <div class="bg-elevated border border-red-500/20 rounded-xl p-6">
               <h4 class="font-mono text-sm text-red-400 mb-3">Runaway Cost</h4>
               <p class="text-body text-secondary leading-relaxed mb-4">
-                Uber burned their entire 2026 AI budget in four months. A poorly-configured loop reportedly produced a $47,000 overnight bill. Gartner estimates agentic AI requires 5–30x more tokens per task than standard chatbot interactions.
+                Uber burned their entire 2026 AI budget in four months. A poorly-configured loop reportedly produced a $47,000 overnight bill. Gartner estimates agentic AI requires 5-30x more tokens per task than standard chatbot interactions.
               </p>
               <p class="text-body text-secondary leading-relaxed">
                 The guard-rail trinity is non-negotiable: <strong class="text-foreground">hard iteration cap</strong> + <strong class="text-foreground">no-progress detection</strong> + <strong class="text-foreground">spend ceiling</strong>. Without all three, what you're running isn't a loop. It's a fire hose pointed at your billing page.

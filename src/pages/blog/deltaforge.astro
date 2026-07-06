@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
 
 const codeStrategy = `<span class="text-cyan">class</span> <span class="text-foreground">MultiStrategyEngine</span>:
     strategies = [
@@ -54,7 +55,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
   description="How I built DeltaForge, an autonomous intraday Nifty options trading system with multi-strategy signals, 9-gate risk management, compound sizing, and paper-live parity. From strategy to production."
   image="/og-blog-deltaforge.jpg"
   keywords="DeltaForge, Autonomous Trading, Options Trading, Nifty Options, Algorithmic Trading, Risk Management, Intraday Trading, Trading Bot, Quantitative Finance, Python Trading System"
-  publishedDate="2025-05-01"
+  publishedDate="2026-06-05"
 >
 
   <style>
@@ -133,12 +134,15 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
         <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Quantitative Finance</span>
       </div>
 
-      <div class="flex items-center gap-3 mb-6">
-        <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
-        <div>
-          <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
-          <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
+          <div>
+            <p class="text-small text-foreground font-medium">Mohammed Imran Khan</p>
+            <p class="text-xs text-secondary">Senior ML Engineer at Red Hat | Ex-Mercedes-Benz R&D</p>
+          </div>
         </div>
+        <ShareButtons title="DeltaForge: Building an Autonomous Options Trading System" url="/blog/deltaforge" />
       </div>
 
       <div class="flex flex-wrap gap-3">
@@ -856,7 +860,7 @@ const codeCLI = `<span class="text-cyan">$</span> df trade
               <p class="text-body text-foreground font-medium">Mohammed Imran Khan</p>
               <p class="text-small text-secondary">Senior ML Engineer at Red Hat. Ex-Principal ML Engineer at Mercedes-Benz R&D Center. PhD Scholar. Building autonomous trading systems and agentic AI platforms.</p>
               <div class="flex items-center gap-3 mt-2">
-                <a href="https://linkedin.com/in/mohdimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">LinkedIn</a>
                 <a href="https://github.com/mimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">GitHub</a>
                 <a href="mailto:mohammed_imran.khan@outlook.com" class="text-small text-green hover:underline">Email</a>
               </div>

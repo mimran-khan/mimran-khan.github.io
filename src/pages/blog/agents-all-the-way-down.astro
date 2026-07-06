@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
 
 const codeRouting = `<span class="text-cyan">class</span> <span class="text-foreground">AgentRouter</span>:
     <span class="text-cyan">def</span> <span class="text-foreground">__init__</span>(self, candidates: list[Agent]):
@@ -91,9 +92,9 @@ app = graph.compile()`;
 <BaseLayout
   title="Agents All the Way Down: The Architecture Nobody Talks About"
   description="90% of developers use AI tools daily - but almost nobody understands how hierarchical agent swarms actually ship code. Inside the promotion/demotion loops, protocol wars, and failure modes rewriting software engineering."
-  image="/og-blog-agents.png"
+  image="/og-blog-agents-all-the-way-down.png"
   keywords="AI Agents, Multi-Agent Architecture, Agent Swarms, Hierarchical Agents, LangGraph, Thompson Sampling, Agent Routing, Software Engineering AI, Autonomous Coding, Agent Protocol"
-  publishedDate="2025-06-20"
+  publishedDate="2026-04-29"
 >
 
   <style>
@@ -275,6 +276,8 @@ app = graph.compile()`;
         <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">LangGraph</span>
         <span class="px-2 py-1 text-xs bg-elevated border border-border rounded">Software Engineering</span>
       </div>
+
+      <ShareButtons title="Agents All the Way Down: The Architecture Nobody Talks About" url="/blog/agents-all-the-way-down" />
 
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center text-green font-mono text-sm font-bold border border-green/30">IK</div>
@@ -1083,7 +1086,7 @@ app = graph.compile()`;
               <p class="text-body text-foreground font-medium">Mohammed Imran Khan</p>
               <p class="text-small text-secondary">Senior ML Engineer at Red Hat. Ex-Principal ML Engineer at Mercedes-Benz R&D Center. PhD Scholar. Building multi-agent systems and agentic AI platforms.</p>
               <div class="flex items-center gap-3 mt-2">
-                <a href="https://linkedin.com/in/mohdimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">LinkedIn</a>
                 <a href="https://github.com/mimran-khan" target="_blank" rel="noopener noreferrer" class="text-small text-green hover:underline">GitHub</a>
                 <a href="mailto:mohammed_imran.khan@outlook.com" class="text-small text-green hover:underline">Email</a>
               </div>

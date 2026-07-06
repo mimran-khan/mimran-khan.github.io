@@ -23,5 +23,8 @@ pnpm-debug.log*
 *.swp
 *.swo
 
+# local tracker (not published)
+.series-tracker.json
+
 # astro
 .astro/

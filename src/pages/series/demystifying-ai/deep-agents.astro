@@ -1,0 +1,473 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+
+const codeExample = `<span class="text-cyan">from</span> deepagents <span class="text-cyan">import</span> create_deep_agent
+<span class="text-cyan">from</span> langchain_openai <span class="text-cyan">import</span> ChatOpenAI
+
+agent = create_deep_agent(
+    model=ChatOpenAI(model=<span class="text-green">"gpt-4o"</span>),
+    tools=[web_search, code_executor],
+    system_prompt=<span class="text-green">"You are a research expert."</span>,
+)
+
+<span class="text-text-muted"># Planning, file system, sub-agents, memory - all built in.</span>
+result = <span class="text-cyan">await</span> agent.ainvoke({
+    <span class="text-green">"messages"</span>: [{<span class="text-green">"role"</span>: <span class="text-green">"user"</span>, <span class="text-green">"content"</span>: <span class="text-green">"Research quantum computing breakthroughs in 2026"</span>}]
+})`;
+---
+
+<BaseLayout
+  title="What are LangChain Deep Agents? | Demystifying AI in 5 Minutes"
+  description="LangChain shipped Deep Agents - an opinionated agent harness that bundles planning, file systems, sub-agents, and memory on top of LangGraph. Here's the 3-layer stack that changes everything."
+  image="/og-series-ep01-deep-agents.png"
+  keywords="LangChain Deep Agents, LangGraph, Agent Harness, AI Agents, Sub-Agents, TodoList Middleware, Virtual File System, Agent Memory, create_deep_agent, Agentic AI"
+  publishedDate="2026-07-06"
+>
+
+  <style>
+    .layer-card {
+      transition: all 0.3s ease;
+    }
+    .layer-card:hover {
+      transform: translateX(4px);
+    }
+    .superpower-card {
+      transition: all 0.3s ease;
+    }
+    .superpower-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .code-block {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+    .vs-card {
+      transition: all 0.3s ease;
+    }
+    .vs-card:hover {
+      transform: scale(1.01);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep01-deep-agents.png" alt="Deep Agents Architecture - 3-layer stack with Planning, FileSystem, Sub-Agents, and Memory" class="w-full h-auto" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2.5 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EPISODE 01
+        </span>
+        <span class="px-2.5 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">Hot Topic</span>
+        <span class="text-[10px] text-secondary font-mono">Jul 6, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min read</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        What are LangChain Deep Agents?
+      </h1>
+      <p class="text-base text-secondary max-w-2xl mb-5">
+        LangChain shipped something that makes CrewAI and AutoGen look like toys. Nobody noticed. Here's the 3-layer stack that changes everything.
+      </p>
+
+      <ShareButtons title="What are LangChain Deep Agents?" url="/series/demystifying-ai/deep-agents" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-10">
+
+    <!-- TLDR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Deep Agents</strong> = LangGraph + planning + file system + sub-agents + memory. One <code class="text-green bg-green/10 px-1.5 py-0.5 rounded text-xs">create_deep_agent()</code> call. Production-ready out of the box.
+      </p>
+    </div>
+
+    <!-- The Problem: Visual Comparison -->
+    <div class="max-w-3xl mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Shallow vs Deep
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Shallow Agent -->
+        <div class="vs-card rounded-xl border border-red-500/20 bg-red-500/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+              <svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <span class="text-xs font-bold text-red-400">Shallow Agent</span>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60">&#10005;</span> Forgets after 5 steps
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60">&#10005;</span> No planning capability
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60">&#10005;</span> Context window fills up
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60">&#10005;</span> Single-threaded execution
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60">&#10005;</span> No cross-session memory
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-red-500/10">
+            <span class="text-[10px] font-mono text-red-400/60">LLM + tools in a loop</span>
+          </div>
+        </div>
+
+        <!-- Deep Agent -->
+        <div class="vs-card rounded-xl border border-green/20 bg-green/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-green/10 border border-green/20 flex items-center justify-center">
+              <svg class="w-3 h-3 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">Deep Agent</span>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green">&#10003;</span> Coherent over 200+ steps
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green">&#10003;</span> Built-in todo planning
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green">&#10003;</span> Virtual file system offloads context
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green">&#10003;</span> Parallel sub-agent delegation
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green">&#10003;</span> Persistent memory across sessions
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-green/10">
+            <span class="text-[10px] font-mono text-green/60">Same loop + 4 superpowers</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary mt-4">
+        Claude Code, Manus, and Deep Research all use this pattern. <strong class="text-foreground">Deep Agents packages it into a library.</strong>
+      </p>
+    </div>
+
+    <!-- The 3-Layer Stack -->
+    <div class="max-w-3xl mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The 3-Layer Stack
+      </h2>
+      <p class="text-xs text-secondary mb-6">Not a replacement for LangGraph. A layer on top. All three compose.</p>
+
+      <div class="space-y-3">
+        <div class="layer-card rounded-lg border border-green/30 bg-green/[0.05] p-4 pl-5 border-l-4 border-l-green">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-green font-bold px-1.5 py-0.5 bg-green/10 rounded">L3</span>
+                <h3 class="text-sm font-semibold text-foreground">Deep Agents</h3>
+              </div>
+              <p class="text-xs text-secondary mt-1 mb-0">Full harness. Planning + FS + sub-agents + memory. Start here.</p>
+            </div>
+            <code class="text-[10px] font-mono text-green/60 shrink-0 ml-4 hidden sm:block">create_deep_agent()</code>
+          </div>
+        </div>
+
+        <div class="layer-card rounded-lg border border-cyan/30 bg-cyan/[0.03] p-4 pl-5 border-l-4 border-l-cyan">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-cyan font-bold px-1.5 py-0.5 bg-cyan/10 rounded">L2</span>
+                <h3 class="text-sm font-semibold text-foreground">create_agent</h3>
+              </div>
+              <p class="text-xs text-secondary mt-1 mb-0">Minimal ReAct loop. Model + tools = working agent.</p>
+            </div>
+            <code class="text-[10px] font-mono text-cyan/60 shrink-0 ml-4 hidden sm:block">create_react_agent()</code>
+          </div>
+        </div>
+
+        <div class="layer-card rounded-lg border border-violet-500/30 bg-violet-500/[0.03] p-4 pl-5 border-l-4 border-l-violet-500">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-violet-400 font-bold px-1.5 py-0.5 bg-violet-500/10 rounded">L1</span>
+                <h3 class="text-sm font-semibold text-foreground">LangGraph</h3>
+              </div>
+              <p class="text-xs text-secondary mt-1 mb-0">Raw graph runtime. Full control over everything.</p>
+            </div>
+            <code class="text-[10px] font-mono text-violet-400/60 shrink-0 ml-4 hidden sm:block">StateGraph()</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 4 Superpowers -->
+    <div class="max-w-3xl mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The 4 Superpowers
+      </h2>
+      <p class="text-xs text-secondary mb-6">Auto-injected middleware. You get all four with zero config.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="superpower-card rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-foreground">Planning</h3>
+              <p class="text-[10px] text-green font-mono">write_todos tool</p>
+            </div>
+          </div>
+          <p class="text-xs text-secondary mb-0">
+            Agent creates and checks off tasks. Stays focused across 50+ steps. Same pattern as Claude Code.
+          </p>
+        </div>
+
+        <div class="superpower-card rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-foreground">Virtual File System</h3>
+              <p class="text-[10px] text-cyan font-mono">read/write with permissions</p>
+            </div>
+          </div>
+          <p class="text-xs text-secondary mb-0">
+            Offloads large results. Stores artifacts. Context window never blows up.
+          </p>
+        </div>
+
+        <div class="superpower-card rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-foreground">Sub-Agents</h3>
+              <p class="text-[10px] text-violet-400 font-mono">isolated context workers</p>
+            </div>
+          </div>
+          <p class="text-xs text-secondary mb-0">
+            Delegate tasks to parallel workers. They run isolated, return results. Parent context stays clean.
+          </p>
+        </div>
+
+        <div class="superpower-card rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-foreground">Long-term Memory</h3>
+              <p class="text-[10px] text-yellow-400 font-mono">LangGraph Store</p>
+            </div>
+          </div>
+          <p class="text-xs text-secondary mb-0">
+            Remembers preferences and decisions across sessions. Gets better with every use.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Markdown is the Brain -->
+    <div class="max-w-3xl mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> .md Files Are the Brain
+      </h2>
+      <p class="text-xs text-secondary mb-6">The real config layer isn't Python or YAML. It's plain markdown.</p>
+
+      <div class="rounded-xl border border-border bg-elevated overflow-hidden">
+        <!-- Visual header -->
+        <div class="p-4 border-b border-border bg-green/[0.02]">
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1.5">
+              <div class="w-3 h-3 rounded bg-green/20 border border-green/30"></div>
+              <span class="text-[10px] font-mono text-green">CLAUDE.md</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <div class="w-3 h-3 rounded bg-cyan/20 border border-cyan/30"></div>
+              <span class="text-[10px] font-mono text-cyan">AGENTS.md</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <div class="w-3 h-3 rounded bg-violet-500/20 border border-violet-500/30"></div>
+              <span class="text-[10px] font-mono text-violet-400">rules/*.md</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <div class="w-3 h-3 rounded bg-yellow-500/20 border border-yellow-500/30"></div>
+              <span class="text-[10px] font-mono text-yellow-400">skills/*.md</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid of what lives in md -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 divide-x divide-y divide-border">
+          <div class="p-4 text-center">
+            <div class="text-lg mb-1">&#128221;</div>
+            <span class="text-[10px] font-bold text-foreground block">System Prompt</span>
+            <span class="text-[9px] text-secondary">Core instructions</span>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-lg mb-1">&#9889;</div>
+            <span class="text-[10px] font-bold text-foreground block">Skills</span>
+            <span class="text-[9px] text-secondary">On-demand capabilities</span>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-lg mb-1">&#128218;</div>
+            <span class="text-[10px] font-bold text-foreground block">Rules</span>
+            <span class="text-[9px] text-secondary">Guardrails &amp; constraints</span>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-lg mb-1">&#129504;</div>
+            <span class="text-[10px] font-bold text-foreground block">Memory</span>
+            <span class="text-[9px] text-secondary">Learned preferences</span>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-lg mb-1">&#128203;</div>
+            <span class="text-[10px] font-bold text-foreground block">Plans</span>
+            <span class="text-[9px] text-secondary">Task strategies</span>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-lg mb-1">&#127919;</div>
+            <span class="text-[10px] font-bold text-foreground block">Context</span>
+            <span class="text-[9px] text-secondary">Domain knowledge</span>
+          </div>
+        </div>
+
+        <!-- Punchline -->
+        <div class="p-4 border-t border-border bg-green/[0.02]">
+          <p class="text-xs text-foreground/90 m-0 text-center">
+            <strong>Change the markdown, change the agent.</strong> No redeployment. No code changes. Just edit a file.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-4 rounded-lg border border-dashed border-green/20 p-3 bg-green/[0.01]">
+        <p class="text-xs text-secondary m-0">
+          <strong class="text-foreground">Key insight:</strong> If you can write a README, you can program a production agent. The .md files <em>are</em> the agent.
+        </p>
+      </div>
+    </div>
+
+    <!-- Code Example -->
+    <div class="max-w-3xl mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> 5 Lines to Start
+      </h2>
+      <p class="text-xs text-secondary mb-4">Everything else is handled by the harness.</p>
+
+      <div class="rounded-xl border border-border bg-[#0d1117] overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-elevated/50">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green/60"></span>
+          <span class="text-[10px] font-mono text-secondary ml-2">main.py</span>
+        </div>
+        <pre class="code-block p-5 overflow-x-auto text-secondary"><Fragment set:html={codeExample} /></pre>
+      </div>
+    </div>
+
+    <!-- When to Use What -->
+    <div class="max-w-3xl mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Pick Your Layer
+      </h2>
+      <p class="text-xs text-secondary mb-4">Start at the top. Drop down only when needed.</p>
+
+      <div class="rounded-xl border border-border overflow-hidden">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border bg-elevated/50">
+              <th class="text-left p-3 font-mono text-green">You need...</th>
+              <th class="text-left p-3 font-mono text-green">Use this</th>
+            </tr>
+          </thead>
+          <tbody class="text-secondary">
+            <tr class="border-b border-border">
+              <td class="p-3">Quick chatbot, single tool</td>
+              <td class="p-3"><code class="text-cyan bg-cyan/10 px-1.5 py-0.5 rounded">create_agent</code></td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="p-3 font-medium text-foreground">Research, code gen, multi-step work</td>
+              <td class="p-3"><code class="text-green bg-green/10 px-1.5 py-0.5 rounded font-bold">Deep Agents</code></td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="p-3">Custom control flow, complex branching</td>
+              <td class="p-3"><code class="text-violet-400 bg-violet-500/10 px-1.5 py-0.5 rounded">LangGraph</code></td>
+            </tr>
+            <tr>
+              <td class="p-3">Both: harness + custom sub-graph</td>
+              <td class="p-3"><code class="text-yellow-400 bg-yellow-500/10 px-1.5 py-0.5 rounded">Compose them</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 max-w-3xl mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Deep Agents is what happens when you package the Claude Code architecture into a library. <strong>Planning, file system, sub-agents, memory.</strong> One pip install. If you're building anything beyond a wrapper, this is your starting point in 2026.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Thursday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-violet-400 font-bold">#02</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded">Research Paper</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Is Grep All You Need? Agent Harness Paper</h3>
+        <p class="text-xs text-secondary/70">A research team tested grep vs vector search inside AI agent loops. The harness matters more than retrieval.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Thu, Sun.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">
+          All Episodes
+        </a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+  </article>
+
+</BaseLayout>

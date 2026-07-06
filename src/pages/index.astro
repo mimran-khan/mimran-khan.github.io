@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import EducationTimeline from '../components/EducationTimeline.astro';
 import EventsCarousel from '../components/EventsCarousel.astro';
@@ -13,6 +12,12 @@ import vtu from '../assets/images/education/vtu.png';
 import amrita from '../assets/images/education/amrita.png';
 
 const experiences = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const companyLogos: Record<string, { src: string; height: string; invert: boolean }> = {
+  'Red Hat': { src: '/logos/redhat.png', height: 'h-16', invert: false },
+  'Mercedes-Benz R&D': { src: '/logos/mercedes-benz.png', height: 'h-20', invert: true },
+  'Amayztech LLC': { src: '/logos/amayztech.png', height: 'h-8', invert: true },
+  'Hinduja Global Solutions': { src: '/logos/hgs.png', height: 'h-14', invert: true },
+};
 const projects = (await getCollection('projects')).filter(p => p.data.featured).sort((a, b) => a.data.order - b.data.order);
 
 const skillGroups = [
@@ -79,44 +84,131 @@ const education = [
   description="Imran Khan - Senior ML Engineer at Red Hat. Ex-Principal ML Engineer at Mercedes-Benz R&D. PhD Scholar, IIT Kanpur, BITS Pilani. Agentic AI, Multi-Agent Systems, RAG, LLMs."
 >
   <Hero />
-  
-  <!-- Now Building - Spotlight -->
-  <section class="border-y border-border py-8">
-    <div class="container-main">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <a href="https://mimran-khan.github.io/deltaforge/" target="_blank" rel="noopener noreferrer" class="group flex items-start gap-4 p-5 rounded-xl border border-border bg-elevated hover:border-green/50 transition-all">
-          <div class="w-12 h-12 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
-            <span class="font-mono text-green text-lg font-bold">&#916;F</span>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <h3 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors">DeltaForge</h3>
-              <span class="flex items-center gap-1 text-[10px] text-green font-mono"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>LIVE</span>
+
+  <!-- Series: Demystifying AI -->
+  <section id="series" class="relative border-t border-border overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-green/[0.03] via-background to-violet-500/[0.03]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(63,185,80,0.05)_0%,transparent_50%)]"></div>
+
+    <div class="relative container-main py-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
-            <p class="text-xs text-secondary mb-2">Autonomous Nifty options trading engine with 5 strategies, 9 risk gates, and compound position sizing.</p>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">Live since Jun 2026</span>
-              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">5 strategies</span>
-              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">9 risk gates</span>
-            </div>
+            <a href="/series/demystifying-ai" class="text-xl font-bold text-foreground hover:text-green transition-colors">Demystifying AI in 5 Minutes</a>
+            <span class="flex items-center gap-1 text-[10px] text-green font-mono"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>LIVE</span>
           </div>
+          <p class="text-sm text-secondary">Deep dives into cutting-edge AI. Research papers, hot topics, and new releases broken down for builders.</p>
+        </div>
+        <a href="/series/demystifying-ai" class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-green text-xs font-mono hover:bg-green/20 transition-colors">
+          Full series <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
-        <a href="https://github.com/redhat-data-and-ai" target="_blank" rel="noopener noreferrer" class="group flex items-start gap-4 p-5 rounded-xl border border-border bg-elevated hover:border-cyan/50 transition-all">
-          <div class="w-12 h-12 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
-            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <h3 class="text-sm font-semibold text-foreground group-hover:text-cyan transition-colors">AI Agent Platform</h3>
-              <span class="text-[10px] text-cyan font-mono">@ Red Hat</span>
+      </div>
+
+      <div class="grid grid-cols-7 gap-2 mb-6">
+        <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-green/5 border border-green/10">
+          <span class="text-[9px] font-mono text-secondary">MON</span>
+          <span class="w-2 h-2 rounded-full bg-green"></span>
+          <span class="text-[8px] font-mono text-green hidden md:block">HOT</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-subtle/30 border border-border/50 opacity-40">
+          <span class="text-[9px] font-mono text-secondary">TUE</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-border"></span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-subtle/30 border border-border/50 opacity-40">
+          <span class="text-[9px] font-mono text-secondary">WED</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-border"></span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-violet-500/5 border border-violet-500/10">
+          <span class="text-[9px] font-mono text-secondary">THU</span>
+          <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+          <span class="text-[8px] font-mono text-violet-400 hidden md:block">PAPER</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-subtle/30 border border-border/50 opacity-40">
+          <span class="text-[9px] font-mono text-secondary">FRI</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-border"></span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-subtle/30 border border-border/50 opacity-40">
+          <span class="text-[9px] font-mono text-secondary">SAT</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-border"></span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-cyan/5 border border-cyan/10">
+          <span class="text-[9px] font-mono text-secondary">SUN</span>
+          <span class="w-2 h-2 rounded-full bg-cyan"></span>
+          <span class="text-[8px] font-mono text-cyan hidden md:block">RELEASE</span>
+        </div>
+      </div>
+
+      <!-- Published -->
+      <div class="mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <p class="text-xs font-mono text-green">// Published</p>
+          <div class="flex-1 h-px bg-border"></div>
+          <span class="text-[10px] font-mono text-secondary">1 episode</span>
+        </div>
+
+        <div id="series-published-track" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide">
+          <a href="/series/demystifying-ai/deep-agents" class="snap-start shrink-0 w-full md:w-[calc(50%-0.5rem)] group relative rounded-xl border border-border bg-elevated overflow-hidden hover:border-green/40 transition-all duration-300">
+            <div class="absolute top-0 left-0 w-1 h-full bg-green/60 rounded-l-xl"></div>
+            <div class="p-5 pl-6">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs font-mono text-green font-bold">#01</span>
+                <span class="px-2 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">Hot Topic</span>
+                <span class="text-[10px] text-secondary ml-auto">Monday, Jul 6</span>
+              </div>
+              <h3 class="text-base font-semibold text-foreground group-hover:text-green transition-colors mb-2">
+                What are LangChain Deep Agents?
+              </h3>
+              <p class="text-xs text-secondary line-clamp-2">LangChain shipped something that makes CrewAI and AutoGen look like toys. Nobody noticed. Here's the 3-layer stack that changes everything.</p>
+              <div class="flex items-center gap-2 mt-3">
+                <span class="text-[10px] text-secondary">5 min read</span>
+                <span class="text-[10px] text-green group-hover:translate-x-1 transition-transform flex items-center gap-1 ml-auto">Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
+              </div>
             </div>
-            <p class="text-xs text-secondary mb-2">MCP servers, A2A protocol, and multi-agent orchestration. Open source tooling for building production-grade AI agents.</p>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">MCP</span>
-              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">A2A Protocol</span>
-              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">Open Source</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Up Next -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <p class="text-xs font-mono text-violet-400">// Up Next</p>
+          <div class="flex-1 h-px bg-border"></div>
+          <span class="text-[10px] font-mono text-secondary">Thursday, Jul 10</span>
+        </div>
+
+        <div class="group relative rounded-xl border border-dashed border-violet-500/30 bg-elevated/50 overflow-hidden">
+          <div class="absolute top-0 left-0 w-1 h-full bg-violet-500/30 rounded-l-xl"></div>
+          <div class="p-5 pl-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-mono text-violet-400 font-bold">#02</span>
+              <span class="px-2 py-0.5 text-[9px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded">Research Paper</span>
+              <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+            </div>
+            <h3 class="text-base font-semibold text-foreground/70 mb-2">
+              Is Grep All You Need? Agent Harness Paper
+            </h3>
+            <p class="text-xs text-secondary/70 line-clamp-2">A research team tested grep vs vector search inside AI agent loops. The harness matters more than retrieval. Breaking down arxiv 2605.15184.</p>
+            <div class="flex items-center gap-2 mt-3">
+              <span class="text-[10px] text-secondary">5 min read</span>
+              <span class="text-[10px] text-violet-400/60 flex items-center gap-1 ml-auto">Drops Thu</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mt-6">
+        <div class="flex items-center gap-4 text-[10px] text-secondary font-mono">
+          <span>3 episodes/week</span>
+          <span class="text-border">|</span>
+          <span>Mon &middot; Thu &middot; Sun</span>
+          <span class="text-border">|</span>
+          <span>150+ episodes/year</span>
+        </div>
+        <a href="/series/demystifying-ai" class="md:hidden text-xs text-green flex items-center gap-1 font-mono">
+          Full series <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
       </div>
     </div>
@@ -229,47 +321,6 @@ const education = [
     </div>
   </section>
 
-  <!-- Experience -->
-  <section id="experience" class="section border-t border-border">
-    <div class="container-main">
-      <p class="section-heading">Experience</p>
-      
-      <div class="space-y-4">
-        {experiences.map((exp) => (
-          <ExperienceCard
-            company={exp.data.company}
-            role={exp.data.role}
-            startDate={exp.data.startDate}
-            endDate={exp.data.endDate}
-            location={exp.data.location}
-            highlights={exp.data.highlights}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section class="section border-t border-border">
-    <div class="container-main">
-      <p class="section-heading">Tech Stack</p>
-      <div class="space-y-6">
-        {skillGroups.map((group) => (
-          <div>
-            <p class="text-small text-green font-mono mb-3">// {group.category}</p>
-            <div class="flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
-                <span class="px-3 py-1.5 rounded-lg bg-elevated border border-border hover:border-green/50 transition-all duration-300 cursor-default text-sm text-foreground">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- Events & Speaking -->
   <section class="section border-t border-border">
     <div class="container-main">
@@ -278,11 +329,202 @@ const education = [
     </div>
   </section>
 
+  <!-- Experience -->
+  <section id="experience" class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Experience</p>
+    </div>
+
+    <div class="exp-carousel container-main">
+      <div class="relative overflow-hidden rounded-xl border border-border bg-elevated" id="exp-container">
+        {experiences.map((exp, i) => {
+          const isPresent = !exp.data.endDate;
+          const dateRange = exp.data.endDate ? `${exp.data.startDate} - ${exp.data.endDate}` : `${exp.data.startDate} - Present`;
+          const logo = companyLogos[exp.data.company];
+          return (
+            <div class={`exp-slide ${i === 0 ? '' : 'hidden'}`} data-slide={i}>
+              <div class="relative h-32 overflow-hidden bg-gradient-to-br from-green/10 via-background to-cyan/5">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(63,185,80,0.12)_0%,transparent_60%)]"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+
+                {logo && (
+                  <div class="absolute top-0 bottom-0 right-6 flex items-center justify-center">
+                    <img src={logo.src} alt={exp.data.company} class={`${logo.height} w-auto object-contain`} style={logo.invert ? "filter: brightness(0) invert(1); opacity: 0.85;" : "opacity: 0.85;"} />
+                  </div>
+                )}
+
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                  <h3 class="text-lg font-semibold text-foreground">{exp.data.role}</h3>
+                  <p class="text-sm text-secondary">{exp.data.company}</p>
+                  <div class="flex items-center gap-3 mt-2">
+                    <span class="text-xs text-secondary">{exp.data.location}</span>
+                    <span class="text-border">|</span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-green/10 text-xs text-green font-medium flex items-center gap-1.5">
+                      {isPresent && <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>}
+                      {dateRange}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-6">
+                <ul class="space-y-2">
+                  {exp.data.highlights.map((h: string) => (
+                    <li class="flex gap-2.5 text-sm text-secondary">
+                      <span class="shrink-0 text-green mt-0.5">▹</span>
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex items-center justify-center gap-4 mt-4">
+        <button id="exp-prev-btn" class="p-2 rounded-full border border-border hover:border-green hover:text-green transition-all" aria-label="Previous">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        <div class="flex gap-2">
+          {experiences.map((_, i) => (
+            <button 
+              class="exp-dot w-2 h-2 rounded-full bg-border transition-all duration-300"
+              data-index={i}
+              aria-label={`Go to slide ${i + 1}`}
+            ></button>
+          ))}
+        </div>
+        
+        <button id="exp-next-btn" class="p-2 rounded-full border border-border hover:border-green hover:text-green transition-all" aria-label="Next">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+  (function() {
+    const slides = document.querySelectorAll('.exp-slide');
+    const dots = document.querySelectorAll('.exp-dot');
+    const prevBtn = document.getElementById('exp-prev-btn');
+    const nextBtn = document.getElementById('exp-next-btn');
+    const container = document.getElementById('exp-container');
+    
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoInterval;
+    let dragStartX = 0;
+    let isDragging = false;
+
+    const showSlide = (index) => {
+      currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('hidden', i !== currentIndex);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-green', i === currentIndex);
+        dot.classList.toggle('w-6', i === currentIndex);
+        dot.classList.toggle('bg-border', i !== currentIndex);
+        dot.classList.toggle('w-2', i !== currentIndex);
+      });
+    };
+
+    const startAuto = () => {
+      stopAuto();
+      autoInterval = setInterval(() => showSlide(currentIndex + 1), 5000);
+    };
+    const stopAuto = () => clearInterval(autoInterval);
+
+    prevBtn?.addEventListener('click', () => { showSlide(currentIndex - 1); startAuto(); });
+    nextBtn?.addEventListener('click', () => { showSlide(currentIndex + 1); startAuto(); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { showSlide(i); startAuto(); }));
+
+    container?.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      dragStartX = e.clientX;
+      stopAuto();
+    });
+    document.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diff = e.clientX - dragStartX;
+      if (Math.abs(diff) > 50) {
+        diff < 0 ? showSlide(currentIndex + 1) : showSlide(currentIndex - 1);
+      }
+      startAuto();
+    });
+
+    container?.addEventListener('touchstart', (e) => {
+      dragStartX = e.touches[0].clientX;
+      stopAuto();
+    });
+    container?.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].clientX - dragStartX;
+      if (Math.abs(diff) > 50) {
+        diff < 0 ? showSlide(currentIndex + 1) : showSlide(currentIndex - 1);
+      }
+      startAuto();
+    });
+
+    container?.addEventListener('mouseenter', stopAuto);
+    container?.addEventListener('mouseleave', startAuto);
+
+    showSlide(0);
+    startAuto();
+  })();
+  </script>
+
   <!-- Projects -->
   <section id="projects" class="section border-t border-border">
     <div class="container-main">
       <p class="section-heading">Projects</p>
-      
+
+      <!-- Active / Live -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <a href="https://mimran-khan.github.io/deltaforge/" target="_blank" rel="noopener noreferrer" class="group flex items-start gap-4 p-5 rounded-xl border border-green/20 bg-elevated hover:border-green/50 transition-all">
+          <div class="w-12 h-12 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+            <span class="font-mono text-green text-lg font-bold">&#916;F</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors">DeltaForge</h3>
+              <span class="flex items-center gap-1 text-[10px] text-green font-mono"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>LIVE</span>
+            </div>
+            <p class="text-xs text-secondary mb-2">Autonomous Nifty options trading engine with 5 strategies, 9 risk gates, and compound position sizing.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">Live since Jun 2026</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">5 strategies</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">9 risk gates</span>
+            </div>
+          </div>
+        </a>
+        <a href="https://github.com/redhat-data-and-ai" target="_blank" rel="noopener noreferrer" class="group flex items-start gap-4 p-5 rounded-xl border border-cyan/20 bg-elevated hover:border-cyan/50 transition-all">
+          <div class="w-12 h-12 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-sm font-semibold text-foreground group-hover:text-cyan transition-colors">AI Agent Platform</h3>
+              <span class="text-[10px] text-cyan font-mono">@ Red Hat</span>
+            </div>
+            <p class="text-xs text-secondary mb-2">MCP servers, A2A protocol, and multi-agent orchestration. Open source tooling for building production-grade AI agents.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">MCP</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">A2A Protocol</span>
+              <span class="px-1.5 py-0.5 text-[10px] bg-background border border-border rounded">Open Source</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Other Projects -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map((project) => (
           <ProjectCard
@@ -304,6 +546,27 @@ const education = [
       <p class="section-heading">Education</p>
       
       <EducationTimeline items={education} />
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Tech Stack</p>
+      <div class="space-y-6">
+        {skillGroups.map((group) => (
+          <div>
+            <p class="text-small text-green font-mono mb-3">// {group.category}</p>
+            <div class="flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <span class="px-3 py-1.5 rounded-lg bg-elevated border border-border hover:border-green/50 transition-all duration-300 cursor-default text-sm text-foreground">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -421,7 +684,7 @@ const education = [
             Send Email
           </a>
           <a 
-            href="https://linkedin.com/in/mohdimran-khan"
+            href="https://www.linkedin.com/in/mohdimran-khan/"
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-secondary"

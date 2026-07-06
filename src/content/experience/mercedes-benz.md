@@ -3,7 +3,7 @@ company: Mercedes-Benz R&D
 role: Principal Machine Learning Engineer | AI Product Owner
 startDate: Apr 2022
 endDate: Jan 2026
-location: Bengaluru, India
+location: Bengaluru, India & Stuttgart, Germany
 order: 2
 highlights:
   - Led AI/ML team, overseeing solution architecture and production code reviews

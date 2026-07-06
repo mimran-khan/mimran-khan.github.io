@@ -9,9 +9,9 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/og-default.png', keywords, publishedDate, modifiedDate } = Astro.props;
+const { title, description, image = '/og-image.svg', keywords, publishedDate, modifiedDate } = Astro.props;
 const fullTitle = title === 'Home' ? 'Imran Khan | Senior ML Engineer | Agentic AI & LLMs' : `${title} | Imran Khan`;
-const isBlog = Astro.url.pathname.startsWith('/blog');
+const isBlog = Astro.url.pathname.startsWith('/blog') || Astro.url.pathname.startsWith('/series/');
 const siteUrl = 'https://mimran-khan.github.io';
 
 const defaultKeywords = 'Imran Khan, Mohammed Imran Khan, ML Engineer, Senior ML Engineer, Red Hat, Mercedes-Benz, Agentic AI, Multi-Agent Systems, LLMs, RAG, LangGraph, IIT Kanpur, BITS Pilani, PhD, AI Engineer, Machine Learning, NLP, Deep Learning';
@@ -22,7 +22,7 @@ const personSchema = {
   "name": "Mohammed Imran Khan",
   "alternateName": "Imran Khan",
   "url": siteUrl,
-  "image": `${siteUrl}/og-default.png`,
+  "image": `${siteUrl}/og-image.svg`,
   "jobTitle": "Senior ML Engineer",
   "worksFor": { "@type": "Organization", "name": "Red Hat" },
   "alumniOf": [
@@ -33,7 +33,7 @@ const personSchema = {
   "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Multi-Agent Systems", "Large Language Models", "RAG", "NLP", "Deep Learning", "Agentic AI"],
   "sameAs": [
     "https://github.com/mimran-khan",
-    "https://linkedin.com/in/mimran-khan"
+    "https://www.linkedin.com/in/mohdimran-khan/"
   ]
 };
 
