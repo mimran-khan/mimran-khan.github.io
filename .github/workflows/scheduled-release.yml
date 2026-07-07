@@ -79,6 +79,7 @@ jobs:
       - name: Push to public repo
         if: steps.find.outputs.skip != 'true'
         run: |
+          git config --unset-all http.https://github.com/.extraheader || true
           git checkout -b release-clean
           git rm -f .github/workflows/scheduled-release.yml manifest.json
           git commit -m "release: Episode ${{ steps.find.outputs.ep }} - ${{ steps.find.outputs.title }}"
