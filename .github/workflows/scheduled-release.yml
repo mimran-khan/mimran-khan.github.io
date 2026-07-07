@@ -1,0 +1,85 @@
+name: Scheduled Release
+
+on:
+  schedule:
+    - cron: '35 18 * * 0'  # Sunday 18:35 UTC = Monday 00:05 IST
+    - cron: '35 18 * * 2'  # Tuesday 18:35 UTC = Wednesday 00:05 IST
+    - cron: '35 18 * * 5'  # Friday 18:35 UTC = Saturday 00:05 IST
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Configure git
+        run: |
+          git config user.name "mimran-khan"
+          git config user.email "mimran-khan@users.noreply.github.com"
+
+      - name: Find next pending episode
+        id: find
+        run: |
+          BRANCH=$(jq -r '.episodes[] | select(.status == "pending") | .branch' manifest.json | head -1)
+          if [ -z "$BRANCH" ] || [ "$BRANCH" = "null" ]; then
+            echo "No pending episodes in manifest. Nothing to release."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          EP=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .ep' manifest.json)
+          TITLE=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .title' manifest.json)
+          echo "Found pending episode: ep$EP - $TITLE (branch: $BRANCH)"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "ep=$EP" >> "$GITHUB_OUTPUT"
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+          if ! git rev-parse "origin/$BRANCH" >/dev/null 2>&1; then
+            echo "::error::Branch '$BRANCH' listed in manifest but does not exist"
+            exit 1
+          fi
+
+      - name: Merge episode into main
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          git merge "origin/${{ steps.find.outputs.branch }}" --no-edit -m "release: Episode ${{ steps.find.outputs.ep }} - ${{ steps.find.outputs.title }}"
+
+      - name: Update manifest
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          TODAY=$(date -u +'%Y-%m-%d')
+          TAG="release/ep$(printf '%02d' ${{ steps.find.outputs.ep }})"
+          jq --arg b "${{ steps.find.outputs.branch }}" \
+             --arg d "$TODAY" \
+             --arg t "$TAG" \
+             '(.episodes[] | select(.branch == $b)) |= . + {"status": "published", "published_on": $d, "tag": $t}' \
+             manifest.json > manifest.tmp && mv manifest.tmp manifest.json
+          git add manifest.json
+          git commit -m "chore: mark ep${{ steps.find.outputs.ep }} as published"
+
+      - name: Tag release
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          TAG="release/ep$(printf '%02d' ${{ steps.find.outputs.ep }})"
+          git tag -a "$TAG" -m "Release Episode ${{ steps.find.outputs.ep }}: ${{ steps.find.outputs.title }} ($(date -u +'%Y-%m-%d'))"
+
+      - name: Push main, tag, and delete episode branch
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          git remote set-url origin "https://x-access-token:${{ secrets.PUBLIC_REPO_PAT }}@github.com/mimran-khan/site-staging.git"
+          git push origin main --tags
+          git push origin --delete "${{ steps.find.outputs.branch }}"
+
+      - name: Push to public repo
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          git checkout -b release-clean
+          git rm -f .github/workflows/scheduled-release.yml manifest.json
+          git commit -m "release: Episode ${{ steps.find.outputs.ep }} - ${{ steps.find.outputs.title }}"
+          git remote add public "https://x-access-token:${{ secrets.PUBLIC_REPO_PAT }}@github.com/mimran-khan/mimran-khan.github.io.git"
+          git push public release-clean:main --force

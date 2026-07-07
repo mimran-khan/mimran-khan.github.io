@@ -1,0 +1,29 @@
+{
+  "schedule": ["monday", "wednesday", "saturday"],
+  "timezone": "IST (UTC+5:30)",
+  "cron_utc": "18:35 on Sun/Tue/Fri",
+  "episodes": [
+    {
+      "ep": 1,
+      "branch": "ep01",
+      "title": "What are LangChain Deep Agents?",
+      "status": "published",
+      "published_on": "2026-07-06",
+      "tag": "release/ep01"
+    },
+    {
+      "ep": 2,
+      "branch": "ep02",
+      "title": "Is Grep All You Need? Agent Harness Paper",
+      "status": "published",
+      "published_on": "2026-07-08",
+      "tag": "release/ep02"
+    },
+    {
+      "ep": 3,
+      "branch": "ep03",
+      "title": "LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5",
+      "status": "pending"
+    }
+  ]
+}
