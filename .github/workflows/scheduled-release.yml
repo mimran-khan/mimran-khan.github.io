@@ -19,6 +19,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Configure git
         run: |
           git config user.name "mimran-khan"
@@ -35,10 +40,12 @@ jobs:
           fi
           EP=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .ep' manifest.json)
           TITLE=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .title' manifest.json)
+          SLUG=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .slug' manifest.json)
           echo "Found pending episode: ep$EP - $TITLE (branch: $BRANCH)"
           echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
           echo "ep=$EP" >> "$GITHUB_OUTPUT"
           echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
           echo "skip=false" >> "$GITHUB_OUTPUT"
 
           if ! git rev-parse "origin/$BRANCH" >/dev/null 2>&1; then
@@ -50,6 +57,21 @@ jobs:
         if: steps.find.outputs.skip != 'true'
         run: |
           git merge "origin/${{ steps.find.outputs.branch }}" --no-edit -m "release: Episode ${{ steps.find.outputs.ep }} - ${{ steps.find.outputs.title }}"
+
+      - name: Update episodes.json (set published to true)
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          EP_NUM=${{ steps.find.outputs.ep }}
+          jq --argjson n "$EP_NUM" \
+            'map(if .number == $n then .published = true else . end)' \
+            src/data/episodes.json > src/data/episodes.tmp && mv src/data/episodes.tmp src/data/episodes.json
+          git add src/data/episodes.json
+
+      - name: Regenerate sitemap
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          node scripts/generate-sitemap.mjs
+          git add public/sitemap.xml
 
       - name: Update manifest
         if: steps.find.outputs.skip != 'true'

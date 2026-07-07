@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import EducationTimeline from '../components/EducationTimeline.astro';
 import EventsCarousel from '../components/EventsCarousel.astro';
 import { getCollection } from 'astro:content';
+import episodes from '../data/episodes.json';
 
 import iitk from '../assets/images/education/iitk.png';
 import bits from '../assets/images/education/bits-pillani.png';
@@ -19,6 +20,23 @@ const companyLogos: Record<string, { src: string; height: string; invert: boolea
   'Hinduja Global Solutions': { src: '/logos/hgs.png', height: 'h-14', invert: true },
 };
 const projects = (await getCollection('projects')).filter(p => p.data.featured).sort((a, b) => a.data.order - b.data.order);
+
+const categoryConfig: Record<string, { label: string; color: string; bg: string; border: string; text: string; hoverBorder: string }> = {
+  'hot-topic': { label: 'Hot Topic', color: 'green', bg: 'bg-green/10', border: 'border-green/20', text: 'text-green', hoverBorder: 'hover:border-green/40' },
+  'research-paper': { label: 'Research Paper', color: 'violet', bg: 'bg-violet-500/10', border: 'border-violet-500/20', text: 'text-violet-400', hoverBorder: 'hover:border-violet-500/40' },
+  'new-release': { label: 'New Release', color: 'cyan', bg: 'bg-cyan/10', border: 'border-cyan/20', text: 'text-cyan', hoverBorder: 'hover:border-cyan/40' },
+};
+
+const accentBorderSolid: Record<string, string> = { green: 'border-green/60', violet: 'border-violet-500/60', cyan: 'border-cyan/60' };
+const accentSidebar: Record<string, string> = { green: 'bg-green/60', violet: 'bg-violet-500/60', cyan: 'bg-cyan/60' };
+
+const publishedEpisodes = episodes.filter((ep: any) => ep.published).reverse();
+const nextEpisode = episodes.find((ep: any) => !ep.published);
+
+const dayLabel: Record<string, string> = {
+  Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday',
+  Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday',
+};
 
 const skillGroups = [
   {
@@ -161,76 +179,73 @@ const education = [
         <div class="flex items-center gap-3 mb-3 md:mb-4">
           <p class="text-xs font-mono text-green">// Published</p>
           <div class="flex-1 h-px bg-border"></div>
-          <span class="text-[10px] font-mono text-secondary">2 episodes</span>
+          <span class="text-[10px] font-mono text-secondary">{publishedEpisodes.length} episode{publishedEpisodes.length !== 1 ? 's' : ''}</span>
         </div>
 
         <div id="series-published-track" class="flex gap-3 md:gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide">
-          <a href="/series/demystifying-ai/agent-harness-grep" class="snap-start shrink-0 w-[85vw] md:w-[calc(50%-0.5rem)] group relative rounded-xl border border-border bg-elevated overflow-hidden hover:border-violet-500/40 transition-all duration-300">
-            <div class="absolute top-0 left-0 w-1 h-full bg-violet-500/60 rounded-l-xl"></div>
-            <div class="p-5 pl-6">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-xs font-mono text-violet-400 font-bold">#02</span>
-                <span class="px-2 py-0.5 text-[9px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded">Research Paper</span>
-                <span class="px-2 py-0.5 text-[9px] font-mono bg-green/20 border border-green/30 text-green rounded flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>Latest</span>
-                <span class="text-[10px] text-secondary ml-auto">Wednesday, Jul 8</span>
-              </div>
-              <h3 class="text-base font-semibold text-foreground group-hover:text-violet-400 transition-colors mb-2">
-                Is Grep All You Need? Agent Harness Paper
-              </h3>
-              <p class="text-xs text-secondary line-clamp-2">Grep beats vector search inside AI agents. The harness matters more than retrieval. Breaking down arxiv 2605.15184.</p>
-              <div class="flex items-center gap-2 mt-3">
-                <span class="text-[10px] text-secondary">5 min read</span>
-                <span class="text-[10px] text-violet-400 group-hover:translate-x-1 transition-transform flex items-center gap-1 ml-auto">Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
-              </div>
-            </div>
-          </a>
-          <a href="/series/demystifying-ai/deep-agents" class="snap-start shrink-0 w-[85vw] md:w-[calc(50%-0.5rem)] group relative rounded-xl border border-border bg-elevated overflow-hidden hover:border-green/40 transition-all duration-300">
-            <div class="absolute top-0 left-0 w-1 h-full bg-green/60 rounded-l-xl"></div>
-            <div class="p-5 pl-6">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-xs font-mono text-green font-bold">#01</span>
-                <span class="px-2 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">Hot Topic</span>
-                <span class="text-[10px] text-secondary ml-auto">Monday, Jul 6</span>
-              </div>
-              <h3 class="text-base font-semibold text-foreground group-hover:text-green transition-colors mb-2">
-                What are LangChain Deep Agents?
-              </h3>
-              <p class="text-xs text-secondary line-clamp-2">LangChain shipped something that makes CrewAI and AutoGen look like toys. Nobody noticed. Here's the 3-layer stack that changes everything.</p>
-              <div class="flex items-center gap-2 mt-3">
-                <span class="text-[10px] text-secondary">5 min read</span>
-                <span class="text-[10px] text-green group-hover:translate-x-1 transition-transform flex items-center gap-1 ml-auto">Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
-              </div>
-            </div>
-          </a>
+          {publishedEpisodes.map((ep: any, idx: number) => {
+            const cat = categoryConfig[ep.category];
+            const isLatest = idx === 0;
+            const padded = String(ep.number).padStart(2, '0');
+            return (
+              <a href={`/series/demystifying-ai/${ep.slug}`} class={`snap-start shrink-0 w-[85vw] md:w-[calc(50%-0.5rem)] group relative rounded-xl border ${isLatest ? `${accentBorderSolid[cat.color].replace('/60', '/40')} ring-1 ring-${cat.color}/20` : 'border-border'} bg-elevated overflow-hidden ${cat.hoverBorder} transition-all duration-300`}>
+                <div class={`absolute top-0 left-0 w-1 h-full ${accentSidebar[cat.color]} rounded-l-xl`}></div>
+                <div class="p-5 pl-6">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class={`text-xs font-mono ${cat.text} font-bold`}>#{padded}</span>
+                    <span class={`px-2 py-0.5 text-[9px] font-mono ${cat.bg} border ${cat.border} ${cat.text} rounded`}>{cat.label}</span>
+                    {isLatest && (
+                      <span class="px-2 py-0.5 text-[9px] font-mono bg-green/20 border border-green/30 text-green rounded flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>Latest</span>
+                    )}
+                    <span class="text-[10px] text-secondary ml-auto">{dayLabel[ep.day] || ep.day}, {ep.date}</span>
+                  </div>
+                  <h3 class={`text-base font-semibold text-foreground group-hover:${cat.text} transition-colors mb-2`}>
+                    {ep.title}
+                  </h3>
+                  <p class="text-xs text-secondary line-clamp-2">{ep.hook}</p>
+                  <div class="flex items-center gap-2 mt-3">
+                    <span class="text-[10px] text-secondary">{ep.readTime} read</span>
+                    <span class={`text-[10px] ${cat.text} group-hover:translate-x-1 transition-transform flex items-center gap-1 ml-auto`}>Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
 
       <!-- Up Next -->
-      <div>
-        <div class="flex items-center gap-3 mb-4">
-          <p class="text-xs font-mono text-cyan">// Up Next</p>
-          <div class="flex-1 h-px bg-border"></div>
-          <span class="text-[10px] font-mono text-secondary">Saturday, Jul 11</span>
-        </div>
-
-        <div class="group relative rounded-xl border border-dashed border-cyan/30 bg-elevated/50 overflow-hidden cursor-default">
-          <div class="absolute top-0 left-0 w-1 h-full bg-cyan/30 rounded-l-xl"></div>
-          <div class="p-5 pl-6">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-xs font-mono text-cyan font-bold">#03</span>
-              <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+      {nextEpisode && (() => {
+        const cat = categoryConfig[nextEpisode.category];
+        const padded = String(nextEpisode.number).padStart(2, '0');
+        return (
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <p class="text-xs font-mono text-green">// Up Next</p>
+              <div class="flex-1 h-px bg-border"></div>
+              <span class="text-[10px] font-mono text-secondary">{dayLabel[nextEpisode.day] || nextEpisode.day}, {nextEpisode.date}</span>
             </div>
-            <h3 class="text-base font-semibold text-foreground/70 mb-2">
-              LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5
-            </h3>
-            <p class="text-xs text-secondary/70 line-clamp-2">Meituan just dropped a 1.6T parameter model with 1M token context. MIT licensed. It outperforms GPT-5.5 on SWE-bench Pro.</p>
-            <div class="flex items-center gap-2 mt-3">
-              <span class="text-[10px] text-secondary">5 min read</span>
-              <span class="text-[10px] text-cyan/60 flex items-center gap-1 ml-auto">Drops Sat</span>
+
+            <div class="group relative rounded-xl border border-dashed border-green/30 bg-elevated/50 overflow-hidden cursor-default">
+              <div class="absolute top-0 left-0 w-1 h-full bg-green/30 rounded-l-xl"></div>
+              <div class="p-5 pl-6">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class={`text-xs font-mono ${cat.text} font-bold`}>#{padded}</span>
+                  <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+                </div>
+                <h3 class="text-base font-semibold text-foreground/70 mb-2">
+                  {nextEpisode.title}
+                </h3>
+                <p class="text-xs text-secondary/70 line-clamp-2">{nextEpisode.hook}</p>
+                <div class="flex items-center gap-2 mt-3">
+                  <span class="text-[10px] text-secondary">{nextEpisode.readTime} read</span>
+                  <span class="text-[10px] text-green/60 flex items-center gap-1 ml-auto">Drops {nextEpisode.day}</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        );
+      })()}
 
       <div class="flex items-center justify-between mt-4 md:mt-6">
         <div class="flex items-center gap-2 md:gap-4 text-[9px] md:text-[10px] text-secondary font-mono flex-wrap">

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 ---
 
 <BaseLayout
@@ -372,22 +373,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       </p>
     </div>
 
-    <!-- Next Episode Teaser -->
-    <div class="border-t border-border pt-6 md:pt-8 mt-6 md:mt-8">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
-        <div class="flex-1 h-px bg-border"></div>
-        <span class="text-[10px] font-mono text-secondary">Saturday</span>
-      </div>
-      <div class="rounded-xl border border-dashed border-cyan/30 bg-cyan/[0.02] p-4 md:p-5">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-xs font-mono text-cyan font-bold">#03</span>
-          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
-        </div>
-        <h3 class="text-sm md:text-base font-semibold text-foreground/70 mb-1">LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5</h3>
-        <p class="text-xs text-secondary/70">Meituan just dropped a 1.6T parameter model with 1M token context. MIT licensed. Outperforms GPT-5.5 on SWE-bench Pro.</p>
-      </div>
-    </div>
+    <NextEpisodeTeaser current={2} />
 
     <!-- CTA -->
     <div class="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">

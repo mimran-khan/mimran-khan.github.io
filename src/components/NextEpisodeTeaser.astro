@@ -1,0 +1,74 @@
+---
+import episodes from '../data/episodes.json';
+
+interface Props {
+  current: number;
+}
+
+const { current } = Astro.props;
+
+const categoryConfig: Record<string, { label: string; color: string; bg: string; border: string; text: string; hoverBorder: string }> = {
+  'hot-topic': { label: 'Hot Topic', color: 'green', bg: 'bg-green/10', border: 'border-green/20', text: 'text-green', hoverBorder: 'hover:border-green/50' },
+  'research-paper': { label: 'Research Paper', color: 'violet', bg: 'bg-violet-500/10', border: 'border-violet-500/20', text: 'text-violet-400', hoverBorder: 'hover:border-violet-500/50' },
+  'new-release': { label: 'New Release', color: 'cyan', bg: 'bg-cyan/10', border: 'border-cyan/20', text: 'text-cyan', hoverBorder: 'hover:border-cyan/50' },
+};
+
+const next = episodes.find((ep: any) => ep.number === current + 1);
+const cat = next ? categoryConfig[next.category] : null;
+const padded = next ? String(next.number).padStart(2, '0') : '';
+
+const borderSolid: Record<string, string> = {
+  'green': 'border-green/30',
+  'violet': 'border-violet-500/30',
+  'cyan': 'border-cyan/30',
+};
+
+const bgTint: Record<string, string> = {
+  'green': 'bg-green/[0.02]',
+  'violet': 'bg-violet-500/[0.02]',
+  'cyan': 'bg-cyan/[0.02]',
+};
+
+const hoverBgTint: Record<string, string> = {
+  'green': 'hover:bg-green/[0.04]',
+  'violet': 'hover:bg-violet-500/[0.04]',
+  'cyan': 'hover:bg-cyan/[0.04]',
+};
+
+const borderDashed: Record<string, string> = {
+  'green': 'border-green/30',
+  'violet': 'border-violet-500/30',
+  'cyan': 'border-cyan/30',
+};
+---
+
+{next && cat && (
+  <div class="max-w-3xl border-t border-border pt-6 md:pt-8 mt-6 md:mt-8">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+      <div class="flex-1 h-px bg-border"></div>
+      <span class="text-[10px] font-mono text-secondary">{next.day}</span>
+    </div>
+
+    {next.published ? (
+      <a href={`/series/demystifying-ai/${next.slug}`} class={`block rounded-xl border ${borderSolid[cat.color]} ${bgTint[cat.color]} p-4 md:p-5 ${cat.hoverBorder} ${hoverBgTint[cat.color]} transition-all duration-300 group`}>
+        <div class="flex items-center gap-2 mb-2">
+          <span class={`text-xs font-mono ${cat.text} font-bold`}>#{padded}</span>
+          <span class={`px-2 py-0.5 text-[9px] font-mono ${cat.bg} border ${cat.border} ${cat.text} rounded`}>{cat.label}</span>
+        </div>
+        <h3 class={`text-sm md:text-base font-semibold text-foreground group-hover:${cat.text} transition-colors mb-1`}>{next.title}</h3>
+        <p class="text-xs text-secondary/70 mb-2">{next.hook}</p>
+        <span class={`text-[10px] ${cat.text} group-hover:translate-x-1 transition-transform flex items-center gap-1`}>Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
+      </a>
+    ) : (
+      <div class={`rounded-xl border border-dashed ${borderDashed[cat.color]} ${bgTint[cat.color]} p-4 md:p-5`}>
+        <div class="flex items-center gap-2 mb-2">
+          <span class={`text-xs font-mono ${cat.text} font-bold`}>#{padded}</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-sm md:text-base font-semibold text-foreground/70 mb-1">{next.title}</h3>
+        <p class="text-xs text-secondary/70">{next.hook}</p>
+      </div>
+    )}
+  </div>
+)}

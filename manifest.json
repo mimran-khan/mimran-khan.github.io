@@ -6,6 +6,7 @@
     {
       "ep": 1,
       "branch": "ep01",
+      "slug": "deep-agents",
       "title": "What are LangChain Deep Agents?",
       "status": "published",
       "published_on": "2026-07-06",
@@ -14,6 +15,7 @@
     {
       "ep": 2,
       "branch": "ep02",
+      "slug": "agent-harness-grep",
       "title": "Is Grep All You Need? Agent Harness Paper",
       "status": "published",
       "published_on": "2026-07-08",
@@ -22,24 +24,28 @@
     {
       "ep": 3,
       "branch": "ep03",
+      "slug": "longcat-2",
       "title": "LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5",
       "status": "pending"
     },
     {
       "ep": 4,
       "branch": "ep04",
+      "slug": "mcp-stateless",
       "title": "MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch",
       "status": "pending"
     },
     {
       "ep": 5,
       "branch": "ep05",
+      "slug": "skillopt",
       "title": "SkillOpt: Your Agent's Skills Are Trainable Parameters",
       "status": "pending"
     },
     {
       "ep": 6,
       "branch": "ep06",
+      "slug": "antidoom",
       "title": "Antidoom: One LoRA to Kill Your Model's Doom Loops",
       "status": "pending"
     }

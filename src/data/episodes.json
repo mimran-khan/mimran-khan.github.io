@@ -1,0 +1,86 @@
+[
+  {
+    "number": 1,
+    "slug": "deep-agents",
+    "title": "What are LangChain Deep Agents?",
+    "hook": "LangChain shipped something that makes CrewAI and AutoGen look like toys. Nobody noticed.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Jul 6",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep01-deep-agents.png"
+  },
+  {
+    "number": 2,
+    "slug": "agent-harness-grep",
+    "title": "Is Grep All You Need? Agent Harness Paper",
+    "hook": "Grep beats vector search inside AI agents. The results broke everyone's assumptions.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Jul 8",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep02-agent-harness-grep.png"
+  },
+  {
+    "number": 3,
+    "slug": "longcat-2",
+    "title": "LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5",
+    "hook": "Meituan just dropped a 1.6T parameter model with 1M token context. MIT licensed. It outperforms GPT-5.5 on SWE-bench Pro.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Jul 11",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep03-longcat-2.png"
+  },
+  {
+    "number": 4,
+    "slug": "mcp-stateless",
+    "title": "MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch",
+    "hook": "The MCP spec just got its largest revision ever. Sessions are gone. Your server can now run behind a basic load balancer.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Jul 13",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep04-mcp-stateless.png"
+  },
+  {
+    "number": 5,
+    "slug": "skillopt",
+    "title": "SkillOpt: Your Agent's Skills Are Trainable Parameters",
+    "hook": "Microsoft trained agent skills like neural network weights. +23 points on GPT-5.5 without changing a single model parameter.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Jul 15",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep05-skillopt.png"
+  },
+  {
+    "number": 6,
+    "slug": "antidoom",
+    "title": "Antidoom: One LoRA to Kill Your Model's Doom Loops",
+    "hook": "Liquid AI found the exact token that starts a repetition loop. One LoRA adapter, trained in hours, drops Qwen3.5-4B looping from 22.9% to 1%.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Jul 18",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep06-antidoom.png"
+  },
+  {
+    "number": 7,
+    "slug": "tbd",
+    "title": "To Be Decided",
+    "hook": "The next topic is being selected. Stay tuned.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Jul 21",
+    "readTime": "5 min",
+    "published": false,
+    "image": ""
+  }
+]
