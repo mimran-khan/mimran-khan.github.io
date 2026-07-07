@@ -1,0 +1,410 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Is Grep All You Need? | Demystifying AI in 5 Minutes"
+  description="A research team tested grep vs vector search inside AI agent loops. Grep won across every harness-model pair. But the real insight is that the harness matters more than the retrieval method."
+  image="/og-series-ep02-agent-harness-grep.png"
+  keywords="Grep vs Vector Search, Agent Harness, Agentic Search, RAG, LLM Agents, Claude Code, Codex, Gemini CLI, LongMemEval, Retrieval Augmented Generation"
+  publishedDate="2026-07-08"
+>
+
+  <style>
+    .method-card {
+      transition: all 0.3s ease;
+    }
+    .method-card:hover {
+      transform: scale(1.01);
+    }
+    .insight-card {
+      transition: all 0.3s ease;
+    }
+    .insight-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .stat-highlight {
+      transition: all 0.3s ease;
+    }
+    .stat-highlight:hover {
+      transform: scale(1.02);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep02-agent-harness-grep.png" alt="Grep vs Vector Search - 93.1% vs 76.7% accuracy in agent benchmarks" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet-400 font-mono bg-violet-500/5 border border-violet-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          EP 02
+        </span>
+        <a href="https://arxiv.org/abs/2605.15184" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 7l3 5-3 5M15 7l-3 5 3 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          arXiv
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Jul 8, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Is Grep All You Need?
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        A research team tested grep vs vector search inside AI agent loops. Grep won across every harness-model pair. But the real finding? The harness matters more than your retrieval method.
+      </p>
+
+      <ShareButtons title="Is Grep All You Need?" url="/series/demystifying-ai/agent-harness-grep" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TLDR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Inline grep beats vector retrieval in every agent harness tested.</strong> But switching harnesses caused a bigger accuracy swing (16 points) than switching retrieval methods. The architecture wrapping your search matters more than the search itself.
+      </p>
+    </div>
+
+    <!-- The Setup -->
+    <div class="mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 md:mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Experiment
+      </h2>
+
+      <p class="text-sm text-secondary mb-4 md:mb-6">
+        116 questions from <strong class="text-foreground">LongMemEval</strong>. Four agent harnesses. Two retrieval methods. The setup nobody had tested before.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+        <!-- Grep -->
+        <div class="method-card rounded-xl border border-green/20 bg-green/[0.02] p-4 md:p-5">
+          <div class="flex items-center gap-2 mb-3 md:mb-4">
+            <div class="w-6 h-6 rounded-full bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">Grep (Lexical)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> Exact pattern matching
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> Zero hallucinated context
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> Instant, deterministic results
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> No GPU, no embeddings
+            </div>
+          </div>
+        </div>
+
+        <!-- Vector -->
+        <div class="method-card rounded-xl border border-violet-500/20 bg-violet-500/[0.02] p-4 md:p-5">
+          <div class="flex items-center gap-2 mb-3 md:mb-4">
+            <div class="w-6 h-6 rounded-full bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <span class="text-xs font-bold text-violet-400">Vector (Semantic)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-violet-400/60 shrink-0">~</span> Approximate matching
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-violet-400/60 shrink-0">~</span> Can surface paraphrases
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-violet-400/60 shrink-0">~</span> Semantic range = noise in tight loops
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-violet-400/60 shrink-0">~</span> Requires embeddings + index
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Finding: Stats -->
+    <div class="mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 md:mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <div class="grid grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-6">
+        <div class="stat-highlight rounded-xl border border-green/20 bg-green/[0.03] p-3 md:p-5 text-center">
+          <div class="text-lg md:text-2xl font-bold text-green mb-1">93.1%</div>
+          <div class="text-[9px] md:text-[10px] font-mono text-secondary leading-tight">Best: Grep + Chronos</div>
+        </div>
+        <div class="stat-highlight rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-3 md:p-5 text-center">
+          <div class="text-lg md:text-2xl font-bold text-violet-400 mb-1">76.7%</div>
+          <div class="text-[9px] md:text-[10px] font-mono text-secondary leading-tight">Same model, diff harness</div>
+        </div>
+        <div class="stat-highlight rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-3 md:p-5 text-center">
+          <div class="text-lg md:text-2xl font-bold text-yellow-400 mb-1">16pt</div>
+          <div class="text-[9px] md:text-[10px] font-mono text-secondary leading-tight">Gap from harness alone</div>
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-border bg-elevated p-3 md:p-4">
+        <p class="text-xs text-secondary leading-relaxed mb-0">
+          <strong class="text-foreground">The punchline:</strong> Switching from vector to grep improved accuracy. But switching harnesses with the same retrieval method caused an even bigger swing. The architecture wrapping your search is the real variable.
+        </p>
+      </div>
+    </div>
+
+    <!-- Why Grep Wins -->
+    <div class="mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 md:mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Why Grep Wins in Agent Loops
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+        <div class="insight-card rounded-xl border border-border bg-elevated p-4 md:p-5">
+          <div class="text-lg mb-2">&#9889;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-1 md:mb-2">Speed</h3>
+          <p class="text-xs text-secondary mb-0">Agent loops iterate fast. Grep returns in milliseconds. No embedding computation, no index lookup, no network round-trip.</p>
+        </div>
+        <div class="insight-card rounded-xl border border-border bg-elevated p-4 md:p-5">
+          <div class="text-lg mb-2">&#127919;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-1 md:mb-2">Precision</h3>
+          <p class="text-xs text-secondary mb-0">When it hits, it hits exactly. No "close but not quite" results polluting the context window with noise.</p>
+        </div>
+        <div class="insight-card rounded-xl border border-border bg-elevated p-4 md:p-5">
+          <div class="text-lg mb-2">&#128176;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-1 md:mb-2">Token Efficiency</h3>
+          <p class="text-xs text-secondary mb-0">Grep returns only matching lines. Vector search returns full chunks with surrounding context you don't need.</p>
+        </div>
+        <div class="insight-card rounded-xl border border-border bg-elevated p-4 md:p-5">
+          <div class="text-lg mb-2">&#128300;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-1 md:mb-2">Determinism</h3>
+          <p class="text-xs text-secondary mb-0">Same query, same results, every time. No embedding drift, no index staleness, no similarity threshold tuning.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Real Insight: Harness > Retrieval -->
+    <div class="mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 md:mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Real Insight: Harness > Retrieval
+      </h2>
+
+      <p class="text-sm text-secondary mb-4 md:mb-6">
+        The paper tested four harnesses with the same model and retrieval. <strong class="text-foreground">The harness made the difference, not grep vs vector.</strong>
+      </p>
+
+      <!-- Harness comparison visual -->
+      <div class="space-y-2 md:space-y-3 mb-4 md:mb-6">
+        <div class="flex items-center gap-2 md:gap-3 p-3 md:p-4 rounded-lg border border-green/20 bg-green/[0.02]">
+          <div class="text-[10px] md:text-xs font-mono text-green font-bold w-14 md:w-20 shrink-0">Chronos</div>
+          <div class="flex-1 h-2.5 md:h-3 bg-background rounded-full overflow-hidden min-w-0">
+            <div class="h-full bg-green/60 rounded-full" style="width: 93%"></div>
+          </div>
+          <span class="text-[10px] md:text-xs font-mono text-green w-12 md:w-14 text-right shrink-0">93.1%</span>
+        </div>
+        <div class="flex items-center gap-2 md:gap-3 p-3 md:p-4 rounded-lg border border-border bg-elevated">
+          <div class="text-[10px] md:text-xs font-mono text-secondary font-bold w-14 md:w-20 shrink-0">Codex</div>
+          <div class="flex-1 h-2.5 md:h-3 bg-background rounded-full overflow-hidden min-w-0">
+            <div class="h-full bg-violet-400/60 rounded-full" style="width: 86%"></div>
+          </div>
+          <span class="text-[10px] md:text-xs font-mono text-violet-400 w-12 md:w-14 text-right shrink-0">86.2%</span>
+        </div>
+        <div class="flex items-center gap-2 md:gap-3 p-3 md:p-4 rounded-lg border border-border bg-elevated">
+          <div class="text-[10px] md:text-xs font-mono text-secondary font-bold w-14 md:w-20 shrink-0">Gemini</div>
+          <div class="flex-1 h-2.5 md:h-3 bg-background rounded-full overflow-hidden min-w-0">
+            <div class="h-full bg-cyan-400/60 rounded-full" style="width: 82%"></div>
+          </div>
+          <span class="text-[10px] md:text-xs font-mono text-cyan-400 w-12 md:w-14 text-right shrink-0">82.8%</span>
+        </div>
+        <div class="flex items-center gap-2 md:gap-3 p-3 md:p-4 rounded-lg border border-yellow-500/20 bg-yellow-500/[0.02]">
+          <div class="text-[10px] md:text-xs font-mono text-yellow-400 font-bold w-14 md:w-20 shrink-0">Claude</div>
+          <div class="flex-1 h-2.5 md:h-3 bg-background rounded-full overflow-hidden min-w-0">
+            <div class="h-full bg-yellow-400/60 rounded-full" style="width: 77%"></div>
+          </div>
+          <span class="text-[10px] md:text-xs font-mono text-yellow-400 w-12 md:w-14 text-right shrink-0">76.7%</span>
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-violet-500/20 bg-violet-500/[0.02] p-3 md:p-4">
+        <p class="text-xs text-secondary leading-relaxed mb-0">
+          <strong class="text-foreground">All using the same model (Claude Opus 4.6) + inline grep.</strong> The only variable is the agent harness. Dynamic prompts, tool-calling style, and how results are presented to the model created a 16-point accuracy gap.
+        </p>
+      </div>
+    </div>
+
+    <!-- The Plot Twist -->
+    <div class="mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 md:mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Plot Twist: File-Based Results
+      </h2>
+
+      <p class="text-sm text-secondary mb-4 md:mb-6">
+        When results were written to files instead of inlined into the context window, <strong class="text-foreground">vector search came back</strong>. It beat grep in 5 out of 10 configurations.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+        <div class="rounded-xl border border-green/20 bg-green/[0.02] p-4 md:p-5">
+          <div class="text-xs font-mono text-green font-bold mb-2 md:mb-3">Inline Results</div>
+          <p class="text-xs text-secondary mb-1 md:mb-2">Results appended directly into context window.</p>
+          <p class="text-xs text-foreground/80 mb-0"><strong>Grep wins.</strong> Precision matters when context is crowded.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.02] p-4 md:p-5">
+          <div class="text-xs font-mono text-violet-400 font-bold mb-2 md:mb-3">File-Based Results</div>
+          <p class="text-xs text-secondary mb-1 md:mb-2">Results written to files, agent reads separately.</p>
+          <p class="text-xs text-foreground/80 mb-0"><strong>Vector competitive.</strong> Semantic range becomes an asset when agent reasons deliberately.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- When to Use What -->
+    <div class="mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 md:mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> When to Use What
+      </h2>
+
+      <!-- Mobile: card layout, Desktop: table -->
+      <div class="hidden md:block overflow-x-auto rounded-xl border border-border">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary whitespace-nowrap">Scenario</th>
+              <th class="text-left p-3 text-xs font-mono text-secondary whitespace-nowrap">Use</th>
+              <th class="text-left p-3 text-xs font-mono text-secondary whitespace-nowrap">Why</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="p-3 text-xs text-secondary">Tight agent loops, inline context</td>
+              <td class="p-3"><code class="text-green bg-green/10 px-1.5 py-0.5 rounded text-xs">grep</code></td>
+              <td class="p-3 text-xs text-secondary">Precision + speed + token efficiency</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-xs text-secondary">File-based tool results</td>
+              <td class="p-3"><code class="text-violet-400 bg-violet-500/10 px-1.5 py-0.5 rounded text-xs">vector</code></td>
+              <td class="p-3 text-xs text-secondary">Semantic range is an asset here</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-xs text-secondary">Known patterns (error codes, IDs)</td>
+              <td class="p-3"><code class="text-green bg-green/10 px-1.5 py-0.5 rounded text-xs">grep</code></td>
+              <td class="p-3 text-xs text-secondary">Exact match = zero noise</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-xs text-secondary">Conceptual questions, paraphrases</td>
+              <td class="p-3"><code class="text-violet-400 bg-violet-500/10 px-1.5 py-0.5 rounded text-xs">vector</code></td>
+              <td class="p-3 text-xs text-secondary">Needs semantic understanding</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-xs text-secondary">Production agent system</td>
+              <td class="p-3"><code class="text-yellow-400 bg-yellow-500/10 px-1.5 py-0.5 rounded text-xs whitespace-nowrap">harness</code></td>
+              <td class="p-3 text-xs text-secondary">16pt gap from harness > retrieval</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile: stacked cards instead of table -->
+      <div class="md:hidden space-y-3">
+        <div class="rounded-lg border border-border p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] text-secondary">Tight agent loops</span>
+            <code class="text-green bg-green/10 px-1.5 py-0.5 rounded text-[10px]">grep</code>
+          </div>
+          <p class="text-[10px] text-secondary/70 mb-0">Precision + speed + token efficiency</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] text-secondary">File-based results</span>
+            <code class="text-violet-400 bg-violet-500/10 px-1.5 py-0.5 rounded text-[10px]">vector</code>
+          </div>
+          <p class="text-[10px] text-secondary/70 mb-0">Semantic range is an asset here</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] text-secondary">Known patterns (IDs, errors)</span>
+            <code class="text-green bg-green/10 px-1.5 py-0.5 rounded text-[10px]">grep</code>
+          </div>
+          <p class="text-[10px] text-secondary/70 mb-0">Exact match = zero noise</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] text-secondary">Conceptual questions</span>
+            <code class="text-violet-400 bg-violet-500/10 px-1.5 py-0.5 rounded text-[10px]">vector</code>
+          </div>
+          <p class="text-[10px] text-secondary/70 mb-0">Needs semantic understanding</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] text-secondary">Production system</span>
+            <code class="text-yellow-400 bg-yellow-500/10 px-1.5 py-0.5 rounded text-[10px]">harness</code>
+          </div>
+          <p class="text-[10px] text-secondary/70 mb-0">16pt gap from harness > retrieval</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Don't default to vector search. Inside tight agent loops, <strong>grep is faster, cheaper, and more predictable</strong>. But the real lesson: stop obsessing over retrieval and start investing in your agent harness. The prompts, tool-calling patterns, and result delivery format matter more than whether you use grep or embeddings.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="border-t border-border pt-6 md:pt-8 mt-6 md:mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-cyan/30 bg-cyan/[0.02] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-cyan font-bold">#03</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-sm md:text-base font-semibold text-foreground/70 mb-1">LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5</h3>
+        <p class="text-xs text-secondary/70">Meituan just dropped a 1.6T parameter model with 1M token context. MIT licensed. Outperforms GPT-5.5 on SWE-bench Pro.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">
+          All Episodes
+        </a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+  </article>
+
+</BaseLayout>
