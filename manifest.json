@@ -24,6 +24,12 @@
       "branch": "ep03",
       "title": "LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5",
       "status": "pending"
+    },
+    {
+      "ep": 4,
+      "branch": "ep04",
+      "title": "MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch",
+      "status": "pending"
     }
   ]
 }
