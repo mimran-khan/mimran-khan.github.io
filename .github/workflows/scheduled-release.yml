@@ -104,6 +104,20 @@ jobs:
           git config --unset-all http.https://github.com/.extraheader || true
           git checkout -b release-clean
           git rm -f .github/workflows/scheduled-release.yml manifest.json
+
+          # Strip unreleased episode details from episodes.json
+          # Keep: all published episodes + immediate next episode (for "Up Next" teaser)
+          node -e "
+            const fs = require('fs');
+            const eps = JSON.parse(fs.readFileSync('src/data/episodes.json', 'utf-8'));
+            const firstUnpublished = eps.findIndex(e => !e.published);
+            const keepUpTo = firstUnpublished >= 0 ? firstUnpublished + 1 : eps.length;
+            const filtered = eps.slice(0, keepUpTo);
+            fs.writeFileSync('src/data/episodes.json', JSON.stringify(filtered, null, 2) + '\n');
+            console.log('Public episodes.json: ' + filtered.length + ' entries (leaked: 0)');
+          "
+          git add src/data/episodes.json
+
           git commit -m "release: Episode ${{ steps.find.outputs.ep }} - ${{ steps.find.outputs.title }}"
           git remote add public "https://x-access-token:${{ secrets.PUBLIC_REPO_PAT }}@github.com/mimran-khan/mimran-khan.github.io.git"
           git push public release-clean:main --force
