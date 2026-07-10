@@ -1,5 +1,9 @@
 {
-  "schedule": ["monday", "wednesday", "saturday"],
+  "schedule": [
+    "monday",
+    "wednesday",
+    "saturday"
+  ],
   "timezone": "IST (UTC+5:30)",
   "cron_utc": "18:35 on Sun/Tue/Fri",
   "episodes": [
@@ -26,7 +30,9 @@
       "branch": "ep03",
       "slug": "longcat-2",
       "title": "LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5",
-      "status": "pending"
+      "status": "published",
+      "published_on": "2026-07-10",
+      "tag": "release/ep03"
     },
     {
       "ep": 4,
