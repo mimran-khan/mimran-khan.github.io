@@ -1,0 +1,514 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5 | Demystifying AI in 5 Minutes"
+  description="Meituan just open-sourced a 1.6T parameter model with 1M token context under MIT license. It outperforms GPT-5.5 on SWE-bench Pro and was secretly leading OpenRouter for 2 months."
+  image="/og-series-ep03-longcat-2.png"
+  keywords="LongCat-2.0, Meituan, MoE, Mixture of Experts, Open Source LLM, 1M Context, SWE-bench, Agentic Coding, OpenRouter, MIT License, LongCat Sparse Attention"
+  publishedDate="2026-07-11"
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep03-longcat-2.png" alt="LongCat-2.0 - 1.6T parameter open-source model with 1M context" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 03
+        </span>
+        <a href="https://huggingface.co/meituan-longcat/LongCat-2.0" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.5 3.5a1 1 0 011 0l6.5 3.75a1 1 0 01.5.866v7.5a1 1 0 01-.5.866l-6.5 3.75a1 1 0 01-1 0l-6.5-3.75a1 1 0 01-.5-.866v-7.5a1 1 0 01.5-.866l6.5-3.75z"/></svg>
+          HuggingFace
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Jul 11, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        A Chinese delivery app company just dropped the biggest open-source model ever. 1.6T parameters, 1M token context, MIT license. It was secretly "Owl Alpha" on OpenRouter for 2 months. Nobody knew.
+      </p>
+
+      <ShareButtons title="LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5" url="/series/demystifying-ai/longcat-2" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Meituan open-sourced <strong>LongCat-2.0</strong> - a 1.6T parameter MoE model with native 1M token context. It scores <strong>59.5 on SWE-bench Pro</strong> (GPT-5.5 scores 58.6). MIT licensed. Trained entirely on Chinese chips. Available now on OpenRouter and HuggingFace.
+      </p>
+    </div>
+
+    <!-- Section 1: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1.6T</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Total Params</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">48B</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Active/Token</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1M</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Context Window</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">59.5</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">SWE-bench Pro</div>
+        </div>
+      </div>
+
+      <!-- Comparison Table: Desktop -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">Model</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Params</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Context</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">SWE-bench Pro</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">License</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bg-cyan/[0.03]">
+              <td class="p-3 font-semibold text-cyan">LongCat-2.0</td>
+              <td class="p-3 text-center">1.6T (48B active)</td>
+              <td class="p-3 text-center">1M</td>
+              <td class="p-3 text-center font-bold text-cyan">59.5</td>
+              <td class="p-3 text-center text-green">MIT</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">GPT-5.5</td>
+              <td class="p-3 text-center text-secondary">Unknown</td>
+              <td class="p-3 text-center text-secondary">128K</td>
+              <td class="p-3 text-center">58.6</td>
+              <td class="p-3 text-center text-red-400">Proprietary</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Claude Opus 4.8</td>
+              <td class="p-3 text-center text-secondary">Unknown</td>
+              <td class="p-3 text-center text-secondary">200K</td>
+              <td class="p-3 text-center">56.2</td>
+              <td class="p-3 text-center text-red-400">Proprietary</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">LongCat-Flash</td>
+              <td class="p-3 text-center text-secondary">560B (27B active)</td>
+              <td class="p-3 text-center text-secondary">128K</td>
+              <td class="p-3 text-center">44.1</td>
+              <td class="p-3 text-center text-green">MIT</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Comparison: Mobile cards -->
+      <div class="md:hidden space-y-3">
+        <div class="rounded-xl border border-cyan/30 bg-cyan/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-cyan text-sm">LongCat-2.0</span>
+            <span class="text-[10px] font-mono text-green">MIT</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">1.6T</span><span class="text-secondary">params</span></div>
+            <div><span class="text-foreground block">1M</span><span class="text-secondary">context</span></div>
+            <div><span class="text-cyan font-bold block">59.5</span><span class="text-secondary">SWE-Pro</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">GPT-5.5</span>
+            <span class="text-[10px] font-mono text-red-400">Proprietary</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">?</span><span class="text-secondary">params</span></div>
+            <div><span class="text-foreground block">128K</span><span class="text-secondary">context</span></div>
+            <div><span class="text-foreground block">58.6</span><span class="text-secondary">SWE-Pro</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Why It Matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Why It Matters
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        For 2 months, a model called "Owl Alpha" topped OpenRouter's developer charts. Most-used coding model globally. Nobody knew who built it.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        It was Meituan - a Chinese food delivery company. They just unmasked it as LongCat-2.0 and open-sourced everything under MIT.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">MoE Architecture</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            1.6T total parameters, but only <strong class="text-foreground">48B activate per token</strong>. Dynamic range of 33B-56B depending on complexity. Same efficiency as a 48B dense model, with the knowledge of a 1.6T one.
+          </p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">LongCat Sparse Attention</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            Custom attention mechanism that reduces long-context cost from <strong class="text-foreground">quadratic to linear</strong>. Native 1M token context without quality degradation. No sliding window tricks.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">KEY INSIGHT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          <strong>The "Owl Alpha" stealth launch</strong> proves the model works in production at scale. It handled millions of API calls from real developers before anyone knew who built it. That is the strongest possible benchmark - not a leaderboard score, but 2 months of production traffic.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: How to Get It -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> How to Get It
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Three paths: use the API, try the official chat, or download the full weights and self-host.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <a href="https://openrouter.ai/meituan/longcat-2.0" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-5 hover:border-green/40 transition-colors block">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-green font-bold">OpenRouter API</span>
+          </div>
+          <p class="text-xs text-secondary mb-3">
+            Drop-in OpenAI-compatible endpoint. No setup needed.
+          </p>
+          <div class="text-[10px] font-mono text-secondary">
+            <span class="text-green">$0.75</span> / 1M input<br />
+            <span class="text-green">$2.95</span> / 1M output
+          </div>
+        </a>
+        <a href="https://longcat.ai/" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5 hover:border-cyan/40 transition-colors block">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-cyan font-bold">Official Chat</span>
+          </div>
+          <p class="text-xs text-secondary mb-3">
+            Try it instantly in your browser. No API key required.
+          </p>
+          <div class="text-[10px] font-mono text-secondary">
+            <span class="text-cyan">longcat.ai</span>
+          </div>
+        </a>
+        <a href="https://huggingface.co/meituan-longcat/LongCat-2.0" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.02] p-5 hover:border-violet-500/40 transition-colors block">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-violet-400 font-bold">HuggingFace</span>
+          </div>
+          <p class="text-xs text-secondary mb-3">
+            Full weights under MIT license. BF16 and FP8 variants.
+          </p>
+          <div class="text-[10px] font-mono text-secondary">
+            <span class="text-violet-400">1.8T params</span> / 141 shards
+          </div>
+        </a>
+      </div>
+
+      <!-- Download -->
+      <h3 class="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-xs">01</span> Download the Weights
+      </h3>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Two variants available. FP8 is recommended for most deployments (half the VRAM, negligible quality loss).
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+        <div class="rounded-lg border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono text-cyan font-semibold">FP8 (Recommended)</span>
+            <span class="text-[9px] font-mono text-green">Fits 2x H20 nodes</span>
+          </div>
+          <code class="text-[10px] font-mono text-secondary break-all">meituan-longcat/LongCat-2.0-FP8</code>
+        </div>
+        <div class="rounded-lg border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono text-foreground/70 font-semibold">BF16 (Full Precision)</span>
+            <span class="text-[9px] font-mono text-secondary">Multi-node required</span>
+          </div>
+          <code class="text-[10px] font-mono text-secondary break-all">meituan-longcat/LongCat-2.0</code>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-8">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-secondary">Download via HuggingFace CLI</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-secondary"># Install the CLI</span>
+<span class="text-foreground">pip install huggingface_hub</span>
+
+<span class="text-secondary"># Download FP8 weights (~900GB)</span>
+<span class="text-foreground">huggingface-cli download meituan-longcat/LongCat-2.0-FP8 \</span>
+    <span class="text-foreground">--local-dir ./LongCat-2.0-FP8</span></pre>
+      </div>
+
+      <!-- API Usage -->
+      <h3 class="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-xs">02</span> Use via API (Quickest Path)
+      </h3>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        OpenRouter exposes LongCat-2.0 as an OpenAI-compatible endpoint. Swap your model string and you are done.
+      </p>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-8">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-secondary">Python - OpenRouter API</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-violet-400">import</span> <span class="text-foreground">openai</span>
+
+<span class="text-foreground">client</span> = <span class="text-cyan">openai.OpenAI</span>(
+    <span class="text-foreground">base_url</span>=<span class="text-green">"https://openrouter.ai/api/v1"</span>,
+    <span class="text-foreground">api_key</span>=<span class="text-green">"your-openrouter-key"</span>
+)
+
+<span class="text-foreground">response</span> = <span class="text-foreground">client.chat.completions.create</span>(
+    <span class="text-foreground">model</span>=<span class="text-green">"meituan/longcat-2.0"</span>,
+    <span class="text-foreground">messages</span>=[{'{'}<span class="text-green">"role"</span>: <span class="text-green">"user"</span>, <span class="text-green">"content"</span>: <span class="text-green">"..."</span>{'}'}]
+)
+
+<span class="text-foreground">print</span>(<span class="text-foreground">response.choices</span>[<span class="text-cyan">0</span>]<span class="text-foreground">.message.content</span>)</pre>
+      </div>
+
+      <!-- Self-Host -->
+      <h3 class="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-xs">03</span> Self-Host with SGLang
+      </h3>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Meituan recommends <strong class="text-foreground">16x H20 GPUs</strong> (2 nodes) with SGLang. You need to compile a custom sgl-kernel first.
+      </p>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-secondary">Step 1: Install SGLang + compile kernel</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-secondary"># Install SGLang</span>
+<span class="text-foreground">pip install uv</span>
+<span class="text-foreground">uv pip install "sglang[all]>=0.5.2.rc0"</span>
+
+<span class="text-secondary"># Compile sgl-kernel (required for LongCat-2.0)</span>
+<span class="text-foreground">cd sgl-kernel</span>
+<span class="text-foreground">python3 -m uv build --wheel --color=always --no-build-isolation \</span>
+    <span class="text-foreground">-Ccmake.define.SGL_KERNEL_ENABLE_SM90A=1 \</span>
+    <span class="text-foreground">-Ccmake.define.CMAKE_POLICY_VERSION_MINIMUM=3.5 \</span>
+    <span class="text-foreground">-Cbuild-dir=build .</span>
+<span class="text-foreground">pip3 install dist/sgl_kernel-*.whl --force-reinstall</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-secondary">Step 2: Launch server (2-node, 16x H20)</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-foreground">python -m sglang.launch_server \</span>
+  <span class="text-foreground">--model meituan-longcat/LongCat-2.0-FP8 \</span>
+  <span class="text-foreground">--trust-remote-code \</span>
+  <span class="text-foreground">--host 0.0.0.0 --port 13423 \</span>
+  <span class="text-foreground">--tp 16 --ep 16 \</span>
+  <span class="text-foreground">--max-running-requests 64 \</span>
+  <span class="text-foreground">--mem-fraction-static 0.92 \</span>
+  <span class="text-foreground">--chunked-prefill-size 2048 \</span>
+  <span class="text-foreground">--nsa-prefill-backend fa3 \</span>
+  <span class="text-foreground">--kv-cache-dtype bfloat16 \</span>
+  <span class="text-foreground">--nnodes 2 --node-rank 0 \</span>
+  <span class="text-foreground">--dist-init-addr $MASTER_IP:20000</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">HARDWARE REQUIREMENTS</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-secondary">
+          <div>
+            <span class="text-foreground font-semibold block mb-1">FP8 (Recommended)</span>
+            2 nodes, 16x H20-141G total<br />
+            ~900 GB disk for weights
+          </div>
+          <div>
+            <span class="text-foreground font-semibold block mb-1">BF16 (Full Precision)</span>
+            4+ nodes, 32x H800-80G total<br />
+            ~3.6 TB disk for weights
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">ALSO AVAILABLE VIA</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1.5 text-xs font-mono rounded-lg border border-cyan/20 bg-cyan/[0.03] text-cyan">Ollama</span>
+          <span class="px-3 py-1.5 text-xs font-mono rounded-lg border border-cyan/20 bg-cyan/[0.03] text-cyan">LM Studio</span>
+          <span class="px-3 py-1.5 text-xs font-mono rounded-lg border border-cyan/20 bg-cyan/[0.03] text-cyan">llama.cpp</span>
+          <span class="px-3 py-1.5 text-xs font-mono rounded-lg border border-cyan/20 bg-cyan/[0.03] text-cyan">Jan</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: The China Chip Angle -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The China Chip Angle
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        LongCat-2.0 trained on a cluster of <strong class="text-foreground">50,000 domestic Chinese ASICs</strong>. Zero Nvidia GPUs. This is the first near-frontier model to prove that non-Nvidia hardware can reach this level.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center">
+          <div class="text-xl font-bold text-foreground mb-1">50,000</div>
+          <div class="text-[10px] text-secondary font-mono">Domestic ASICs</div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center">
+          <div class="text-xl font-bold text-foreground mb-1">30T+</div>
+          <div class="text-[10px] text-secondary font-mono">Training Tokens</div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center">
+          <div class="text-xl font-bold text-foreground mb-1">0</div>
+          <div class="text-[10px] text-secondary font-mono">Nvidia GPUs Used</div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mt-6">
+        The geopolitical implications are significant. US export controls were designed to prevent exactly this. But Meituan just shipped a model that outperforms GPT-5.5 on coding tasks without a single restricted chip.
+      </p>
+    </div>
+
+    <!-- Section 5: Agent Harness Integration -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Agent Harness Integration
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        LongCat-2.0 is already integrated into the major coding agent harnesses. Point your tool at the OpenRouter endpoint and it works out of the box.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="feature-card rounded-xl border border-border bg-elevated p-4 text-center">
+          <span class="text-sm font-semibold text-foreground block mb-1">Claude Code</span>
+          <span class="text-[10px] font-mono text-green">Supported</span>
+        </div>
+        <div class="feature-card rounded-xl border border-border bg-elevated p-4 text-center">
+          <span class="text-sm font-semibold text-foreground block mb-1">OpenClaw</span>
+          <span class="text-[10px] font-mono text-green">Supported</span>
+        </div>
+        <div class="feature-card rounded-xl border border-border bg-elevated p-4 text-center">
+          <span class="text-sm font-semibold text-foreground block mb-1">Hermes</span>
+          <span class="text-[10px] font-mono text-green">Supported</span>
+        </div>
+        <div class="feature-card rounded-xl border border-border bg-elevated p-4 text-center">
+          <span class="text-sm font-semibold text-foreground block mb-1">Codex</span>
+          <span class="text-[10px] font-mono text-green">Supported</span>
+        </div>
+        <div class="feature-card rounded-xl border border-border bg-elevated p-4 text-center">
+          <span class="text-sm font-semibold text-foreground block mb-1">OpenCode</span>
+          <span class="text-[10px] font-mono text-green">Supported</span>
+        </div>
+        <div class="feature-card rounded-xl border border-border bg-elevated p-4 text-center">
+          <span class="text-sm font-semibold text-foreground block mb-1">Cursor</span>
+          <span class="text-[10px] font-mono text-green">Via OpenRouter</span>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-secondary">Claude Code example</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-secondary"># Set OpenRouter as your provider</span>
+<span class="text-foreground">export OPENAI_API_KEY=your-openrouter-key</span>
+<span class="text-foreground">export OPENAI_BASE_URL=https://openrouter.ai/api/v1</span>
+
+<span class="text-secondary"># Launch with LongCat-2.0</span>
+<span class="text-foreground">claude --model meituan/longcat-2.0</span></pre>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        LongCat-2.0 is <strong>the new default for open-source agentic coding</strong>. It beats GPT-5.5 on SWE-bench Pro, has 8x the context window, and costs a fraction of the price. The MIT license means you can ship it anywhere. If you build with coding agents, this is the model to benchmark against.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={3} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
