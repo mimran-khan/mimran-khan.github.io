@@ -70,6 +70,28 @@ jobs:
           echo "::error::Site not deployed after 5 attempts. Skipping LinkedIn post."
           exit 1
 
+      - name: Warm LinkedIn URL preview cache
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          SLUG="${{ steps.find.outputs.slug }}"
+          ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
+          OG_IMAGE_URL="https://mimran-khan.github.io/og-series-ep$(printf '%02d' ${{ steps.find.outputs.ep }})-${SLUG}.png"
+
+          echo "Pre-warming LinkedIn crawler cache..."
+          echo "Article: $ARTICLE_URL"
+          echo "OG Image: $OG_IMAGE_URL"
+
+          # Trigger LinkedIn's URL resolver by hitting the share offsite endpoint
+          curl -s -o /dev/null "https://www.linkedin.com/sharing/share-offsite/?url=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("'"$ARTICLE_URL"'"))')"
+
+          # Verify OG image is accessible
+          OG_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$OG_IMAGE_URL")
+          echo "OG image status: HTTP $OG_STATUS"
+
+          # Give LinkedIn's crawler time to process
+          echo "Waiting 30s for LinkedIn to cache the preview..."
+          sleep 30
+
       - name: Post to LinkedIn
         if: steps.find.outputs.skip != 'true'
         env:
