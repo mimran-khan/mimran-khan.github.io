@@ -99,28 +99,18 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
           POST_TEXT=$(cat /tmp/post_text.txt)
-          SLUG="${{ steps.find.outputs.slug }}"
-          TITLE="${{ steps.find.outputs.title }}"
-          ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
 
-          # Build JSON payload
+          # Build JSON payload - URL in text body, LinkedIn auto-generates preview from OG tags
           PAYLOAD=$(jq -n \
             --arg author "$LINKEDIN_PERSON_URN" \
             --arg text "$POST_TEXT" \
-            --arg url "$ARTICLE_URL" \
-            --arg title "$TITLE" \
             '{
               "author": $author,
               "lifecycleState": "PUBLISHED",
               "specificContent": {
                 "com.linkedin.ugc.ShareContent": {
                   "shareCommentary": {"text": $text},
-                  "shareMediaCategory": "ARTICLE",
-                  "media": [{
-                    "status": "READY",
-                    "originalUrl": $url,
-                    "title": {"text": $title}
-                  }]
+                  "shareMediaCategory": "NONE"
                 }
               },
               "visibility": {
