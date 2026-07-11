@@ -1,0 +1,126 @@
+name: LinkedIn Post
+
+on:
+  schedule:
+    - cron: '30 5 * * 1'  # Monday 05:30 UTC = Monday 11:00 IST
+    - cron: '30 5 * * 3'  # Wednesday 05:30 UTC = Wednesday 11:00 IST
+    - cron: '30 5 * * 6'  # Saturday 05:30 UTC = Saturday 11:00 IST
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging
+        uses: actions/checkout@v4
+
+      - name: Find today's release
+        id: find
+        run: |
+          TODAY=$(date -u +'%Y-%m-%d')
+          YESTERDAY=$(date -u -d 'yesterday' +'%Y-%m-%d')
+
+          # Check for episode published today or yesterday (timezone buffer)
+          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" \
+            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y)) | .ep' \
+            manifest.json | tail -1)
+
+          if [ -z "$EP" ] || [ "$EP" = "null" ]; then
+            echo "No episode published today. Skipping LinkedIn post."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          SLUG=$(jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .slug' manifest.json)
+          TITLE=$(jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .title' manifest.json)
+          POST_TEXT=$(jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .linkedin_post // empty' manifest.json)
+
+          if [ -z "$POST_TEXT" ]; then
+            echo "No linkedin_post text found for EP$EP. Skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Found EP$EP ($SLUG) published on $TODAY"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "ep=$EP" >> "$GITHUB_OUTPUT"
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+
+          # Save post text to file (handles multiline safely)
+          jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .linkedin_post' manifest.json > /tmp/post_text.txt
+
+      - name: Verify site is deployed
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          SLUG="${{ steps.find.outputs.slug }}"
+          URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
+          echo "Checking: $URL"
+
+          for i in 1 2 3 4 5; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+            if [ "$STATUS" = "200" ]; then
+              echo "Site is live (HTTP 200)"
+              exit 0
+            fi
+            echo "Attempt $i: HTTP $STATUS - waiting 60s..."
+            sleep 60
+          done
+
+          echo "::error::Site not deployed after 5 attempts. Skipping LinkedIn post."
+          exit 1
+
+      - name: Post to LinkedIn
+        if: steps.find.outputs.skip != 'true'
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+        run: |
+          POST_TEXT=$(cat /tmp/post_text.txt)
+          SLUG="${{ steps.find.outputs.slug }}"
+          TITLE="${{ steps.find.outputs.title }}"
+          ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
+
+          # Build JSON payload
+          PAYLOAD=$(jq -n \
+            --arg author "$LINKEDIN_PERSON_URN" \
+            --arg text "$POST_TEXT" \
+            --arg url "$ARTICLE_URL" \
+            --arg title "$TITLE" \
+            '{
+              "author": $author,
+              "lifecycleState": "PUBLISHED",
+              "specificContent": {
+                "com.linkedin.ugc.ShareContent": {
+                  "shareCommentary": {"text": $text},
+                  "shareMediaCategory": "ARTICLE",
+                  "media": [{
+                    "status": "READY",
+                    "originalUrl": $url,
+                    "title": {"text": $title}
+                  }]
+                }
+              },
+              "visibility": {
+                "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
+              }
+            }')
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            'https://api.linkedin.com/v2/ugcPosts' \
+            -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
+            -H 'Content-Type: application/json' \
+            -H 'X-Restli-Protocol-Version: 2.0.0' \
+            -d "$PAYLOAD")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          if [ "$HTTP_CODE" = "201" ]; then
+            echo "LinkedIn post published successfully!"
+            echo "Response: $BODY"
+          else
+            echo "::error::LinkedIn post failed with HTTP $HTTP_CODE"
+            echo "$BODY"
+            exit 1
+          fi

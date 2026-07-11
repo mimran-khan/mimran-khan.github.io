@@ -32,28 +32,32 @@
       "title": "LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5",
       "status": "published",
       "published_on": "2026-07-10",
-      "tag": "release/ep03"
+      "tag": "release/ep03",
+      "linkedin_post": "Episode 03: 5-minute read. Zero fluff : LongCat-2.0: Open-Source 1M Context That Beats GPT-5.5\n\nA Chinese food delivery company secretly ran the most-used coding model on OpenRouter for 2 months. Nobody knew. They just unmasked it as LongCat-2.0 and open-sourced everything under MIT.\n\nKey findings/points:\n- 1.6T parameters, 48B active per token, 1M native context window\n- 59.5 on SWE-bench Pro (GPT-5.5 scores 58.6)\n- Trained on 50,000 domestic Chinese ASICs - zero Nvidia GPUs\n- Available now on OpenRouter at $0.75/M input, full weights on HuggingFace\n\nThe takeaway? The best open-source coding model is MIT licensed, cheaper than GPT-5.5, and was hiding in plain sight for 2 months.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/longcat-2\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #OpenSource #LongCat #MoE #CodingAgents #SWEbench"
     },
     {
       "ep": 4,
       "branch": "ep04",
       "slug": "mcp-stateless",
       "title": "MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch",
-      "status": "pending"
+      "status": "pending",
+      "linkedin_post": "Episode 04: 5-minute read. Zero fluff : MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch\n\nMCP ships 7 breaking changes on Jul 28. Sessions removed. Handshake removed. OAuth hardened. HTTP+SSE deprecated. If you only prep for the stateless core, the other 6 will blindside you.\n\nKey findings/points:\n- initialize handshake and Mcp-Session-Id completely removed (SEP-2575, SEP-2567)\n- Caching with ttlMs replaces server-sent change notifications\n- New Extensions framework replaces Roots, Sampling, and Logging\n- One migration report: -412 lines, +168 lines - statelessness mostly means deleting code\n\nThe takeaway? If you run remote HTTP MCP servers, start testing against the RC now. stdio servers can wait.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mcp-stateless\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #MCP #ModelContextProtocol #Stateless #ProtocolDesign #DevTools"
     },
     {
       "ep": 5,
       "branch": "ep05",
       "slug": "skillopt",
       "title": "SkillOpt: Your Agent's Skills Are Trainable Parameters",
-      "status": "pending"
+      "status": "pending",
+      "linkedin_post": "Episode 05: 5-minute read. Zero fluff : SkillOpt: Your Agent's Skills Are Trainable Parameters\n\nMicrosoft trained agent skills like neural network weights. +23.5 points on GPT-5.5 without changing a single model parameter. The output? One readable markdown file.\n\nKey findings/points:\n- 52/52 evaluation cells: best or tied across 6 benchmarks\n- GPT-5.4-mini + skill beats GPT-5.4 without one (small models jump tiers)\n- Skills transfer across harnesses: trained in Codex, dropped into Claude Code for +59.7 points\n- Median optimized skill is ~920 tokens of plain readable markdown\n\nThe takeaway? The closest thing to fine-tuning without fine-tuning - pip install skillopt and try it yourself.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/skillopt\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #SkillOpt #MicrosoftResearch #AgentSkills #PromptOptimization #ClaudeCode"
     },
     {
       "ep": 6,
       "branch": "ep06",
       "slug": "antidoom",
       "title": "Antidoom: One LoRA to Kill Your Model's Doom Loops",
-      "status": "pending"
+      "status": "pending",
+      "linkedin_post": "Episode 06: 5-minute read. Zero fluff : Antidoom: One LoRA to Kill Your Model's Doom Loops\n\nYour reasoning model knows the answer. It just gets stuck repeating \"Let me reconsider...\" until the context window is exhausted. Liquid AI found the exact token where the loop starts and built a fix.\n\nKey findings/points:\n- Qwen3.5-4B doom loop rate: 22.9% drops to 1% with one LoRA adapter\n- FTPO (Final Token Preference Optimization) trains on exactly one token position per sample\n- Eval scores went UP after training - the model was already capable, just stuck\n- Full pipeline runs in hours, one epoch, open-sourced on GitHub\n\nThe takeaway? If you run small reasoning models in production, this is a mandatory fix - one command, a few hours, near-zero looping.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/antidoom\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Antidoom #LiquidAI #LoRA #ReasoningModels #OpenSource"
     }
   ]
 }
