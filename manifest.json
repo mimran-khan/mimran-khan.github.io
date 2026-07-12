@@ -40,8 +40,10 @@
       "branch": "ep04",
       "slug": "mcp-stateless",
       "title": "MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch",
-      "status": "pending",
-      "linkedin_post": "Episode 04: 5-minute read. Zero fluff : MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch\n\nMCP ships 7 breaking changes on Jul 28. Sessions removed. Handshake removed. OAuth hardened. HTTP+SSE deprecated. If you only prep for the stateless core, the other 6 will blindside you.\n\nKey findings/points:\n- initialize handshake and Mcp-Session-Id completely removed (SEP-2575, SEP-2567)\n- Caching with ttlMs replaces server-sent change notifications\n- New Extensions framework replaces Roots, Sampling, and Logging\n- One migration report: -412 lines, +168 lines - statelessness mostly means deleting code\n\nThe takeaway? If you run remote HTTP MCP servers, start testing against the RC now. stdio servers can wait.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mcp-stateless\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #MCP #ModelContextProtocol #Stateless #ProtocolDesign #DevTools"
+      "status": "published",
+      "linkedin_post": "Episode 04: 5-minute read. Zero fluff : MCP Goes Stateless: The Biggest Protocol Rewrite Since Launch\n\nMCP ships 7 breaking changes on Jul 28. Sessions removed. Handshake removed. OAuth hardened. HTTP+SSE deprecated. If you only prep for the stateless core, the other 6 will blindside you.\n\nKey findings/points:\n- initialize handshake and Mcp-Session-Id completely removed (SEP-2575, SEP-2567)\n- Caching with ttlMs replaces server-sent change notifications\n- New Extensions framework replaces Roots, Sampling, and Logging\n- One migration report: -412 lines, +168 lines - statelessness mostly means deleting code\n\nThe takeaway? If you run remote HTTP MCP servers, start testing against the RC now. stdio servers can wait.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mcp-stateless\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #MCP #ModelContextProtocol #Stateless #ProtocolDesign #DevTools",
+      "published_on": "2026-07-12",
+      "tag": "release/ep04"
     },
     {
       "ep": 5,
