@@ -103,7 +103,7 @@ jobs:
         run: |
           git config --unset-all http.https://github.com/.extraheader || true
           git checkout -b release-clean
-          git rm -rf .github/workflows/ manifest.json
+          git rm -f .github/workflows/scheduled-release.yml .github/workflows/linkedin-post.yml manifest.json
 
           # Strip unreleased episode details from episodes.json
           # Keep: all published episodes + immediate next episode (for "Up Next" teaser)
