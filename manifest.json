@@ -50,8 +50,10 @@
       "branch": "ep05",
       "slug": "skillopt",
       "title": "SkillOpt: Your Agent's Skills Are Trainable Parameters",
-      "status": "pending",
-      "linkedin_post": "Episode 05: 5-minute read. Zero fluff : SkillOpt: Your Agent's Skills Are Trainable Parameters\n\nMicrosoft trained agent skills like neural network weights. +23.5 points on GPT-5.5 without changing a single model parameter. The output? One readable markdown file.\n\nKey findings/points:\n- 52/52 evaluation cells: best or tied across 6 benchmarks\n- GPT-5.4-mini + skill beats GPT-5.4 without one (small models jump tiers)\n- Skills transfer across harnesses: trained in Codex, dropped into Claude Code for +59.7 points\n- Median optimized skill is ~920 tokens of plain readable markdown\n\nThe takeaway? The closest thing to fine-tuning without fine-tuning - pip install skillopt and try it yourself.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/skillopt\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #SkillOpt #MicrosoftResearch #AgentSkills #PromptOptimization #ClaudeCode"
+      "status": "published",
+      "linkedin_post": "Episode 05: 5-minute read. Zero fluff : SkillOpt: Your Agent's Skills Are Trainable Parameters\n\nMicrosoft trained agent skills like neural network weights. +23.5 points on GPT-5.5 without changing a single model parameter. The output? One readable markdown file.\n\nKey findings/points:\n- 52/52 evaluation cells: best or tied across 6 benchmarks\n- GPT-5.4-mini + skill beats GPT-5.4 without one (small models jump tiers)\n- Skills transfer across harnesses: trained in Codex, dropped into Claude Code for +59.7 points\n- Median optimized skill is ~920 tokens of plain readable markdown\n\nThe takeaway? The closest thing to fine-tuning without fine-tuning - pip install skillopt and try it yourself.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/skillopt\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #SkillOpt #MicrosoftResearch #AgentSkills #PromptOptimization #ClaudeCode",
+      "published_on": "2026-07-14",
+      "tag": "release/ep05"
     },
     {
       "ep": 6,
