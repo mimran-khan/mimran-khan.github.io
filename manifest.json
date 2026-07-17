@@ -70,7 +70,24 @@
       "branch": "ep07",
       "slug": "vulnhunter",
       "title": "VulnHunter: Capital One Built an Agent That Hacks Your Code First",
-      "status": "pending"
+      "status": "pending",
+      "linkedin_post": "Episode 07: 5-minute read. Zero fluff : VulnHunter: Capital One Built an Agent That Hacks Your Code First\n\nTraditional SAST scanners dump 400 findings. 90% are false positives. Capital One built something that thinks like a pentester instead. Open-sourced it under Apache 2.0.\n\nKey findings/points:\n- Built as Claude Code skills (SKILL.md files) - not a standalone tool\n- Three-phase pipeline: discover attack surface, write PoC exploit, generate verified fix\n- Every finding ships with a working exploit - if it cannot prove exploitability, it does not report it\n- Verification loop re-runs the PoC against patched code - no fix ships without proof\n\nThe takeaway? SAST scanners search for patterns. VulnHunter reasons like an adversary. One dumps noise. The other proves the bug is real and hands you a tested fix.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/vulnhunter\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #VulnHunter #CapitalOne #Security #SAST #OpenSource"
+    },
+    {
+      "ep": 8,
+      "branch": "ep08",
+      "slug": "ring-zero",
+      "title": "Ring-Zero: Your Model Has Context Anxiety and Nobody Programmed It",
+      "status": "pending",
+      "linkedin_post": "Episode 08: 5-minute read. Zero fluff : Ring-Zero: Your Model Has Context Anxiety and Nobody Programmed It\n\nAnt Group trained a 1 trillion parameter model with zero human data. Five cognitive behaviors emerged on their own. One of them is the model panicking about running out of tokens.\n\nKey findings/points:\n- Pure RLVR (Reinforcement Learning with Verifiable Rewards) - binary reward, zero human labels\n- 5 emergent behaviors: anthropomorphism, structured formatting, self-verification, parallel reasoning, context anxiety\n- Context anxiety: at ~85% context usage, the model aborts verification and commits to its best answer\n- Naive scaling failed - 3 engineering fixes were required before emergence appeared\n\nThe takeaway? Nobody taught this model to panic about tokens. Nobody taught it to verify its own answers. These strategies emerged because they maximize correctness at scale. #1 on HuggingFace Daily Papers.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/ring-zero\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #RingZero #EmergentAI #ReinforcementLearning #AntGroup #InclusionAI"
+    },
+    {
+      "ep": 9,
+      "branch": "ep09",
+      "slug": "inkling",
+      "title": "Inkling: The Former OpenAI CTO Did What Altman Would Not",
+      "status": "pending",
+      "linkedin_post": "Episode 09: 5-minute read. Zero fluff : Inkling: The Former OpenAI CTO Did What Altman Would Not\n\nMira Murati left OpenAI. Raised $2B. Built a 975B-parameter frontier model from scratch. Then released it fully open under Apache 2.0. No revenue caps. No restrictions. The largest US-built open-weights model.\n\nKey findings/points:\n- 975B total params, 41B active per token (MoE), 1M context window, 45T training tokens\n- Encoder-free early fusion: text, images, audio enter the same transformer from day one\n- SWE-bench Pro: 77.6% - beats every open-weights competitor including Nemotron 3 Ultra\n- Apache 2.0 with patent grant - no MAU caps, no use restrictions, no copyleft\n\nThe takeaway? Strongest model wins benchmarks. Most open model wins adoption. Murati is betting on adoption. The base model is free. The fine-tuning platform (Tinker) is paid.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/inkling\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Inkling #ThinkingMachines #MiraMurati #OpenSource #Apache2"
     }
   ]
 }

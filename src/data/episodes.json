@@ -82,5 +82,29 @@
     "readTime": "5 min",
     "published": false,
     "image": "/series/ep07-vulnhunter.png"
+  },
+  {
+    "number": 8,
+    "slug": "ring-zero",
+    "title": "Ring-Zero: Your Model Has Context Anxiety and Nobody Programmed It",
+    "hook": "Ant Group scaled Zero RL to 1 trillion parameters. Five cognitive behaviors emerged that nobody coded - including a model that panics about running out of tokens.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Jul 22",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep08-ring-zero.png"
+  },
+  {
+    "number": 9,
+    "slug": "inkling",
+    "title": "Inkling: The Former OpenAI CTO Did What Altman Would Not",
+    "hook": "Mira Murati left OpenAI, built a 975B-parameter frontier model from scratch, and released it fully open under Apache 2.0. The largest American open-weights model.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Jul 25",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep09-inkling.png"
   }
 ]

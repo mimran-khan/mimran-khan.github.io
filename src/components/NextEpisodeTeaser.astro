@@ -42,15 +42,15 @@ const borderDashed: Record<string, string> = {
 };
 ---
 
-{next && cat && (
-  <div class="max-w-3xl border-t border-border pt-6 md:pt-8 mt-6 md:mt-8">
-    <div class="flex items-center gap-2 mb-4">
-      <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
-      <div class="flex-1 h-px bg-border"></div>
-      <span class="text-[10px] font-mono text-secondary">{next.day}</span>
-    </div>
+<div class="max-w-3xl border-t border-border pt-6 md:pt-8 mt-6 md:mt-8">
+  <div class="flex items-center gap-2 mb-4">
+    <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+    <div class="flex-1 h-px bg-border"></div>
+    {next && <span class="text-[10px] font-mono text-secondary">{next.day}</span>}
+  </div>
 
-    {next.published ? (
+  {next && cat ? (
+    next.published ? (
       <a href={`/series/demystifying-ai/${next.slug}`} class={`block rounded-xl border ${borderSolid[cat.color]} ${bgTint[cat.color]} p-4 md:p-5 ${cat.hoverBorder} ${hoverBgTint[cat.color]} transition-all duration-300 group`}>
         <div class="flex items-center gap-2 mb-2">
           <span class={`text-xs font-mono ${cat.text} font-bold`}>#{padded}</span>
@@ -69,6 +69,14 @@ const borderDashed: Record<string, string> = {
         <h3 class="text-sm md:text-base font-semibold text-foreground/70 mb-1">{next.title}</h3>
         <p class="text-xs text-secondary/70">{next.hook}</p>
       </div>
-    )}
-  </div>
-)}
+    )
+  ) : (
+    <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-4 md:p-5">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-2 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">Coming Soon</span>
+      </div>
+      <h3 class="text-sm md:text-base font-semibold text-foreground/70 mb-1">Next episode dropping soon</h3>
+      <p class="text-xs text-secondary/70">New episodes every Mon, Wed, Sat. Follow on LinkedIn to get notified.</p>
+    </div>
+  )}
+</div>
