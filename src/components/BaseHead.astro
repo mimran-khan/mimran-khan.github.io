@@ -6,10 +6,12 @@ interface Props {
   keywords?: string;
   publishedDate?: string;
   modifiedDate?: string;
+  articleSection?: string;
+  articleTags?: string[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/og-image.svg', keywords, publishedDate, modifiedDate } = Astro.props;
+const { title, description, image = '/og-image.svg', keywords, publishedDate, modifiedDate, articleSection, articleTags } = Astro.props;
 const fullTitle = title === 'Home' ? 'Imran Khan | Senior ML Engineer | Agentic AI & LLMs' : `${title} | Imran Khan`;
 const isBlog = Astro.url.pathname.startsWith('/blog') || Astro.url.pathname.startsWith('/series/');
 const siteUrl = 'https://mimran-khan.github.io';
@@ -100,6 +102,8 @@ const blogSchema = isBlog ? {
 {isBlog && publishedDate && <meta property="article:published_time" content={publishedDate} />}
 {isBlog && modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
 {isBlog && <meta property="article:author" content="Mohammed Imran Khan" />}
+{isBlog && articleSection && <meta property="article:section" content={articleSection} />}
+{isBlog && articleTags && articleTags.map(tag => <meta property="article:tag" content={tag} />)}
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content={canonicalURL.toString()} />

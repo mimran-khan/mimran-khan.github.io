@@ -11,6 +11,22 @@ const categoryConfig: Record<string, { label: string; color: string; bg: string;
 
 const publishedEpisodes = episodes.filter(ep => ep.published).reverse();
 const nextEpisode = episodes.find(ep => !ep.published);
+
+const siteUrl = 'https://mimran-khan.github.io';
+const seriesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Demystifying AI in 5 Minutes",
+  "description": "One AI concept. Under 5 minutes. Three times a week. Built for engineers who ship.",
+  "url": `${siteUrl}/series/demystifying-ai`,
+  "numberOfItems": publishedEpisodes.length,
+  "itemListElement": publishedEpisodes.map((ep, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "url": `${siteUrl}/series/demystifying-ai/${ep.slug}`,
+    "name": ep.title,
+  })),
+};
 ---
 
 <BaseLayout
@@ -18,6 +34,7 @@ const nextEpisode = episodes.find(ep => !ep.published);
   description="One AI concept. Under 5 minutes. Three times a week. Breaking down cutting-edge AI research, hot topics, and new releases for builders."
   keywords="AI, Machine Learning, Demystifying AI, Research Papers, Agentic AI, LLMs, MCP, A2A, Deep Agents, Context Engineering"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(seriesSchema)} />
   <div class="min-h-screen">
     <!-- Hero -->
     <section class="relative overflow-hidden border-b border-border">

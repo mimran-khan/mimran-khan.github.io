@@ -11,15 +11,17 @@ interface Props {
   keywords?: string;
   publishedDate?: string;
   modifiedDate?: string;
+  articleSection?: string;
+  articleTags?: string[];
 }
 
-const { title, description, image, keywords, publishedDate, modifiedDate } = Astro.props;
+const { title, description, image, keywords, publishedDate, modifiedDate, articleSection, articleTags } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={image} keywords={keywords} publishedDate={publishedDate} modifiedDate={modifiedDate} />
+    <BaseHead title={title} description={description} image={image} keywords={keywords} publishedDate={publishedDate} modifiedDate={modifiedDate} articleSection={articleSection} articleTags={articleTags} />
     <meta name="google-site-verification" content="9YAPhMGIK7OYp3JqaWvd5RV768Qe6oQESDiy5Xpzew0" />
   </head>
   <body class="min-h-screen flex flex-col bg-background text-foreground">
