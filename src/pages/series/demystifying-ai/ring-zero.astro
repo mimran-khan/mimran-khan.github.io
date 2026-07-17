@@ -1,0 +1,702 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Ring-Zero: Your Model Has Context Anxiety and Nobody Programmed It | Demystifying AI in 5 Minutes"
+  description="Ant Group scaled Zero RL to 1 trillion parameters. Five cognitive behaviors emerged that nobody coded - including a model that panics about running out of tokens."
+  image="/og-series-ep08-ring-zero.png"
+  keywords="Ring-Zero, Emergent Reasoning, Trillion Parameters, Zero RL, Context Anxiety, Self-Verification, InclusionAI, Ant Group, Reinforcement Learning"
+  publishedDate="2026-07-22"
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .anxiety-card {
+      animation: anxiety-pulse 3s ease-in-out infinite;
+    }
+    @keyframes anxiety-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+      50% { box-shadow: 0 0 20px 0 rgba(234, 179, 8, 0.08); }
+    }
+    .fix-card {
+      transition: all 0.3s ease;
+    }
+    .fix-card:hover {
+      transform: translateX(4px);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep08-ring-zero.png" alt="Ring-Zero - Your Model Has Context Anxiety and Nobody Programmed It" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet-400 font-mono bg-violet-500/5 border border-violet-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          EP 08
+        </span>
+        <a href="https://arxiv.org/abs/2607.12395" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 7l3 5-3 5M15 7l-3 5 3 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          arXiv: 2607.12395
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Jul 22, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Ring-Zero: Your Model Has Context Anxiety and Nobody Programmed It
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        InclusionAI trained a 1 trillion parameter model with zero human data. Five cognitive behaviors emerged on their own. One of them is the model panicking about running out of tokens.
+      </p>
+
+      <ShareButtons title="Ring-Zero: Your Model Has Context Anxiety and Nobody Programmed It" url="/series/demystifying-ai/ring-zero" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        InclusionAI (Ant Group) applied <strong>Zero RL</strong> to a raw 1 trillion parameter base model. No human-annotated data. No supervised fine-tuning. Pure reinforcement learning with verifiable rewards - technically called <strong>RLVR</strong> (Reinforcement Learning with Verifiable Rewards). The reward signal is binary: did the model get the right answer? That is it. The result: <strong>5 cognitive behaviors emerged spontaneously</strong>, including a model that monitors its remaining context window and <strong>strategically panics</strong> when tokens run low. Nobody programmed any of it. <strong>#1 on HuggingFace Daily Papers</strong>, July 16, 2026.
+      </p>
+    </div>
+
+    <!-- ==================== SECTION 1: What Nobody Programmed ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> What Nobody Programmed
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Ring-2.5-1T-Zero was trained with one objective: <strong>get the right answer</strong>. That is it. No instructions on how to reason, how to format, how to verify.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The training signal was a binary reward. Correct answer: +1. Wrong answer: 0. No partial credit. No human feedback on reasoning quality. Yet the model independently discovered 5 sophisticated cognitive strategies.
+      </p>
+
+      <!-- 5-card grid: 2x2 + 1 highlighted -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </span>
+            <span class="text-xs font-mono text-violet-400 font-bold">01</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-1">Anthropomorphism</span>
+          <p class="text-[11px] text-secondary mb-2">The model starts narrating its reasoning in first person. <em>"Let me reconsider this."</em> <em>"I think the key insight is..."</em></p>
+          <p class="text-[11px] text-secondary mb-0">This is not RLHF. No human told it to speak this way. It discovered that <strong>framing reasoning as internal monologue leads to better answers</strong>. First-person narration became a problem-solving strategy, not a personality trait.</p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+            </span>
+            <span class="text-xs font-mono text-violet-400 font-bold">02</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-1">Structured Formatting</span>
+          <p class="text-[11px] text-secondary mb-2">Without any formatting instructions, the model starts organizing its reasoning into sections, numbered steps, and bullet points.</p>
+          <p class="text-[11px] text-secondary mb-0">It learned that <strong>structured output correlates with correct answers</strong>. Readability is a side effect. The model does not care about human readability - it cares about organizing tokens in ways that minimize reasoning errors.</p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+            <span class="text-xs font-mono text-violet-400 font-bold">03</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-1">Self-Verification</span>
+          <p class="text-[11px] text-secondary mb-2">After reaching an answer, the model independently re-derives the solution from scratch. If the 2 paths agree, it commits. If they diverge, it investigates the discrepancy.</p>
+          <p class="text-[11px] text-secondary mb-0">This is what labs spend months building into <strong>prompted CoT pipelines</strong>. Ring-Zero discovered it for free. Self-consistency checking emerged as an optimal strategy with zero prompt engineering.</p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            </span>
+            <span class="text-xs font-mono text-violet-400 font-bold">04</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-1">Parallel Reasoning</span>
+          <p class="text-[11px] text-secondary mb-2">The model explores 2-3 solution paths simultaneously - substitution, induction, direct computation - then selects the one that converges fastest.</p>
+          <p class="text-[11px] text-secondary mb-0">This is <strong>implicit tree search</strong> without being given a tree search algorithm. The model learned that exploring multiple branches and pruning losers is more token-efficient than committing to a single path early.</p>
+        </div>
+      </div>
+
+      <!-- Context Anxiety: highlighted card -->
+      <div class="anxiety-card feature-card rounded-xl border-2 border-yellow-500/30 bg-yellow-500/[0.04] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-8 h-8 rounded-lg bg-yellow-500/15 flex items-center justify-center">
+            <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-yellow-400 font-bold">05 - THE BIG ONE</span>
+        </div>
+        <span class="text-sm font-semibold text-foreground block mb-2">Context Anxiety</span>
+        <p class="text-[11px] text-secondary mb-2">
+          When the model estimates it has consumed <strong>roughly 85% of its context window</strong>, behavior changes abruptly. Deep deduction stops. Verification is skipped. The model outputs the best available answer immediately.
+        </p>
+        <p class="text-[11px] text-secondary mb-2">
+          This is <strong>resource-aware survival behavior</strong>. The model learned that a partial answer is worth more than no answer. The paper calls this <strong>"strategic panic"</strong> - the model essentially runs a cost-benefit analysis on its remaining tokens.
+        </p>
+        <p class="text-[11px] text-secondary mb-0">
+          The production implications are massive. Models that <strong>self-manage their compute budgets</strong> without external orchestration could reshape how inference pipelines are built. Nobody coded a token counter. Nobody wrote a "hurry up" instruction. The model discovered resource management on its own.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 2: Context Anxiety Up Close ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Context Anxiety Up Close
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Here is what the model's reasoning chain looks like when it detects low remaining tokens. The shift is abrupt and deliberate. Watch a hard combinatorics problem trigger the transition.
+      </p>
+
+      <!-- Reasoning chain diagram -->
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 mb-6 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-violet-400">MODEL INTERNAL REASONING</span>
+          <span class="text-[9px] font-mono text-secondary ml-auto">context window: 1M tokens</span>
+        </div>
+        <div class="space-y-3">
+          <!-- Normal reasoning phase -->
+          <div class="flex items-start gap-2">
+            <span class="text-[10px] font-mono text-green w-20 shrink-0 mt-0.5">~10% used</span>
+            <div class="rounded-lg bg-green/5 border border-green/20 p-2.5 flex-1">
+              <pre class="text-[10px] font-mono leading-relaxed text-green/80 whitespace-pre-wrap">Problem: In how many ways can 12 distinct
+books be placed on 4 identical shelves such
+that no shelf is empty?
+
+Let me approach this systematically.
+This is a surjective distribution problem.
+I'll explore Path A: inclusion-exclusion
+I'll also try Path B: Stirling numbers...</pre>
+            </div>
+          </div>
+
+          <!-- Deep reasoning -->
+          <div class="flex items-start gap-2">
+            <span class="text-[10px] font-mono text-violet-400 w-20 shrink-0 mt-0.5">~60% used</span>
+            <div class="rounded-lg bg-violet-500/5 border border-violet-500/20 p-2.5 flex-1">
+              <pre class="text-[10px] font-mono leading-relaxed text-violet-300/80 whitespace-pre-wrap">Path A: S(12,4) via inclusion-exclusion...
+  4^12 - C(4,1)*3^12 + C(4,2)*2^12 - C(4,3)*1
+  = 16777216 - 4*531441 + 6*4096 - 4
+  = 16777216 - 2125764 + 24576 - 4
+  = 14676024
+
+Wait - let me verify by trying another
+approach. Path B: direct Stirling computation
+S(12,4) = sum of... *re-derives from scratch*
+
+Path B confirms: 14676024.
+But since shelves are identical, divide by 4!
+Final: 14676024 / 24 = 611501</pre>
+            </div>
+          </div>
+
+          <!-- Anxiety trigger -->
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-yellow-400 w-20 shrink-0">~85% used</span>
+            <div class="h-px flex-1 bg-gradient-to-r from-yellow-500/40 via-yellow-500/60 to-yellow-500/40"></div>
+            <span class="text-[9px] font-mono text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/30 shrink-0">STRATEGIC PANIC</span>
+          </div>
+
+          <!-- Panic mode -->
+          <div class="flex items-start gap-2">
+            <span class="text-[10px] font-mono text-red-400 w-20 shrink-0 mt-0.5">~90% used</span>
+            <div class="rounded-lg bg-red-500/5 border border-red-500/20 p-2.5 flex-1">
+              <pre class="text-[10px] font-mono leading-relaxed text-red-300/80 whitespace-pre-wrap">Given the analysis above, the answer is
+611501.</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- What The Paper Actually Says callout -->
+      <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.05] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-md bg-violet-500/15 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </span>
+          <span class="text-xs font-mono text-violet-400 font-bold">WHAT THE PAPER ACTUALLY SAYS</span>
+        </div>
+        <p class="text-[11px] text-secondary italic mb-2">
+          The paper describes context anxiety as the model approaching what it <strong>"perceives as its maximum"</strong> context window, at which point it <strong>"actively aborts"</strong> deep reasoning. Rather than failing silently or producing truncated output, the model deliberately restructures its response strategy.
+        </p>
+        <p class="text-[11px] text-secondary mb-0">
+          The researchers note this is distinct from simple truncation. The model makes a <strong>deliberate decision</strong> to abandon verification steps and commit to its best current answer. It has internalized that the expected value of a complete-but-unverified answer exceeds the expected value of a verified answer that gets cut off by the context limit.
+        </p>
+      </div>
+
+      <!-- What happened breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Before panic</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Deep deduction, multiple paths, self-verification, re-derivation from scratch. The model takes its time, explores thoroughly, and cross-checks its work against alternative methods.</p>
+        </div>
+        <div class="rounded-xl border border-yellow-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-yellow-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">After panic</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Aborts verification. Skips remaining paths. Switches from <em>"Let me verify by trying another approach"</em> to <em>"Given the analysis above, the answer is..."</em>. <strong>Survival mode.</strong></p>
+        </div>
+      </div>
+
+      <!-- Production callout -->
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-6 h-6 rounded-md bg-red-500/10 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-red-400 font-bold">PRODUCTION REALITY CHECK</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          If your model is running on a fixed context window in production, <strong>it may already be doing something similar</strong>. Current reasoning models likely make implicit decisions about depth vs. remaining space. The difference is that Ring-Zero makes this behavior <strong>visible, measurable, and documented</strong>. Before this paper, nobody had proven it happens.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 3: When Naive Scaling Fails ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> When Naive Scaling Fails
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        The paper documents that simply scaling RL training to 1 trillion parameters did not work out of the box. <strong>Naive scaling failed.</strong> 3 problems appeared that required engineering interventions.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This matters because it reveals the gap between "just scale it" and "scale it correctly." The emergent behaviors only appeared after these fixes were in place.
+      </p>
+
+      <!-- Problem -> Fix -> Result grid -->
+      <div class="space-y-3 mb-6">
+        <!-- Problem 1 -->
+        <div class="fix-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center">
+            <div>
+              <span class="text-[9px] font-mono text-red-400 font-bold block mb-1">PROBLEM</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Poor Readability</span>
+              <p class="text-[10px] text-secondary mb-0">Raw RL training at scale produced incomprehensible reasoning traces. The model solved problems correctly but generated token sequences that no human (or downstream system) could parse.</p>
+            </div>
+            <div class="hidden md:flex items-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+            <div>
+              <span class="text-[9px] font-mono text-violet-400 font-bold block mb-1">FIX</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Clipped Importance Sampling</span>
+              <p class="text-[10px] text-secondary mb-0">Prevents catastrophic policy updates during training. Constrains how far the model can deviate from its previous policy in a single update step, maintaining reasoning coherence.</p>
+            </div>
+            <div class="hidden md:flex items-center">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+            <div>
+              <span class="text-[9px] font-mono text-green font-bold block mb-1">RESULT</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Coherent Reasoning</span>
+              <p class="text-[10px] text-secondary mb-0">Structured, human-readable chains of thought that maintain logical flow across hundreds of reasoning steps.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="fix-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center">
+            <div>
+              <span class="text-[9px] font-mono text-red-400 font-bold block mb-1">PROBLEM</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Token Redundancy</span>
+              <p class="text-[10px] text-secondary mb-0">The model repeated similar reasoning steps over and over, wasting precious context window space. Useful compute was lost to repetitive token generation.</p>
+            </div>
+            <div class="hidden md:flex items-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+            <div>
+              <span class="text-[9px] font-mono text-violet-400 font-bold block mb-1">FIX</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Training-Inference Ratio Correction</span>
+              <p class="text-[10px] text-secondary mb-0">Aligns training dynamics with inference behavior. Ensures the model's training-time exploration translates into efficient inference-time reasoning without wasteful repetition.</p>
+            </div>
+            <div class="hidden md:flex items-center">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+            <div>
+              <span class="text-[9px] font-mono text-green font-bold block mb-1">RESULT</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Efficient Token Usage</span>
+              <p class="text-[10px] text-secondary mb-0">Each reasoning step advances the solution. No more circular loops or redundant re-statements of the same logical point.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="fix-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center">
+            <div>
+              <span class="text-[9px] font-mono text-red-400 font-bold block mb-1">PROBLEM</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">No Adaptive Depth</span>
+              <p class="text-[10px] text-secondary mb-0">The model could not adjust reasoning effort based on problem difficulty. Easy and hard problems consumed the same number of tokens. No compute budgeting.</p>
+            </div>
+            <div class="hidden md:flex items-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+            <div>
+              <span class="text-[9px] font-mono text-violet-400 font-bold block mb-1">FIX</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Mixed-Precision Control</span>
+              <p class="text-[10px] text-secondary mb-0">Prevents numerical instability at trillion-parameter scale. Stabilizes gradient flow so the model can learn nuanced policies for effort allocation across problems of varying difficulty.</p>
+            </div>
+            <div class="hidden md:flex items-center">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+            <div>
+              <span class="text-[9px] font-mono text-green font-bold block mb-1">RESULT</span>
+              <span class="text-xs font-semibold text-foreground block mb-1">Adaptive Reasoning</span>
+              <p class="text-[10px] text-secondary mb-0">Simple problems get short reasoning chains. Hard problems get deep multi-path exploration. The model learned to budget compute.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+        <p class="text-[11px] text-secondary mb-0">
+          <strong>The takeaway:</strong> the emergent behaviors from Section 1 are not free. They required the right engineering substrate. The model discovered sophisticated reasoning strategies, but only after the training infrastructure was stable enough to support them. <strong>Scale enables emergence, but engineering enables scale.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 4: The Bitter Lesson at Scale ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Bitter Lesson at Scale
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The paper validates Rich Sutton's "bitter lesson" three times over. <strong>Scale wins. Engineering shortcuts lose.</strong> Here are the 3 key findings.
+      </p>
+
+      <!-- 3 stat cards for key findings -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-violet-400">1T</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Parameters</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">Scaling to 1 trillion significantly enhances <strong>sample efficiency</strong> and raises the performance ceiling. The model learns faster per training step at larger scale.</p>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-violet-400">0</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Human Labels</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">Zero human-annotated data. Pure <strong>RLVR</strong> (Reinforcement Learning with Verifiable Rewards). The reward is binary: correct or incorrect. No partial credit. No human judgment on reasoning quality.</p>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-violet-400">2</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Training Phases</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0"><strong>Discovery</strong> (exploring strategies) then <strong>Sharpening</strong> (refining them). 2 distinct, measurable phases. The transition point is visible in the loss curves.</p>
+        </div>
+      </div>
+
+      <!-- Benchmark results -->
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400 font-bold">BENCHMARK EVALUATION</span>
+          <span class="text-[9px] text-secondary ml-auto">7 mathematical benchmarks</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-3">
+          Ring-2.5-1T-Zero was evaluated across <strong>7 challenging mathematical benchmarks</strong> covering competition math, olympiad problems, and graduate-level reasoning. Performance was measured not just on accuracy but on the <strong>quality of the reasoning chain</strong> itself.
+        </p>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="rounded-lg bg-violet-500/10 p-2 text-center">
+            <span class="text-[10px] font-mono text-violet-300 block">Comprehensibility</span>
+            <span class="text-[9px] text-secondary">Can a human follow the reasoning from start to finish?</span>
+          </div>
+          <div class="rounded-lg bg-violet-500/10 p-2 text-center">
+            <span class="text-[10px] font-mono text-violet-300 block">Reproducibility</span>
+            <span class="text-[9px] text-secondary">Can a reader re-derive the answer using the given steps?</span>
+          </div>
+          <div class="rounded-lg bg-violet-500/10 p-2 text-center">
+            <span class="text-[10px] font-mono text-violet-300 block">Efficiency</span>
+            <span class="text-[9px] text-secondary">Does the chain avoid redundant steps and get to the point?</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RLVR callout -->
+      <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.05] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-md bg-violet-500/15 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-violet-400 font-bold">WHAT "ZERO RL" ACTUALLY MEANS</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-2">
+          "Zero RL" refers to <strong>RLVR - Reinforcement Learning with Verifiable Rewards</strong>. The word "zero" means zero human-annotated data. No supervised fine-tuning stage. No RLHF. No human preferences on reasoning quality.
+        </p>
+        <p class="text-[11px] text-secondary mb-2">
+          The reward is purely <strong>"did you get the right answer?"</strong> Binary. For math, verification is straightforward - check the final number against the ground truth.
+        </p>
+        <p class="text-[11px] text-secondary mb-0">
+          Here is the remarkable part: <strong>reasoning quality improved as a side effect</strong>. Nobody rewarded the model for clear reasoning. Nobody penalized it for messy chains. Yet the model converged on structured, verifiable, human-readable reasoning because that strategy maximizes the probability of getting the final answer correct.
+        </p>
+      </div>
+
+      <!-- Ring model family timeline -->
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-violet-400 font-bold">RING MODEL FAMILY</span>
+          <span class="text-[9px] text-secondary ml-auto">InclusionAI / Ant Group</span>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-secondary w-20 shrink-0">Sep 2025</span>
+            <div class="w-2 h-2 rounded-full bg-violet-400/40 mt-1 shrink-0"></div>
+            <div>
+              <span class="text-xs font-semibold text-foreground">Ring-1T-preview</span>
+              <span class="text-[10px] text-secondary ml-2">First open-source trillion-param thinking model</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-secondary w-20 shrink-0">Oct 2025</span>
+            <div class="w-2 h-2 rounded-full bg-violet-400/60 mt-1 shrink-0"></div>
+            <div>
+              <span class="text-xs font-semibold text-foreground">Ring-1T</span>
+              <span class="text-[10px] text-secondary ml-2">Official release</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-secondary w-20 shrink-0">Feb 2026</span>
+            <div class="w-2 h-2 rounded-full bg-violet-400/80 mt-1 shrink-0"></div>
+            <div>
+              <span class="text-xs font-semibold text-foreground">Ring-2.5-1T</span>
+              <span class="text-[10px] text-secondary ml-2">Hybrid linear-attention, 1M token context</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-secondary w-20 shrink-0">May 2026</span>
+            <div class="w-2 h-2 rounded-full bg-violet-400 mt-1 shrink-0"></div>
+            <div>
+              <span class="text-xs font-semibold text-foreground">Ring-2.6-1T</span>
+              <span class="text-[10px] text-secondary ml-2">MIT license, async RL, adaptive reasoning-intensity</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-violet-400 w-20 shrink-0 font-bold">Jul 2026</span>
+            <div class="w-2.5 h-2.5 rounded-full bg-violet-400 mt-0.5 shrink-0 ring-2 ring-violet-400/30"></div>
+            <div>
+              <span class="text-xs font-semibold text-violet-400">Ring-2.5-1T-Zero</span>
+              <span class="text-[10px] text-violet-300 ml-2">Zero RL, emergent reasoning, this paper</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 5: Why This Matters ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Why This Matters
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Hand-crafted reasoning pipelines just got an expiration date. <strong>Scale makes them obsolete.</strong> But the implications go far beyond math.
+      </p>
+
+      <!-- Before vs After comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-secondary/20 bg-secondary/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-secondary/60"></span>
+            <span class="text-[10px] font-mono text-secondary font-bold">BEFORE: HAND-CRAFTED</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&times;</span>
+              <span class="text-[11px] text-secondary">Prompt engineering for chain-of-thought</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&times;</span>
+              <span class="text-[11px] text-secondary">Explicit self-consistency checks in system prompts</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&times;</span>
+              <span class="text-[11px] text-secondary">Handwritten formatting instructions</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&times;</span>
+              <span class="text-[11px] text-secondary">Manual context-window management logic</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&times;</span>
+              <span class="text-[11px] text-secondary">Thousands of human-labeled SFT examples</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+            <span class="text-[10px] font-mono text-violet-400 font-bold">AFTER: LET SCALE DO IT</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80">Chain-of-thought <strong>emerges</strong></span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80">Self-verification <strong>emerges</strong></span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80">Structured formatting <strong>emerges</strong></span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80">Context-window management <strong>emerges</strong></span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80">Zero human labels required</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role-specific takeaways -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">For Model Builders</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Stop hand-crafting reasoning pipelines. <strong>Scale does it better.</strong> Every hour spent engineering CoT prompts is an hour that could go toward scaling compute. The model will discover reasoning strategies you never imagined.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">For Platform Engineers</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Models that manage their own context are coming. Your orchestration layer - the one that chunks inputs, manages token budgets, and decides when to truncate - <strong>may become redundant</strong>. Plan for models that self-regulate.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">For Researchers</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">The <strong>"discovery then sharpening"</strong> training dynamic means you can predict when emergent behaviors will appear. Watch the loss curves. The transition between phases is measurable and repeatable across model scales.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">For Everyone</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">These behaviors emerged in a math model. <strong>What happens when you apply Zero RL at trillion scale to code? To science? To medicine?</strong> The paper does not answer this - it only tested on mathematical benchmarks. But the underlying dynamic (binary reward + scale = emergent strategies) has no obvious reason to be math-specific. That is a hypothesis worth watching.</p>
+        </div>
+      </div>
+
+      <!-- Production implications -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Self-managing compute</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Models that budget their own tokens. No external orchestration needed. The model decides when to think deeply and when to commit fast.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">CoT quality metrics</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">New evaluation framework: comprehensibility, reproducibility, efficiency. Reasoning chains are now measurable products, not black boxes.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Predictable emergence</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">The discovery-then-sharpening dynamic means emergent behaviors are not random. Watch the loss curves. The transition point is your signal.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-3">
+        Nobody taught this model to panic about running out of tokens. Nobody taught it to verify its own answers. Nobody told it to format its reasoning in bullet points. Nobody showed it how to explore multiple solution paths. These behaviors <strong>emerged</strong> as optimal strategies discovered through reinforcement learning at trillion-parameter scale.
+      </p>
+      <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+        You cannot engineer what emerges at scale. You can only <strong>create the conditions for it to appear</strong>. Ring-Zero proves that with the right training signal and enough parameters, models will discover cognitive strategies that took human AI researchers years to design by hand. The question is no longer whether to scale. The question is <strong>what else will emerge when you do</strong>.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={8} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
