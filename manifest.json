@@ -60,8 +60,10 @@
       "branch": "ep06",
       "slug": "antidoom",
       "title": "Antidoom: One LoRA to Kill Your Model's Doom Loops",
-      "status": "pending",
-      "linkedin_post": "Episode 06: 5-minute read. Zero fluff : Antidoom: One LoRA to Kill Your Model's Doom Loops\n\nYour reasoning model knows the answer. It just gets stuck repeating \"Let me reconsider...\" until the context window is exhausted. Liquid AI found the exact token where the loop starts and built a fix.\n\nKey findings/points:\n- Qwen3.5-4B doom loop rate: 22.9% drops to 1% with one LoRA adapter\n- FTPO (Final Token Preference Optimization) trains on exactly one token position per sample\n- Eval scores went UP after training - the model was already capable, just stuck\n- Full pipeline runs in hours, one epoch, open-sourced on GitHub\n\nThe takeaway? If you run small reasoning models in production, this is a mandatory fix - one command, a few hours, near-zero looping.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/antidoom\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Antidoom #LiquidAI #LoRA #ReasoningModels #OpenSource"
+      "status": "published",
+      "linkedin_post": "Episode 06: 5-minute read. Zero fluff : Antidoom: One LoRA to Kill Your Model's Doom Loops\n\nYour reasoning model knows the answer. It just gets stuck repeating \"Let me reconsider...\" until the context window is exhausted. Liquid AI found the exact token where the loop starts and built a fix.\n\nKey findings/points:\n- Qwen3.5-4B doom loop rate: 22.9% drops to 1% with one LoRA adapter\n- FTPO (Final Token Preference Optimization) trains on exactly one token position per sample\n- Eval scores went UP after training - the model was already capable, just stuck\n- Full pipeline runs in hours, one epoch, open-sourced on GitHub\n\nThe takeaway? If you run small reasoning models in production, this is a mandatory fix - one command, a few hours, near-zero looping.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/antidoom\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Antidoom #LiquidAI #LoRA #ReasoningModels #OpenSource",
+      "published_on": "2026-07-17",
+      "tag": "release/ep06"
     }
   ]
 }
