@@ -73,14 +73,14 @@
   },
   {
     "number": 7,
-    "slug": "tbd",
-    "title": "To Be Decided",
-    "hook": "The next topic is being selected. Stay tuned.",
+    "slug": "vulnhunter",
+    "title": "VulnHunter: Capital One Built an Agent That Hacks Your Code First",
+    "hook": "Capital One open-sourced an agentic security tool that thinks like an attacker. It finds the bug, writes a PoC exploit, runs it, then fixes your code.",
     "category": "hot-topic",
     "day": "Mon",
-    "date": "Jul 21",
+    "date": "Jul 20",
     "readTime": "5 min",
     "published": false,
-    "image": ""
+    "image": "/series/ep07-vulnhunter.png"
   }
 ]
