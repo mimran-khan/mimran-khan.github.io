@@ -106,12 +106,15 @@ jobs:
             DESCRIPTION="Demystifying AI in 5 Minutes. Built for engineers who ship."
           fi
 
+          OG_IMAGE_URL="https://mimran-khan.github.io/og-series-ep${EP_NUM}-${SLUG}.png"
+
           jq -n \
             --arg author "$LINKEDIN_PERSON_URN" \
             --rawfile text /tmp/post_text.txt \
             --arg url "$ARTICLE_URL" \
             --arg title "$TITLE" \
             --arg desc "$DESCRIPTION" \
+            --arg thumb "$OG_IMAGE_URL" \
             '{
               "author": $author,
               "lifecycleState": "PUBLISHED",
@@ -123,7 +126,8 @@ jobs:
                     "status": "READY",
                     "originalUrl": $url,
                     "title": {"text": $title},
-                    "description": {"text": $desc}
+                    "description": {"text": $desc},
+                    "thumbnails": [{"url": $thumb}]
                   }]
                 }
               },
