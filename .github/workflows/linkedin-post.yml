@@ -19,12 +19,9 @@ jobs:
         run: |
           TODAY=$(date -u +'%Y-%m-%d')
           YESTERDAY=$(date -u -d 'yesterday' +'%Y-%m-%d')
-          DAY_BEFORE=$(date -u -d '2 days ago' +'%Y-%m-%d')
-          THREE_DAYS=$(date -u -d '3 days ago' +'%Y-%m-%d')
 
-          # Check for episode published within last 3 days (timezone buffer)
-          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" --arg d "$DAY_BEFORE" --arg t3 "$THREE_DAYS" \
-            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y or .published_on == $d or .published_on == $t3)) | .ep' \
+          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" \
+            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y)) | .ep' \
             manifest.json | tail -1)
 
           if [ -z "$EP" ] || [ "$EP" = "null" ]; then
@@ -34,7 +31,6 @@ jobs:
           fi
 
           SLUG=$(jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .slug' manifest.json)
-          TITLE=$(jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .title' manifest.json)
           POST_TEXT=$(jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .linkedin_post // empty' manifest.json)
 
           if [ -z "$POST_TEXT" ]; then
@@ -43,13 +39,11 @@ jobs:
             exit 0
           fi
 
-          echo "Found EP$EP ($SLUG) published on $TODAY"
+          echo "Found EP$EP ($SLUG)"
           echo "skip=false" >> "$GITHUB_OUTPUT"
           echo "ep=$EP" >> "$GITHUB_OUTPUT"
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
-          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
 
-          # Save post text to file (handles multiline safely)
           jq -r --argjson n "$EP" '.episodes[] | select(.ep == $n) | .linkedin_post' manifest.json > /tmp/post_text.txt
 
       - name: Verify site is deployed
@@ -69,92 +63,28 @@ jobs:
             sleep 60
           done
 
-          echo "::error::Site not deployed after 5 attempts. Skipping LinkedIn post."
+          echo "::error::Site not deployed after 5 attempts."
           exit 1
 
       - name: Warm LinkedIn URL preview cache
         if: steps.find.outputs.skip != 'true'
         run: |
           SLUG="${{ steps.find.outputs.slug }}"
+          EP_NUM=$(printf '%02d' ${{ steps.find.outputs.ep }})
           ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
-          OG_IMAGE_URL="https://mimran-khan.github.io/og-series-ep$(printf '%02d' ${{ steps.find.outputs.ep }})-${SLUG}.png"
+          OG_IMAGE_URL="https://mimran-khan.github.io/og-series-ep${EP_NUM}-${SLUG}.png"
 
           echo "Pre-warming LinkedIn crawler cache..."
           echo "Article: $ARTICLE_URL"
           echo "OG Image: $OG_IMAGE_URL"
 
-          # Trigger LinkedIn's URL resolver by hitting the share offsite endpoint
           curl -s -o /dev/null "https://www.linkedin.com/sharing/share-offsite/?url=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("'"$ARTICLE_URL"'"))')"
 
-          # Verify OG image is accessible
           OG_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$OG_IMAGE_URL")
           echo "OG image status: HTTP $OG_STATUS"
 
-          # Give LinkedIn's crawler time to process
-          echo "Waiting 30s for LinkedIn to cache the preview..."
-          sleep 30
-
-      - name: Upload OG image to LinkedIn
-        id: upload-image
-        if: steps.find.outputs.skip != 'true'
-        env:
-          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
-          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
-        run: |
-          EP_NUM=$(printf '%02d' ${{ steps.find.outputs.ep }})
-          SLUG="${{ steps.find.outputs.slug }}"
-          OG_IMAGE_URL="https://mimran-khan.github.io/og-series-ep${EP_NUM}-${SLUG}.png"
-
-          echo "Downloading OG image: $OG_IMAGE_URL"
-          curl -sL -o /tmp/og-image.png "$OG_IMAGE_URL"
-          FILE_SIZE=$(stat -c%s /tmp/og-image.png 2>/dev/null || stat -f%z /tmp/og-image.png)
-          echo "Image size: $FILE_SIZE bytes"
-
-          if [ "$FILE_SIZE" -lt 1000 ]; then
-            echo "OG image too small or missing. Skipping thumbnail."
-            echo "image_urn=" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          LI_VERSION="202607"
-
-          echo "Initializing LinkedIn image upload..."
-          INIT_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-            'https://api.linkedin.com/rest/images?action=initializeUpload' \
-            -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
-            -H 'Content-Type: application/json' \
-            -H "LinkedIn-Version: $LI_VERSION" \
-            -H 'X-Restli-Protocol-Version: 2.0.0' \
-            -d "{\"initializeUploadRequest\":{\"owner\":\"$LINKEDIN_PERSON_URN\"}}")
-
-          INIT_CODE=$(echo "$INIT_RESPONSE" | tail -1)
-          INIT_BODY=$(echo "$INIT_RESPONSE" | sed '$d')
-
-          if [ "$INIT_CODE" != "200" ]; then
-            echo "Image upload init failed (HTTP $INIT_CODE). Skipping thumbnail."
-            echo "$INIT_BODY"
-            echo "image_urn=" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          UPLOAD_URL=$(echo "$INIT_BODY" | jq -r '.value.uploadUrl')
-          IMAGE_URN=$(echo "$INIT_BODY" | jq -r '.value.image')
-          echo "Upload URL obtained. Image URN: $IMAGE_URN"
-
-          echo "Uploading image binary..."
-          UPLOAD_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X PUT \
-            "$UPLOAD_URL" \
-            -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
-            -H 'Content-Type: image/png' \
-            --data-binary @/tmp/og-image.png)
-
-          if [ "$UPLOAD_CODE" = "201" ] || [ "$UPLOAD_CODE" = "200" ]; then
-            echo "Image uploaded successfully!"
-            echo "image_urn=$IMAGE_URN" >> "$GITHUB_OUTPUT"
-          else
-            echo "Image upload failed (HTTP $UPLOAD_CODE). Skipping thumbnail."
-            echo "image_urn=" >> "$GITHUB_OUTPUT"
-          fi
+          echo "Waiting 45s for LinkedIn to cache the preview..."
+          sleep 45
 
       - name: Post to LinkedIn
         if: steps.find.outputs.skip != 'true'
@@ -162,79 +92,30 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
-          SLUG="${{ steps.find.outputs.slug }}"
-          TITLE="${{ steps.find.outputs.title }}"
-          ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
-          IMAGE_URN="${{ steps.upload-image.outputs.image_urn }}"
-          LI_VERSION="202607"
+          jq -n \
+            --arg author "$LINKEDIN_PERSON_URN" \
+            --rawfile text /tmp/post_text.txt \
+            '{
+              "author": $author,
+              "lifecycleState": "PUBLISHED",
+              "specificContent": {
+                "com.linkedin.ugc.ShareContent": {
+                  "shareCommentary": {"text": ($text | rtrimstr("\n"))},
+                  "shareMediaCategory": "NONE"
+                }
+              },
+              "visibility": {
+                "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
+              }
+            }' > /tmp/payload.json
 
-          DESCRIPTION=$(awk 'BEGIN{found=0} /^$/{if(found==0){found=1; next}} found==1 && /[a-zA-Z]/{print; found=2} found==2 && /^$/{exit} found==2{print}' /tmp/post_text.txt)
-          if [ -z "$DESCRIPTION" ]; then
-            DESCRIPTION="Demystifying AI in 5 Minutes. Built for engineers who ship."
-          fi
+          echo "--- Debug: text chars=$(wc -c < /tmp/post_text.txt | tr -d ' ') payload bytes=$(wc -c < /tmp/payload.json | tr -d ' ') ---"
 
-          if [ -n "$IMAGE_URN" ]; then
-            PAYLOAD=$(jq -n \
-              --rawfile text /tmp/post_text.txt \
-              --arg author "$LINKEDIN_PERSON_URN" \
-              --arg url "$ARTICLE_URL" \
-              --arg title "$TITLE" \
-              --arg desc "$DESCRIPTION" \
-              --arg thumb "$IMAGE_URN" \
-              '{
-                "author": $author,
-                "commentary": ($text | rtrimstr("\n")),
-                "visibility": "PUBLIC",
-                "distribution": {
-                  "feedDistribution": "MAIN_FEED"
-                },
-                "content": {
-                  "article": {
-                    "source": $url,
-                    "title": $title,
-                    "description": $desc,
-                    "thumbnail": $thumb
-                  }
-                },
-                "lifecycleState": "PUBLISHED"
-              }')
-          else
-            PAYLOAD=$(jq -n \
-              --rawfile text /tmp/post_text.txt \
-              --arg author "$LINKEDIN_PERSON_URN" \
-              --arg url "$ARTICLE_URL" \
-              --arg title "$TITLE" \
-              --arg desc "$DESCRIPTION" \
-              '{
-                "author": $author,
-                "commentary": ($text | rtrimstr("\n")),
-                "visibility": "PUBLIC",
-                "distribution": {
-                  "feedDistribution": "MAIN_FEED"
-                },
-                "content": {
-                  "article": {
-                    "source": $url,
-                    "title": $title,
-                    "description": $desc
-                  }
-                },
-                "lifecycleState": "PUBLISHED"
-              }')
-          fi
-
-          echo "$PAYLOAD" > /tmp/payload.json
-
-          echo "--- Debug: post_text.txt lines=$(wc -l < /tmp/post_text.txt) chars=$(wc -c < /tmp/post_text.txt) ---"
-          echo "--- Debug: payload.json size=$(wc -c < /tmp/payload.json) ---"
-          echo "--- Debug: commentary length=$(jq '.commentary | length' /tmp/payload.json) ---"
-
-          echo "Posting to LinkedIn Posts API (version: $LI_VERSION)..."
+          echo "Posting to LinkedIn (ugcPosts)..."
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-            'https://api.linkedin.com/rest/posts' \
+            'https://api.linkedin.com/v2/ugcPosts' \
             -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
             -H 'Content-Type: application/json' \
-            -H "LinkedIn-Version: $LI_VERSION" \
             -H 'X-Restli-Protocol-Version: 2.0.0' \
             -d @/tmp/payload.json)
 
