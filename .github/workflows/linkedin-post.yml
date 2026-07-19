@@ -223,6 +223,12 @@ jobs:
               }')
           fi
 
+          echo "$PAYLOAD" > /tmp/payload.json
+
+          echo "--- Debug: post_text.txt lines=$(wc -l < /tmp/post_text.txt) chars=$(wc -c < /tmp/post_text.txt) ---"
+          echo "--- Debug: payload.json size=$(wc -c < /tmp/payload.json) ---"
+          echo "--- Debug: commentary length=$(jq '.commentary | length' /tmp/payload.json) ---"
+
           echo "Posting to LinkedIn Posts API (version: $LI_VERSION)..."
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
             'https://api.linkedin.com/rest/posts' \
@@ -230,7 +236,7 @@ jobs:
             -H 'Content-Type: application/json' \
             -H "LinkedIn-Version: $LI_VERSION" \
             -H 'X-Restli-Protocol-Version: 2.0.0' \
-            -d "$PAYLOAD")
+            -d @/tmp/payload.json)
 
           HTTP_CODE=$(echo "$RESPONSE" | tail -1)
           BODY=$(echo "$RESPONSE" | sed '$d')
