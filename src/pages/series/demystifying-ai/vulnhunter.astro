@@ -1,0 +1,545 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="VulnHunter: Capital One Built an Agent That Hacks Your Code First | Demystifying AI in 5 Minutes"
+  description="Capital One open-sourced VulnHunter: an agentic AI that reasons like an attacker, finds exploitable bugs, writes PoC exploits, then generates test-driven fixes. Apache 2.0."
+  image="/og-series-ep07-vulnhunter.png"
+  keywords="VulnHunter, Capital One, Agentic AI, Security, SAST, Vulnerability Scanner, Claude Code, Open Source, Apache 2.0"
+  publishedDate="2026-07-20"
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep07-vulnhunter.png" alt="VulnHunter - Capital One Built an Agent That Hacks Your Code First" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 07
+        </span>
+        <a href="https://github.com/capitalone/vulnhunter" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full hover:bg-green/20 hover:border-green/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Jul 20, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        VulnHunter: Capital One Built an Agent That Hacks Your Code First
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Capital One open-sourced an agentic security tool that thinks like an attacker. It finds the bug, writes a PoC exploit, runs it, then fixes your code. Apache 2.0.
+      </p>
+
+      <ShareButtons title="VulnHunter: Capital One Built an Agent That Hacks Your Code First" url="/series/demystifying-ai/vulnhunter" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Traditional SAST scanners dump CVE lists with <strong>90%+ false positives</strong>. VulnHunter does the opposite: it <strong>reasons like an adversary</strong>, identifies which defects are actually exploitable, maps attack paths, writes proof-of-concept exploits, then generates targeted, test-driven fixes. Built as Claude Code skills. Open-sourced under Apache 2.0. 207+ GitHub stars and trending.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Traditional Scanners Are Broken
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Every security team knows the drill. Run the scanner. Get 400 findings. Spend weeks triaging. <strong>90% are false positives.</strong> Traditional scanners produce <strong>300-500 findings per scan</strong>. Teams spend <strong>40+ hours triaging</strong> each batch. The real exploit sits on page 12 of a PDF nobody reads.
+      </p>
+
+      <p class="text-xs font-mono text-green font-bold mb-3">A REAL EXAMPLE - SPOT THE VULNERABILITY:</p>
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-secondary">export_handler.py</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">@app.route("/api/export", methods=["POST"])</span>
+<span class="text-secondary">def export_report():</span>
+<span class="text-secondary">    data = request.get_json()</span>
+<span class="text-green font-bold">    target_url = data.get("target_url")  # User-controlled!</span>
+<span class="text-secondary">    </span>
+<span class="text-secondary">    # Fetch the remote resource for PDF rendering</span>
+<span class="text-green font-bold">    response = httpx.get(target_url,  # No validation</span>
+<span class="text-green font-bold">                          headers={'{'}"Authorization": SERVICE_TOKEN{'}'})</span>
+<span class="text-secondary">    </span>
+<span class="text-secondary">    return generate_pdf(response.content)</span></pre>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">SAST SCANNER OUTPUT</span>
+          </div>
+          <div class="rounded-lg bg-red-500/[0.05] border border-red-500/10 p-3 mb-3">
+            <pre class="text-[10px] font-mono leading-relaxed text-red-300">CWE-918: Server-Side Request Forgery
+Severity: Medium
+File: export_handler.py:7
+Rule: http-request-user-input</pre>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Pattern matching</strong> - no exploitability context</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">90%+ false positives</strong> - buried in 387 findings</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Generic fix</strong> - "update dependency" with no proof</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-green/30 bg-green/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-green"></span>
+            <span class="text-[10px] font-mono text-green font-bold">VULNHUNTER OUTPUT</span>
+          </div>
+          <div class="rounded-lg bg-green/[0.05] border border-green/10 p-3 mb-3">
+            <pre class="text-[10px] font-mono leading-relaxed text-green/80">CONFIRMED EXPLOITABLE: SSRF via /api/export
+Attack: target_url accepts arbitrary URLs
+Impact: attacker reads cloud metadata
+        at 169.254.169.254
+PoC:    Included (verified working)
+Fix:    URL allowlist + validation (attached)
+Test:   Regression test (attached)</pre>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Adversarial reasoning</strong> with attack path mapping</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">PoC exploit</strong> that proves the bug is real</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Targeted fix</strong> with regression test attached</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        The difference is fundamental. One is a search engine for known patterns. The other <strong>thinks like a pentester</strong> and proves its findings before reporting them.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Three-Skill Architecture
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        VulnHunter is built as <strong>Claude Code skills</strong> - SKILL.md files that instruct the agent how to reason. Three skills form the core pipeline. Each one handles a distinct phase of the security analysis.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+            <span class="text-green text-[10px] font-mono font-bold">01</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-green font-bold block">/vulnhunt</span>
+            <span class="text-[10px] text-secondary">Discovery + Exploitability Analysis</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          A SKILL.md file with phased reasoning instructions. The agent <strong>reads the entire codebase</strong>, identifies entry points (auth flows, file uploads, API endpoints, deserialization, SQL queries), then reasons about exploitability. It <strong>follows data flows across function boundaries</strong> - if a sanitizer exists upstream, the agent recognizes the bug is not reachable.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+            <span class="text-green text-[10px] font-mono font-bold">02</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-green font-bold block">/vulnhunter-fix</span>
+            <span class="text-[10px] text-secondary">Remediation + Regression Test Generation</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Companion skill backed by a <strong>Python helper package</strong>. Generates not just a code patch but a <strong>regression test that replays the original PoC</strong> to confirm the fix works. Every remediation is evidence-backed and targeted to the specific vulnerability, not a generic "add input validation" recommendation.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+            <span class="text-green text-[10px] font-mono font-bold">03</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-green font-bold block">/vulnhunt-fix-verify</span>
+            <span class="text-[10px] text-secondary">Standalone Verification</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Re-runs the original PoC exploit against the patched code. <strong>If the exploit still works, the fix is rejected</strong> and the cycle restarts. This closes the loop - no fix ships without proof that the vulnerability is actually neutralized. The verification skill operates independently so it can be run separately from the fix generation step.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-green font-bold">vulnhunter-agent/</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">CI/CD</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          Config-driven headless runtime for <strong>automated security scanning on every push</strong>. Connects via direct Anthropic API, clones target repos, runs scans, and opens GitHub issues with full findings. Drop into your pipeline as a GitHub Action or standalone job.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> How It Actually Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is not "run regex, dump findings." VulnHunter's agent <strong>chains multi-step reasoning</strong> the same way a human pentester would approach a target. Here is a complete walkthrough using the SSRF vulnerability from above.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">STEP 1-2: DISCOVER + ANALYZE</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-green">Scanning codebase for attack surface...</span>
+<span class="text-secondary">  Found 14 route handlers across 6 modules</span>
+<span class="text-secondary">  Analyzing /api/export (POST) - user-controlled: target_url</span>
+<span class="text-secondary">  Tracing: request.body.target_url -> httpx.get(target_url)</span>
+<span class="text-green font-bold">  No URL validation. No allowlist. No SSRF protection.</span>
+<span class="text-secondary"></span>
+<span class="text-green">Exploitability analysis:</span>
+<span class="text-secondary">  target_url accepts arbitrary URLs (no scheme filter)</span>
+<span class="text-secondary">  httpx.get() follows redirects, sends SERVICE_TOKEN header</span>
+<span class="text-secondary">  Service on AWS EC2 - metadata at 169.254.169.254 reachable</span>
+<span class="text-green font-bold">  VERDICT: EXPLOITABLE - CRITICAL</span>
+<span class="text-green font-bold">  Impact: Cloud metadata -> IAM creds -> account compromise</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">STEP 3: PoC EXPLOIT</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary"># VulnHunter-generated PoC exploit</span>
+<span class="text-green font-bold">curl -X POST</span> <span class="text-foreground">http://target-app:8080/api/export</span> <span class="text-secondary">\</span>
+  <span class="text-green">-H</span> <span class="text-foreground">"Content-Type: application/json"</span> <span class="text-secondary">\</span>
+  <span class="text-green">-d</span> <span class="text-foreground">'{'{'}
+    "target_url": "http://169.254.169.254/latest/meta-data/iam/security-credentials/"
+  {'}'}'</span>
+
+<span class="text-secondary"># Response: IAM role name + temporary credentials</span>
+<span class="text-secondary"># Attacker now has AWS access with the service's permissions</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">STEP 4: ATTACK PATH MAP</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-green">User Input</span> <span class="text-secondary">(target_url)</span> <span class="text-green">-></span> <span class="text-green">API Handler</span> <span class="text-secondary">(/api/export)</span> <span class="text-green">-></span> <span class="text-green">HTTP Client</span> <span class="text-secondary">(+SERVICE_TOKEN)</span>
+<span class="text-green">  -></span> <span class="text-green">Internal Network</span> <span class="text-secondary">(no egress filter)</span> <span class="text-green">-></span> <span class="text-green">Cloud Metadata</span> <span class="text-secondary">(169.254.169.254)</span>
+<span class="text-green">  -></span> <span class="text-green font-bold">IAM Credentials</span> <span class="text-secondary">(full cloud account compromise)</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">STEP 5: REMEDIATION (GENERATED FIX)</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">from urllib.parse import urlparse</span>
+<span class="text-green font-bold">ALLOWED_HOSTS = {'{'}"reports.internal.co", "cdn.company.com"{'}'}</span>
+<span class="text-secondary"></span>
+<span class="text-secondary">def validate_export_url(url: str) -> bool:</span>
+<span class="text-secondary">    parsed = urlparse(url)</span>
+<span class="text-green font-bold">    if parsed.scheme != "https": return False</span>
+<span class="text-green font-bold">    if parsed.hostname not in ALLOWED_HOSTS: return False</span>
+<span class="text-secondary">    return True</span>
+<span class="text-secondary"></span>
+<span class="text-secondary">@app.route("/api/export", methods=["POST"])</span>
+<span class="text-secondary">def export_report():</span>
+<span class="text-secondary">    data = request.get_json()</span>
+<span class="text-secondary">    target_url = data.get("target_url")</span>
+<span class="text-green font-bold">    if not validate_export_url(target_url):</span>
+<span class="text-green font-bold">        abort(400, "URL not in allowlist")</span>
+<span class="text-secondary">    response = httpx.get(target_url, headers=...)</span>
+<span class="text-secondary">    return generate_pdf(response.content)</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 mb-6 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">STEP 6: VERIFICATION (RE-RUN PoC)</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-green font-bold">Re-running PoC exploit against patched code...</span>
+<span class="text-secondary">  POST /api/export with target_url=http://169.254.169.254/...</span>
+<span class="text-green font-bold">  Response: 400 Bad Request - "URL not in allowlist"</span>
+<span class="text-green font-bold">  RESULT: EXPLOIT BLOCKED</span>
+<span class="text-secondary">  test_ssrf_metadata_blocked    PASSED</span>
+<span class="text-secondary">  test_valid_export_url_works   PASSED</span>
+<span class="text-green font-bold">  VERIFICATION COMPLETE - Fix confirmed effective</span></pre>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Prove, don't flag</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Every finding comes with a working PoC exploit. If VulnHunter cannot prove it is exploitable, it does not report it.</p>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Frontier reasoning required</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Built and optimized for Claude Opus 4.8. Multi-step adversarial reasoning needs frontier-class models to work reliably.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Why This Changes Security
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Capital One did not build VulnHunter because existing tools were slightly inadequate. They built it because <strong>the entire paradigm of scanning was wrong</strong>. They needed something that thinks, not something that scans.
+      </p>
+
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">400</div>
+          <div class="text-xl font-bold text-green">5-10</div>
+          <div class="text-[10px] text-secondary font-mono">Findings per scan</div>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">Days</div>
+          <div class="text-xl font-bold text-green">Hours</div>
+          <div class="text-[10px] text-secondary font-mono">Triage time</div>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">90%+</div>
+          <div class="text-xl font-bold text-green">PoC-only</div>
+          <div class="text-[10px] text-secondary font-mono">No unproven findings</div>
+        </div>
+      </div>
+
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-green/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">The dual-use consideration</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            VulnHunter does <strong>offensive security reasoning</strong> - it thinks like an attacker. This may trigger AI safety guardrails. Anthropic's <strong>Cyber Verification Program</strong> enrollment is recommended. Without it, the agent may refuse to generate PoC exploits.
+          </p>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">Developer workflow, not security silo</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            Built as <strong>Claude Code skills</strong>, VulnHunter integrates directly into the editor. Run <code class="text-[10px] bg-green/10 text-green px-1 rounded">/vulnhunt</code> the same way you run a linter. Security becomes part of the development loop, not a separate team's quarterly audit.
+          </p>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">Confirmed bugs over noise</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            Instead of triaging 400 findings, teams get <strong>5-10 confirmed exploitable bugs</strong> with working PoCs and verified fixes. Traditional SAST takes days of triage. VulnHunter takes hours of automated reasoning.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Try It
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        VulnHunter is Apache 2.0 licensed. Clone it, install the skills into Claude Code, point it at your repo.
+      </p>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 mb-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">PREREQUISITES</span>
+        </div>
+        <ul class="space-y-1 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Claude Code</strong> with Anthropic API key + <strong class="text-yellow-400">Claude Opus 4.8</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Cyber Verification Program</strong> enrollment (avoids safeguard blocks on offensive reasoning)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Python 3.10+</strong> for the vulnhunter-fix helper package</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">SETUP</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-green font-bold">git clone</span> <span class="text-foreground">https://github.com/capitalone/vulnhunter.git && cd vulnhunter</span>
+<span class="text-secondary"># Copy skill files to your project's .claude/ directory</span>
+<span class="text-secondary"># /vulnhunt  /vulnhunter-fix  /vulnhunt-fix-verify</span>
+<span class="text-secondary"></span>
+<span class="text-secondary"># Run a scan (in Claude Code):</span>
+<span class="text-green font-bold">/vulnhunt</span> <span class="text-foreground">scan the /src directory for exploitable vulnerabilities</span>
+<span class="text-secondary"></span>
+<span class="text-secondary"># Or headless via vulnhunter-agent/ for CI/CD automation</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">WHAT HAPPENS WHEN YOU RUN IT</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-green font-bold">$ /vulnhunt scan ./src</span>
+<span class="text-secondary">[Phase 1] Reading codebase... 23 entry points across 12 modules</span>
+<span class="text-secondary">[Phase 2] Analyzing data flows... 7 candidates evaluated</span>
+<span class="text-secondary">[Phase 3] Generating PoC exploits for confirmed findings...</span>
+<span class="text-green font-bold">SCAN COMPLETE: 3 exploitable vulnerabilities found</span>
+<span class="text-green">  CRITICAL  SSRF via /api/export (CWE-918)</span>
+<span class="text-secondary">            PoC: included | Fix: available | Test: included</span>
+<span class="text-green">  HIGH      SQL Injection in /api/users/search (CWE-89)</span>
+<span class="text-secondary">            PoC: included | Fix: available | Test: included</span>
+<span class="text-green">  MEDIUM    Path Traversal in /api/files/download (CWE-22)</span>
+<span class="text-secondary">            PoC: included | Fix: available | Test: included</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-elevated p-4 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-green font-bold">BATCH SCANNING + BENCHMARKING</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          The <code class="text-[10px] bg-green/10 text-green px-1 rounded">harness/</code> directory supports <strong>batch scanning multiple repos</strong> and benchmarking accuracy against known vulnerability datasets. Measure precision and recall before rolling VulnHunter into your CI pipeline.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">CURRENT LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Frontier Opus-class models required</strong> - expensive. Budget higher API costs.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Early stage</strong> - scanning quality depends on Claude Opus reasoning. Results may vary across languages and codebases.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Early stage</strong> - 207 stars, 3 contributors. Not yet battle-tested at massive scale.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Slower than SAST</strong> - adversarial reasoning takes minutes, not seconds.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <a href="https://github.com/capitalone/vulnhunter" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-green/20 bg-elevated p-3 text-center hover:border-green/40 transition-colors block">
+          <span class="text-[10px] font-mono text-green font-bold block mb-1">GitHub</span>
+          <span class="text-[9px] text-secondary">Source + skills</span>
+        </a>
+        <a href="https://github.com/capitalone/vulnhunter/tree/main/harness" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-green/20 bg-elevated p-3 text-center hover:border-green/40 transition-colors block">
+          <span class="text-[10px] font-mono text-green font-bold block mb-1">Harness</span>
+          <span class="text-[9px] text-secondary">Batch scans + benchmarks</span>
+        </a>
+        <a href="https://github.com/capitalone/vulnhunter/tree/main/vulnhunter-agent" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-green/20 bg-elevated p-3 text-center hover:border-green/40 transition-colors block">
+          <span class="text-[10px] font-mono text-green font-bold block mb-1">Agent</span>
+          <span class="text-[9px] text-secondary">Headless CI/CD runtime</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3 mt-4">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-green">207+</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">GitHub Stars</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-green">3</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Contributors</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-green">Apache 2.0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">License</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        SAST scanners are dead. They were built for a world where pattern matching was the best you could do. VulnHunter is what happens when you <strong>let an agent reason instead of regex-match</strong>. It thinks like an attacker, proves the bug is real, and hands you a verified fix. Capital One did not just open-source a tool. They open-sourced a new category.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={7} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
