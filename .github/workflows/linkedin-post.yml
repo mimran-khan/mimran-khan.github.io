@@ -19,11 +19,9 @@ jobs:
         run: |
           TODAY=$(date -u +'%Y-%m-%d')
           YESTERDAY=$(date -u -d 'yesterday' +'%Y-%m-%d')
-          DAY2=$(date -u -d '2 days ago' +'%Y-%m-%d')
-          DAY3=$(date -u -d '3 days ago' +'%Y-%m-%d')
 
-          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" --arg d2 "$DAY2" --arg d3 "$DAY3" \
-            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y or .published_on == $d2 or .published_on == $d3)) | .ep' \
+          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" \
+            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y)) | .ep' \
             manifest.json | tail -1)
 
           if [ -z "$EP" ] || [ "$EP" = "null" ]; then
