@@ -19,10 +19,12 @@ jobs:
         run: |
           TODAY=$(date -u +'%Y-%m-%d')
           YESTERDAY=$(date -u -d 'yesterday' +'%Y-%m-%d')
+          DAY_BEFORE=$(date -u -d '2 days ago' +'%Y-%m-%d')
+          THREE_DAYS=$(date -u -d '3 days ago' +'%Y-%m-%d')
 
-          # Check for episode published today or yesterday (timezone buffer)
-          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" \
-            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y)) | .ep' \
+          # Check for episode published within last 3 days (timezone buffer)
+          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" --arg d "$DAY_BEFORE" --arg t3 "$THREE_DAYS" \
+            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y or .published_on == $d or .published_on == $t3)) | .ep' \
             manifest.json | tail -1)
 
           if [ -z "$EP" ] || [ "$EP" = "null" ]; then
