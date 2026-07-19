@@ -99,29 +99,45 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
           POST_TEXT=$(cat /tmp/post_text.txt)
+          SLUG="${{ steps.find.outputs.slug }}"
+          TITLE="${{ steps.find.outputs.title }}"
+          ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
 
-          # Build JSON payload - URL in text body, LinkedIn auto-generates preview from OG tags
+          # Extract the hook paragraph (first paragraph after the title line)
+          DESCRIPTION=$(echo "$POST_TEXT" | awk 'BEGIN{found=0} /^$/{if(found==0){found=1; next}} found==1 && /[a-zA-Z]/{print; found=2} found==2 && /^$/{exit} found==2{print}')
+          if [ -z "$DESCRIPTION" ]; then
+            DESCRIPTION="Demystifying AI in 5 Minutes. Built for engineers who ship."
+          fi
+
           PAYLOAD=$(jq -n \
             --arg author "$LINKEDIN_PERSON_URN" \
             --arg text "$POST_TEXT" \
+            --arg url "$ARTICLE_URL" \
+            --arg title "$TITLE" \
+            --arg desc "$DESCRIPTION" \
             '{
               "author": $author,
-              "lifecycleState": "PUBLISHED",
-              "specificContent": {
-                "com.linkedin.ugc.ShareContent": {
-                  "shareCommentary": {"text": $text},
-                  "shareMediaCategory": "NONE"
+              "commentary": $text,
+              "visibility": "PUBLIC",
+              "distribution": {
+                "feedDistribution": "MAIN_FEED"
+              },
+              "content": {
+                "article": {
+                  "source": $url,
+                  "title": $title,
+                  "description": $desc
                 }
               },
-              "visibility": {
-                "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
-              }
+              "lifecycleState": "PUBLISHED"
             }')
 
+          echo "Posting to LinkedIn Posts API..."
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-            'https://api.linkedin.com/v2/ugcPosts' \
+            'https://api.linkedin.com/rest/posts' \
             -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
             -H 'Content-Type: application/json' \
+            -H 'LinkedIn-Version: 202401' \
             -H 'X-Restli-Protocol-Version: 2.0.0' \
             -d "$PAYLOAD")
 
