@@ -19,9 +19,11 @@ jobs:
         run: |
           TODAY=$(date -u +'%Y-%m-%d')
           YESTERDAY=$(date -u -d 'yesterday' +'%Y-%m-%d')
+          DAY2=$(date -u -d '2 days ago' +'%Y-%m-%d')
+          DAY3=$(date -u -d '3 days ago' +'%Y-%m-%d')
 
-          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" \
-            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y)) | .ep' \
+          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" --arg d2 "$DAY2" --arg d3 "$DAY3" \
+            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y or .published_on == $d2 or .published_on == $d3)) | .ep' \
             manifest.json | tail -1)
 
           if [ -z "$EP" ] || [ "$EP" = "null" ]; then
@@ -92,16 +94,37 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
+          SLUG="${{ steps.find.outputs.slug }}"
+          EP_NUM=$(printf '%02d' ${{ steps.find.outputs.ep }})
+          ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
+
+          TITLE=$(jq -r --argjson n ${{ steps.find.outputs.ep }} \
+            '.episodes[] | select(.ep == $n) | .title' manifest.json)
+
+          DESCRIPTION=$(awk 'BEGIN{f=0} /^$/{if(f==0){f=1;next}} f==1&&/[a-zA-Z]/{print;f=2} f==2&&/^$/{exit} f==2{print}' /tmp/post_text.txt)
+          if [ -z "$DESCRIPTION" ]; then
+            DESCRIPTION="Demystifying AI in 5 Minutes. Built for engineers who ship."
+          fi
+
           jq -n \
             --arg author "$LINKEDIN_PERSON_URN" \
             --rawfile text /tmp/post_text.txt \
+            --arg url "$ARTICLE_URL" \
+            --arg title "$TITLE" \
+            --arg desc "$DESCRIPTION" \
             '{
               "author": $author,
               "lifecycleState": "PUBLISHED",
               "specificContent": {
                 "com.linkedin.ugc.ShareContent": {
                   "shareCommentary": {"text": ($text | rtrimstr("\n"))},
-                  "shareMediaCategory": "NONE"
+                  "shareMediaCategory": "ARTICLE",
+                  "media": [{
+                    "status": "READY",
+                    "originalUrl": $url,
+                    "title": {"text": $title},
+                    "description": {"text": $desc}
+                  }]
                 }
               },
               "visibility": {
@@ -110,8 +133,9 @@ jobs:
             }' > /tmp/payload.json
 
           echo "--- Debug: text chars=$(wc -c < /tmp/post_text.txt | tr -d ' ') payload bytes=$(wc -c < /tmp/payload.json | tr -d ' ') ---"
+          echo "--- Debug: commentary length=$(jq '.specificContent."com.linkedin.ugc.ShareContent".shareCommentary.text | length' /tmp/payload.json) ---"
 
-          echo "Posting to LinkedIn (ugcPosts)..."
+          echo "Posting to LinkedIn (ugcPosts + ARTICLE)..."
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
             'https://api.linkedin.com/v2/ugcPosts' \
             -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
