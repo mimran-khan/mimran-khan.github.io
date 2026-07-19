@@ -162,29 +162,28 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
-          POST_TEXT=$(cat /tmp/post_text.txt)
           SLUG="${{ steps.find.outputs.slug }}"
           TITLE="${{ steps.find.outputs.title }}"
           ARTICLE_URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
           IMAGE_URN="${{ steps.upload-image.outputs.image_urn }}"
           LI_VERSION="202607"
 
-          DESCRIPTION=$(echo "$POST_TEXT" | awk 'BEGIN{found=0} /^$/{if(found==0){found=1; next}} found==1 && /[a-zA-Z]/{print; found=2} found==2 && /^$/{exit} found==2{print}')
+          DESCRIPTION=$(awk 'BEGIN{found=0} /^$/{if(found==0){found=1; next}} found==1 && /[a-zA-Z]/{print; found=2} found==2 && /^$/{exit} found==2{print}' /tmp/post_text.txt)
           if [ -z "$DESCRIPTION" ]; then
             DESCRIPTION="Demystifying AI in 5 Minutes. Built for engineers who ship."
           fi
 
           if [ -n "$IMAGE_URN" ]; then
             PAYLOAD=$(jq -n \
+              --rawfile text /tmp/post_text.txt \
               --arg author "$LINKEDIN_PERSON_URN" \
-              --arg text "$POST_TEXT" \
               --arg url "$ARTICLE_URL" \
               --arg title "$TITLE" \
               --arg desc "$DESCRIPTION" \
               --arg thumb "$IMAGE_URN" \
               '{
                 "author": $author,
-                "commentary": $text,
+                "commentary": ($text | rtrimstr("\n")),
                 "visibility": "PUBLIC",
                 "distribution": {
                   "feedDistribution": "MAIN_FEED"
@@ -201,14 +200,14 @@ jobs:
               }')
           else
             PAYLOAD=$(jq -n \
+              --rawfile text /tmp/post_text.txt \
               --arg author "$LINKEDIN_PERSON_URN" \
-              --arg text "$POST_TEXT" \
               --arg url "$ARTICLE_URL" \
               --arg title "$TITLE" \
               --arg desc "$DESCRIPTION" \
               '{
                 "author": $author,
-                "commentary": $text,
+                "commentary": ($text | rtrimstr("\n")),
                 "visibility": "PUBLIC",
                 "distribution": {
                   "feedDistribution": "MAIN_FEED"
