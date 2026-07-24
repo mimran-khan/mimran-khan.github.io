@@ -1,0 +1,658 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+
+const codeExample = `<span class="text-cyan">from</span> transformers <span class="text-cyan">import</span> AutoModelForCausalLM, AutoTokenizer
+
+model = AutoModelForCausalLM.from_pretrained(
+    <span class="text-green">"thinkingmachines/Inkling"</span>,
+    device_map=<span class="text-green">"auto"</span>,
+    torch_dtype=<span class="text-green">"auto"</span>,
+)
+tokenizer = AutoTokenizer.from_pretrained(<span class="text-green">"thinkingmachines/Inkling"</span>)
+
+messages = [{<span class="text-green">"role"</span>: <span class="text-green">"user"</span>, <span class="text-green">"content"</span>: <span class="text-green">"Explain MoE routing"</span>}]
+inputs = tokenizer.apply_chat_template(messages, return_tensors=<span class="text-green">"pt"</span>)
+
+<span class="text-secondary"># 975B total params, only 41B active per token</span>
+output = model.generate(inputs, max_new_tokens=<span class="text-cyan">512</span>)
+<span class="text-cyan">print</span>(tokenizer.decode(output[<span class="text-cyan">0</span>]))`;
+---
+
+<BaseLayout
+  title="Inkling: The Former OpenAI CTO Did What Altman Would Not | Demystifying AI in 5 Minutes"
+  description="Mira Murati left OpenAI, raised $2B, and built a 975B-parameter frontier model. Then released it fully open under Apache 2.0. The largest US open-weights model."
+  image="/og-series-ep09-inkling.png"
+  keywords="Inkling, Thinking Machines, Mira Murati, Open Weights, Apache 2.0, Multimodal AI, MoE, Frontier Model, Fine-Tuning, Tinker"
+  publishedDate="2026-07-25"
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .timeline-card {
+      transition: all 0.3s ease;
+    }
+    .timeline-card:hover {
+      transform: translateX(4px);
+    }
+    .compare-card {
+      transition: all 0.3s ease;
+    }
+    .compare-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .link-card {
+      transition: all 0.3s ease;
+    }
+    .link-card:hover {
+      transform: scale(1.01);
+    }
+    .code-block {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+    .fusion-diagram {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.7rem;
+      line-height: 1.4;
+    }
+    .bench-row-highlight {
+      background: rgba(34, 211, 238, 0.04);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep09-inkling.png" alt="Inkling - 975B parameter open-weights model by Thinking Machines Lab under Apache 2.0" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 09
+        </span>
+        <span class="px-2.5 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">New Release</span>
+        <span class="text-[10px] text-secondary font-mono">Jul 25, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Inkling: The Former OpenAI CTO Did What Altman Would Not
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Mira Murati left OpenAI, raised $2B, and built a 975B-parameter frontier model. Then she released it fully open under Apache 2.0. No revenue caps. No restrictions. The largest US-built open-weights model ever.
+      </p>
+
+      <ShareButtons title="Inkling: The Former OpenAI CTO Did What Altman Would Not" url="/series/demystifying-ai/inkling" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Former OpenAI CTO Mira Murati</strong> shipped <strong>Inkling</strong> - a <strong>975B parameter</strong> MoE model with only <strong>41B active per token</strong>. Natively multimodal through encoder-free early fusion. 1M context. Licensed under <strong>Apache 2.0</strong> with zero restrictions. It does not win every benchmark. That is the entire strategy - the most <strong>customizable</strong> model wins, not the most capable one.
+      </p>
+    </div>
+
+    <!-- Section 1: The Exit That Built a Model -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Exit That Built a Model
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Mira Murati spent years as OpenAI's CTO watching the company drift from "open" to "closed." The non-profit mission that attracted the founding team was sidelined in favor of multi-billion-dollar licensing deals, capped-profit structures, and an API moat. She was CTO of a company that no longer aligned with her vision.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        So she left. Not to retire. Not to advise. To build exactly what OpenAI refused to ship.
+      </p>
+
+      <!-- Timeline -->
+      <div class="space-y-3 mb-6">
+        <div class="timeline-card rounded-lg border border-cyan/30 bg-cyan/[0.05] p-4 pl-5 border-l-4 border-l-cyan">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono text-cyan font-bold px-1.5 py-0.5 bg-cyan/10 rounded">SEP 2024</span>
+              <h3 class="text-sm font-semibold text-foreground">Murati leaves OpenAI</h3>
+            </div>
+            <p class="text-xs text-secondary mt-1 mb-0">After years as CTO, she walked away from the company she helped build. The departure came during a period of mass executive exits at OpenAI.</p>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-lg border border-cyan/20 bg-cyan/[0.03] p-4 pl-5 border-l-4 border-l-cyan/60">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono text-cyan font-bold px-1.5 py-0.5 bg-cyan/10 rounded">FEB 2025</span>
+              <h3 class="text-sm font-semibold text-foreground">Founds Thinking Machines Lab</h3>
+            </div>
+            <p class="text-xs text-secondary mt-1 mb-0">Co-founded with <strong class="text-foreground">John Schulman</strong> (OpenAI co-founder, inventor of PPO) and <strong class="text-foreground">Barret Zoph</strong> (created Neural Architecture Search at Google Brain). This is not a startup. This is an all-star team.</p>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-lg border border-cyan/20 bg-cyan/[0.03] p-4 pl-5 border-l-4 border-l-cyan/60">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono text-cyan font-bold px-1.5 py-0.5 bg-cyan/10 rounded">JUL 2025</span>
+              <h3 class="text-sm font-semibold text-foreground">$2B seed round - largest AI seed ever</h3>
+            </div>
+            <p class="text-xs text-secondary mt-1 mb-0">Led by <strong class="text-foreground">a16z</strong> at a <strong class="text-foreground">$12B valuation</strong> before shipping a single model. The bet was on the team, not the product. Murati publicly committed to "a significant open source component."</p>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-lg border border-cyan/30 bg-cyan/[0.05] p-4 pl-5 border-l-4 border-l-cyan">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono text-cyan font-bold px-1.5 py-0.5 bg-cyan/10 rounded">JUL 2026</span>
+              <h3 class="text-sm font-semibold text-foreground">Inkling ships - the promise delivered</h3>
+            </div>
+            <p class="text-xs text-secondary mt-1 mb-0">975B-parameter frontier model. Apache 2.0. No strings attached. The "significant open source component" Murati promised in 2025 is now real.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team callout -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-4">
+        <span class="text-[10px] font-mono text-cyan block mb-3">THE TEAM</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">Mira Murati</span>
+            <p class="text-xs text-secondary mb-0">Former CTO of OpenAI. Shipped GPT-4, DALL-E, and ChatGPT. <strong class="text-foreground">The most impactful AI product launches in history.</strong></p>
+          </div>
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">John Schulman</span>
+            <p class="text-xs text-secondary mb-0">OpenAI co-founder. <strong class="text-foreground">Invented PPO</strong> - the RL algorithm that made RLHF practical. Without PPO, ChatGPT does not exist.</p>
+          </div>
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">Barret Zoph</span>
+            <p class="text-xs text-secondary mb-0">Created <strong class="text-foreground">Neural Architecture Search</strong> at Google Brain. Led scaling research at OpenAI.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-dashed border-cyan/20 p-3 bg-cyan/[0.01]">
+        <p class="text-xs text-secondary m-0">
+          <strong class="text-foreground">The bet:</strong> The future of enterprise AI is not raw capability. It is <strong class="text-foreground">customization</strong>. Build the strongest open foundation, let everyone fine-tune it for their domain.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <!-- Stat cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">975B</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Total Params</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">41B</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Active/Token</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1M</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Context Window</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">45T</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Training Tokens</div>
+        </div>
+      </div>
+
+      <!-- Architecture details -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="compare-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">MoE Transformer</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            <strong class="text-foreground">975B total, 41B active.</strong> Mixture-of-Experts routing means you get frontier-scale knowledge at mid-range inference cost. Only a fraction of the network fires per token.
+          </p>
+        </div>
+        <div class="compare-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">Natively Multimodal</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            <strong class="text-foreground">Encoder-free early fusion.</strong> Text, images, audio, and video processed through a single transformer from day one. No adapters. No modality gap.
+          </p>
+        </div>
+      </div>
+
+      <!-- Benchmark comparison: Full table -->
+      <h3 class="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-xs">BENCHMARKS vs OPEN WEIGHTS</span>
+      </h3>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Inkling competes against 2 categories: <strong class="text-foreground">open-weights models</strong> (downloadable, self-hostable) and <strong class="text-foreground">closed models</strong> (API-only). The positioning is very different against each.
+      </p>
+
+      <!-- Desktop table: Open weights comparison -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-4">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">Benchmark</th>
+              <th class="text-center p-3 text-xs font-mono text-cyan">Inkling</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Best Open</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Best Closed</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bench-row-highlight">
+              <td class="p-3 text-foreground/80 font-semibold">SWE-bench Pro</td>
+              <td class="p-3 text-center font-bold text-cyan">77.6%</td>
+              <td class="p-3 text-center text-secondary text-xs">Nemotron 3 Ultra: 71.9%</td>
+              <td class="p-3 text-center text-secondary text-xs">-</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">AIME 2026</td>
+              <td class="p-3 text-center font-bold text-cyan">97.1%</td>
+              <td class="p-3 text-center text-secondary text-xs">GLM 5.2: 99.2%</td>
+              <td class="p-3 text-center text-secondary text-xs">Claude Fable 5: 99.9%</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">HLE (text only)</td>
+              <td class="p-3 text-center font-bold text-cyan">29.7%</td>
+              <td class="p-3 text-center text-secondary text-xs">GLM 5.2: 40.1%</td>
+              <td class="p-3 text-center text-secondary text-xs">Claude Fable 5: 53.3%</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">HLE (with tools)</td>
+              <td class="p-3 text-center font-bold text-cyan">46.0%</td>
+              <td class="p-3 text-center text-secondary text-xs">Kimi K2.6: 54.0%</td>
+              <td class="p-3 text-center text-secondary text-xs">Claude Fable 5: 64.5%</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">VoiceBench</td>
+              <td class="p-3 text-center font-bold text-cyan">91.4%</td>
+              <td class="p-3 text-center text-secondary text-xs">-</td>
+              <td class="p-3 text-center text-secondary text-xs">Gemini 3.1 Pro: 94.4%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile cards for benchmarks -->
+      <div class="md:hidden space-y-3 mb-4">
+        <div class="rounded-xl border border-cyan/30 bg-cyan/[0.03] p-3">
+          <span class="font-semibold text-cyan text-sm block mb-1">SWE-bench Pro</span>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-cyan font-bold block">77.6%</span>Inkling</div>
+            <div><span class="text-foreground block">71.9%</span>Nemotron 3</div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-3">
+          <span class="font-semibold text-foreground/80 text-sm block mb-1">AIME 2026</span>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-cyan font-bold block">97.1%</span>Inkling</div>
+            <div><span class="text-foreground block">99.2%</span>GLM 5.2</div>
+            <div><span class="text-foreground block">99.9%</span>Fable 5</div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-3">
+          <span class="font-semibold text-foreground/80 text-sm block mb-1">HLE (text / tools)</span>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-cyan font-bold block">29.7 / 46.0%</span>Inkling</div>
+            <div><span class="text-foreground block">40.1 / 54.0%</span>GLM / Kimi</div>
+            <div><span class="text-foreground block">53.3 / 64.5%</span>Fable 5</div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-3">
+          <span class="font-semibold text-foreground/80 text-sm block mb-1">VoiceBench</span>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-cyan font-bold block">91.4%</span>Inkling</div>
+            <div><span class="text-foreground block">94.4%</span>Gemini 3.1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benchmark callout -->
+      <div class="rounded-xl border border-cyan/30 bg-cyan/[0.04] p-4 md:p-5 mb-4">
+        <span class="text-[10px] font-mono text-cyan font-bold block mb-2">KEY TAKEAWAY</span>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+          Inkling <strong>does not win a single benchmark outright against closed models</strong>. It wins the one that matters most for developers: <strong class="text-cyan">SWE-bench Pro at 77.6%</strong>, beating every open-weights competitor including Nemotron 3 Ultra. For coding agents and developer tooling, Inkling is the strongest open foundation available.
+        </p>
+      </div>
+
+      <div class="rounded-lg border border-dashed border-cyan/20 p-3 bg-cyan/[0.01]">
+        <p class="text-xs text-secondary m-0">
+          <strong class="text-foreground">Honest positioning:</strong> Thinking Machines explicitly says "Inkling is not the strongest overall model available today." On HLE and AIME, GLM 5.2 and Claude Fable 5 outperform it. On VoiceBench, Gemini 3.1 Pro leads. <strong class="text-foreground">The goal is customization, not leaderboard crowns.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: Encoder-Free Early Fusion -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Encoder-Free Early Fusion
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Most multimodal models are <strong class="text-foreground">Frankenstein architectures</strong>. Take a text model. Bolt on a CLIP encoder for vision. Add Whisper for audio. Connect them with adapter layers trained after the fact. The result works, but the modalities never truly understand each other.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Inkling takes a different approach. <strong class="text-foreground">Text, images, and audio enter the same transformer from day one.</strong> No encoders. No adapters. No modality gap.
+      </p>
+
+      <!-- Architecture comparison diagram -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.02] p-5">
+          <span class="text-[10px] font-mono text-red-400 font-bold block mb-3">TRADITIONAL APPROACH</span>
+          <div class="fusion-diagram text-secondary space-y-2">
+            <div class="rounded-lg bg-background/50 border border-border p-2 text-center">
+              <span class="text-foreground/70">Text</span> <span class="text-red-400/60">-></span> <span class="text-foreground/70">Tokenizer</span>
+            </div>
+            <div class="rounded-lg bg-background/50 border border-border p-2 text-center">
+              <span class="text-foreground/70">Image</span> <span class="text-red-400/60">-></span> <span class="text-foreground/70">CLIP</span> <span class="text-red-400/60">-></span> <span class="text-foreground/70">Adapter</span>
+            </div>
+            <div class="rounded-lg bg-background/50 border border-border p-2 text-center">
+              <span class="text-foreground/70">Audio</span> <span class="text-red-400/60">-></span> <span class="text-foreground/70">Whisper</span> <span class="text-red-400/60">-></span> <span class="text-foreground/70">Adapter</span>
+            </div>
+            <div class="text-center text-red-400/60 text-lg">&#8595;</div>
+            <div class="rounded-lg bg-red-500/[0.06] border border-red-500/20 p-2 text-center">
+              <span class="text-red-400">LLM Transformer</span>
+            </div>
+          </div>
+          <p class="text-[10px] text-secondary mt-3 mb-0">Each modality processed separately, then merged. The transformer never sees raw pixels or waveforms.</p>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-3">INKLING: EARLY FUSION</span>
+          <div class="fusion-diagram text-secondary space-y-2">
+            <div class="grid grid-cols-3 gap-2">
+              <div class="rounded-lg bg-background/50 border border-cyan/20 p-2 text-center"><span class="text-cyan/80">Text</span></div>
+              <div class="rounded-lg bg-background/50 border border-cyan/20 p-2 text-center"><span class="text-cyan/80">Image</span></div>
+              <div class="rounded-lg bg-background/50 border border-cyan/20 p-2 text-center"><span class="text-cyan/80">Audio</span></div>
+            </div>
+            <div class="text-center text-cyan/60 text-lg">&#8595;</div>
+            <div class="rounded-lg bg-cyan/[0.06] border border-cyan/30 p-3 text-center">
+              <span class="text-cyan font-bold">Single Transformer</span>
+              <div class="text-[9px] text-secondary mt-1">All modalities from token zero</div>
+            </div>
+          </div>
+          <p class="text-[10px] text-secondary mt-3 mb-0">All modalities enter the same model from the start of pre-training. Native cross-modal reasoning.</p>
+        </div>
+      </div>
+
+      <!-- Why it matters -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-4">
+        <span class="text-[10px] font-mono text-cyan block mb-3">WHY THIS MATTERS</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">No modality gap</span>
+            <p class="text-xs text-secondary mb-0">When vision and text live in separate encoders, the model "translates" between them. With early fusion, <strong class="text-foreground">it reasons across modalities in the same latent space</strong>. Ask about a chart, and it reasons about numbers and visual layout simultaneously.</p>
+          </div>
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">Controllable thinking effort</span>
+            <p class="text-xs text-secondary mb-0">Adjust reasoning depth per request. <strong class="text-foreground">Lower effort = faster and cheaper. Higher effort = better answers.</strong> Developers choose the tradeoff at inference time, not at training time.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Training data -->
+      <div class="rounded-lg border border-dashed border-cyan/20 p-3 bg-cyan/[0.01]">
+        <p class="text-xs text-secondary m-0">
+          <strong class="text-foreground">Training scale:</strong> <strong class="text-cyan">45 trillion tokens</strong> spanning text, images, audio, and video. The model saw all 4 modalities during pre-training - not as a fine-tuning afterthought, but as the core training signal.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: The Apache 2.0 Bet -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Apache 2.0 Bet
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Most "open" models are not actually open. Llama has a revenue cap. Gemma has use restrictions. Inkling ships under <strong class="text-foreground">Apache 2.0</strong> - a real open-source license, not a marketing term.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The license choice is deliberate. Apache 2.0 was picked over MIT and custom licenses for 3 specific reasons.
+      </p>
+
+      <!-- Why Apache 2.0 specifically -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <div class="compare-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <span class="text-xs font-bold text-cyan block mb-2">Patent grant</span>
+          <p class="text-xs text-secondary mb-0">Apache 2.0 includes an <strong class="text-foreground">explicit patent grant</strong>. MIT does not. Patents on MoE routing or early fusion techniques cannot be weaponized against users.</p>
+        </div>
+        <div class="compare-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <span class="text-xs font-bold text-cyan block mb-2">Enterprise-ready</span>
+          <p class="text-xs text-secondary mb-0">Fortune 500 legal teams already have <strong class="text-foreground">pre-approved Apache 2.0</strong>. Novel licenses like Llama's require review cycles that can take months.</p>
+        </div>
+        <div class="compare-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <span class="text-xs font-bold text-cyan block mb-2">No copyleft</span>
+          <p class="text-xs text-secondary mb-0">Unlike GPL/AGPL, Apache 2.0 has <strong class="text-foreground">no contribution-back requirement</strong>. Fine-tune into a proprietary product, keep the weights private.</p>
+        </div>
+      </div>
+
+      <!-- License comparison cards -->
+      <h3 class="text-sm font-bold text-foreground mb-4 flex items-center gap-2"><span class="text-cyan font-mono text-xs">LICENSE COMPARISON</span></h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <div class="compare-card rounded-xl border border-cyan/30 bg-cyan/[0.03] p-5">
+          <span class="text-xs font-bold text-cyan block mb-3">Inkling (Apache 2.0)</span>
+          <div class="space-y-1.5 text-xs text-secondary">
+            <div class="flex items-center gap-2"><span class="text-cyan shrink-0">&#10003;</span> No revenue cap</div>
+            <div class="flex items-center gap-2"><span class="text-cyan shrink-0">&#10003;</span> No use restrictions</div>
+            <div class="flex items-center gap-2"><span class="text-cyan shrink-0">&#10003;</span> Full commercial rights</div>
+            <div class="flex items-center gap-2"><span class="text-cyan shrink-0">&#10003;</span> Patent grant included</div>
+            <div class="flex items-center gap-2"><span class="text-cyan shrink-0">&#10003;</span> Self-hosting allowed</div>
+          </div>
+        </div>
+        <div class="compare-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.02] p-5">
+          <span class="text-xs font-bold text-yellow-400 block mb-3">Llama (Custom License)</span>
+          <div class="space-y-1.5 text-xs text-secondary">
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> 700M MAU cap</div>
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> Acceptable use policy</div>
+            <div class="flex items-center gap-2"><span class="text-yellow-400/60 shrink-0">~</span> Commercial with limits</div>
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> Attribution required</div>
+            <div class="flex items-center gap-2"><span class="text-yellow-400/60 shrink-0">~</span> Self-hosting allowed</div>
+          </div>
+        </div>
+        <div class="compare-card rounded-xl border border-red-500/20 bg-red-500/[0.02] p-5">
+          <span class="text-xs font-bold text-red-400 block mb-3">GPT / Claude (Proprietary)</span>
+          <div class="space-y-1.5 text-xs text-secondary">
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> API-only access</div>
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> No weights available</div>
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> No fine-tuning of base</div>
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> No self-hosting</div>
+            <div class="flex items-center gap-2"><span class="text-red-400/60 shrink-0">&#10005;</span> No patent grant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Concrete examples -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-4">
+        <span class="text-[10px] font-mono text-cyan block mb-3">WHAT APACHE 2.0 UNLOCKS</span>
+        <div class="space-y-2">
+          <div class="flex items-start gap-3">
+            <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+            <p class="text-xs text-secondary mb-0"><strong class="text-foreground">Build a commercial product with 1 billion users.</strong> Llama is blocked above 700M MAU. Inkling has no cap.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+            <p class="text-xs text-secondary mb-0"><strong class="text-foreground">Fine-tune for defense or military applications.</strong> Llama's acceptable use policy blocks this. Apache 2.0 does not restrict use cases.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+            <p class="text-xs text-secondary mb-0"><strong class="text-foreground">Redistribute modified weights freely.</strong> Llama requires attribution and license inclusion. Apache 2.0 requires preserving the license notice but imposes no branding or attribution requirements on the product.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+            <p class="text-xs text-secondary mb-0"><strong class="text-foreground">Deploy on-premise behind an air gap.</strong> No phone-home, no usage tracking, no API dependency.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strategy callout -->
+      <div class="rounded-xl border border-cyan/30 bg-cyan/[0.04] p-4 md:p-5">
+        <span class="text-[10px] font-mono text-cyan block mb-3">THE STRATEGY</span>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+          <strong>"Inkling is not the strongest model available."</strong> That admission is the entire strategy. OpenAI proved that the strongest model captures developers. Meta proved that the most available model captures researchers. <strong class="text-foreground">Murati is betting that the most customizable model captures enterprises.</strong> The base model is free. The fine-tuning platform is paid. Adoption drives revenue.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 5: Try It -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Try It
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Three paths: download the open weights for self-hosting, use the Tinker API for managed inference and fine-tuning, or start with the smaller Inkling-Small for lighter deployments.
+      </p>
+
+      <!-- Link cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <a href="https://huggingface.co/thinkingmachines/Inkling" target="_blank" rel="noopener noreferrer" class="link-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5 hover:border-cyan/40 transition-colors block">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-cyan font-bold">HuggingFace</span>
+          </div>
+          <p class="text-xs text-secondary mb-3">
+            Full open weights. Apache 2.0. Download and self-host. Up to <strong class="text-foreground">1M context</strong> with open weights.
+          </p>
+          <div class="text-[10px] font-mono text-secondary">
+            <span class="text-cyan">975B params</span> / MoE
+          </div>
+        </a>
+        <a href="https://tinker.thinkingmachines.ai" target="_blank" rel="noopener noreferrer" class="link-card rounded-xl border border-green/20 bg-green/[0.02] p-5 hover:border-green/40 transition-colors block">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-green font-bold">Tinker API</span>
+          </div>
+          <p class="text-xs text-secondary mb-3">
+            Managed inference + full fine-tuning platform. Upload data, configure training, get a custom model. <strong class="text-foreground">64K and 256K context tiers.</strong>
+          </p>
+          <div class="text-[10px] font-mono text-secondary">
+            <span class="text-green">API access</span> + fine-tuning
+          </div>
+        </a>
+        <a href="https://thinkingmachines.ai" target="_blank" rel="noopener noreferrer" class="link-card rounded-xl border border-violet-500/20 bg-violet-500/[0.02] p-5 hover:border-violet-500/40 transition-colors block">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-violet-400 font-bold">Thinking Machines</span>
+          </div>
+          <p class="text-xs text-secondary mb-3">
+            Company site. Research papers, blog, technical reports, and team info.
+          </p>
+          <div class="text-[10px] font-mono text-secondary">
+            <span class="text-violet-400">thinkingmachines.ai</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Tinker deep-dive -->
+      <div class="rounded-xl border border-green/20 bg-green/[0.02] p-4 md:p-5 mb-6">
+        <span class="text-[10px] font-mono text-green font-bold block mb-3">TINKER: THE MONETIZATION PLAY</span>
+        <p class="text-xs text-secondary leading-relaxed mb-3">
+          Tinker is not just API access. It is a <strong class="text-foreground">full fine-tuning platform</strong>. Upload your dataset, configure training hyperparameters, and get back a custom model fine-tuned on your domain data. This is the business model: open weights are free, fine-tuning infrastructure is paid.
+        </p>
+        <div class="grid grid-cols-3 gap-3 text-center">
+          <div class="rounded-lg bg-background/50 border border-green/10 p-2">
+            <span class="text-sm font-bold text-green block">64K</span>
+            <span class="text-[10px] text-secondary">Standard tier</span>
+          </div>
+          <div class="rounded-lg bg-background/50 border border-green/10 p-2">
+            <span class="text-sm font-bold text-green block">256K</span>
+            <span class="text-[10px] text-secondary">Extended tier</span>
+          </div>
+          <div class="rounded-lg bg-background/50 border border-cyan/10 p-2">
+            <span class="text-sm font-bold text-cyan block">1M</span>
+            <span class="text-[10px] text-secondary">Open weights</span>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">
+          <strong class="text-foreground">50% launch discount</strong> currently active. See Tinker documentation for per-token pricing.
+        </p>
+      </div>
+
+      <!-- Inkling-Small callout -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-8">
+        <span class="text-[10px] font-mono text-cyan block mb-3">ALSO AVAILABLE</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">Inkling-Small</span>
+            <p class="text-xs text-secondary mb-0">
+              <strong class="text-foreground">276B total, 12B active.</strong> A preview companion model that <strong class="text-foreground">matches or exceeds Inkling on many benchmarks</strong>. How? Improvements to pre-training data and the training recipe. The smaller model benefits from every lesson learned training the bigger one.
+            </p>
+          </div>
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">NVFP4 Checkpoint</span>
+            <p class="text-xs text-secondary mb-0">
+              <strong class="text-foreground">Quantized for NVIDIA Blackwell.</strong> 4-bit floating point checkpoint for next-gen hardware. Combined with controllable thinking effort, this gives teams a cost-performance dial they can tune per request.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code example -->
+      <h3 class="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-xs">QUICK START</span>
+      </h3>
+
+      <div class="rounded-xl border border-border bg-[#0d1117] overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-elevated/50">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green/60"></span>
+          <span class="text-[10px] font-mono text-secondary ml-2">inference.py</span>
+        </div>
+        <pre class="code-block p-5 overflow-x-auto text-secondary"><Fragment set:html={codeExample} /></pre>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        The strongest model wins benchmarks. The most open model wins adoption. <strong>Murati is betting on adoption.</strong> Inkling is 975B parameters of "do whatever you want with this" - Apache 2.0 with patent protection, no revenue caps, no use restrictions. Encoder-free early fusion means native multimodal reasoning without bolted-on adapters. Controllable thinking effort means developers choose the cost-quality tradeoff. And the Tinker platform turns fine-tuning from a research project into a product. <strong class="text-foreground">If enterprise AI is heading toward customization over prompting, the most customizable foundation wins. That is Inkling.</strong>
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={9} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">
+          All Episodes
+        </a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
