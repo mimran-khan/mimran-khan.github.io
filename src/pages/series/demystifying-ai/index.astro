@@ -195,7 +195,7 @@ const seriesSchema = {
 
                   {/* Episode cards grid */}
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    {week.episodes.map((ep, epIdx) => {
+                    {week.episodes.map((ep: any, epIdx: number) => {
                       const cat = categoryConfig[ep.category];
                       const isLatest = wIdx === 0 && epIdx === week.episodes.length - 1;
                       return (
