@@ -79,8 +79,8 @@ const seriesSchema = {
               <div class="text-[9px] font-mono text-secondary uppercase">min each</div>
             </div>
             <div class="text-center">
-              <div class="text-xl font-bold text-foreground">150+</div>
-              <div class="text-[9px] font-mono text-secondary uppercase">per year</div>
+              <div class="text-xl font-bold text-foreground">{publishedEpisodes.length}<span class="text-secondary/40 text-sm font-normal">/75</span></div>
+              <div class="text-[9px] font-mono text-secondary uppercase">episodes</div>
             </div>
           </div>
         </div>
@@ -98,6 +98,21 @@ const seriesSchema = {
           <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan/5 border border-cyan/20">
             <span class="w-2 h-2 rounded-full bg-cyan"></span>
             <span class="text-[10px] font-mono text-cyan">Sat: New Release</span>
+          </div>
+        </div>
+
+        <!-- Series Progress -->
+        <div class="mt-6">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[10px] font-mono text-secondary">Series progress</span>
+            <span class="text-[10px] font-mono text-green">{Math.round((publishedEpisodes.length / 75) * 100)}%</span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-border overflow-hidden">
+            <div class="h-full rounded-full bg-gradient-to-r from-green via-green/80 to-green/60 transition-all duration-500" style={`width: ${(publishedEpisodes.length / 75) * 100}%`}></div>
+          </div>
+          <div class="flex items-center justify-between mt-1.5">
+            <span class="text-[9px] font-mono text-secondary/60">Jul 6, 2026</span>
+            <span class="text-[9px] font-mono text-secondary/60">Dec 19, 2026</span>
           </div>
         </div>
       </div>
