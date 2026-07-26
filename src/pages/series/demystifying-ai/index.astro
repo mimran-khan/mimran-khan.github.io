@@ -41,7 +41,7 @@ const seriesSchema = {
       <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
 
-      <div class="relative container-main max-w-5xl pt-24 pb-12">
+      <div class="relative container-main max-w-5xl pt-20 pb-8">
         <a href="/" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-10 font-mono">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
           cd ~/home
@@ -118,88 +118,146 @@ const seriesSchema = {
       </div>
     </section>
 
-    <!-- Published Episodes - Slider -->
+    <!-- Search + Filter + Published Episodes Timeline -->
     {publishedEpisodes.length > 0 && (
-      <section class="py-12 border-b border-border">
+      <section class="py-6 md:py-8 border-b border-border">
         <div class="container-main max-w-5xl">
-          <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-3">
-              <h2 class="text-lg font-semibold text-foreground">Published</h2>
-              <span class="text-xs font-mono text-secondary">{publishedEpisodes.length} episode{publishedEpisodes.length > 1 ? 's' : ''}</span>
+          <!-- Search Bar -->
+          <div class="mb-3">
+            <div class="relative">
+              <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input
+                id="ep-search"
+                type="text"
+                placeholder="Search episodes... try 'zero day', 'LoRA', 'open source'"
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-elevated border border-border text-sm text-foreground placeholder:text-secondary/50 focus:outline-none focus:border-green/40 focus:ring-1 focus:ring-green/20 transition-all font-mono"
+              />
+              <span id="ep-search-count" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-[10px] font-mono text-secondary hidden"></span>
             </div>
-            {publishedEpisodes.length > 2 && (
-              <div class="flex items-center gap-2">
-                <button id="pub-prev" class="w-8 h-8 rounded-lg border border-border bg-elevated flex items-center justify-center text-secondary hover:text-green hover:border-green/30 transition-colors">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <button id="pub-next" class="w-8 h-8 rounded-lg border border-border bg-elevated flex items-center justify-center text-secondary hover:text-green hover:border-green/30 transition-colors">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </button>
-              </div>
-            )}
           </div>
 
-          <div class="relative">
-            <div id="published-slider" class="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4">
-              {publishedEpisodes.map((ep, idx) => {
-                const cat = categoryConfig[ep.category];
-                const isLatest = idx === 0;
-                return (
-                  <a href={`/series/demystifying-ai/${ep.slug}`} class={`snap-start shrink-0 w-[320px] md:w-[360px] group block rounded-xl border bg-elevated transition-all duration-300 overflow-hidden ${isLatest ? 'border-green/40 ring-1 ring-green/20' : 'border-border hover:border-green/30'}`}>
-                    {/* Image Preview */}
-                    <div class="relative h-44 overflow-hidden bg-gradient-to-br from-green/10 via-background to-violet-500/10">
-                      {ep.image ? (
-                        <img src={ep.image} alt={ep.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      ) : (
-                        <div class="w-full h-full flex items-center justify-center">
-                          <div class="text-center">
-                            <span class={`text-4xl font-bold ${cat.text} opacity-20`}>#{String(ep.number).padStart(2, '0')}</span>
-                          </div>
-                        </div>
-                      )}
-                      <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/30 to-transparent"></div>
-                      <div class="absolute top-3 left-3 flex items-center gap-2">
-                        <span class={`px-2 py-0.5 text-[9px] font-mono rounded ${cat.bg} ${cat.border} border ${cat.text} backdrop-blur-sm`}>{cat.label}</span>
-                        {isLatest && (
-                          <span class="px-2 py-0.5 text-[9px] font-mono rounded bg-green/20 border border-green/30 text-green backdrop-blur-sm flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>Latest
-                          </span>
-                        )}
-                      </div>
-                      <div class="absolute bottom-3 left-4 right-4">
-                        <span class="text-[10px] font-mono text-white/60">#{String(ep.number).padStart(2, '0')} &middot; {ep.day}, {ep.date}</span>
-                      </div>
-                    </div>
+          <!-- Filter Pills -->
+          <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <button data-filter="all" class="filter-pill active px-3.5 py-1.5 rounded-full text-[11px] font-mono border transition-all bg-green/10 border-green/30 text-green">All</button>
+            <button data-filter="hot-topic" class="filter-pill px-3.5 py-1.5 rounded-full text-[11px] font-mono border transition-all bg-transparent border-border text-secondary hover:border-green/30 hover:text-green">Hot Topic</button>
+            <button data-filter="research-paper" class="filter-pill px-3.5 py-1.5 rounded-full text-[11px] font-mono border transition-all bg-transparent border-border text-secondary hover:border-violet-500/30 hover:text-violet-400">Research Paper</button>
+            <button data-filter="new-release" class="filter-pill px-3.5 py-1.5 rounded-full text-[11px] font-mono border transition-all bg-transparent border-border text-secondary hover:border-cyan/30 hover:text-cyan">New Release</button>
+          </div>
 
-                    {/* Content */}
-                    <div class="p-4">
-                      <h3 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors mb-2 line-clamp-2">{ep.title}</h3>
-                      <p class="text-xs text-secondary line-clamp-2 mb-3">{ep.hook}</p>
-                      <div class="flex items-center justify-between">
-                        <span class="text-[10px] text-secondary">{ep.readTime}</span>
-                        <span class="text-[10px] text-green group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                          Read <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                );
-              })}
+          <!-- Header -->
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <h2 class="text-lg font-semibold text-foreground">Published</h2>
+              <span id="ep-visible-count" class="text-xs font-mono text-secondary">{publishedEpisodes.length} episode{publishedEpisodes.length > 1 ? 's' : ''}</span>
             </div>
-            {publishedEpisodes.length > 2 && (
-              <div class="absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
-            )}
+          </div>
+
+          <!-- No results message -->
+          <div id="no-results" class="hidden py-8 text-center">
+            <p class="text-secondary text-sm">No episodes match your search.</p>
+            <button id="clear-search" class="mt-2 text-green text-xs font-mono hover:underline">Clear filters</button>
+          </div>
+
+          <!-- Vertical Weekly Timeline -->
+          <div id="timeline-container" class="relative">
+            {(() => {
+              const chronological = [...publishedEpisodes].reverse();
+              const weeks = [] as any[];
+              for (let i = 0; i < chronological.length; i += 3) {
+                const weekEps = chronological.slice(i, i + 3);
+                const weekNum = Math.floor(i / 3) + 1;
+                const first = weekEps[0].date;
+                const last = weekEps[weekEps.length - 1]?.date;
+                const dateRange = weekEps.length > 1 ? `${first} - ${last}` : first;
+                weeks.push({ weekNum, dateRange, episodes: weekEps });
+              }
+              weeks.reverse();
+
+              return weeks.map((week, wIdx) => (
+                <div data-week={week.weekNum} class="relative pl-8 md:pl-12 pb-5 last:pb-0">
+                  {/* Timeline line */}
+                  {wIdx < weeks.length - 1 && (
+                    <div class="absolute left-[11px] md:left-[15px] top-6 bottom-0 w-px bg-border"></div>
+                  )}
+                  {/* Timeline dot */}
+                  <div class="absolute left-1 md:left-1.5 top-1.5 w-5 h-5 md:w-7 md:h-7 rounded-full bg-elevated border-2 border-green/40 flex items-center justify-center z-10">
+                    <div class={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full ${wIdx === 0 ? 'bg-green animate-pulse' : 'bg-green/50'}`}></div>
+                  </div>
+
+                  {/* Week label */}
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xs font-mono font-bold text-foreground">Week {week.weekNum}</span>
+                    <span class="text-[10px] font-mono text-secondary">{week.dateRange}</span>
+                    {wIdx === 0 && (
+                      <span class="px-2 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded-full">Latest</span>
+                    )}
+                  </div>
+
+                  {/* Episode cards grid */}
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    {week.episodes.map((ep, epIdx) => {
+                      const cat = categoryConfig[ep.category];
+                      const isLatest = wIdx === 0 && epIdx === week.episodes.length - 1;
+                      return (
+                        <a
+                          href={`/series/demystifying-ai/${ep.slug}`}
+                          data-ep-card
+                          data-ep-num={ep.number}
+                          data-category={ep.category}
+                          class={`group block rounded-xl border bg-elevated transition-all duration-300 overflow-hidden ${isLatest ? 'border-green/40 ring-1 ring-green/20' : 'border-border hover:border-green/30'}`}
+                        >
+                          <div class="relative h-36 overflow-hidden bg-gradient-to-br from-green/10 via-background to-violet-500/10">
+                            {ep.image ? (
+                              <img src={ep.image} alt={ep.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                            ) : (
+                              <div class="w-full h-full flex items-center justify-center">
+                                <span class={`text-3xl font-bold ${cat.text} opacity-20`}>#{String(ep.number).padStart(2, '0')}</span>
+                              </div>
+                            )}
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/30 to-transparent"></div>
+                            <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+                              <span class={`px-1.5 py-0.5 text-[8px] font-mono rounded ${cat.bg} ${cat.border} border ${cat.text} backdrop-blur-sm`}>{cat.label}</span>
+                            </div>
+                            <div class="absolute bottom-2 left-3">
+                              <span class="text-[9px] font-mono text-white/60">#{String(ep.number).padStart(2, '0')} &middot; {ep.day}, {ep.date}</span>
+                            </div>
+                          </div>
+                          <div class="p-3">
+                            <h3 class="text-[13px] font-semibold text-foreground group-hover:text-green transition-colors mb-1.5 line-clamp-2 leading-tight">{ep.title}</h3>
+                            <p class="text-[11px] text-secondary line-clamp-2 mb-2">{ep.hook}</p>
+                            <div class="flex items-center justify-between">
+                              <span class="text-[9px] text-secondary">{ep.readTime}</span>
+                              <span class="text-[9px] text-green group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                                Read <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              ));
+            })()}
           </div>
         </div>
       </section>
     )}
 
+    <!-- Episode data for Fuse.js search -->
+    <script type="application/json" id="ep-data" set:html={JSON.stringify(publishedEpisodes.map(ep => ({
+      number: ep.number,
+      title: ep.title,
+      hook: ep.hook,
+      category: ep.category,
+    })))} />
+
     <!-- Next Episode -->
-    <section class="py-12">
+    <section class="py-6 md:py-8">
       <div class="container-main max-w-5xl">
         {nextEpisode ? (
           <Fragment>
-            <div class="flex items-center gap-3 mb-6">
+            <div class="flex items-center gap-3 mb-4">
               <h2 class="text-lg font-semibold text-foreground">Next Episode</h2>
               <div class="flex-1 h-px bg-border"></div>
               <span class="text-xs font-mono text-secondary">{nextEpisode.day}, {nextEpisode.date}</span>
@@ -208,18 +266,18 @@ const seriesSchema = {
             <div class="relative rounded-2xl border border-green/20 bg-elevated overflow-hidden">
               <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green via-green/60 to-transparent"></div>
               
-              <div class="p-8 md:p-10">
-                <div class="flex items-center gap-3 mb-4">
+              <div class="p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-3">
                   <span class="text-sm font-mono text-green font-bold">#{String(nextEpisode.number).padStart(2, '0')}</span>
                   <span class="px-2.5 py-0.5 text-[10px] font-mono rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400">Upcoming</span>
                   <span class="text-xs text-secondary ml-auto">{nextEpisode.readTime}</span>
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-3">
                   {nextEpisode.title}
                 </h2>
 
-                <p class="text-base text-secondary mb-6">
+                <p class="text-base text-secondary mb-4">
                   {nextEpisode.hook}
                 </p>
 
@@ -238,7 +296,7 @@ const seriesSchema = {
           </Fragment>
         ) : (
           <Fragment>
-            <div class="flex items-center gap-3 mb-6">
+            <div class="flex items-center gap-3 mb-4">
               <h2 class="text-lg font-semibold text-foreground">Next Episode</h2>
               <div class="flex-1 h-px bg-border"></div>
             </div>
@@ -246,16 +304,16 @@ const seriesSchema = {
             <div class="relative rounded-2xl border border-dashed border-green/30 bg-green/[0.02] overflow-hidden">
               <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green/40 via-green/20 to-transparent"></div>
               
-              <div class="p-8 md:p-10">
-                <div class="flex items-center gap-3 mb-4">
+              <div class="p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-3">
                   <span class="px-2.5 py-0.5 text-[10px] font-mono rounded-full bg-green/10 border border-green/20 text-green">Coming Soon</span>
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-bold text-foreground/70 mb-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-foreground/70 mb-3">
                   Next episode dropping soon
                 </h2>
 
-                <p class="text-base text-secondary mb-6">
+                <p class="text-base text-secondary mb-4">
                   New episodes every Mon, Wed, Sat. Follow on LinkedIn to get notified when the next one drops.
                 </p>
 
@@ -278,8 +336,8 @@ const seriesSchema = {
 
     <!-- Subscribe / Follow -->
     <section class="border-t border-border">
-      <div class="container-main max-w-5xl py-12">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6 p-6 rounded-xl border border-border bg-elevated">
+      <div class="container-main max-w-5xl py-6 md:py-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
           <div>
             <h3 class="text-base font-semibold text-foreground mb-1">Never miss an episode</h3>
             <p class="text-xs text-secondary">New episodes drop Mon, Wed, Sat. Follow for updates.</p>
@@ -293,17 +351,132 @@ const seriesSchema = {
     </section>
   </div>
 
+  <script is:inline src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
   <script is:inline>
-    const slider = document.getElementById('published-slider');
-    const prevBtn = document.getElementById('pub-prev');
-    const nextBtn = document.getElementById('pub-next');
-    const cardWidth = 380;
+  (function() {
+    var dataEl = document.getElementById('ep-data');
+    if (!dataEl) return;
 
-    prevBtn?.addEventListener('click', () => {
-      slider?.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    var episodes = JSON.parse(dataEl.textContent);
+    var fuse = new Fuse(episodes, {
+      keys: [
+        { name: 'title', weight: 1.0 },
+        { name: 'hook', weight: 0.7 },
+        { name: 'category', weight: 0.5 }
+      ],
+      threshold: 0.4,
+      ignoreLocation: true,
+      includeScore: true
     });
-    nextBtn?.addEventListener('click', () => {
-      slider?.scrollBy({ left: cardWidth, behavior: 'smooth' });
+
+    var searchInput = document.getElementById('ep-search');
+    var searchCount = document.getElementById('ep-search-count');
+    var visibleCount = document.getElementById('ep-visible-count');
+    var filterBtns = document.querySelectorAll('.filter-pill');
+    var weekGroups = document.querySelectorAll('[data-week]');
+    var cards = document.querySelectorAll('[data-ep-card]');
+    var noResults = document.getElementById('no-results');
+    var clearBtn = document.getElementById('clear-search');
+    var timelineContainer = document.getElementById('timeline-container');
+    var activeFilter = 'all';
+    var debounceTimer;
+    var totalCount = cards.length;
+
+    var filterColors = {
+      'all': { bg: 'bg-green/10', border: 'border-green/30', text: 'text-green' },
+      'hot-topic': { bg: 'bg-green/10', border: 'border-green/30', text: 'text-green' },
+      'research-paper': { bg: 'bg-violet-500/10', border: 'border-violet-500/30', text: 'text-violet-400' },
+      'new-release': { bg: 'bg-cyan/10', border: 'border-cyan/30', text: 'text-cyan' }
+    };
+
+    function applyFilters() {
+      var query = searchInput.value.trim();
+      var matchingNums;
+
+      if (query) {
+        var results = fuse.search(query);
+        matchingNums = new Set(results.map(function(r) { return r.item.number; }));
+      } else {
+        matchingNums = new Set(episodes.map(function(e) { return e.number; }));
+      }
+
+      var visible = 0;
+      cards.forEach(function(card) {
+        var num = parseInt(card.dataset.epNum);
+        var cat = card.dataset.category;
+        var matchSearch = matchingNums.has(num);
+        var matchCat = activeFilter === 'all' || cat === activeFilter;
+        var show = matchSearch && matchCat;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+
+      weekGroups.forEach(function(week) {
+        var hasVisible = week.querySelectorAll('[data-ep-card]:not(.hidden)').length > 0;
+        week.classList.toggle('hidden', !hasVisible);
+      });
+
+      if (visibleCount) {
+        visibleCount.textContent = visible + ' episode' + (visible !== 1 ? 's' : '');
+      }
+      if (searchCount) {
+        if (query) {
+          searchCount.textContent = visible + '/' + totalCount;
+          searchCount.classList.remove('hidden');
+        } else {
+          searchCount.classList.add('hidden');
+        }
+      }
+      if (noResults) {
+        noResults.classList.toggle('hidden', visible > 0);
+      }
+      if (timelineContainer) {
+        timelineContainer.classList.toggle('hidden', visible === 0);
+      }
+    }
+
+    searchInput.addEventListener('input', function() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(applyFilters, 200);
     });
+
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        activeFilter = btn.dataset.filter;
+
+        filterBtns.forEach(function(b) {
+          b.classList.remove('active', 'bg-green/10', 'border-green/30', 'text-green',
+            'bg-violet-500/10', 'border-violet-500/30', 'text-violet-400',
+            'bg-cyan/10', 'border-cyan/30', 'text-cyan');
+          b.classList.add('bg-transparent', 'border-border', 'text-secondary');
+        });
+
+        var colors = filterColors[activeFilter];
+        btn.classList.remove('bg-transparent', 'border-border', 'text-secondary');
+        btn.classList.add('active', colors.bg, colors.border, colors.text);
+
+        applyFilters();
+      });
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        activeFilter = 'all';
+        filterBtns.forEach(function(b) {
+          b.classList.remove('active', 'bg-green/10', 'border-green/30', 'text-green',
+            'bg-violet-500/10', 'border-violet-500/30', 'text-violet-400',
+            'bg-cyan/10', 'border-cyan/30', 'text-cyan');
+          b.classList.add('bg-transparent', 'border-border', 'text-secondary');
+        });
+        var allBtn = document.querySelector('[data-filter="all"]');
+        if (allBtn) {
+          allBtn.classList.remove('bg-transparent', 'border-border', 'text-secondary');
+          allBtn.classList.add('active', 'bg-green/10', 'border-green/30', 'text-green');
+        }
+        applyFilters();
+      });
+    }
+  })();
   </script>
 </BaseLayout>
