@@ -1,0 +1,671 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Photon-1: 18 Years of Screen Recordings Built One World Simulator | Demystifying AI in 5 Minutes"
+  description="Induction Labs trained a 106B sparse MoE on 18 years of screen recordings with zero action labels. It simulates environments, predicts physics, and transfers to unseen domains at 30x less compute than Gemini."
+  image="/og-series-ep14-photon-1.png"
+  keywords="Photon-1, Induction Labs, World Model, Screen Recordings, Video Generation, World Simulator, Latent Tokens, Imagination Models"
+  publishedDate="2026-08-05"
+  articleSection="Demystifying AI"
+  articleTags={["Photon-1", "Induction Labs", "World Model", "World Simulator", "Video Generation"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .arch-step {
+      transition: all 0.3s ease;
+    }
+    .arch-step:hover {
+      transform: translateX(4px);
+    }
+    .bench-row {
+      transition: all 0.3s ease;
+    }
+    .bench-row:hover {
+      background: rgba(139, 92, 246, 0.04);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-violet-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep14-photon-1.png" alt="Photon-1 - 18 Years of Screen Recordings Built One World Simulator" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet-400 font-mono bg-violet-500/5 border border-violet-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          EP 14
+        </span>
+        <a href="https://www.inductionlabs.com/news/scaling-video-pretraining" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Blog Post
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Aug 3, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Photon-1: 18 Years of Screen Recordings Built One World Simulator
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Induction Labs trained a 106B sparse MoE on raw desktop video with zero action labels. It simulates environments, predicts physics, and transfers to domains it has never seen.
+      </p>
+
+      <ShareButtons title="Photon-1: 18 Years of Screen Recordings Built One World Simulator" url="/series/demystifying-ai/photon-1" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Induction Labs trained a <strong>106B sparse MoE on 18 years of continuous screen recordings</strong> with zero action labels. Photon-1 does not generate video. It <strong>simulates environments</strong>: predicts physics, tracks objects through occlusion, and models cause-effect from raw pixel observations. No labels. No scene graphs. Just screens and a transformer. On internal benchmarks it <strong>beats Gemini 3.1 Flash-Lite at 30x less pretraining compute</strong>, then transfers to checkers and billiard physics despite never seeing either domain.
+      </p>
+    </div>
+
+    <!-- ==================== SECTION 1: What Is a World Model ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> What Is a World Model
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Video generation and world simulation look identical on the surface. Both produce video frames. But they solve <strong>fundamentally different problems</strong>.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        A video generator asks: <em>"what looks realistic?"</em> A world model asks: <em>"what happens next given this action?"</em> One makes movies. The other makes decisions.
+      </p>
+
+      <!-- Sora vs Photon-1 comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-secondary/20 bg-secondary/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </span>
+            <span class="text-[10px] font-mono text-secondary font-bold">VIDEO GENERATION</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-2">Sora, Runway, Kling</span>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&bull;</span>
+              <span class="text-[11px] text-secondary">Generates photorealistic video from text prompts</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&bull;</span>
+              <span class="text-[11px] text-secondary">Optimizes for visual quality and coherence</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&bull;</span>
+              <span class="text-[11px] text-secondary">No understanding of cause and effect</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-secondary/40 text-xs mt-0.5">&bull;</span>
+              <span class="text-[11px] text-secondary">Cannot predict "if I click here, what happens?"</span>
+            </div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-secondary/10">
+            <span class="text-[10px] font-mono text-secondary">OUTPUT: Pretty videos</span>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </span>
+            <span class="text-[10px] font-mono text-violet-400 font-bold">WORLD SIMULATION</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-2">Photon-1</span>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80"><strong>Predicts what happens next</strong> given an action</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80"><strong>Learns physics</strong> from raw observation</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80"><strong>Tracks objects</strong> through occlusion</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-violet-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-foreground/80">Transfers to <strong>unseen domains</strong></span>
+            </div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-violet-500/10">
+            <span class="text-[10px] font-mono text-violet-400">OUTPUT: Actionable predictions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+        <p class="text-[11px] text-secondary mb-0">
+          <strong>Why this distinction matters:</strong> video generation models create content. World models create <strong>understanding</strong>. An agent that needs to decide "should I click this button?" requires a world model, not a video generator. Photon-1 is built for the second problem.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 2: The Training Data ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Training Data
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Most agent training pipelines require someone to label every action in every video frame. Click here. Type that. Scroll down. That labeling is called an <strong>inverse dynamics model</strong>, and it is the bottleneck that kills scale.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Induction Labs dropped the labels entirely. The model learns <strong>higher-level behavior</strong> from raw observation rather than cataloging individual mouse clicks.
+      </p>
+
+      <!-- Data stat cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-xl md:text-2xl font-bold text-violet-400">18</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Years of Video</div>
+          <p class="text-[9px] text-secondary mt-1 mb-0">Continuous screen recordings</p>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-xl md:text-2xl font-bold text-violet-400">575M</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Frames</div>
+          <p class="text-[9px] text-secondary mt-1 mb-0">Sampled at 1 fps</p>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-xl md:text-2xl font-bold text-violet-400">552B</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Tokens</div>
+          <p class="text-[9px] text-secondary mt-1 mb-0">After FSQ compression</p>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-xl md:text-2xl font-bold text-violet-400">0</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Action Labels</div>
+          <p class="text-[9px] text-secondary mt-1 mb-0">During pretraining</p>
+        </div>
+      </div>
+
+      <!-- Data pipeline -->
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 mb-6 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-violet-400">DATA PIPELINE</span>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-2">
+            <span class="text-[10px] font-mono text-secondary w-16 shrink-0 mt-0.5">Source</span>
+            <div class="rounded-lg bg-violet-500/5 border border-violet-500/20 p-2.5 flex-1">
+              <pre class="text-[10px] font-mono leading-relaxed text-violet-300/80 whitespace-pre-wrap">2 billion publicly available videos
+(internal index)</pre>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pl-16">
+            <svg class="w-3 h-3 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            <span class="text-[9px] font-mono text-secondary">filter to screen recordings</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-[10px] font-mono text-secondary w-16 shrink-0 mt-0.5">Filtered</span>
+            <div class="rounded-lg bg-violet-500/5 border border-violet-500/20 p-2.5 flex-1">
+              <pre class="text-[10px] font-mono leading-relaxed text-violet-300/80 whitespace-pre-wrap">~2 million computer screen recordings
+Desktop, mobile, application demos</pre>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pl-16">
+            <svg class="w-3 h-3 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            <span class="text-[9px] font-mono text-secondary">frame-level filtering + keyframe detection</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-[10px] font-mono text-violet-400 w-16 shrink-0 mt-0.5 font-bold">Final</span>
+            <div class="rounded-lg bg-violet-500/10 border border-violet-500/30 p-2.5 flex-1">
+              <pre class="text-[10px] font-mono leading-relaxed text-violet-300 whitespace-pre-wrap">575 million frames at 1 fps
+552 billion tokens
+= 18 years of continuous recording</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.05] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-md bg-violet-500/15 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-violet-400 font-bold">THE THESIS</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-2">
+          The conventional approach treats action labels as essential. You watch a human use a computer, you label every click and keystroke, then you train the model on those labels. <strong>Induction Labs argues this is backwards.</strong>
+        </p>
+        <p class="text-[11px] text-secondary mb-0">
+          Instead of teaching the model <em>what</em> happened, teach it <em>what comes next</em>. A model that can predict future screen states has implicitly learned the actions that cause those states. The labels are <strong>unnecessary overhead</strong> that limits how much data you can use.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 3: The Architecture ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Architecture
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Photon-1 is a <strong>latent world model</strong>. Screens get compressed to compact latent tokens, a sparse transformer predicts the next latent state, and a decoder reconstructs frames. Everything happens in representation space. No raw pixels are generated during training.
+      </p>
+
+      <!-- Architecture pipeline -->
+      <div class="space-y-3 mb-6">
+        <!-- Step 1: Encoder -->
+        <div class="arch-step rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-3 items-start">
+            <div class="flex items-center gap-2">
+              <span class="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center shrink-0">
+                <span class="text-sm font-bold text-violet-400">01</span>
+              </span>
+            </div>
+            <div>
+              <span class="text-sm font-semibold text-foreground block mb-1">FSQ Encoder (Finite Scalar Quantization)</span>
+              <p class="text-[11px] text-secondary mb-2">Each video frame is compressed into <strong>960 discrete tokens</strong>. Each token is an 8-dimensional vector where each dimension takes 1 of 5 values, giving a codebook of 5<sup>8</sup> possible codes per token.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">~2.2 KB per frame</span>
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">100x compression vs OCR</span>
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">Differential encoding</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="flex justify-center">
+          <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+
+        <!-- Step 2: Transformer -->
+        <div class="arch-step rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-3 items-start">
+            <div class="flex items-center gap-2">
+              <span class="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center shrink-0">
+                <span class="text-sm font-bold text-violet-400">02</span>
+              </span>
+            </div>
+            <div>
+              <span class="text-sm font-semibold text-foreground block mb-1">Sparse MoE Transformer</span>
+              <p class="text-[11px] text-secondary mb-2"><strong>106B total parameters, 5B active per token.</strong> Trained at 32K context length with custom fused PyTorch kernels for the vision encoder and MoE layers. Sustains <strong>40% end-to-end MFU</strong>.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">106B-A5B MoE</span>
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">32K context</span>
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">40% MFU</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="flex justify-center">
+          <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+
+        <!-- Step 3: Prediction -->
+        <div class="arch-step rounded-xl border border-violet-500/30 bg-violet-500/[0.05] p-4">
+          <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-3 items-start">
+            <div class="flex items-center gap-2">
+              <span class="w-10 h-10 rounded-lg bg-violet-500/15 flex items-center justify-center shrink-0">
+                <span class="text-sm font-bold text-violet-400">03</span>
+              </span>
+            </div>
+            <div>
+              <span class="text-sm font-semibold text-foreground block mb-1">Next-Latent-Token Prediction</span>
+              <p class="text-[11px] text-secondary mb-2">The model predicts the <strong>next discrete latent token</strong> representing the future video state. Not next-pixel. Not next-text-token. A decoder reconstructs frames from latent predictions only at inference time.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">Latent space prediction</span>
+                <span class="text-[9px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">No pixel generation in training</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Differential encoder callout -->
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </span>
+          <span class="text-xs font-mono text-violet-400 font-bold">THE COMPRESSION TRICK</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          The FSQ encoder uses a <strong>differential latent approach</strong>: it encodes frame <em>pairs</em>, so the latents describe changes between frames rather than raw frame contents. This is what enables the 100x compression gain. Most of a screen recording is static. The differential encoder captures only <strong>what changed</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 4: The Benchmarks ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Benchmarks
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        After pretraining, Induction Labs finetuned Photon-1 on fewer than 35,000 computer use trajectories and applied online RL on Linux VMs. The results on their internal benchmark: <strong>beats Gemini 3.1 Flash-Lite at 30x less pretraining compute</strong>. But the transfer experiments are where it gets genuinely interesting.
+      </p>
+
+      <!-- Computer Use benchmark -->
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400 font-bold">COMPUTER USE (INTERNAL BENCHMARK)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="rounded-lg bg-violet-500/10 p-3">
+            <span class="text-xs font-semibold text-violet-400 block mb-1">Photon-1</span>
+            <span class="text-lg font-bold text-violet-400">0.044</span>
+            <span class="text-[10px] text-violet-300 ml-1">x 10<sup>24</sup> FLOPs</span>
+            <p class="text-[10px] text-secondary mt-1 mb-0">$0.11 per 1M tokens</p>
+          </div>
+          <div class="rounded-lg bg-secondary/5 p-3">
+            <span class="text-xs font-semibold text-secondary block mb-1">Gemini 3.1 Flash-Lite</span>
+            <span class="text-lg font-bold text-secondary">1.200</span>
+            <span class="text-[10px] text-secondary ml-1">x 10<sup>24</sup> FLOPs (est.)</span>
+            <p class="text-[10px] text-secondary mt-1 mb-0">$0.36 per 1M tokens</p>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0"><strong>30x less pretraining compute. 3x cheaper to serve.</strong> But this is an internal benchmark that has not been independently verified.</p>
+      </div>
+
+      <!-- Transfer learning results -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Checkers -->
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            </span>
+            <span class="text-xs font-mono text-violet-400 font-bold">CHECKERS</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-2">
+            <strong>20,000 tournament games</strong> from the Open Checkers Archive 2.0. Never seen during pretraining. Finetuned and compared against vision encoder and LLM baselines.
+          </p>
+          <p class="text-[11px] text-secondary mb-0">
+            Result: <strong>beats both baselines on world simulation and move quality</strong>. A model trained on desktop recordings learned enough about state transitions to play a board game.
+          </p>
+        </div>
+
+        <!-- Billiards -->
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke-width="2"/></svg>
+            </span>
+            <span class="text-xs font-mono text-violet-400 font-bold">BILLIARDS</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-2">
+            <strong>10,000 synthetic games</strong> simulated at 5 fps. Mean absolute error of ball positions against a ground-truth physics engine.
+          </p>
+          <div class="space-y-1.5 mt-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono text-violet-400">Photon-1</span>
+              <div class="flex items-center gap-2">
+                <div class="w-24 h-1.5 rounded-full bg-violet-500/20 overflow-hidden">
+                  <div class="h-full rounded-full bg-violet-400" style="width: 33%"></div>
+                </div>
+                <span class="text-[10px] font-mono text-violet-400 font-bold">0.47</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono text-secondary">LLM baseline</span>
+              <div class="flex items-center gap-2">
+                <div class="w-24 h-1.5 rounded-full bg-secondary/20 overflow-hidden">
+                  <div class="h-full rounded-full bg-secondary/40" style="width: 80%"></div>
+                </div>
+                <span class="text-[10px] font-mono text-secondary">1.15</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono text-secondary">Vision encoder</span>
+              <div class="flex items-center gap-2">
+                <div class="w-24 h-1.5 rounded-full bg-secondary/20 overflow-hidden">
+                  <div class="h-full rounded-full bg-secondary/40" style="width: 100%"></div>
+                </div>
+                <span class="text-[10px] font-mono text-secondary">1.44</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.05] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-md bg-violet-500/15 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-violet-400 font-bold">THE TRANSFER FINDING</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          Photon-1 saw <strong>only desktop video</strong> during pretraining. Zero game footage. Zero physics simulations. Yet a model that watched people use VS Code learned enough about how the world works to simulate billiard collisions better than an <strong>LLM trained on 20 trillion text tokens</strong>. Pretraining on screen recordings transfers to completely unrelated physical dynamics.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 5: The Numbers ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-violet-400">30K</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">H200 GPU-Hours</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">Total pretraining compute: <strong>4.4 x 10<sup>22</sup> FLOPs</strong>. Single epoch over the full dataset.</p>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-violet-400">960</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Tokens Per Frame</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">Each screen compressed to <strong>~2.2 KB</strong>. 100x smaller than OCR or multimodal representations.</p>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-violet-400">30x</div>
+          <div class="text-[10px] text-violet-400 font-mono mt-1 font-bold">Less Compute</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">Than Gemini 3.1 Flash-Lite on the same computer use benchmark. <strong>3x cheaper to serve.</strong></p>
+        </div>
+      </div>
+
+      <!-- Cost comparison -->
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-violet-400">COST BREAKDOWN</span>
+        </div>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3">
+            <span class="text-[10px] font-mono text-secondary w-28 shrink-0">Pretraining FLOPs</span>
+            <div class="flex-1 h-2 rounded-full bg-violet-500/10 overflow-hidden">
+              <div class="h-full rounded-full bg-violet-400" style="width: 3.7%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-violet-400 shrink-0">0.044 x 10<sup>24</sup></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-[10px] font-mono text-secondary w-28 shrink-0">Gemini FLOPs (est.)</span>
+            <div class="flex-1 h-2 rounded-full bg-secondary/10 overflow-hidden">
+              <div class="h-full rounded-full bg-secondary/40" style="width: 100%"></div>
+            </div>
+            <span class="text-[10px] font-mono text-secondary shrink-0">1.200 x 10<sup>24</sup></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-[10px] font-mono text-secondary w-28 shrink-0">Serving cost</span>
+            <div class="flex gap-3 flex-1">
+              <span class="text-[10px] font-mono text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">Photon-1: $0.11/1M tokens</span>
+              <span class="text-[10px] font-mono text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">Gemini: $0.36/1M tokens</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 6: What's Missing ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> What's Missing
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Time for the cold water.
+      </p>
+
+      <!-- Warning card -->
+      <div class="rounded-xl border-2 border-yellow-500/30 bg-yellow-500/[0.04] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-8 h-8 rounded-lg bg-yellow-500/15 flex items-center justify-center">
+            <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-yellow-400 font-bold">RESEARCH RESULT, NOT A PRODUCT</span>
+        </div>
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="text-red-400 text-xs">&times;</span>
+            <span class="text-[11px] text-secondary"><strong>No weights released.</strong> You cannot download or run Photon-1.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-red-400 text-xs">&times;</span>
+            <span class="text-[11px] text-secondary"><strong>No API access.</strong> No way to test it externally.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-red-400 text-xs">&times;</span>
+            <span class="text-[11px] text-secondary"><strong>No license specified.</strong> Unclear if this will be open or closed.</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-red-400 text-xs">&times;</span>
+            <span class="text-[11px] text-secondary"><strong>Internal benchmark only.</strong> The Gemini comparison is not independently reproducible today.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Important qualification -->
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </span>
+          <span class="text-xs font-mono text-violet-400 font-bold">IMPORTANT QUALIFICATION</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-2">
+          The headline <em>"zero labels"</em> is technically correct but incomplete. <strong>The pretraining used zero labels.</strong> But the finished computer agent still required fewer than 35,000 labeled trajectories for finetuning, plus reinforcement learning on Linux VMs.
+        </p>
+        <p class="text-[11px] text-secondary mb-0">
+          The video pretraining taught the model how environments behave. The finetuning and RL taught it how to take actions. <strong>"Zero labels" describes pretraining, not the full pipeline.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SECTION 7: Why This Matters ==================== -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Why This Matters
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        World models are the foundation for autonomous agents that need to <strong>understand the consequences of actions before taking them</strong>. If next-state prediction alone teaches agents to act, it removes the most expensive constraint in agent training: human annotation.
+      </p>
+
+      <!-- Implications grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Scaling Without Labels</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Instead of hiring annotators to label mouse clicks, you just need more video. That is an <strong>easier scaling problem</strong>. 18 years of desktop video is a fraction of what is publicly available online.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Cross-Domain Transfer</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">A model trained on desktop recordings learned billiard physics. This suggests <strong>screen recordings teach general spatial reasoning</strong>, not just UI navigation.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Compute Efficiency</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">30x less pretraining compute, 3x cheaper serving. If imagination models match larger traditional models, <strong>the cost of building computer agents drops by an order of magnitude</strong>.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-violet-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Agent Decision-Making</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">An agent that can simulate "if I click this button, what happens?" does not need to <strong>actually click it</strong> to evaluate the outcome. World models enable <strong>lookahead planning</strong> for autonomous agents.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+        <p class="text-[11px] text-secondary mb-0">
+          <strong>The paradigm shift:</strong> video generation models like Sora create content. World models like Photon-1 create <strong>understanding</strong>. The first is entertainment. The second is infrastructure for autonomous agents that need to reason about consequences before they act.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-3">
+        Video generation models make movies. World models make decisions. Photon-1 is the first commercial proof that you can build a world simulator from <strong>unlabeled screen recordings</strong>. The bet is that action labels are unnecessary overhead, and next-state prediction alone teaches an agent how to act.
+      </p>
+      <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+        Induction Labs has not proven it conclusively. Internal benchmarks from a 2-person YC startup are not proof. But 0.47 MAE on billiard physics from a model that only watched desktop recordings? <strong>That is a data point worth watching.</strong>
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={14} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-violet-400 hover:border-violet-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-xs text-violet-400 hover:bg-violet-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>

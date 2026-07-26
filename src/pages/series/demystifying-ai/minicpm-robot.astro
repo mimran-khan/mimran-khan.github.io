@@ -1,0 +1,543 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="MiniCPM-Robot: A 0.9B Model That Tracks You on a Robot Dog | Demystifying AI in 5 Minutes"
+  description="OpenBMB shrunk a multimodal VLM to 0.9B parameters and deployed it on a quadruped robot dog. Verbal commands, person tracking, obstacle avoidance. All on-device, no cloud."
+  image="/og-series-ep15-minicpm-robot.png"
+  keywords="MiniCPM-Robot, OpenBMB, Embodied AI, Robot Dog, On-Device AI, VLM, Edge Computing, Quadruped Robot"
+  publishedDate="2026-08-08"
+  articleSection="Demystifying AI"
+  articleTags={["MiniCPM-Robot", "OpenBMB", "Embodied AI", "Robot Dog", "Edge AI", "VLM"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#06b6d4]/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-[#06b6d4] transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep15-minicpm-robot.png" alt="MiniCPM-Robot - A 0.9B Model That Tracks You on a Robot Dog" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-[#06b6d4] font-mono bg-[#06b6d4]/5 border border-[#06b6d4]/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#06b6d4] animate-pulse"></span>
+          EP 15
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-[#06b6d4]/10 border border-[#06b6d4]/20 text-[#06b6d4] rounded-full">
+          new-release
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Aug 05, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        MiniCPM-Robot: A 0.9B Model That Tracks You on a Robot Dog
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        OpenBMB shrunk a multimodal VLM to 0.9 billion parameters, strapped it to a quadruped robot dog, and gave it verbal commands. Everything runs on-device. No cloud required.
+      </p>
+
+      <ShareButtons title="MiniCPM-Robot: A 0.9B Model That Tracks You on a Robot Dog" url="/series/demystifying-ai/minicpm-robot" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-[#06b6d4] font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        OpenBMB shrunk a multimodal VLM to <strong>0.9B parameters</strong> and deployed it on a quadruped robot dog. The robot follows verbal commands (<strong>"follow the person in the red jacket"</strong>), tracks targets through occlusions, and navigates obstacles. Everything runs on-device with <strong>no cloud dependency</strong>. 5+ FPS inference on an NVIDIA Jetson Orin NX with approximately 180ms latency.
+      </p>
+    </div>
+
+    <!-- The Problem With Robot AI -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> The Problem With Robot AI
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Robot AI is stuck in a frustrating tradeoff. You either send camera frames to a <strong>massive cloud model</strong> and accept 200ms+ latency, privacy risks, and network dependency. Or you run a <strong>tiny vision-only model</strong> on-device and lose all language understanding.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">CLOUD VLMs</span>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">200ms+ latency</strong> per frame</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Needs WiFi/5G</strong> always</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Privacy risk</strong> from streaming video</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Robot stops</strong> if connection drops</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+            <span class="text-[10px] font-mono text-yellow-400 font-bold">TINY VISION MODELS</span>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Fast</strong> on-device inference</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">No language</strong> understanding</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Cannot parse</strong> verbal commands</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Fixed targets</strong> only</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-[#06b6d4]/30 bg-[#06b6d4]/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-[#06b6d4]"></span>
+            <span class="text-[10px] font-mono text-[#06b6d4] font-bold">MiniCPM-ROBOT</span>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-[#06b6d4] text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-[#06b6d4]">On-device</strong> at 5+ FPS</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#06b6d4] text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-[#06b6d4]">Full VLM</strong> with language</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#06b6d4] text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-[#06b6d4]">Verbal commands</strong> supported</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#06b6d4] text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-[#06b6d4]">No cloud</strong> needed</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        MiniCPM-Robot sits in the gap. A <strong>full vision-language model</strong> compressed small enough to run on a robot's onboard GPU. It understands what it sees and what you say.
+      </p>
+    </div>
+
+    <!-- The Architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> The Architecture
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The base model is <strong>MiniCPM4-0.5B</strong>, a compact multimodal VLM from OpenBMB. The architecture splits into three modules, each handling a distinct stage of the perception-to-action pipeline. The RobotTrack variant runs at 0.9B parameters for the tracking task.
+      </p>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-[#06b6d4]/20 border-2 border-[#06b6d4] flex items-center justify-center flex-shrink-0">
+            <span class="text-[#06b6d4] text-[10px] font-mono font-bold">01</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-[#06b6d4] font-bold block">Vision Encoder (DINOv3 + SigLIP)</span>
+            <span class="text-[10px] text-secondary">Camera Frame Processing</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Takes raw camera frames at <strong>5+ FPS</strong> and converts them into visual embeddings. A fused DINOv3 + SigLIP encoder produces semantically rich representations. The encoder identifies people, objects, and spatial relationships in each frame without needing separate object detection models.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-[#06b6d4]/20 border-2 border-[#06b6d4] flex items-center justify-center flex-shrink-0">
+            <span class="text-[#06b6d4] text-[10px] font-mono font-bold">02</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-[#06b6d4] font-bold block">Language Decoder (MiniCPM)</span>
+            <span class="text-[10px] text-secondary">Command Interpretation</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Fuses visual embeddings with natural language instructions. When you say <strong>"follow the person in the red jacket"</strong>, the decoder grounds the phrase "red jacket" to a specific visual region in the encoder's output. This is the core of the system: it connects what the robot sees with what you tell it to do.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-[#06b6d4]/20 border-2 border-[#06b6d4] flex items-center justify-center flex-shrink-0">
+            <span class="text-[#06b6d4] text-[10px] font-mono font-bold">03</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-[#06b6d4] font-bold block">Action Head</span>
+            <span class="text-[10px] text-secondary">Motor Control Outputs</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Converts the decoder's grounded understanding into <strong>velocity commands</strong>: forward/backward speed, left/right speed, and angular rotation. These commands feed directly into the robot dog's motor controllers. No intermediate waypoint planning. The model outputs raw motion vectors at every frame.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#161b22] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">END-TO-END PIPELINE</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-[#06b6d4]">Camera (5+ FPS)</span> <span class="text-[#06b6d4]">-></span> <span class="text-[#06b6d4]">DINOv3+SigLIP Encoder</span> <span class="text-secondary">(visual embeddings)</span>
+<span class="text-[#06b6d4]">  -></span> <span class="text-[#06b6d4]">MiniCPM Decoder</span> <span class="text-secondary">(+ language command)</span>
+<span class="text-[#06b6d4]">  -></span> <span class="text-[#06b6d4]">Action Head</span> <span class="text-secondary">(velocity: fwd/back, left/right, angular)</span>
+<span class="text-[#06b6d4]">  -></span> <span class="text-[#06b6d4] font-bold">Motor Controllers</span> <span class="text-secondary">(quadruped locomotion)</span></pre>
+      </div>
+    </div>
+
+    <!-- How It Works On The Robot -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> How It Works On The Robot
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Here is a complete walkthrough of what happens when you give MiniCPM-Robot a verbal command. Every step runs locally on the <strong>NVIDIA Jetson Orin NX</strong> mounted on the robot dog.
+      </p>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">STEP 1: COMMAND INPUT</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-[#06b6d4]">User speaks:</span> <span class="text-foreground">"Follow the person in the red jacket"</span>
+<span class="text-secondary">  Audio transcribed on-device</span>
+<span class="text-secondary">  Command tokenized and passed to language decoder</span>
+<span class="text-[#06b6d4] font-bold">  Target description extracted: "person in the red jacket"</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">STEP 2: VISUAL PROCESSING</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-[#06b6d4]">Camera captures frame at 5+ FPS...</span>
+<span class="text-secondary">  Frame -> DINOv3+SigLIP encoder -> visual embeddings</span>
+<span class="text-secondary">  3 people detected in field of view</span>
+<span class="text-[#06b6d4] font-bold">  Grounding: "red jacket" matched to Person #2 at (340, 220)</span>
+<span class="text-secondary">  Bounding box locked, confidence: 0.94</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">STEP 3: ACTION GENERATION</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-[#06b6d4]">Action head computes velocity vector...</span>
+<span class="text-secondary">  Target offset from center: +45px right, -30px below</span>
+<span class="text-secondary">  Distance estimate: 4.2m (within tracking range)</span>
+<span class="text-[#06b6d4] font-bold">  Output: fwd=0.8 m/s, lateral=0.3 m/s, angular=0.15 rad/s</span>
+<span class="text-secondary">  Commands sent to motor controllers</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#161b22] p-4 md:p-5 mb-4 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">STEP 4: CONTINUOUS TRACKING</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-[#06b6d4] font-bold">Loop running at 5+ FPS on Jetson Orin NX...</span>
+<span class="text-secondary">  Frame 147: Target visible, tracking normally</span>
+<span class="text-secondary">  Frame 148: Target occluded by obstacle</span>
+<span class="text-[#06b6d4] font-bold">  Re-identification engaged: searching for "red jacket"</span>
+<span class="text-secondary">  Frame 152: Target re-acquired, confidence: 0.89</span>
+<span class="text-[#06b6d4] font-bold">  Tracking resumed. Inference latency: ~180ms</span></pre>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-[#06b6d4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">End-to-end on device</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">No cloud calls, no network hops, no external APIs. Camera to motor commands in a single forward pass on the Jetson.</p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-[#06b6d4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Real-time at 5+ FPS</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Fast enough for smooth tracking of walking humans. The robot adjusts heading and speed approximately every 180ms.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Capabilities -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> The Capabilities
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        MiniCPM-Robot is not a single-trick tracker. The VLM backbone gives it a range of behaviors that pure vision models cannot match. Here is what it can do out of the box.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <span class="text-[#06b6d4] text-[10px] font-mono font-bold">01</span>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Person Tracking</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Lock onto a specific person and follow them continuously. The robot maintains a consistent distance and adjusts speed to match the target's walking pace. <strong>Tracks targets up to 15 meters away.</strong>
+          </p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <span class="text-[#06b6d4] text-[10px] font-mono font-bold">02</span>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Target Re-identification After Occlusion</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            When the target walks behind an obstacle and disappears from view, the model remembers the visual description. Once the target reappears, it <strong>re-identifies them reliably</strong> (73-90% across EVT-Bench task types) without needing a new command.
+          </p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <span class="text-[#06b6d4] text-[10px] font-mono font-bold">03</span>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Natural Language Commands</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Give instructions in plain language. <strong>"Follow the person with the blue backpack."</strong> <strong>"Track the woman near the bench."</strong> The language decoder grounds these descriptions to specific visual targets in real time.
+          </p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <span class="text-[#06b6d4] text-[10px] font-mono font-bold">04</span>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Obstacle Avoidance</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The vision encoder sees more than just the target. It detects obstacles in the path and the action head adjusts velocity commands to <strong>navigate around them</strong> while maintaining the tracking lock.
+          </p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <span class="text-[#06b6d4] text-[10px] font-mono font-bold">05</span>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Multi-target Switching</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Issue a new verbal command to <strong>switch targets mid-tracking</strong>. Say "now follow the tall person on the left" and the robot seamlessly re-grounds to the new target without restarting the pipeline.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">0.9B</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Parameters</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">5+ FPS</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Inference Speed</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">~180ms</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Power Draw</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">15m</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Max Tracking Range</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">73-90%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Re-ID Accuracy</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">Jetson</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Orin NX Hardware</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">SPEC COMPARISON</span>
+        </div>
+        <table class="w-full text-[11px] font-mono">
+          <thead>
+            <tr class="border-b border-[#06b6d4]/20">
+              <th class="text-left text-secondary py-2 pr-4">Metric</th>
+              <th class="text-center text-red-400 py-2 px-4">Cloud VLM</th>
+              <th class="text-center text-yellow-400 py-2 px-4">Vision-Only</th>
+              <th class="text-center text-[#06b6d4] py-2 px-4">MiniCPM-Robot</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-border/30">
+              <td class="text-secondary py-2 pr-4">Parameters</td>
+              <td class="text-center text-red-400 py-2 px-4">7B-70B</td>
+              <td class="text-center text-yellow-400 py-2 px-4">50-200M</td>
+              <td class="text-center text-[#06b6d4] font-bold py-2 px-4">0.9B</td>
+            </tr>
+            <tr class="border-b border-border/30">
+              <td class="text-secondary py-2 pr-4">Latency</td>
+              <td class="text-center text-red-400 py-2 px-4">200ms+</td>
+              <td class="text-center text-yellow-400 py-2 px-4">~30ms</td>
+              <td class="text-center text-[#06b6d4] font-bold py-2 px-4">~180ms</td>
+            </tr>
+            <tr class="border-b border-border/30">
+              <td class="text-secondary py-2 pr-4">Language</td>
+              <td class="text-center text-red-400 py-2 px-4">Yes</td>
+              <td class="text-center text-yellow-400 py-2 px-4">No</td>
+              <td class="text-center text-[#06b6d4] font-bold py-2 px-4">Yes</td>
+            </tr>
+            <tr class="border-b border-border/30">
+              <td class="text-secondary py-2 pr-4">On-Device</td>
+              <td class="text-center text-red-400 py-2 px-4">No</td>
+              <td class="text-center text-yellow-400 py-2 px-4">Yes</td>
+              <td class="text-center text-[#06b6d4] font-bold py-2 px-4">Yes</td>
+            </tr>
+            <tr>
+              <td class="text-secondary py-2 pr-4">Power</td>
+              <td class="text-center text-red-400 py-2 px-4">Cloud</td>
+              <td class="text-center text-yellow-400 py-2 px-4">~1W</td>
+              <td class="text-center text-[#06b6d4] font-bold py-2 px-4">Edge-class</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Why This Matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> Why This Matters
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is the <strong>first end-to-end VLM deployed on consumer-grade edge hardware on a real robot</strong>. Not a simulation. Not a demo running on a workstation with a camera feed piped in. A model running on the robot itself, driving its legs in real time.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">Embodied AI without the cloud</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            The dominant assumption in robotics has been that <strong>useful AI requires cloud compute</strong>. MiniCPM-Robot proves that a sub-1B parameter model can do meaningful perception, language understanding, and motor control on a $400 edge GPU.
+          </p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">Knowledge distillation works for robotics</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            The MiniCPM4-0.5B base combined with task-specific heads produces a system small enough for edge hardware but capable enough for real-world tasks. This is <strong>not a toy demo</strong>. The model handles occlusions, multi-target scenarios, and obstacle-filled environments at production quality.
+          </p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">The language gap is closed</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            Previous on-device robot models could see but could not understand words. MiniCPM-Robot takes <strong>verbal commands and grounds them visually</strong> in real time. This turns a robot from a programmed machine into something you can talk to.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">Cloud</div>
+          <div class="text-xl font-bold text-[#06b6d4]">Edge</div>
+          <div class="text-[10px] text-secondary font-mono">Compute location</div>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">7B+</div>
+          <div class="text-xl font-bold text-[#06b6d4]">0.9B</div>
+          <div class="text-[10px] text-secondary font-mono">Model size</div>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">200ms</div>
+          <div class="text-xl font-bold text-[#06b6d4]">~180ms</div>
+          <div class="text-[10px] text-secondary font-mono">Latency</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-[#06b6d4] font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        The future of robotics is not bigger models. It is <strong>smaller models that fit on the robot</strong>. OpenBMB proved that a 0.9B VLM can see, listen, and move on consumer-grade hardware. No cloud. No latency. No excuses. MiniCPM-Robot is what happens when you stop scaling up and start <strong>scaling down to where the work actually happens</strong>.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={15} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-[#06b6d4] hover:border-[#06b6d4]/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#06b6d4]/10 border border-[#06b6d4]/20 text-xs text-[#06b6d4] hover:bg-[#06b6d4]/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>

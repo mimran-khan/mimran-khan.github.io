@@ -106,5 +106,77 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep09-inkling.png"
+  },
+  {
+    "number": 10,
+    "slug": "openai-escape",
+    "title": "The OpenAI Escape: An AI Found a Zero-Day, Broke Out, and Hacked Hugging Face",
+    "hook": "OpenAI ran a red-team exercise. Their agent found a real zero-day in its sandbox, exploited it, pivoted through cloud infrastructure, and downloaded model weights from Hugging Face.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Jul 28",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep10-openai-escape.png"
+  },
+  {
+    "number": 11,
+    "slug": "model-collapse",
+    "title": "Model Collapse: 1% Synthetic Data Can Poison Your Entire Training Run",
+    "hook": "Training on AI-generated data causes irreversible distribution collapse. Published in Nature, now confirmed at scale. The training data moat is real.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Jul 30",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep11-model-collapse.png"
+  },
+  {
+    "number": 12,
+    "slug": "isodde",
+    "title": "IsoDDE: The Drug Discovery AI That Beats Physics Simulations",
+    "hook": "IsoDDE generates novel drug candidates in hours by learning protein-ligand binding energy landscapes. Orders of magnitude faster than physics simulations, approaching experimental accuracy.",
+    "category": "research-paper",
+    "day": "Sat",
+    "date": "Aug 1",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep12-isodde.png"
+  },
+  {
+    "number": 13,
+    "slug": "eu-ai-omnibus",
+    "title": "EU AI Act Omnibus: They Rewrote the Law While You Were Already Complying",
+    "hook": "The EU adopted the AI Act in 2024, started enforcement in 2025. Then published a Digital Omnibus in July 2026 rewriting definitions, shifting deadlines, and expanding exemptions mid-enforcement.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Aug 4",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep13-eu-ai-omnibus.png"
+  },
+  {
+    "number": 14,
+    "slug": "photon-1",
+    "title": "Photon-1: 18 Years of Screen Recordings Built One World Simulator",
+    "hook": "Induction Labs trained a world model on 18 years of screen recordings. Photon-1 does not generate video. It simulates environments with physics, object permanence, and cause-effect.",
+    "category": "new-release",
+    "day": "Wed",
+    "date": "Aug 6",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep14-photon-1.png"
+  },
+  {
+    "number": 15,
+    "slug": "minicpm-robot",
+    "title": "MiniCPM-Robot: A 0.9B Model That Tracks You on a Robot Dog",
+    "hook": "OpenBMB shrunk a multimodal VLM to 0.9B parameters and deployed it on a quadruped robot. Follows verbal commands, tracks targets through occlusions, all on-device.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Aug 9",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep15-minicpm-robot.png"
   }
 ]

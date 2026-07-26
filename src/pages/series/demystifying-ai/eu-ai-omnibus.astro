@@ -1,0 +1,535 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="EU AI Act Omnibus: They Rewrote the Law While You Were Already Complying | Demystifying AI in 5 Minutes"
+  description="The EU adopted the AI Act in 2024 and started enforcing it in 2025. Then in July 2026, they published a Digital Omnibus rewriting definitions, shifting deadlines, and expanding exemptions mid-enforcement."
+  image="/og-series-ep13-eu-ai-omnibus.png"
+  keywords="EU AI Act, Omnibus Amendment, AI Regulation, GPAI, Open Source, Compliance, European Union"
+  publishedDate="2026-08-03"
+  articleSection="Demystifying AI"
+  articleTags={["EU AI Act", "Omnibus", "AI Regulation", "GPAI", "Open Source", "European Union"]}
+>
+
+  <style>
+    .timeline-node {
+      transition: all 0.3s ease;
+    }
+    .timeline-node:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.15);
+    }
+    .change-card {
+      transition: all 0.3s ease;
+    }
+    .change-card:hover {
+      transform: translateY(-2px);
+    }
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep13-eu-ai-omnibus.png" alt="EU AI Act Omnibus: They Rewrote the Law 9 Days Before Enforcement" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 13
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          hot-topic
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Aug 2, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        EU AI Act Omnibus: They Rewrote the Law While You Were Already Complying
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        The EU adopted the AI Act in 2024 and started enforcing banned practices in February 2025. Then in July 2026, they published a Digital Omnibus that rewrites definitions, shifts deadlines, and expands exemptions. Mid-enforcement.
+      </p>
+
+      <ShareButtons title="EU AI Act Omnibus: They Rewrote the Law While You Were Already Complying" url="/series/demystifying-ai/eu-ai-omnibus" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        The EU adopted the AI Act in March 2024. Enforcement of banned practices started February 2, 2025. Then in <strong>July 2026</strong>, the Commission published a "Digital Omnibus" (Regulation 2026/1744) rewriting major sections. The definition of "AI system" narrowed. GPAI obligations shifted. <strong>Open-source exemptions expanded.</strong> High-risk deadlines moved to December 2027. If you build or deploy AI in Europe, the law you prepared for is no longer the law that applies.
+      </p>
+    </div>
+
+    <!-- Section 1: What Happened -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What Happened
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The EU AI Act was adopted in March 2024 after years of negotiation. It created a risk-based framework covering everything from chatbots to facial recognition. Companies started compliance programs immediately. <strong>Then the Commission rewrote major parts of it.</strong>
+      </p>
+
+      <!-- Timeline Visual -->
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 mb-6 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-green font-bold">THE SEQUENCE OF EVENTS</span>
+        </div>
+
+        <div class="relative">
+          <div class="absolute top-4 left-4 right-4 h-px bg-green/30 hidden md:block"></div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 relative">
+            <div class="timeline-node rounded-lg border border-green/30 bg-green/[0.05] p-4 text-center">
+              <div class="w-3 h-3 rounded-full bg-green mx-auto mb-2 relative z-10"></div>
+              <div class="text-[10px] font-mono text-green font-bold">Mar 13, 2024</div>
+              <div class="text-xs text-foreground font-semibold mt-2">AI Act Adopted</div>
+              <div class="text-[10px] text-secondary mt-1">European Parliament votes 523-46. The "world's first comprehensive AI law" becomes official.</div>
+            </div>
+            <div class="timeline-node rounded-lg border border-green/30 bg-green/[0.05] p-4 text-center">
+              <div class="w-3 h-3 rounded-full bg-green mx-auto mb-2 relative z-10"></div>
+              <div class="text-[10px] font-mono text-green font-bold">Aug 1, 2024</div>
+              <div class="text-xs text-foreground font-semibold mt-2">Entry Into Force</div>
+              <div class="text-[10px] text-secondary mt-1">AI Act officially enters EU law. 24-month rollout begins. Companies start compliance programs.</div>
+            </div>
+            <div class="timeline-node rounded-lg border border-red-500/30 bg-red-500/[0.05] p-4 text-center">
+              <div class="w-3 h-3 rounded-full bg-red-500 mx-auto mb-2 relative z-10"></div>
+              <div class="text-[10px] font-mono text-red-400 font-bold">Feb 2, 2025</div>
+              <div class="text-xs text-foreground font-semibold mt-2">First Enforcement Deadline</div>
+              <div class="text-[10px] text-secondary mt-1">Banned practices and AI literacy obligations take effect. Companies must comply or face penalties.</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3 relative">
+            <div class="timeline-node rounded-lg border border-green/30 bg-green/[0.05] p-4 text-center">
+              <div class="w-3 h-3 rounded-full bg-green mx-auto mb-2 relative z-10"></div>
+              <div class="text-[10px] font-mono text-green font-bold">Aug 2, 2025</div>
+              <div class="text-xs text-foreground font-semibold mt-2">GPAI Obligations Apply</div>
+              <div class="text-[10px] text-secondary mt-1">General-purpose AI model providers must comply with transparency and documentation rules.</div>
+            </div>
+            <div class="timeline-node rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] p-4 text-center">
+              <div class="w-3 h-3 rounded-full bg-yellow-500 mx-auto mb-2 relative z-10"></div>
+              <div class="text-[10px] font-mono text-yellow-400 font-bold">Nov 19, 2025</div>
+              <div class="text-xs text-foreground font-semibold mt-2">Omnibus Proposed</div>
+              <div class="text-[10px] text-secondary mt-1">Commission proposes "Digital Omnibus" rewriting AI system definition, GPAI rules, and open-source exemptions.</div>
+            </div>
+            <div class="timeline-node rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] p-4 text-center">
+              <div class="w-3 h-3 rounded-full bg-yellow-500 animate-pulse mx-auto mb-2 relative z-10"></div>
+              <div class="text-[10px] font-mono text-yellow-400 font-bold">Jul 24, 2026</div>
+              <div class="text-xs text-foreground font-semibold mt-2">Omnibus Published</div>
+              <div class="text-[10px] text-secondary mt-1"><strong class="text-yellow-400">Mid-enforcement.</strong> Regulation 2026/1744 rewrites definitions and shifts high-risk deadlines to Dec 2027.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-green/10">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 rounded font-bold">MID-ENFORCEMENT</span>
+            <span class="text-[10px] text-secondary">the Omnibus rewrites the law while companies are already complying with it</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        The Commission proposed the Omnibus in November 2025, after enforcement had already begun. Companies that spent months building compliance programs around the original definitions found the goalposts moved. The new rules <strong>narrow the definition of AI system</strong> and push high-risk deadlines to December 2027.
+      </p>
+    </div>
+
+    <!-- Section 2: What Changed -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What Changed
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The Omnibus is not a clarification memo. It is a <strong>structural rewrite</strong> of five core pillars. Every one affects what counts as regulated AI and who bears the compliance burden.
+      </p>
+
+      <!-- 5 Change Cards -->
+      <div class="space-y-4 mb-6">
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">01</span>
+            </div>
+            <span class="text-xs font-semibold text-foreground">AI System Definition Narrowed</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The original definition was broad enough to capture <strong>traditional software with if-else logic</strong>. The Omnibus narrows it to systems that "infer" from inputs to generate outputs "such as predictions, content, recommendations, or decisions." Rule-based automation, basic statistical models, and conventional database queries are now <strong>explicitly excluded</strong>.
+          </p>
+        </div>
+
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">02</span>
+            </div>
+            <span class="text-xs font-semibold text-foreground">GPAI Obligations Simplified</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            General-purpose AI model providers still need technical documentation and copyright policies. But the Omnibus <strong>reduces the documentation burden</strong> for models below the systemic risk threshold (10^25 FLOPs). Smaller model providers get a lighter compliance path focused on transparency rather than exhaustive safety evaluations.
+          </p>
+        </div>
+
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">03</span>
+            </div>
+            <span class="text-xs font-semibold text-foreground">Open-Source Exemptions Expanded</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The original Act exempted open-source models from most GPAI obligations <strong>only if they had permissive licenses and fewer than 10^25 FLOPs</strong>. The Omnibus broadens this: open-source models with any OSI-approved license now qualify for the lighter regime regardless of parameter count, as long as they are not classified as systemic risk. <strong>This is a major win for open-weight model releases.</strong>
+          </p>
+        </div>
+
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">04</span>
+            </div>
+            <span class="text-xs font-semibold text-foreground">Regulatory Sandboxes Expanded</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Each EU member state must now establish at least one <strong>AI regulatory sandbox</strong> by August 2, 2026. The Omnibus adds mandatory provisions: real-world testing of high-risk systems under regulatory supervision, with temporary exemptions from full compliance requirements. Startups and SMEs get priority access.
+          </p>
+        </div>
+
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">05</span>
+            </div>
+            <span class="text-xs font-semibold text-foreground">SME Burden Reduced</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The Omnibus adds proportionality provisions for SMEs and startups. Conformity assessment fees are capped. National authorities must provide <strong>free guidance and simplified documentation templates</strong>. The message: you do not need a legal team of 20 to ship a high-risk AI system if you have fewer than 250 employees.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Before vs After -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Before vs After
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Each change has a concrete before-and-after. If you already started a compliance program, check whether your assumptions still hold.
+      </p>
+
+      <!-- Before/After Comparison Cards -->
+      <div class="space-y-4 mb-6">
+        <!-- Card 1: AI System Definition -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-red-500"></span>
+              <span class="text-[10px] font-mono text-red-400 font-bold">BEFORE: AI SYSTEM DEFINITION</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              "A machine-based system designed to operate with varying levels of autonomy and that may exhibit adaptiveness after deployment." <strong class="text-red-400">Covered everything from neural networks to spreadsheet macros.</strong>
+            </p>
+          </div>
+          <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-green"></span>
+              <span class="text-[10px] font-mono text-green font-bold">AFTER: AI SYSTEM DEFINITION</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Must "infer" from inputs to generate outputs like predictions, content, or decisions. <strong class="text-green">Rule-based systems, basic statistics, and conventional queries excluded.</strong> Traditional software no longer in scope.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Open Source -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-red-500"></span>
+              <span class="text-[10px] font-mono text-red-400 font-bold">BEFORE: OPEN-SOURCE MODELS</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Exemptions only for permissive licenses (Apache, MIT) and models under 10^25 FLOPs. <strong class="text-red-400">Large open-weight models like Llama were still caught.</strong>
+            </p>
+          </div>
+          <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-green"></span>
+              <span class="text-[10px] font-mono text-green font-bold">AFTER: OPEN-SOURCE MODELS</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Any OSI-approved license qualifies. No parameter-count restriction. <strong class="text-green">Only systemic-risk models (10^25+ FLOPs) lose the exemption.</strong> Llama, Mistral, and most open-weight releases are now in the lighter regime.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3: GPAI -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-red-500"></span>
+              <span class="text-[10px] font-mono text-red-400 font-bold">BEFORE: GPAI OBLIGATIONS</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              All GPAI providers needed full technical documentation, training data summaries, copyright policies, and energy reporting. <strong class="text-red-400">Same requirements regardless of model size or risk.</strong>
+            </p>
+          </div>
+          <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-green"></span>
+              <span class="text-[10px] font-mono text-green font-bold">AFTER: GPAI OBLIGATIONS</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Two-tier system. Below systemic risk threshold: <strong class="text-green">lighter transparency obligations</strong>. Above threshold: full safety evaluation, red-teaming, incident reporting. Proportional to actual risk, not model size alone.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4: Sandboxes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-red-500"></span>
+              <span class="text-[10px] font-mono text-red-400 font-bold">BEFORE: SANDBOXES</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Member states "encouraged" to create sandboxes. No mandatory timeline. No guaranteed access. <strong class="text-red-400">In practice, most countries had not established any.</strong>
+            </p>
+          </div>
+          <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-green"></span>
+              <span class="text-[10px] font-mono text-green font-bold">AFTER: SANDBOXES</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Mandatory: at least one per member state by Aug 2026. <strong class="text-green">Real-world testing allowed under supervision</strong>. SMEs and startups get priority access and temporary compliance exemptions during testing.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 5: SMEs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-red-500"></span>
+              <span class="text-[10px] font-mono text-red-400 font-bold">BEFORE: SME COMPLIANCE</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Same conformity assessment process regardless of company size. Same documentation. Same fees. <strong class="text-red-400">A 10-person startup faced the same paperwork as Google.</strong>
+            </p>
+          </div>
+          <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-2 h-2 rounded-full bg-green"></span>
+              <span class="text-[10px] font-mono text-green font-bold">AFTER: SME COMPLIANCE</span>
+            </div>
+            <p class="text-[11px] text-secondary mb-0">
+              Capped fees. Free guidance from national authorities. <strong class="text-green">Simplified templates for documentation.</strong> Proportionality principle: the compliance burden must match the size and resources of the organization.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: What This Means For Engineers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What This Means For Engineers
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Stop reading this as policy. Read it as <strong>engineering constraints</strong> that determine what you can ship, where, and when.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Building on open-source models?</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Your obligations are <strong>significantly lighter</strong> post-Omnibus. If the base model uses an OSI-approved license and is not classified as systemic risk, you inherit the lighter GPAI regime. Focus on downstream deployment obligations, not model-level compliance.
+          </p>
+        </div>
+
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Deploying high-risk AI?</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The compliance timeline is <strong>more forgiving</strong>. You have until August 2025 for GPAI transparency, but the full conformity assessment for high-risk systems now targets a later window. Use the extra months to build risk management systems and documentation into your development process rather than bolting them on at the end.
+          </p>
+        </div>
+
+        <div class="change-card rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Operating in EU markets?</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            <strong>Monitor the Omnibus amendments actively.</strong> The EU has proven it will rewrite the rules close to deadlines. Subscribe to the Official Journal. Track the AI Office's guidance documents. Do not assume the version of the Act you read six months ago is still current.
+          </p>
+        </div>
+
+        <div class="change-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-yellow-500/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Building traditional software?</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Check whether the Omnibus definition change <strong>removes you from scope entirely</strong>. If your system uses rule-based logic, conventional statistics, or basic automation without inference capabilities, it likely no longer qualifies as an "AI system" under the Act. Document why. Keep the analysis on file.
+          </p>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-3 gap-3">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-green">41</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Pages of amendments</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-green">9</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Days before deadline</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-green">5</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Core pillars rewritten</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: The Timeline -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Timeline
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Here is what applies when. Clip this. Reference it quarterly.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 mb-6 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-green font-bold">EU AI ACT COMPLIANCE CALENDAR (POST-OMNIBUS)</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="grid grid-cols-3 gap-2 pb-2 border-b border-green/20">
+            <span class="text-[9px] font-mono text-green font-bold">DATE</span>
+            <span class="text-[9px] font-mono text-green font-bold">WHAT APPLIES</span>
+            <span class="text-[9px] font-mono text-secondary font-bold">STATUS</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 py-2 border-b border-border/30 bg-green/[0.03]">
+            <span class="text-[10px] text-green font-bold">Feb 2, 2025</span>
+            <span class="text-[10px] text-foreground">Banned practices + AI literacy</span>
+            <span class="text-[10px] font-mono text-green">ACTIVE</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 py-2 border-b border-border/30 bg-green/[0.03]">
+            <span class="text-[10px] text-green font-bold">Aug 2, 2025</span>
+            <span class="text-[10px] text-foreground">GPAI model obligations (transparency, docs)</span>
+            <span class="text-[10px] font-mono text-green">ACTIVE</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 py-2 border-b border-border/30">
+            <span class="text-[10px] text-yellow-400 font-bold">Aug 2, 2026</span>
+            <span class="text-[10px] text-foreground">High-risk systems (Annex III standalone)</span>
+            <span class="text-[10px] font-mono text-yellow-400">UPCOMING</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 py-2 border-b border-border/30">
+            <span class="text-[10px] text-yellow-400 font-bold">Aug 2, 2026</span>
+            <span class="text-[10px] text-foreground">Regulatory sandboxes operational</span>
+            <span class="text-[10px] font-mono text-yellow-400">UPCOMING</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 py-2 border-b border-border/30">
+            <span class="text-[10px] text-secondary font-bold">Aug 2, 2027</span>
+            <span class="text-[10px] text-foreground">High-risk in products (Annex I embedded)</span>
+            <span class="text-[10px] font-mono text-secondary">FUTURE</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 py-2">
+            <span class="text-[10px] text-secondary font-bold">Ongoing</span>
+            <span class="text-[10px] text-foreground">Omnibus amendments + delegated acts</span>
+            <span class="text-[10px] font-mono text-yellow-400">WATCH</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">KEY INSIGHT</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          The Omnibus proved that this timeline is <strong>not fixed</strong>. The EU will continue issuing delegated acts, implementing regulations, and guidance documents that modify how these dates apply in practice. Compliance is not a one-time event. It is a <strong>continuous monitoring problem</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        The EU wrote the most comprehensive AI law in history, then <strong>rewrote it before anyone had to comply</strong>. This is not instability. This is the EU learning that regulating AI at the speed of legislation does not work. The law will keep changing. The direction will not. Build your compliance architecture to be modular, because the only constant in EU AI regulation is the next amendment.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={13} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
