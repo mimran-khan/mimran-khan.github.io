@@ -110,9 +110,9 @@
       "branch": "ep11",
       "slug": "model-collapse",
       "title": "Model Collapse: 1% Synthetic Data Can Poison Your Entire Training Run",
-      "status": "pending",
+      "status": "published",
       "linkedin_post": "Episode 11: 5-minute read. Zero fluff : Model Collapse: 1% Synthetic Data Can Poison Your Entire Training Run\n\nTraining on AI-generated data causes irreversible distribution collapse. The tails vanish. Rare knowledge disappears. Models progressively converge to producing only the most common outputs. Published in Nature, now confirmed at scale.\n\nKey findings/points:\n- 1% synthetic contamination triggers measurable collapse across model families\n- Within a few generations of recursive training, models converge to near-identical outputs regardless of prompt\n- Tail distributions vanish first: minority languages, rare medical conditions, niche expertise\n- 57% of web-scraped parallel text is already machine-translated. The contamination is not hypothetical.\n\nThe takeaway? Every training pipeline now needs provenance tracking. If you cannot prove your data is human-generated, assume it is not. The training data moat is real.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/model-collapse\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ModelCollapse #SyntheticData #TrainingData #Nature #DataQuality",
-      "published_on": "2026-07-30",
+      "published_on": "2026-07-28",
       "tag": "release/ep11"
     },
     {
