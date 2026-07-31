@@ -120,9 +120,9 @@
       "branch": "ep12",
       "slug": "isodde",
       "title": "IsoDDE: The Drug Discovery AI That Beats Physics Simulations",
-      "status": "pending",
+      "status": "published",
       "linkedin_post": "Episode 12: 5-minute read. Zero fluff : IsoDDE: The Drug Discovery AI That Beats Physics Simulations\n\nTraditional drug discovery takes 10-15 years and $2.6B per approved drug. IsoDDE generates novel drug candidates in hours by learning the energy landscape of protein-ligand binding. It does not dock molecules. It does not screen libraries. It generates them already fitted to the target pocket.\n\nKey findings/points:\n- SE(3)-equivariant diffusion: generates molecules that respect 3D rotational and translational symmetry\n- Orders of magnitude faster than molecular dynamics simulations (100-1000x speedup)\n- Binding affinity predictions approaching sub-1 kcal/mol of experimental accuracy\n- Generates novel scaffolds with drug-like properties, not just variations of known compounds\n\nThe takeaway? Physics simulations are accurate but take weeks per candidate. IsoDDE trades brute-force physics for learned energy landscapes. The molecules it generates already fit. That changes the economics of drug discovery.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/isodde\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #IsoDDE #DrugDiscovery #ComputationalBiology #DiffusionModels #BioTech",
-      "published_on": "2026-08-01",
+      "published_on": "2026-07-31",
       "tag": "release/ep12"
     },
     {
