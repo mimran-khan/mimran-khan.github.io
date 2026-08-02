@@ -130,9 +130,9 @@
       "branch": "ep13",
       "slug": "eu-ai-omnibus",
       "title": "EU AI Act Omnibus: They Rewrote the Law While You Were Already Complying",
-      "status": "pending",
+      "status": "published",
       "linkedin_post": "Episode 13: 5-minute read. Zero fluff : EU AI Act Omnibus: They Rewrote the Law While You Were Already Complying\n\nThe EU adopted the AI Act in 2024, started enforcing banned practices in February 2025. Then in July 2026, they published a Digital Omnibus that rewrites definitions, shifts deadlines, and expands exemptions. Mid-enforcement. Companies that spent millions on compliance are now reading a new rulebook.\n\nKey findings/points:\n- \"AI system\" definition narrowed: deterministic rule-based software no longer automatically classified as AI\n- Open-source exemption expanded: models released under OSI-approved licenses get lighter obligations\n- High-risk compliance deadline pushed to December 2027, giving providers an extra year\n- New sandbox provisions: regulatory sandboxes in every member state, SME fast-track access\n\nThe takeaway? If you build or deploy AI in Europe, your compliance roadmap just changed. The law you were following got rewritten while you were following it. Read the Omnibus before your next board update.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/eu-ai-omnibus\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #EUAIAct #AIRegulation #Compliance #GPAI #OpenSource",
-      "published_on": "2026-08-04",
+      "published_on": "2026-08-02",
       "tag": "release/ep13"
     },
     {
