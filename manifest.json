@@ -140,9 +140,9 @@
       "branch": "ep14",
       "slug": "photon-1",
       "title": "Photon-1: 18 Years of Screen Recordings Built One World Simulator",
-      "status": "pending",
+      "status": "published",
       "linkedin_post": "Episode 14: 5-minute read. Zero fluff : Photon-1: 18 Years of Screen Recordings Built One World Simulator\n\nInduction Labs trained a 106B sparse MoE on 18 years of raw desktop screen recordings. Zero action labels. The model does not generate video. It simulates environments with physics, object permanence, and cause-effect. Then it transfers to domains it has never seen.\n\nKey findings/points:\n- 106B sparse MoE, trained on raw desktop video with zero manual annotation\n- Processes frames as latent tokens, not pixels: 30x less compute than comparable dense models\n- Emergent world modeling: tracks object permanence, predicts physics, models cause and effect\n- Zero-shot transfer: plays checkers and predicts billiard physics despite seeing only desktop recordings during pretraining\n\nThe takeaway? Video generators create plausible pixels. World simulators create plausible futures. Photon-1 learned enough about how things work from desktop recordings to simulate billiard collisions better than an LLM trained on 20 trillion text tokens.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/photon-1\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Photon1 #WorldModels #InductionLabs #VideoAI #WorldSimulator",
-      "published_on": "2026-08-06",
+      "published_on": "2026-08-04",
       "tag": "release/ep14"
     },
     {
