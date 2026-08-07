@@ -150,9 +150,9 @@
       "branch": "ep15",
       "slug": "minicpm-robot",
       "title": "MiniCPM-Robot: A 0.9B Model That Tracks You on a Robot Dog",
-      "status": "pending",
+      "status": "published",
       "linkedin_post": "Episode 15: 5-minute read. Zero fluff : MiniCPM-Robot: A 0.9B Model That Tracks You on a Robot Dog\n\nOpenBMB shrunk a multimodal VLM to 0.9 billion parameters and deployed it on a quadruped robot dog. Verbal commands. Person tracking through occlusions. Obstacle avoidance. Everything runs on-device with no cloud dependency.\n\nKey findings/points:\n- 0.9B parameters, runs on NVIDIA Jetson Orin NX at 5+ FPS with approximately 180ms latency\n- Built on MiniCPM4-0.5B base with DINOv3+SigLIP vision encoder\n- End-to-end pipeline: speech recognition, visual grounding, person re-identification, locomotion\n- Tracks targets through full occlusions: maintains identity when target disappears behind obstacles and re-emerges\n\nThe takeaway? Cloud-dependent robots fail when the network drops. On-device robots fail when the model is too big. OpenBMB found the sweet spot: small enough to run locally, capable enough to track, navigate, and follow instructions.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/minicpm-robot\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #MiniCPM #OpenBMB #EmbodiedAI #RobotDog #EdgeAI",
-      "published_on": "2026-08-09",
+      "published_on": "2026-08-07",
       "tag": "release/ep15"
     }
   ]
