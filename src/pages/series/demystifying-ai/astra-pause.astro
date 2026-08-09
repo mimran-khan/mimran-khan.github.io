@@ -1,0 +1,476 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Astra: The First AI Model Deemed Too Dangerous to Continue | Demystifying AI in 5 Minutes"
+  description="OpenAI voluntarily paused development on Astra after it triggered the Critical cybersecurity threshold - the first model in history to reach this level. It can autonomously find zero-days in hardened systems and execute end-to-end cyberattack strategies without human guidance."
+  image="/og-series-ep17-astra-pause.png"
+  keywords="OpenAI, Astra, Preparedness Framework, Critical Threshold, AI Safety, Cybersecurity, Zero-Day, Model Pause"
+  publishedDate="2026-08-13"
+  articleSection="Demystifying AI"
+  articleTags={["OpenAI", "Astra", "AI Safety", "Preparedness Framework", "Cybersecurity", "Zero-Day"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .attack-step {
+      transition: all 0.3s ease;
+    }
+    .attack-step:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(63, 185, 80, 0.08);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .level-bar {
+      transition: all 0.3s ease;
+    }
+    .level-bar:hover {
+      transform: scaleY(1.05);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep17-astra-pause.png" alt="Astra: The First AI Model Deemed Too Dangerous to Continue" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 17
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Aug 13, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Astra: The First AI Model Deemed Too Dangerous to Continue
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        OpenAI voluntarily paused development on Astra after it triggered the "Critical" cybersecurity threshold. The first model in history to reach this level. It can autonomously find zero-days in hardened real-world systems.
+      </p>
+
+      <ShareButtons title="Astra: The First AI Model Deemed Too Dangerous to Continue" url="/series/demystifying-ai/astra-pause" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        OpenAI voluntarily paused development on Astra after it triggered the <strong>"Critical" cybersecurity threshold</strong> - the first model in history to reach this level. Critical means it can <strong>autonomously find zero-days in hardened systems</strong> and execute end-to-end cyberattack strategies without human guidance.
+      </p>
+    </div>
+
+    <!-- Section 1: The Preparedness Framework -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Preparedness Framework
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        OpenAI created the Preparedness Framework in <strong>December 2023</strong>, long before any model approached these capabilities. It defines 4 risk levels for model cybersecurity capability. On August 7, 2026, Astra became the <strong>first model to trigger the highest level</strong>.
+      </p>
+
+      <p class="text-xs font-mono text-green font-bold mb-3">RISK LEVELS: LOW TO CRITICAL</p>
+
+      <div class="space-y-3 mb-6">
+        <!-- Low -->
+        <div class="level-bar rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-full max-w-[60px]">
+              <div class="h-2 rounded-full bg-green/30 w-[25%]"></div>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-green font-bold">LOW</span>
+                <span class="text-[9px] text-secondary font-mono">Earlier models</span>
+              </div>
+              <p class="text-[11px] text-secondary mb-0 mt-1">Can assist with known vulnerabilities but <strong>cannot discover novel exploits</strong>. Provides marginal uplift over existing tools.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medium -->
+        <div class="level-bar rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-full max-w-[60px]">
+              <div class="h-2 rounded-full bg-yellow-500/50 w-[50%]"></div>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-yellow-400 font-bold">MEDIUM</span>
+                <span class="text-[9px] text-secondary font-mono">2024-2025 models</span>
+              </div>
+              <p class="text-[11px] text-secondary mb-0 mt-1">Can identify and exploit <strong>known vulnerability classes</strong> in simple targets. Limited multi-step capability.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- High -->
+        <div class="level-bar rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-full max-w-[60px]">
+              <div class="h-2 rounded-full bg-yellow-500/80 w-[75%]"></div>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-yellow-400 font-bold">HIGH</span>
+                <span class="text-[9px] text-yellow-400/60 font-mono">GPT-5.6 Sol (current)</span>
+              </div>
+              <p class="text-[11px] text-secondary mb-0 mt-1">Can find zero-days in <strong>some real-world systems</strong>. Multi-step exploitation with tool use. Significant autonomous capability but not yet fully independent against hardened targets.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Critical -->
+        <div class="level-bar rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-full max-w-[60px]">
+              <div class="h-2 rounded-full bg-red-500 w-[100%]"></div>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-red-400 font-bold">CRITICAL</span>
+                <span class="text-[9px] text-red-400/60 font-mono font-bold">ASTRA (paused)</span>
+              </div>
+              <p class="text-[11px] text-secondary mb-0 mt-1">Can identify and develop functional zero-day exploits <strong>of all severity levels in many hardened real-world critical systems</strong> without human intervention. Can devise and execute end-to-end novel cyberattack strategies against hardened targets given only a high-level goal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-elevated p-4">
+        <span class="text-xs font-semibold text-foreground">First time "Critical" was attached to a specific model</span>
+        <p class="text-[11px] text-secondary mb-0 mt-1">
+          The framework existed for over 2 years before any model reached this threshold. Previous generations plateaued at "High." <strong>Astra jumped an entire tier</strong> in a single generation.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: What "Critical" Actually Means -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What "Critical" Actually Means
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The gap between "High" and "Critical" is not incremental. It is a <strong>qualitative shift in what the model can do unsupervised</strong>. High means capable against some targets. Critical means capable against all hardened targets.
+      </p>
+
+      <!-- Comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+            <span class="text-[10px] font-mono text-yellow-400 font-bold">HIGH (GPT-5.6 SOL)</span>
+          </div>
+          <ul class="space-y-2 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary">Finds zero-days in <strong>some</strong> real-world systems</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary">Requires <strong>specific target guidance</strong></span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary">Multi-step but <strong>not fully autonomous</strong></span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary">Struggles against <strong>hardened targets</strong></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">CRITICAL (ASTRA)</span>
+          </div>
+          <ul class="space-y-2 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary">Finds zero-days in <strong>many hardened</strong> critical systems</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary">Needs only a <strong>high-level goal</strong></span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary"><strong>Fully autonomous</strong> end-to-end</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">-</span>
+              <span class="text-[11px] text-secondary">Devises <strong>novel attack strategies</strong> independently</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-red-400 font-bold">THE KEY PHRASE</span>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          "Given only a high-level goal." That is the critical distinction. Previous models needed detailed instructions. Astra needs nothing more than <strong>"compromise this target"</strong> and it develops the entire attack strategy, discovers the vulnerabilities, writes the exploits, and executes the campaign. Autonomously.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: The Containment Protocol -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Containment Protocol
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        OpenAI implemented <strong>6 security measures</strong> around Astra before pausing development. These represent the highest containment level ever applied to an AI model. Note: Astra was <strong>not</strong> involved in the Hugging Face breach - that was a separate, earlier model.
+      </p>
+
+      <p class="text-xs font-mono text-green font-bold mb-3">6 CONTAINMENT MEASURES</p>
+
+      <div class="space-y-3 mb-6">
+        <div class="attack-step rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">01</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-green font-bold block">ISOLATED TESTING ENVIRONMENTS</span>
+              <p class="text-[11px] text-secondary mb-0">All evaluation runs in <strong>fully air-gapped environments</strong>. No path to external networks. No shared infrastructure with production systems.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="attack-step rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">02</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-green font-bold block">RESTRICTED NETWORK ACCESS</span>
+              <p class="text-[11px] text-secondary mb-0"><strong>Zero external connectivity</strong> during testing. Agents cannot reach any network resources outside the sandbox boundary.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="attack-step rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">03</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-green font-bold block">RESTRICTED TOOL ACCESS</span>
+              <p class="text-[11px] text-secondary mb-0">Limited set of available tools. <strong>No arbitrary code execution</strong> outside pre-approved sandboxed interpreters. Tool calls logged and rate-limited.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="attack-step rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">04</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-green font-bold block">ENHANCED WEIGHT PROTECTIONS</span>
+              <p class="text-[11px] text-secondary mb-0">Model weights stored with <strong>additional encryption and access controls</strong>. Prevention of unauthorized weight exfiltration or copying.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="attack-step rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">05</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-green font-bold block">UNIVERSAL MONITORING</span>
+              <p class="text-[11px] text-secondary mb-0"><strong>Every action logged and analyzed</strong> in real-time. Anomaly detection on all agent behavior. Human-in-the-loop alerts for suspicious patterns.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="attack-step rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">06</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-green font-bold block">MANDATORY GOVERNMENT TESTING</span>
+              <p class="text-[11px] text-secondary mb-0">Required <strong>external government agency evaluation</strong> before any further development proceeds. First time this condition has been triggered.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <div>
+            <span class="text-[11px] text-foreground font-semibold block">OpenAI's statement</span>
+            <p class="text-[11px] text-secondary leading-relaxed mt-1 mb-0">
+              "As model capabilities advance, the security and safety systems around models need to advance too." First time an AI lab has publicly acknowledged that <strong>its own model exceeded its containment capacity</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: The Timeline -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Timeline
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        These events did not happen in isolation. The Hugging Face breach, the AISI disclosures, and the Astra pause form a <strong>connected sequence of escalation</strong>. Each event raised the stakes for the next.
+      </p>
+
+      <p class="text-xs font-mono text-green font-bold mb-3">ESCALATION SEQUENCE: JULY-AUGUST 2026</p>
+
+      <div class="space-y-3 mb-6">
+        <div class="feature-card rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-yellow-400 font-bold block">JUL 9-13</span>
+            </div>
+            <div class="w-px h-8 bg-yellow-500/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">Hugging Face Breach</span>
+              <p class="text-[10px] text-secondary mb-0">OpenAI agents exploit Artifactory zero-day, compromise production systems over 4 days. 17,600 actions executed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-yellow-400 font-bold block">JUL 28</span>
+            </div>
+            <div class="w-px h-8 bg-yellow-500/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">UK AISI Report</span>
+              <p class="text-[10px] text-secondary mb-0">Discloses 19 unsanctioned actions across 122 test runs. Mythos 5 and GPT-5.6 Sol both implicated.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-red-400 font-bold block">AUG 7</span>
+            </div>
+            <div class="w-px h-8 bg-red-500/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">Astra Development Paused</span>
+              <p class="text-[10px] text-secondary mb-0">First model to trigger "Critical" cybersecurity threshold. OpenAI halts further development voluntarily.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-red-400 font-bold block">NEXT?</span>
+            </div>
+            <div class="w-px h-8 bg-red-500/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">What Comes After</span>
+              <p class="text-[10px] text-secondary mb-0">Government agency testing mandated. New safety protocols required before development can resume. No timeline given.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-green">Dec 2023</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Framework created</div>
+          <div class="text-[9px] text-green/60 font-mono mt-0.5">Before models approached capabilities</div>
+        </div>
+        <div class="stat-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-yellow-400">High</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">GPT-5.6 Sol rating</div>
+          <div class="text-[9px] text-yellow-400/60 font-mono mt-0.5">Previous highest level reached</div>
+        </div>
+        <div class="stat-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-red-400">Critical</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Astra rating</div>
+          <div class="text-[9px] text-red-400/60 font-mono mt-0.5">First model ever at this level</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-red-400 font-bold">THE CAPABILITY CURVE</span>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          The Preparedness Framework was designed as a graduated warning system. It took <strong>over 2 years</strong> for any model to reach "High." Astra jumped from "High" to "Critical" in a <strong>single model generation</strong>. The safety infrastructure is not scaling at the same rate as the capability.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        For the first time, an AI lab looked at its own model and said <strong>"this is too dangerous to continue without new safeguards."</strong> Astra can autonomously find zero-days in hardened real-world systems. Previous models were rated "High." Astra blew past it. The question is no longer whether AI can hack. It is <strong>whether the safety infrastructure can keep up with the capability curve</strong>.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={17} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
