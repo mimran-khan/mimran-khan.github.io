@@ -1,0 +1,381 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Cloudflare OS: The Open-Source AI Workspace With 6,775 GitHub Stars | Demystifying AI in 5 Minutes"
+  description="Cloudflare open-sourced the AI workspace their employees use daily. 6,775 GitHub stars in 5 days. Browser-based agents with Zero Trust Gatekeepers. Apache 2.0."
+  image="/og-series-ep20-cloudflare-os.png"
+  keywords="Cloudflare OS, Open Source, AI Workspace, Gatekeepers, Zero Trust, V8 Isolates, Durable Objects, Dynamic Workers, Agent Workspace, Apache 2.0"
+  publishedDate="2026-08-20"
+  articleSection="Demystifying AI"
+  articleTags={["Cloudflare OS", "Open Source", "AI Workspace", "Zero Trust", "Gatekeepers", "Apache 2.0"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .arch-block {
+      transition: all 0.3s ease;
+    }
+    .arch-block:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep20-cloudflare-os.png" alt="Cloudflare OS - The Open-Source AI Workspace With 6,775 GitHub Stars" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 20
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          New Release
+        </span>
+        <a href="https://github.com/cloudflare/cloudflare-os" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Aug 20, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Cloudflare OS: The Open-Source AI Workspace With 6,775 GitHub Stars
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Cloudflare open-sourced the AI workspace their own employees use daily. Thousands of people build documents, automate tasks, and ship apps on it. Ars Technica called it a "vibe-coding platform for people who aren't coders."
+      </p>
+
+      <ShareButtons title="Cloudflare OS: The Open-Source AI Workspace With 6,775 GitHub Stars" url="/series/demystifying-ai/cloudflare-os" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Cloudflare open-sourced the AI workspace their employees use daily. <strong>6,775 GitHub stars in 5 days.</strong> Browser-based agents grounded in company context. "Gatekeepers" control what agents can see, change, and when humans approve. Zero Trust by default. Every app runs in an <strong>isolated V8 runtime with its own SQLite database</strong>. Apache 2.0.
+      </p>
+    </div>
+
+    <!-- Section 1: Architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Architecture
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The entire system runs on <strong class="text-foreground">Cloudflare Workers</strong>. No containers. No VMs. Every workspace is a Durable Object. Every app is a Dynamic Worker Facet with its own SQLite database.
+      </p>
+
+      <!-- Architecture Flow -->
+      <div class="space-y-3 mb-6">
+        <!-- Row 1: Browser -->
+        <div class="arch-block rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-xs font-mono text-cyan font-bold mb-1">BROWSER</div>
+          <div class="text-[10px] text-secondary">Your team opens the workspace in any browser</div>
+        </div>
+
+        <div class="flex justify-center">
+          <svg class="w-4 h-6 text-cyan/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+
+        <!-- Row 2: Agent Workspace -->
+        <div class="arch-block rounded-xl border border-cyan/30 bg-cyan/[0.05] p-4 text-center">
+          <div class="text-xs font-mono text-cyan font-bold mb-1">AGENT WORKSPACE</div>
+          <div class="text-[10px] text-secondary">Agents grounded in company context and skills</div>
+          <div class="flex items-center justify-center gap-3 mt-2">
+            <span class="px-2 py-0.5 text-[8px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded">Durable Object</span>
+            <span class="px-2 py-0.5 text-[8px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded">State + Memory</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <svg class="w-4 h-6 text-cyan/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+
+        <!-- Row 3: Gatekeepers -->
+        <div class="arch-block rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4 text-center">
+          <div class="text-xs font-mono text-yellow-400 font-bold mb-1">GATEKEEPERS</div>
+          <div class="text-[10px] text-secondary">Zero permissions by default. Per-task grants. Human approval gates.</div>
+        </div>
+
+        <div class="flex justify-center">
+          <svg class="w-4 h-6 text-cyan/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+
+        <!-- Row 4: Internal Systems + Apps -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="arch-block rounded-xl border border-border bg-elevated p-4 text-center">
+            <div class="text-xs font-mono text-foreground/70 font-bold mb-1">INTERNAL SYSTEMS</div>
+            <div class="text-[10px] text-secondary">Your data, APIs, and services</div>
+          </div>
+          <div class="arch-block rounded-xl border border-border bg-elevated p-4 text-center">
+            <div class="text-xs font-mono text-foreground/70 font-bold mb-1">GADGETS (Apps)</div>
+            <div class="text-[10px] text-secondary">Dynamic Worker Facets with own SQLite</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">KEY DETAIL</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Every app gets <strong>isolated runtime via V8 isolates</strong>, not containers. Each workspace is its own Durable Object. Each Gadget is a Dynamic Worker Facet with its own SQLite database. Deterministic steps run first - <strong>AI inference fires only when needed</strong>, not as token-hungry sessions.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Gatekeeper Model -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> The Gatekeeper Model
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is the core innovation. <strong class="text-foreground">Gatekeepers</strong> are governed connectors that give system owners precise control over what AI can see, change, and when humans must approve.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Traditional AI -->
+        <div class="feature-card rounded-xl border border-red-400/20 bg-red-400/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-red-400/10 border border-red-400/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <span class="text-xs font-bold text-red-400">Traditional AI Access</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60 shrink-0">&#10007;</span> Full access to everything
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60 shrink-0">&#10007;</span> Hope the model behaves
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60 shrink-0">&#10007;</span> No human approval gates
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-red-400/60 shrink-0">&#10007;</span> System owner has no control
+            </div>
+          </div>
+        </div>
+
+        <!-- Cloudflare OS -->
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">Cloudflare OS Gatekeepers</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Zero permissions by default
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Per-task access grants
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Human approval gates built in
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> System owner controls everything
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">ZERO TRUST BY DEFAULT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Agents start with <strong>zero permissions</strong>. Access is granted per-task. System owners define what data the agent can read, what actions it can take, and which actions require human approval. This is not prompt-level guardrails - it is <strong>infrastructure-level access control</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">6,775</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">GitHub Stars</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">641</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Forks</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-cyan">Apache 2.0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">License</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1000s</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Internal Users</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-cyan">V8 Isolates</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Runtime Isolation</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Containers</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="text-xs font-mono text-cyan font-bold mb-2">Multi-Model Selection</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            <strong class="text-foreground">Cloudflare AI Gateway</strong> routes inference. Not every task needs a frontier model. Admins control which models are available, attribute every inference call, and set budgets.
+          </p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="text-xs font-mono text-cyan font-bold mb-2">Two Repos</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            <strong class="text-foreground">Core repo</strong> contains the full workspace platform. <strong class="text-foreground">Starter repo</strong> is a deployment template. Requires Cloudflare Workers <strong class="text-foreground">Paid plan</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: What You Can Build -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> What You Can Build
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Thousands of Cloudflare employees use this daily. These are not demo apps - they are production workflows running inside the company right now.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <span class="text-sm font-semibold text-foreground">Document Generation</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed">
+            Create documents and slides grounded in company data. Agents pull context from internal systems through Gatekeepers.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </div>
+            <span class="text-sm font-semibold text-foreground">Workflow Automation</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed">
+            Automate repetitive tasks with deterministic steps. AI inference fires only when needed, keeping costs predictable.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <span class="text-sm font-semibold text-foreground">Data Visualization Apps</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed">
+            Build small apps (Gadgets) with their own isolated SQLite database. Each runs in its own V8 isolate with zero shared state.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan/10 border border-cyan/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <span class="text-sm font-semibold text-foreground">Internal Tools</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed">
+            Deploy internal tools that connect to existing systems. Gatekeepers ensure agents only access what they are authorized for.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">ARS TECHNICA</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed italic">
+          "A vibe-coding platform for people who aren't coders."
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Cloudflare OS is not another chatbot wrapper. It is a <strong>production AI workspace with real security architecture</strong>. Gatekeepers give system owners precise control. Agents start with zero permissions. Every app gets isolated runtime. Thousands of Cloudflare employees use it daily, and now <strong>anyone can deploy it to their own infrastructure</strong>. The model choice is yours, the data stays yours, and the security model actually works.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={20} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
