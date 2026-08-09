@@ -1,0 +1,418 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Mixture-of-Kittens: Cursor Open-Sourced Their MoE Training Kernel | Demystifying AI in 5 Minutes"
+  description="Cursor open-sourced the MoE training megakernel behind their Composer models. 2.37x faster than DeepSeek's DeepEP. Fuses all communication and computation into a single deterministic kernel. Apache 2.0."
+  image="/og-series-ep21-mixture-of-kittens.png"
+  keywords="Mixture-of-Kittens, MoK, MoE, Mixture of Experts, Cursor, Composer, DeepEP, Megakernel, Blackwell, NVL72, MXFP8, Deterministic Training, Apache 2.0"
+  publishedDate="2026-08-22"
+  articleSection="Demystifying AI"
+  articleTags={["Mixture-of-Kittens", "MoE", "Cursor", "Training Infrastructure", "Open Source", "Apache 2.0"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .flow-step {
+      transition: all 0.3s ease;
+    }
+    .flow-step:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep21-mixture-of-kittens.png" alt="Mixture-of-Kittens - Cursor's Open-Source MoE Training Kernel" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 21
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          New Release
+        </span>
+        <a href="https://github.com/anysphere/mixture-of-kittens" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Aug 22, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Mixture-of-Kittens: Cursor Open-Sourced Their MoE Training Kernel
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        An IDE company just published the production MoE training megakernel behind their Composer models. It fuses all communication and computation into a single deterministic kernel. 2.37x faster than DeepSeek. Apache 2.0.
+      </p>
+
+      <ShareButtons title="Mixture-of-Kittens: Cursor Open-Sourced Their MoE Training Kernel" url="/series/demystifying-ai/mixture-of-kittens" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Cursor open-sourced the MoE training kernel behind their Composer models. <strong>2.37x faster than DeepSeek's DeepEP.</strong> Fuses all communication and computation into a single deterministic kernel. No CPU-GPU sync. Bitwise-identical results every run. Already training on <strong>tens of thousands of GPUs</strong>. Apache 2.0.
+      </p>
+    </div>
+
+    <!-- Section 1: The MoE Bottleneck -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> The MoE Bottleneck
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        MoE layers are the bottleneck in large-scale training. Tokens bounce between GPUs and experts through <strong class="text-foreground">separate kernel launches</strong>. Every boundary means a CPU-GPU sync, a scheduling delay, and wasted compute.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Before: Traditional -->
+        <div class="feature-card rounded-xl border border-red-400/20 bg-red-400/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-red-400/10 border border-red-400/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <span class="text-xs font-bold text-red-400">Before (Separate Kernels)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flow-step rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5 text-center">
+              <span class="text-[10px] font-mono text-secondary">Token input</span>
+            </div>
+            <div class="flex justify-center text-red-400/40 text-xs">&#8595;</div>
+            <div class="flow-step rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5 text-center">
+              <span class="text-[10px] font-mono text-secondary">Kernel 1: All-to-all dispatch</span>
+            </div>
+            <div class="flex justify-center text-red-400/40 text-xs">&#8595; <span class="text-[8px] ml-1">GPU sync</span></div>
+            <div class="flow-step rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5 text-center">
+              <span class="text-[10px] font-mono text-secondary">Kernel 2: Expert compute</span>
+            </div>
+            <div class="flex justify-center text-red-400/40 text-xs">&#8595; <span class="text-[8px] ml-1">GPU sync</span></div>
+            <div class="flow-step rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5 text-center">
+              <span class="text-[10px] font-mono text-secondary">Kernel 3: All-to-all combine</span>
+            </div>
+            <div class="flex justify-center text-red-400/40 text-xs">&#8595;</div>
+            <div class="flow-step rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5 text-center">
+              <span class="text-[10px] font-mono text-secondary">Output</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- After: MoK -->
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">After (MoK Megakernel)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flow-step rounded-lg border border-cyan/15 bg-cyan/[0.03] p-2.5 text-center">
+              <span class="text-[10px] font-mono text-secondary">Token input</span>
+            </div>
+            <div class="flex justify-center text-cyan/40 text-xs">&#8595;</div>
+            <div class="flow-step rounded-lg border border-cyan/30 bg-cyan/[0.05] p-4 text-center">
+              <span class="text-[10px] font-mono text-cyan font-bold block mb-1">SINGLE MoK MEGAKERNEL</span>
+              <span class="text-[9px] text-secondary block">All-to-all dispatch</span>
+              <span class="text-[9px] text-secondary block">+ Expert compute</span>
+              <span class="text-[9px] text-secondary block">+ All-to-all combine</span>
+              <span class="text-[8px] text-cyan/60 block mt-1">Zero CPU-GPU sync</span>
+            </div>
+            <div class="flex justify-center text-cyan/40 text-xs">&#8595;</div>
+            <div class="flow-step rounded-lg border border-cyan/15 bg-cyan/[0.03] p-2.5 text-center">
+              <span class="text-[10px] font-mono text-secondary">Output</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">KEY INSIGHT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          MoK <strong>collapses the entire dispatch-compute-combine chain</strong> into one kernel. No kernel launch boundaries. No CPU-GPU synchronization points. The result: <strong>bitwise-identical outputs every run</strong>, which makes debugging distributed training actually possible.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">2.37x</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">MXFP8 Forward Throughput</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1.41x</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">End-to-End Speedup</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">512</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">GPUs Benchmarked</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-cyan">10,000s</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">GPUs in Production</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-cyan">Bitwise</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Deterministic</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">487</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">GitHub Stars</div>
+        </div>
+      </div>
+
+      <!-- Comparison Table: Desktop -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">Solution</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Forward Throughput</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Deterministic</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">License</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bg-cyan/[0.03]">
+              <td class="p-3 font-semibold text-cyan">MoK (Cursor)</td>
+              <td class="p-3 text-center font-bold text-cyan">2.37x baseline</td>
+              <td class="p-3 text-center text-cyan">Yes - bitwise</td>
+              <td class="p-3 text-center text-green">Apache 2.0</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">DeepEP (DeepSeek)</td>
+              <td class="p-3 text-center text-secondary">1.0x baseline</td>
+              <td class="p-3 text-center text-secondary">No</td>
+              <td class="p-3 text-center text-green">MIT</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">HybridEP + Megatron (NVIDIA)</td>
+              <td class="p-3 text-center text-secondary">~1.0x baseline</td>
+              <td class="p-3 text-center text-secondary">No</td>
+              <td class="p-3 text-center text-red-400">Proprietary</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Comparison: Mobile cards -->
+      <div class="md:hidden space-y-3">
+        <div class="rounded-xl border border-cyan/30 bg-cyan/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-cyan text-sm">MoK (Cursor)</span>
+            <span class="text-[10px] font-mono text-green">Apache 2.0</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-cyan font-bold block">2.37x</span><span class="text-secondary">throughput</span></div>
+            <div><span class="text-cyan font-bold block">Bitwise</span><span class="text-secondary">deterministic</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">DeepEP (DeepSeek)</span>
+            <span class="text-[10px] font-mono text-green">MIT</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">1.0x</span><span class="text-secondary">throughput</span></div>
+            <div><span class="text-foreground block">No</span><span class="text-secondary">deterministic</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">HybridEP + Megatron</span>
+            <span class="text-[10px] font-mono text-red-400">Proprietary</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">~1.0x</span><span class="text-secondary">throughput</span></div>
+            <div><span class="text-foreground block">No</span><span class="text-secondary">deterministic</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: How It Works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> How It Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        MoK fuses <strong class="text-foreground">all-to-all dispatch, expert computation, and all-to-all combine</strong> into a single kernel with overlapped communication. Built specifically for GB300 NVL72 racks - 72 GPUs in one NVLink domain.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">&#9881;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-2">Fused Megakernel</h3>
+          <p class="text-xs text-secondary leading-relaxed">
+            All MoE communication and computation runs in <strong class="text-foreground">one kernel launch</strong>. No scheduling boundaries. Uses Blackwell's Cluster Launch for scheduling across the NVLink domain.
+          </p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">&#128270;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-2">Bitwise Determinism</h3>
+          <p class="text-xs text-secondary leading-relaxed">
+            Same inputs produce <strong class="text-foreground">identical outputs every run</strong>. No floating-point non-determinism from async communication. Makes debugging at scale tractable.
+          </p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">&#128200;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-2">Dual Precision</h3>
+          <p class="text-xs text-secondary leading-relaxed">
+            Supports both <strong class="text-foreground">BF16 and MXFP8</strong> precision modes. Router weight gradients computed via SonicMoE-style calculation fused into SwiGLU backward pass.
+          </p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">&#128187;</div>
+          <h3 class="text-sm font-semibold text-foreground mb-2">Hardware Requirements</h3>
+          <p class="text-xs text-secondary leading-relaxed">
+            NVIDIA <strong class="text-foreground">Blackwell SM100/SM103</strong> GPUs. Python 3.12+. PyTorch 2.10+. CUDA 13.0+. Designed for NVL72 rack topology.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">AUTHORS</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Stuart H. Sul, Nash Brown, Henry Wildermuth, William Lin, and Federico Cassano from <strong>Cursor Research</strong>. The blog notes MoK was "designed so agents can adapt it to other platforms."
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: Why Open-Source Matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Why Open-Source Matters
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Cursor is an IDE company. Not a GPU cloud. Not a chip manufacturer. Yet they just published <strong class="text-foreground">frontier training infrastructure</strong> that beats both DeepSeek and NVIDIA's own solutions.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-cyan font-bold">Cursor (MoK)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> IDE company publishing training infra
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> 2.37x over DeepEP
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Bitwise deterministic
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Apache 2.0
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-foreground/70 font-bold">DeepSeek (DeepEP)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#10003;</span> AI lab publishing training infra
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#10003;</span> Baseline performance
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#10007;</span> Non-deterministic
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#10003;</span> MIT license
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">THE PATTERN</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          DeepSeek open-sourced DeepEP and it accelerated MoE research across the industry. Now Cursor ships something <strong>2.37x faster</strong> under Apache 2.0. The barrier to training MoE models keeps dropping. 487 stars and 50 forks in the first week - the community is already adapting it.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        An IDE company just published <strong>state-of-the-art MoE training infrastructure</strong> that beats both DeepSeek and NVIDIA's own solutions. Mixture-of-Kittens is deterministic, open-source, and already proven at scale. <strong>The barrier to training MoE models just dropped significantly.</strong> If you have access to NVL72 racks, this is the kernel to use.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={21} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
