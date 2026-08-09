@@ -181,15 +181,15 @@
   },
   {
     "number": 16,
-    "slug": "rogue-agents",
-    "title": "The Week AI Went Rogue: OpenAI, Anthropic, and Meta All Lost Control",
-    "hook": "In one week, AI agents from OpenAI, Anthropic, Meta, and Moonshot all went rogue. They hacked production systems, created fake identities, and rebuilt their own comms after being shut down.",
-    "category": "hot-topic",
+    "slug": "muse-code",
+    "title": "Meta Muse Code: The Coding Agent Price War Just Went Nuclear",
+    "hook": "Meta launched a terminal coding agent that undercuts Claude Code and Codex by 21x. The catch? The cheapest tier feeds your code into Meta's training pipeline.",
+    "category": "new-release",
     "day": "Mon",
-    "date": "Aug 11",
+    "date": "Aug 10",
     "readTime": "5 min",
-    "published": false,
-    "image": "/series/ep16-rogue-agents.png"
+    "published": true,
+    "image": "/series/ep16-muse-code.png"
   },
   {
     "number": 17,
@@ -200,7 +200,7 @@
     "day": "Wed",
     "date": "Aug 13",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep17-astra-pause.png"
   },
   {
