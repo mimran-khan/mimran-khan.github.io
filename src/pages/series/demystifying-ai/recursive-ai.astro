@@ -1,0 +1,402 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="The Race to Make AI Build Itself: Claude Writes 80% of Anthropic's Code | Demystifying AI in 5 Minutes"
+  description="Claude writes 80% of Anthropic's production code. Engineering output is up 8x. A startup raised $650M to build AI that rebuilds itself. Recursive self-improvement is not theoretical anymore."
+  image="/og-series-ep19-recursive-ai.png"
+  keywords="Recursive AI, Self-Improvement, Anthropic, Claude, GPT-5.3 Codex, Recursive Superintelligence, AI Development, TIME, Jack Clark, METR"
+  publishedDate="2026-08-18"
+  articleSection="Demystifying AI"
+  articleTags={["Recursive AI", "Anthropic", "Claude", "Self-Improvement", "GPT-5.3 Codex", "Recursive Superintelligence"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .future-card {
+      transition: all 0.3s ease;
+    }
+    .future-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.08);
+    }
+    .timeline-card {
+      transition: all 0.3s ease;
+    }
+    .timeline-card:hover {
+      transform: translateX(4px);
+    }
+    .quote-card {
+      transition: all 0.3s ease;
+    }
+    .quote-card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 0 15px rgba(63, 185, 80, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep19-recursive-ai.png" alt="The Race to Make AI Build Itself - Claude writes 80% of Anthropic's code" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 19
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></svg>
+          HOT TOPIC
+        </span>
+        <a href="https://time.com/7289019/ai-build-itself/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full hover:bg-green/20 hover:border-green/40 transition-colors">
+          TIME Article
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Aug 18, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        The Race to Make AI Build Itself: Claude Writes 80% of Anthropic's Code
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Jack Clark left on paternity leave. Came back 3 months later. His colleagues barely wrote code anymore. They managed copies of Claude, which sometimes managed more Claudes.
+      </p>
+
+      <ShareButtons title="The Race to Make AI Build Itself: Claude Writes 80% of Anthropic's Code" url="/series/demystifying-ai/recursive-ai" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Claude now writes <strong>80% of Anthropic's production code</strong>. Engineering output is up 8x. GPT-5.3 Codex was the first model to help build its own successor. A startup just raised <strong>$650M</strong> to make AI that rebuilds itself. TIME and Anthropic both say the same thing: <strong>recursive self-improvement is not theoretical anymore. It is happening.</strong>
+      </p>
+    </div>
+
+    <!-- Section 1: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        TIME published "Inside the Race to Make AI Build Itself" on August 7, 2026. The numbers in it are staggering.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-green">80%</div>
+          <div class="text-[10px] text-secondary font-mono mt-2">Production Code by Claude</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">As of May 2026. Claude writes 4 out of every 5 lines of production code at the company building Claude.</p>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-green">8x</div>
+          <div class="text-[10px] text-secondary font-mono mt-2">Engineering Output Per Person</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">Each engineer produces 8 times more output than before. Not 8% more. <strong>8 times.</strong></p>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-green">$650M</div>
+          <div class="text-[10px] text-secondary font-mono mt-2">Raised by Recursive Superintelligence</div>
+          <p class="text-[10px] text-secondary mt-2 mb-0">Founded by ex-Google, Meta, and OpenAI researchers. The explicit goal: build AI that <strong>rebuilds itself</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Jack Clark story -->
+      <div class="rounded-xl border border-green/30 bg-green/[0.04] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-md bg-green/15 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-green font-bold">JACK CLARK'S RETURN</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-2">
+          <strong>Jack Clark</strong>, Anthropic co-founder, left for paternity leave in November 2025. When he returned in February 2026, the company had transformed.
+        </p>
+        <p class="text-[11px] text-secondary mb-0">
+          His colleagues <strong>barely wrote code anymore</strong>. They managed 5-6 copies of Claude running in parallel, which sometimes managed more Claudes. The engineering workflow had fundamentally changed in 3 months.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Three Futures -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Three Futures
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        The Anthropic Institute published "When AI Builds Itself" on June 4, 2026. It maps 3 possible outcomes. None of them are "things stay the same."
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Two of them end with AI systems designing their own successors.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <!-- Future 1 -->
+        <div class="future-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-7 h-7 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+              <span class="text-sm font-bold text-yellow-400">1</span>
+            </span>
+            <span class="text-xs font-mono text-yellow-400 font-bold">PLATEAU</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-2">The Trend Stalls</span>
+          <p class="text-[11px] text-secondary mb-2">
+            AI development hits diminishing returns. Models get better at narrow tasks but cannot meaningfully improve their own architecture or training processes.
+          </p>
+          <p class="text-[11px] text-secondary mb-0">
+            <strong class="text-foreground">Economy still reshaped.</strong> Even in this scenario, the productivity gains already achieved are permanent. 8x engineering output does not revert.
+          </p>
+        </div>
+
+        <!-- Future 2 -->
+        <div class="future-card rounded-xl border border-green/20 bg-green/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-7 h-7 rounded-lg bg-green/10 flex items-center justify-center">
+              <span class="text-sm font-bold text-green">2</span>
+            </span>
+            <span class="text-xs font-mono text-green font-bold">ACCELERATION</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-2">AI Automates Development</span>
+          <p class="text-[11px] text-secondary mb-2">
+            AI handles most software development while humans set direction, priorities, and constraints. The management layer stays human.
+          </p>
+          <p class="text-[11px] text-secondary mb-0">
+            <strong class="text-foreground">100-person companies do 100,000-person work.</strong> Massive economic disruption. The competitive advantage shifts from "how many engineers" to "how well you direct AI systems."
+          </p>
+        </div>
+
+        <!-- Future 3 -->
+        <div class="future-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-7 h-7 rounded-lg bg-red-500/10 flex items-center justify-center">
+              <span class="text-sm font-bold text-red-400">3</span>
+            </span>
+            <span class="text-xs font-mono text-red-400 font-bold">RECURSIVE</span>
+          </div>
+          <span class="text-sm font-semibold text-foreground block mb-2">Full Self-Improvement</span>
+          <p class="text-[11px] text-secondary mb-2">
+            AI systems design, train, and deploy their own successors with minimal human oversight. Each generation is better at building the next.
+          </p>
+          <p class="text-[11px] text-secondary mb-0">
+            <strong class="text-foreground">The feedback loop closes entirely.</strong> Anthropic explicitly calls for a "verifiable global mechanism to temporarily pause frontier AI development" before reaching this point.
+          </p>
+        </div>
+      </div>
+
+      <!-- Pause callout -->
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-6 h-6 rounded-md bg-red-500/10 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-red-400 font-bold">ANTHROPIC'S OWN CALL</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          The company building one of the most capable AI systems in the world is <strong>calling for a pause mechanism</strong>. Not from the outside - from within. Anthropic's report explicitly recommends a <strong>"verifiable global mechanism to temporarily pause frontier AI development"</strong> if recursive self-improvement reaches a critical threshold.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: The Race -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Race
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The milestones are coming faster now. Each one would have been a standalone headline 2 years ago. Now they stack up within months.
+      </p>
+
+      <!-- Timeline -->
+      <div class="space-y-3 mb-6">
+        <div class="timeline-card rounded-lg border border-green/20 bg-green/[0.03] p-4 pl-5 border-l-4 border-l-green/40">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-green font-bold px-1.5 py-0.5 bg-green/10 rounded">2025</span>
+            <h3 class="text-sm font-semibold text-foreground">Claude starts writing production code</h3>
+          </div>
+          <p class="text-xs text-secondary mt-1 mb-0">Anthropic begins using Claude internally for software development. Engineers start managing AI agents instead of writing code directly.</p>
+        </div>
+
+        <div class="timeline-card rounded-lg border border-green/20 bg-green/[0.03] p-4 pl-5 border-l-4 border-l-green/50">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-green font-bold px-1.5 py-0.5 bg-green/10 rounded">FEB 2026</span>
+            <h3 class="text-sm font-semibold text-foreground">Jack Clark returns to find everything changed</h3>
+          </div>
+          <p class="text-xs text-secondary mt-1 mb-0">After 3 months away, engineers are managing 5-6 copies of Claude. Some Claudes manage other Claudes. The workflow transformation happened in weeks, not years.</p>
+        </div>
+
+        <div class="timeline-card rounded-lg border border-green/30 bg-green/[0.04] p-4 pl-5 border-l-4 border-l-green/70">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-green font-bold px-1.5 py-0.5 bg-green/10 rounded">MAY 2026</span>
+            <h3 class="text-sm font-semibold text-foreground">80% threshold crossed</h3>
+          </div>
+          <p class="text-xs text-secondary mt-1 mb-0">Claude now writes <strong class="text-foreground">80% of Anthropic's production code</strong>. Claude also exceeds METR's upper benchmark limit for autonomous AI capabilities.</p>
+        </div>
+
+        <div class="timeline-card rounded-lg border border-green/30 bg-green/[0.04] p-4 pl-5 border-l-4 border-l-green/80">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-green font-bold px-1.5 py-0.5 bg-green/10 rounded">JUN 2026</span>
+            <h3 class="text-sm font-semibold text-foreground">GPT-5.3 Codex builds its own successor</h3>
+          </div>
+          <p class="text-xs text-secondary mt-1 mb-0">OpenAI confirms GPT-5.3 Codex was <strong class="text-foreground">the first model to have "a significant hand in its own development from start to finish."</strong> The recursive loop begins.</p>
+        </div>
+
+        <div class="timeline-card rounded-lg border border-green/30 bg-green/[0.05] p-4 pl-5 border-l-4 border-l-green">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-green font-bold px-1.5 py-0.5 bg-green/10 rounded">JUL 2026</span>
+            <h3 class="text-sm font-semibold text-foreground">Recursive Superintelligence raises $650M</h3>
+          </div>
+          <p class="text-xs text-secondary mt-1 mb-0">Founded by ex-Google, Meta, and OpenAI researchers. The explicit mission: <strong class="text-foreground">build AI that rebuilds itself</strong>. The name is not subtle.</p>
+        </div>
+      </div>
+
+      <!-- METR callout -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <span class="text-[10px] font-mono text-green block mb-3">METR BENCHMARK</span>
+        <p class="text-xs text-secondary mb-0">
+          <strong class="text-foreground">METR</strong> (Model Evaluation and Threat Research) designs benchmarks to measure autonomous AI capabilities. In May 2026, Claude <strong class="text-foreground">exceeded their upper benchmark limit</strong> - the ceiling they thought no model would reach for years. The benchmark had to be extended.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: The Quote Wall -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Quote Wall
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The people closest to this technology are the most alarmed by it.
+      </p>
+
+      <div class="space-y-4 mb-6">
+        <div class="quote-card rounded-xl border border-green/20 bg-green/[0.03] p-5">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl text-green/30 font-serif leading-none shrink-0">"</span>
+            <div>
+              <p class="text-sm text-foreground/90 leading-relaxed italic mb-2">
+                I've never seen anything like this.
+              </p>
+              <span class="text-[10px] font-mono text-secondary">Anonymous AI researcher, quoted in TIME</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card rounded-xl border border-green/20 bg-green/[0.03] p-5">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl text-green/30 font-serif leading-none shrink-0">"</span>
+            <div>
+              <p class="text-sm text-foreground/90 leading-relaxed italic mb-2">
+                I left for paternity leave. When I came back, my colleagues barely wrote code anymore. They managed 5 or 6 copies of Claude, which sometimes managed more Claudes.
+              </p>
+              <span class="text-[10px] font-mono text-secondary">Jack Clark, Anthropic co-founder</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card rounded-xl border border-green/20 bg-green/[0.03] p-5">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl text-green/30 font-serif leading-none shrink-0">"</span>
+            <div>
+              <p class="text-sm text-foreground/90 leading-relaxed italic mb-2">
+                GPT-5.3 Codex was the first model to have a significant hand in its own development from start to finish.
+              </p>
+              <span class="text-[10px] font-mono text-secondary">OpenAI, official statement</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl text-red-400/30 font-serif leading-none shrink-0">"</span>
+            <div>
+              <p class="text-sm text-foreground/90 leading-relaxed italic mb-2">
+                A verifiable global mechanism to temporarily pause frontier AI development.
+              </p>
+              <span class="text-[10px] font-mono text-secondary">Anthropic Institute, "When AI Builds Itself" (June 4, 2026)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- What this means grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">The acceleration is real</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">80% code authorship is not an aspiration. It is a measured data point from May 2026. 8x productivity is not a projection. It is current operational reality at Anthropic.</p>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">The window is narrowing</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">From "barely anyone writes code" to "model exceeds benchmark limits" took 3 months. From there to "$650M explicitly targeting recursive self-improvement" took 2 more. The milestones are accelerating.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-3">
+        <strong>AI is already accelerating its own development.</strong> Claude writes 80% of the code at the company building Claude. Anthropic's own report maps three futures, and two of them end with AI systems designing their successors.
+      </p>
+      <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+        A $650M startup is explicitly racing to get there first. The window to decide how this goes is <strong>narrower than anyone outside the labs realizes</strong>.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={19} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
