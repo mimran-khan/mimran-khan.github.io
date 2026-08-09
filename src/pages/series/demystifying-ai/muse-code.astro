@@ -1,0 +1,582 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Meta Muse Code: The Coding Agent Price War | Demystifying AI in 5 Minutes"
+  description="Meta launched Muse Code, a terminal coding agent powered by Muse Spark 1.2. The Contributor tier costs $0.20/M output tokens, but Meta trains on your traffic. The price war for coding agents just went nuclear."
+  image="/og-series-ep16-muse-code.png"
+  keywords="Meta Muse Code, Muse Spark 1.2, Coding Agent, Terminal Agent, Claude Code, OpenAI Codex, Price War, Contributor Tier, Async Subagents, AI Coding"
+  publishedDate="2026-08-10"
+  articleSection="Demystifying AI"
+  articleTags={["Muse Code", "Meta", "Coding Agent", "Price War", "Muse Spark 1.2", "Terminal Agent"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .tier-card {
+      transition: all 0.3s ease;
+    }
+    .tier-card:hover {
+      transform: scale(1.01);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#06b6d4]/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-[#06b6d4] transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep16-muse-code.png" alt="Meta Muse Code - The Coding Agent Price War" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-[#06b6d4] font-mono bg-[#06b6d4]/5 border border-[#06b6d4]/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#06b6d4] animate-pulse"></span>
+          EP 16
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          New Release
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Aug 10, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Meta Muse Code: The Coding Agent Price War Just Went Nuclear
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Meta launched a terminal coding agent that undercuts Claude Code and Codex by 21x. The catch? The cheapest tier feeds your code into Meta's training pipeline.
+      </p>
+
+      <ShareButtons title="Meta Muse Code: The Coding Agent Price War Just Went Nuclear" url="/series/demystifying-ai/muse-code" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-[#06b6d4] font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Meta shipped Muse Code on Aug 5, a terminal-only coding agent powered by Muse Spark 1.2. It scores <strong>82.9% on Terminal-Bench 2.1</strong> (vs Claude Opus 5 at 86.7%). The Standard tier runs $1.25/$4.25 per 1M tokens. The Contributor tier runs <strong>$0.10/$0.20 - but Meta trains on your traffic</strong>. First coding agent with persistent async subagents and crash-safe replay logs. Terminal-only, no IDE plugins.
+      </p>
+    </div>
+
+    <!-- Section 1: The Launch -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> Mark Zuckerberg Enters the Chat
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Meta has been a spectator in the coding agent race. Claude Code, OpenAI Codex, Grok Build - every major lab shipped a coding agent except Meta. That changed on August 5. <strong>Mark Zuckerberg personally announced Muse Code</strong>, a terminal-based coding agent that takes on "complete software engineering tasks across large repos."
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The pitch is not capabilities. Meta's own benchmarks show Muse Spark 1.2 <strong>trails Claude Opus 5 on every test it published</strong>. The pitch is price. And architecture.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">82.9%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Terminal-Bench 2.1</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">1M</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Context window</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">1,000+</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Tool calls in 24h test</div>
+        </div>
+        <div class="stat-card rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-3 text-center">
+          <div class="text-xl md:text-2xl font-bold text-[#06b6d4]">$0.20</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Cheapest output/1M</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">ONE-LINE INSTALL</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-[#06b6d4] font-bold">curl -fsSL</span> <span class="text-foreground">https://dev.meta.ai/install.sh | bash</span>
+<span class="text-secondary"># macOS and Linux only. No Windows. No IDE plugins.</span>
+<span class="text-secondary"># Run `muse` in any project directory to start.</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 2: The Two-Tier Pricing -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> Two Tiers: Privacy or Discount
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is where it gets interesting. Meta offers Muse Spark 1.2 in two pricing tiers. Same model, same weights. <strong>The difference is what happens to your data.</strong>
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="tier-card rounded-xl border border-[#06b6d4]/30 bg-[#06b6d4]/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-[#06b6d4]"></span>
+            <span class="text-[10px] font-mono text-[#06b6d4] font-bold">STANDARD TIER</span>
+          </div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between items-center">
+              <span class="text-[11px] text-secondary">Input</span>
+              <span class="text-sm font-bold text-foreground">$1.25<span class="text-[10px] text-secondary font-normal">/1M</span></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-[11px] text-secondary">Cached input</span>
+              <span class="text-sm font-bold text-foreground">$0.15<span class="text-[10px] text-secondary font-normal">/1M</span></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-[11px] text-secondary">Output</span>
+              <span class="text-sm font-bold text-foreground">$4.25<span class="text-[10px] text-secondary font-normal">/1M</span></span>
+            </div>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-[#06b6d4] text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-[#06b6d4]">No training on your data</strong></span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#06b6d4] text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary">3,000 RPM / 4M TPM</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[#06b6d4] text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary">Enterprise-safe</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tier-card rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+            <span class="text-[10px] font-mono text-yellow-400 font-bold">CONTRIBUTOR TIER</span>
+            <span class="px-1.5 py-0.5 text-[8px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">DATA-FOR-DISCOUNT</span>
+          </div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between items-center">
+              <span class="text-[11px] text-secondary">Input</span>
+              <span class="text-sm font-bold text-yellow-400">$0.10<span class="text-[10px] text-secondary font-normal">/1M</span></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-[11px] text-secondary">Cached input</span>
+              <span class="text-sm font-bold text-yellow-400">$0.002<span class="text-[10px] text-secondary font-normal">/1M</span></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-[11px] text-secondary">Output</span>
+              <span class="text-sm font-bold text-yellow-400">$0.20<span class="text-[10px] text-secondary font-normal">/1M</span></span>
+            </div>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">&#9888;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Meta trains on your traffic</strong></span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">&#9888;</span>
+              <span class="text-[11px] text-secondary">100 RPM / 3M TPM</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400 text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary">12-21x cheaper than Standard</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        The Contributor tier is <strong>21x cheaper on output tokens</strong> than Standard. That is not a rounding error. For a day-long coding session with 1,000+ tool calls, the cost difference is measured in hundreds of dollars.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        But the tradeoff is explicit: every prompt, every code snippet, every completion goes into <strong>Meta's training pipeline for future models</strong>. For open-source side projects, that might be fine. For proprietary codebases, that is a dealbreaker.
+      </p>
+    </div>
+
+    <!-- Section 3: Benchmarks -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> The Benchmarks Tell an Honest Story
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Give Meta credit for this: their own launch charts show Muse Spark 1.2 <strong>losing to Claude Opus 5 on every benchmark they published</strong>. No cherry-picking. No hidden fine print. Just second place across the board.
+      </p>
+
+      <!-- Desktop table -->
+      <div class="overflow-hidden rounded-xl border border-border mb-6 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-[11px] font-mono text-secondary font-normal">Benchmark</th>
+              <th class="text-center p-3 text-[11px] font-mono text-[#06b6d4] font-bold">Muse Spark 1.2</th>
+              <th class="text-center p-3 text-[11px] font-mono text-secondary font-normal">Claude Opus 5</th>
+              <th class="text-center p-3 text-[11px] font-mono text-secondary font-normal">GPT-5.6 Terra</th>
+              <th class="text-center p-3 text-[11px] font-mono text-secondary font-normal">Grok 4.5</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="p-3 text-[11px] text-secondary">Terminal-Bench 2.1</td>
+              <td class="p-3 text-center text-[11px] font-bold text-[#06b6d4]">82.9%</td>
+              <td class="p-3 text-center text-[11px] font-bold text-foreground">86.7%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">81.8%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">81.6%</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-[11px] text-secondary">DeepSWE v1.1</td>
+              <td class="p-3 text-center text-[11px] font-bold text-[#06b6d4]">59.3%</td>
+              <td class="p-3 text-center text-[11px] font-bold text-foreground">65.0%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">64.8%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">56.6%</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-[11px] text-secondary">Meta Internal Bench</td>
+              <td class="p-3 text-center text-[11px] font-bold text-[#06b6d4]">70.6%</td>
+              <td class="p-3 text-center text-[11px] font-bold text-foreground">79.4%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">65.4%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile cards -->
+      <div class="space-y-3 mb-6 md:hidden">
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <span class="text-[10px] font-mono text-secondary block mb-2">Terminal-Bench 2.1</span>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-[#06b6d4] font-mono">Muse Spark 1.2</span>
+              <div class="text-lg font-bold text-[#06b6d4]">82.9%</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-secondary font-mono">Claude Opus 5</span>
+              <div class="text-lg font-bold text-foreground">86.7%</div>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <span class="text-[10px] font-mono text-secondary block mb-2">DeepSWE v1.1</span>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-[#06b6d4] font-mono">Muse Spark 1.2</span>
+              <div class="text-lg font-bold text-[#06b6d4]">59.3%</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-secondary font-mono">Claude Opus 5</span>
+              <div class="text-lg font-bold text-foreground">65.0%</div>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <span class="text-[10px] font-mono text-secondary block mb-2">Meta Internal Bench</span>
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-[#06b6d4] font-mono">Muse Spark 1.2</span>
+              <div class="text-lg font-bold text-[#06b6d4]">70.6%</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-secondary font-mono">Claude Opus 5</span>
+              <div class="text-lg font-bold text-foreground">79.4%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">BENCHMARK ASTERISK</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          Every model was benchmarked inside its own co-trained agent (Muse Spark in Muse Code, Opus 5 in Claude Code, etc.). <strong>Artificial Analysis ran Terminal-Bench independently and got 80%, not 82.9%.</strong> Meta's previous model (Muse Spark 1.1) published 80.0% but verified at 76.2%. The gap between vendor-reported and independently verified scores is real and measurable.
+        </p>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        On the <strong>Artificial Analysis Intelligence Index</strong>, Muse Spark 1.2 scores 54, tied with Grok 4.5. Claude Opus 5 leads at 61, followed by Claude Fable 5 at 60 and GPT-5.6 Sol at 59. Meta is not claiming the crown. It is claiming the price/performance ratio.
+      </p>
+    </div>
+
+    <!-- Section 4: Architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> What Makes It Different
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Muse Code is not just "another CLI wrapper around an LLM." Three architectural decisions set it apart from Claude Code and Codex.
+      </p>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-[#06b6d4]/20 border-2 border-[#06b6d4] flex items-center justify-center flex-shrink-0">
+            <span class="text-[#06b6d4] text-[10px] font-mono font-bold">01</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-[#06b6d4] font-bold block">Persistent Async Subagents</span>
+            <span class="text-[10px] text-secondary">Background agents that outlive individual tasks</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Claude Code spawns subagents per task. Muse Code's background agents <strong>stay active for the entire session</strong>. They avoid redundant context-gathering, take next steps autonomously, and decide when to report back. In testing, Meta had it build <strong>6 features for a game simultaneously with no collisions</strong> by fanning out to separate agents in isolated worktrees.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-[#06b6d4]/20 border-2 border-[#06b6d4] flex items-center justify-center flex-shrink-0">
+            <span class="text-[#06b6d4] text-[10px] font-mono font-bold">02</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-[#06b6d4] font-bold block">Crash-Safe Event Log</span>
+            <span class="text-[10px] text-secondary">Append-only log makes sessions replay-exact</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Every model call, tool run, approval, and edit is appended to a local event log. The runtime is <strong>replay-exact and restart-safe</strong>. If Muse Code crashes during a 24-hour coding session, run <code class="text-[10px] bg-[#06b6d4]/10 text-[#06b6d4] px-1 rounded">muse resume</code> and it picks up exactly where it stopped. No lost work. No duplicate side effects.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-[#06b6d4]/20 border-2 border-[#06b6d4] flex items-center justify-center flex-shrink-0">
+            <span class="text-[#06b6d4] text-[10px] font-mono font-bold">03</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-[#06b6d4] font-bold block">Co-Trained Model + Agent</span>
+            <span class="text-[10px] text-secondary">Model and harness trained as a single unit</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Meta did not slap a model into a generic agent harness. <strong>Muse Spark 1.2 was co-trained with Muse Code</strong> - including rejection-sampled harness trajectories, recipe optimizations for goals and compaction, and integration of the Muse Code toolset. The model and agent are designed to work as a pair.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-[#06b6d4] font-bold">BUNDLED SKILLS</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-[#06b6d4] font-bold">/plan</span>   <span class="text-secondary">- Produces an approval-gated plan before coding</span>
+<span class="text-[#06b6d4] font-bold">/grill</span>  <span class="text-secondary">- Stress-tests the plan until it holds</span>
+<span class="text-[#06b6d4] font-bold">/goal</span>   <span class="text-secondary">- Drives toward a stated objective</span>
+<span class="text-secondary"></span>
+<span class="text-[#06b6d4] font-bold">muse</span>          <span class="text-secondary">- Interactive terminal session</span>
+<span class="text-[#06b6d4] font-bold">muse exec ""</span>  <span class="text-secondary">- Headless mode for CI/CD</span>
+<span class="text-[#06b6d4] font-bold">muse resume</span>   <span class="text-secondary">- Resume crashed session from event log</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 5: The Competitive Landscape -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> The Price War Landscape
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is not about who has the best model. <strong>Every major lab now has a coding agent.</strong> The question is who can make it cheap enough to run all day.
+      </p>
+
+      <!-- Desktop table -->
+      <div class="overflow-hidden rounded-xl border border-border mb-6 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-[11px] font-mono text-secondary font-normal">Agent</th>
+              <th class="text-center p-3 text-[11px] font-mono text-secondary font-normal">Model</th>
+              <th class="text-center p-3 text-[11px] font-mono text-secondary font-normal">Terminal-Bench</th>
+              <th class="text-center p-3 text-[11px] font-mono text-secondary font-normal">Output $/1M</th>
+              <th class="text-center p-3 text-[11px] font-mono text-secondary font-normal">Platforms</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="p-3 text-[11px] font-bold text-[#06b6d4]">Muse Code (Contributor)</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Muse Spark 1.2</td>
+              <td class="p-3 text-center text-[11px] text-secondary">82.9%</td>
+              <td class="p-3 text-center text-[11px] font-bold text-[#06b6d4]">$0.20</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Terminal</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-[11px] text-foreground">Muse Code (Standard)</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Muse Spark 1.2</td>
+              <td class="p-3 text-center text-[11px] text-secondary">82.9%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">$4.25</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Terminal</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-[11px] text-foreground">Claude Code</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Opus 5</td>
+              <td class="p-3 text-center text-[11px] font-bold text-foreground">86.7%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Subscription</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Terminal, IDE</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-[11px] text-foreground">Codex</td>
+              <td class="p-3 text-center text-[11px] text-secondary">GPT-5.6 Terra</td>
+              <td class="p-3 text-center text-[11px] text-secondary">81.8%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Subscription</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Web, CLI, Cloud</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-[11px] text-foreground">Grok Build</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Grok 4.5</td>
+              <td class="p-3 text-center text-[11px] text-secondary">81.6%</td>
+              <td class="p-3 text-center text-[11px] text-secondary">Subscription</td>
+              <td class="p-3 text-center text-[11px] text-secondary">CLI</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile cards -->
+      <div class="space-y-3 mb-6 md:hidden">
+        <div class="rounded-xl border border-[#06b6d4]/30 bg-[#06b6d4]/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-[#06b6d4]">Muse Code (Contributor)</span>
+            <span class="text-lg font-bold text-[#06b6d4]">$0.20</span>
+          </div>
+          <span class="text-[10px] text-secondary">82.9% Terminal-Bench | Terminal only</span>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-foreground">Claude Code</span>
+            <span class="text-lg font-bold text-foreground">86.7%</span>
+          </div>
+          <span class="text-[10px] text-secondary">Subscription pricing | Terminal + IDE</span>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-foreground">Codex</span>
+            <span class="text-lg font-bold text-foreground">81.8%</span>
+          </div>
+          <span class="text-[10px] text-secondary">Subscription pricing | Web + CLI + Cloud</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-[#06b6d4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Competing on price, not peak</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Meta's Alexandr Wang said it directly: "We think that for a lot of workflows and a lot of use cases, this can be an incredibly good option, <strong>especially from a cost perspective.</strong>"</p>
+        </div>
+        <div class="rounded-xl border border-[#06b6d4]/20 bg-elevated p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-[#06b6d4]/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-[#06b6d4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">The missing benchmark</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Meta's charts conspicuously omit <strong>Kimi K3</strong>, which costs $15/M output tokens but leads several independent rankings. The benchmarks tell a curated story.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: What's Missing -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-[#06b6d4] font-mono text-sm">#</span> What Is Missing
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Muse Code shipped fast, but it shipped incomplete. The gaps are not subtle.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-red-400 text-xs">&#10007;</span>
+            <span class="text-xs font-semibold text-foreground">No IDE plugins</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Terminal-only. No VS Code, no Cursor, no JetBrains. Claude Code integrates everywhere. Codex has a web UI and cloud agents. <strong>Muse Code requires you to live in the terminal.</strong>
+          </p>
+        </div>
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-red-400 text-xs">&#10007;</span>
+            <span class="text-xs font-semibold text-foreground">No Windows support</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            macOS and Linux only. WSL2 reportedly works but is undocumented and unsupported. A significant portion of developers are excluded at launch.
+          </p>
+        </div>
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-red-400 text-xs">&#10007;</span>
+            <span class="text-xs font-semibold text-foreground">Unverified benchmark claims</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The 82.9% Terminal-Bench score has <strong>no independently verified entry</strong> as of launch. Meta's prior model (Muse Spark 1.1) inflated by 3.8 points vs verified scores. Vals AI ranks Muse Spark 1.2 at 14th of 50 in a common harness.
+          </p>
+        </div>
+        <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-yellow-400 text-xs">&#9888;</span>
+            <span class="text-xs font-semibold text-foreground">Beta status</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The crash-safe replay log has not been independently stress-tested. Meta's 24-hour, 1,000+ tool call demo is compelling but unverified. Trust, but verify on a low-stakes repo first.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-[#06b6d4] font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Muse Code is not the best coding agent. It is <strong>the cheapest credible one</strong>. At $0.20/M output tokens on the Contributor tier, Meta just made the cost of a day-long AI coding session trivial - if you are willing to let them train on your code. The real disruption is not the model. It is the pricing structure that forces every competitor to answer: <strong>how much is your code privacy worth?</strong>
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={16} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-[#06b6d4] hover:border-[#06b6d4]/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#06b6d4]/10 border border-[#06b6d4]/20 text-xs text-[#06b6d4] hover:bg-[#06b6d4]/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>

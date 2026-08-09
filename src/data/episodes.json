@@ -178,5 +178,77 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep15-minicpm-robot.png"
+  },
+  {
+    "number": 16,
+    "slug": "muse-code",
+    "title": "Meta Muse Code: The Coding Agent Price War Just Went Nuclear",
+    "hook": "Meta launched a terminal coding agent that undercuts Claude Code and Codex by 21x. The catch? The cheapest tier feeds your code into Meta's training pipeline.",
+    "category": "new-release",
+    "day": "Mon",
+    "date": "Aug 10",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep16-muse-code.png"
+  },
+  {
+    "number": 17,
+    "slug": "astra-pause",
+    "title": "Astra: The First AI Model Deemed Too Dangerous to Continue",
+    "hook": "OpenAI voluntarily paused Astra after it triggered the Critical cybersecurity threshold. It can autonomously find zero-days in hardened systems. The first model a lab called too dangerous.",
+    "category": "hot-topic",
+    "day": "Wed",
+    "date": "Aug 13",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep17-astra-pause.png"
+  },
+  {
+    "number": 18,
+    "slug": "shieldstral",
+    "title": "Shieldstral: Mistral's 3B Safety Classifier Beats Models 7x Its Size",
+    "hook": "Mistral released a 3B safety classifier that accepts plain-language moderation policies at inference time. No retraining. Runs on one GPU. Apache 2.0. Beats models 7x its size.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Aug 15",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep18-shieldstral.png"
+  },
+  {
+    "number": 19,
+    "slug": "recursive-ai",
+    "title": "The Race to Make AI Build Itself: Claude Writes 80% of Anthropic's Code",
+    "hook": "Claude writes 80% of Anthropic's production code. Engineering output up 8x. A startup raised $650M to build AI that rebuilds itself. TIME says the recursive self-improvement race is on.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Aug 18",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep19-recursive-ai.png"
+  },
+  {
+    "number": 20,
+    "slug": "cloudflare-os",
+    "title": "Cloudflare OS: The Open-Source AI Workspace With 6,775 GitHub Stars",
+    "hook": "Cloudflare open-sourced the AI workspace their employees use daily. 6,775 stars in 5 days. Gatekeepers control what agents see and change. Zero Trust by default. Apache 2.0.",
+    "category": "new-release",
+    "day": "Wed",
+    "date": "Aug 20",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep20-cloudflare-os.png"
+  },
+  {
+    "number": 21,
+    "slug": "mixture-of-kittens",
+    "title": "Mixture-of-Kittens: Cursor Open-Sourced Their MoE Training Kernel",
+    "hook": "Cursor open-sourced the MoE megakernel behind Composer. 2.37x faster than DeepSeek. Deterministic. Already training on tens of thousands of GPUs. Apache 2.0.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Aug 22",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep21-mixture-of-kittens.png"
   }
 ]
