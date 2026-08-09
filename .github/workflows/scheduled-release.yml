@@ -83,6 +83,15 @@ jobs:
              --arg t "$TAG" \
              '(.episodes[] | select(.branch == $b)) |= . + {"status": "published", "published_on": $d, "tag": $t}' \
              manifest.json > manifest.tmp && mv manifest.tmp manifest.json
+
+          NEXT=$(jq -r '[.episodes[] | select(.status == "queued")] | .[0].branch // empty' manifest.json)
+          if [ -n "$NEXT" ]; then
+            jq --arg b "$NEXT" \
+               '(.episodes[] | select(.branch == $b)) |= . + {"status": "pending"}' \
+               manifest.json > manifest.tmp && mv manifest.tmp manifest.json
+            echo "Promoted $NEXT to pending"
+          fi
+
           git add manifest.json
           git commit -m "chore: mark ep${{ steps.find.outputs.ep }} as published"
 
