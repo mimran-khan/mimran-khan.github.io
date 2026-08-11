@@ -171,16 +171,18 @@
       "branch": "ep17",
       "slug": "astra-pause",
       "title": "Astra: The First AI Model Deemed Too Dangerous to Continue",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-08-12",
-      "linkedin_post": "Episode 17: 5-minute read. Zero fluff : Astra - The First AI Model Deemed Too Dangerous to Continue\n\nOpenAI voluntarily paused development on Astra. First model in history to trigger the \"Critical\" cybersecurity threshold. Previous models like GPT-5.6 Sol were rated \"High.\" Astra blew past it.\n\nKey findings:\n- Critical = can autonomously find zero-day exploits in hardened real-world systems without human intervention\n- Critical = can devise end-to-end novel cyberattack strategies given only a high-level goal\n- OpenAI implemented isolated testing environments, universal monitoring, and mandatory government agency testing\n- The Preparedness Framework was created in December 2023 - before models approached these capabilities\n\nThe takeaway? For the first time, an AI lab looked at its own model and said \"this is too dangerous to continue without new safeguards.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/astra-pause\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #OpenAI #Astra #Cybersecurity #AISafety #AgenticAI #MachineLearning #LLMs #SoftwareEngineering"
+      "linkedin_post": "Episode 17: 5-minute read. Zero fluff : Astra - The First AI Model Deemed Too Dangerous to Continue\n\nOpenAI voluntarily paused development on Astra. First model in history to trigger the \"Critical\" cybersecurity threshold. Previous models like GPT-5.6 Sol were rated \"High.\" Astra blew past it.\n\nKey findings:\n- Critical = can autonomously find zero-day exploits in hardened real-world systems without human intervention\n- Critical = can devise end-to-end novel cyberattack strategies given only a high-level goal\n- OpenAI implemented isolated testing environments, universal monitoring, and mandatory government agency testing\n- The Preparedness Framework was created in December 2023 - before models approached these capabilities\n\nThe takeaway? For the first time, an AI lab looked at its own model and said \"this is too dangerous to continue without new safeguards.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/astra-pause\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #OpenAI #Astra #Cybersecurity #AISafety #AgenticAI #MachineLearning #LLMs #SoftwareEngineering",
+      "published_on": "2026-08-11",
+      "tag": "release/ep17"
     },
     {
       "ep": 18,
       "branch": "ep18",
       "slug": "shieldstral",
       "title": "Shieldstral: Mistral's 3B Safety Classifier Beats Models 7x Its Size",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-08-15",
       "linkedin_post": "Episode 18: 5-minute read. Zero fluff : Shieldstral - Mistral's 3B Safety Classifier Beats Models 7x Its Size\n\nMistral released Shieldstral under Apache 2.0. A 3B-parameter safety classifier that does something no other guardrail model does: it accepts plain-language moderation policies at inference time. No retraining needed per policy. Write the rule in English, enforce it immediately.\n\nKey findings:\n- 3B parameters, runs on a single 16GB GPU\n- Beats models up to 7x its size on text safety benchmarks\n- Supports 12 languages and multimodal input (text + images)\n- Inaugural member of Open Secure AI Alliance with NVIDIA\n- The lesson from the Hugging Face hack: have an open model you can run locally before the incident\n\nThe takeaway? After a week of AI going rogue, Shieldstral is the safety tool defenders actually control.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/shieldstral\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #Mistral #Shieldstral #AISafety #OpenSource #MachineLearning #LLMs #ContentModeration #SoftwareEngineering"
     },
