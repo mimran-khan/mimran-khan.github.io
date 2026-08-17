@@ -212,7 +212,7 @@
     "day": "Sat",
     "date": "Aug 15",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep18-shieldstral.png"
   },
   {
@@ -224,7 +224,7 @@
     "day": "Mon",
     "date": "Aug 18",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep19-recursive-ai.png"
   },
   {
