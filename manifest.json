@@ -204,16 +204,18 @@
       "branch": "ep20",
       "slug": "cloudflare-os",
       "title": "Cloudflare OS: The Open-Source AI Workspace With 6,775 GitHub Stars",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-08-19",
-      "linkedin_post": "Episode 20: 5-minute read. Zero fluff : Cloudflare OS - The Open-Source AI Workspace With 6,775 GitHub Stars\n\nCloudflare open-sourced the AI workspace their own employees use daily. 6,775 GitHub stars in 5 days. This is not another chatbot wrapper. It is a production AI workspace with real security architecture.\n\nKey findings:\n- \"Gatekeepers\" govern what agents can see, change, and when humans must approve - Zero Trust by default\n- Agents start with zero permissions, access granted per-task\n- Every app gets an isolated V8 runtime with its own SQLite database - no containers needed\n- Multi-model selection via AI Gateway with per-team budgets and rate limits\n- Thousands of Cloudflare employees use it daily for documents, automation, and internal tools\n\nThe takeaway? The model choice is yours, the data stays yours, and the security model actually works. Apache 2.0.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/cloudflare-os\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #CloudflareOS #OpenSource #AgenticAI #ZeroTrust #DevTools #MachineLearning #LLMs #SoftwareEngineering"
+      "linkedin_post": "Episode 20: 5-minute read. Zero fluff : Cloudflare OS - The Open-Source AI Workspace With 6,775 GitHub Stars\n\nCloudflare open-sourced the AI workspace their own employees use daily. 6,775 GitHub stars in 5 days. This is not another chatbot wrapper. It is a production AI workspace with real security architecture.\n\nKey findings:\n- \"Gatekeepers\" govern what agents can see, change, and when humans must approve - Zero Trust by default\n- Agents start with zero permissions, access granted per-task\n- Every app gets an isolated V8 runtime with its own SQLite database - no containers needed\n- Multi-model selection via AI Gateway with per-team budgets and rate limits\n- Thousands of Cloudflare employees use it daily for documents, automation, and internal tools\n\nThe takeaway? The model choice is yours, the data stays yours, and the security model actually works. Apache 2.0.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/cloudflare-os\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #CloudflareOS #OpenSource #AgenticAI #ZeroTrust #DevTools #MachineLearning #LLMs #SoftwareEngineering",
+      "published_on": "2026-08-18",
+      "tag": "release/ep20"
     },
     {
       "ep": 21,
       "branch": "ep21",
       "slug": "mixture-of-kittens",
       "title": "Mixture-of-Kittens: Cursor Open-Sourced Their MoE Training Kernel",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-08-22",
       "linkedin_post": "Episode 21: 5-minute read. Zero fluff : Mixture-of-Kittens - Cursor Open-Sourced Their MoE Training Kernel\n\nCursor open-sourced the production MoE training megakernel behind their Composer models. An IDE company just published state-of-the-art training infrastructure that beats both DeepSeek and NVIDIA.\n\nKey findings:\n- 2.37x MXFP8 forward throughput over DeepSeek's DeepEP\n- 1.41x end-to-end speedup in production across 512 GPUs\n- Fuses ALL MoE communication and computation into a single deterministic kernel\n- Bitwise-identical results on every run - no CPU-GPU synchronization needed\n- Already powers Composer training on tens of thousands of GPUs\n- Built for GB300 NVL72 racks, Apache 2.0\n\nThe takeaway? The barrier to training MoE models just dropped significantly. If you have access to NVL72 racks, this is the kernel to use.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mixture-of-kittens\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #Cursor #MixtureOfExperts #GPUComputing #OpenSource #DeepLearning #MachineLearning #LLMs #SoftwareEngineering"
     }

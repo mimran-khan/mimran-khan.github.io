@@ -236,7 +236,7 @@
     "day": "Wed",
     "date": "Aug 20",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep20-cloudflare-os.png"
   },
   {
