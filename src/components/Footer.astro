@@ -55,21 +55,15 @@ const socialLinks = [
 </footer>
 
 <script>
-  // Using visitor-badge.laobi.icu - reliable, free, increments on every view
-  const img = new Image();
-  img.src = 'https://visitor-badge.laobi.icu/badge?page_id=mimran-khan.github.io&left_color=%230a0a0a&right_color=%2322c55e&left_text=';
-  
-  // Parse the count from the badge or use a simpler API
-  fetch('https://api.counterapi.dev/v1/mimran-khan-portfolio/visits/up')
+  fetch('https://countapi.mileshilliard.com/api/v1/hit/mimran-khan-portfolio-visits')
     .then(response => response.json())
     .then(data => {
       const countEl = document.getElementById('visitor-count');
-      if (countEl && data.count !== undefined) {
-        countEl.textContent = data.count.toLocaleString();
+      if (countEl && data.value !== undefined) {
+        countEl.textContent = Number(data.value).toLocaleString();
       }
     })
     .catch(() => {
-      // Fallback if API fails
       const countEl = document.getElementById('visitor-count');
       if (countEl) countEl.textContent = '∞';
     });
