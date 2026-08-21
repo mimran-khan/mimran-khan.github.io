@@ -215,9 +215,11 @@
       "branch": "ep21",
       "slug": "mixture-of-kittens",
       "title": "Mixture-of-Kittens: Cursor Open-Sourced Their MoE Training Kernel",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-08-22",
-      "linkedin_post": "Episode 21: 5-minute read. Zero fluff : Mixture-of-Kittens - Cursor Open-Sourced Their MoE Training Kernel\n\nCursor open-sourced the production MoE training megakernel behind their Composer models. An IDE company just published state-of-the-art training infrastructure that beats both DeepSeek and NVIDIA.\n\nKey findings:\n- 2.37x MXFP8 forward throughput over DeepSeek's DeepEP\n- 1.41x end-to-end speedup in production across 512 GPUs\n- Fuses ALL MoE communication and computation into a single deterministic kernel\n- Bitwise-identical results on every run - no CPU-GPU synchronization needed\n- Already powers Composer training on tens of thousands of GPUs\n- Built for GB300 NVL72 racks, Apache 2.0\n\nThe takeaway? The barrier to training MoE models just dropped significantly. If you have access to NVL72 racks, this is the kernel to use.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mixture-of-kittens\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #Cursor #MixtureOfExperts #GPUComputing #OpenSource #DeepLearning #MachineLearning #LLMs #SoftwareEngineering"
+      "linkedin_post": "Episode 21: 5-minute read. Zero fluff : Mixture-of-Kittens - Cursor Open-Sourced Their MoE Training Kernel\n\nCursor open-sourced the production MoE training megakernel behind their Composer models. An IDE company just published state-of-the-art training infrastructure that beats both DeepSeek and NVIDIA.\n\nKey findings:\n- 2.37x MXFP8 forward throughput over DeepSeek's DeepEP\n- 1.41x end-to-end speedup in production across 512 GPUs\n- Fuses ALL MoE communication and computation into a single deterministic kernel\n- Bitwise-identical results on every run - no CPU-GPU synchronization needed\n- Already powers Composer training on tens of thousands of GPUs\n- Built for GB300 NVL72 racks, Apache 2.0\n\nThe takeaway? The barrier to training MoE models just dropped significantly. If you have access to NVL72 racks, this is the kernel to use.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mixture-of-kittens\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #Cursor #MixtureOfExperts #GPUComputing #OpenSource #DeepLearning #MachineLearning #LLMs #SoftwareEngineering",
+      "published_on": "2026-08-21",
+      "tag": "release/ep21"
     }
   ]
 }
