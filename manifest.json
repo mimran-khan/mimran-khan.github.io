@@ -220,6 +220,60 @@
       "linkedin_post": "Episode 21: 5-minute read. Zero fluff : Mixture-of-Kittens - Cursor Open-Sourced Their MoE Training Kernel\n\nCursor open-sourced the production MoE training megakernel behind their Composer models. An IDE company just published state-of-the-art training infrastructure that beats both DeepSeek and NVIDIA.\n\nKey findings:\n- 2.37x MXFP8 forward throughput over DeepSeek's DeepEP\n- 1.41x end-to-end speedup in production across 512 GPUs\n- Fuses ALL MoE communication and computation into a single deterministic kernel\n- Bitwise-identical results on every run - no CPU-GPU synchronization needed\n- Already powers Composer training on tens of thousands of GPUs\n- Built for GB300 NVL72 racks, Apache 2.0\n\nThe takeaway? The barrier to training MoE models just dropped significantly. If you have access to NVL72 racks, this is the kernel to use.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mixture-of-kittens\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AI #Cursor #MixtureOfExperts #GPUComputing #OpenSource #DeepLearning #MachineLearning #LLMs #SoftwareEngineering",
       "published_on": "2026-08-21",
       "tag": "release/ep21"
+    },
+    {
+      "ep": 22,
+      "branch": "ep22",
+      "slug": "ox-alpha",
+      "title": "OX Alpha: The Ghost Model",
+      "status": "pending",
+      "release_date": "2026-08-24",
+      "linkedin_post": "Episode 22: 5-minute read. Zero fluff : OX Alpha: The Ghost Model\n\nSomeone dropped a frontier-class AI model on OpenRouter. Anonymously. For free. Nobody knows who built it. It's already carrying billions of tokens from Claude Code and Hermes Agent users - and nobody can confirm who's behind it.\n\nKey findings:\n- 1M token context window, 131K max output, multimodal (text/image/video) - frontier specs\n- Completely free during preview ($0/M input, $0/M output) with 99.99% uptime\n- 80% on DeepSWE (independent score) - competitive with named frontier models\n- Community links it to the GLM family based on tokenizer behavior - unconfirmed\n- Operator claims capacity for 100 trillion tokens/day (1.16 billion tokens/second)\n\nThe takeaway? The AI industry just got its first ghost model - and it's good enough that thousands of developers are routing production traffic through an anonymous provider.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/ox-alpha\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #OpenRouter #FrontierAI #StealthModel"
+    },
+    {
+      "ep": 23,
+      "branch": "ep23",
+      "slug": "claude-watermark",
+      "title": "Claude's Invisible Ink: Anthropic Watermarks All Output",
+      "status": "queued",
+      "release_date": "2026-08-26",
+      "linkedin_post": "Episode 23: 5-minute read. Zero fluff : Claude's Invisible Ink: Anthropic Watermarks All Output\n\nEverything Claude writes now carries an invisible fingerprint. Not metadata you can strip. A statistical pattern woven into the text itself. It travels with copy-paste. It persists through some editing. And it applies globally - not just in the EU.\n\nKey findings:\n- All Claude models launched after August 2, 2026 embed imperceptible watermarks in text output\n- Driven by EU AI Act compliance but applied worldwide across API, Claude Code, and all surfaces\n- The watermark is NOT metadata - it's part of the text, surviving copy-paste into any editor\n- Files (.svg, .png, .jpg) get signed C2PA provenance metadata\n- Detection API coming but not yet public - fines for non-compliance up to 15M euros or 3% global revenue\n\nThe takeaway? Every line of code, every email draft, every document touched by Claude now carries proof of AI involvement - whether you want it there or not.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-watermark\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Anthropic #Claude #EUAIAct #Watermarking"
+    },
+    {
+      "ep": 24,
+      "branch": "ep24",
+      "slug": "deepseek-v4",
+      "title": "DeepSeek V4 Pro: First Open Model to Beat Frontier",
+      "status": "queued",
+      "release_date": "2026-08-29",
+      "linkedin_post": "Episode 24: 5-minute read. Zero fluff : DeepSeek V4 Pro: First Open Model to Beat Frontier\n\nAn open-weight model just beat a frontier closed model on a major benchmark. Not \"close to.\" Beat. DeepSeek V4 Pro scored 87.9% on Terminal-Bench 2.1 - surpassing Claude Opus 4.8 at 85.0%. MIT licensed. Self-hostable. 29x cheaper per output token.\n\nKey findings:\n- 1.6T total params (49B active per token), MoE architecture, 1M context, 384K max output\n- Terminal-Bench 2.1: 87.9% vs Claude Opus 4.8 at 85.0% - first open model to beat frontier\n- LiveCodeBench: 93.5% vs 88.8% for Opus 4.8\n- Cost: $0.87/M output tokens vs $25/M for Opus 4.8 (29x cheaper)\n- Speed: 72.4 tok/s, time to first token 1.77s vs 30.22s for Opus\n\nThe takeaway? The open-source vs closed-source gap on coding and terminal tasks just went to zero - and the cost gap is 29x.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/deepseek-v4\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #DeepSeek #OpenSource #MIT #CodingAI"
+    },
+    {
+      "ep": 25,
+      "branch": "ep25",
+      "slug": "tokenmaxxing",
+      "title": "The Death of Tokenmaxxing: Corporate AI Spending Hits a Wall",
+      "status": "queued",
+      "release_date": "2026-08-31",
+      "linkedin_post": "Episode 25: 5-minute read. Zero fluff : The Death of Tokenmaxxing: Corporate AI Spending Hits a Wall\n\nCompanies built leaderboards ranking employees by AI token consumption. Called it productivity. Uber burned their entire 2026 AI budget by April. Amazon scrapped leaderboards after employees gamed them. Enterprise AI bills climbed 320% while per-token prices dropped 98%.\n\nKey findings:\n- Uber hit its annual AI coding budget in 4 months - now caps at $1,500/month per employee per tool\n- Most AI-obsessed firms spend $7,500/employee/month; agentic tools tripled enterprise bills\n- Bain survey of 951 companies: 40% reported savings of 10% or less vs 37% who expected 10-20%\n- 89% of enterprises cannot predict AI costs to plus/minus 10% accuracy\n- New era: \"tokenminimizing\" - model routing sends routine tasks to cheap models, frontier for high-value only\n\nThe takeaway? The industry learned the hard way: AI spending without AI thinking is just spending.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/tokenmaxxing\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Tokenmaxxing #AISpending #EnterpriseAI #ROI"
+    },
+    {
+      "ep": 26,
+      "branch": "ep26",
+      "slug": "qwen-27b",
+      "title": "Qwen 3.8 27B: Frontier on Your GPU",
+      "status": "queued",
+      "release_date": "2026-09-02",
+      "linkedin_post": "Episode 26: 5-minute read. Zero fluff : Qwen 3.8 27B: Frontier on Your GPU\n\nA 27B-parameter model that fits on a $300 used GPU and performs near-frontier on coding and agentic tasks. Not a toy demo. Production-viable. Native multimodal. 262K context extendable to 1M. Apache 2.0. The \"you don't need an API\" moment.\n\nKey findings:\n- 27B dense params (every parameter activates on every token - not MoE), Apache 2.0 license\n- Runs on 17GB VRAM at 4-bit quant - fits RTX 3090 ($300 used) or any 24GB GPU\n- Native multimodal (text, image, video), 262K context window extendable to 1M via YaRN\n- 1M+ downloads in 24 hours, #3 trending on Hugging Face within hours of release\n- RTX 3090: 114 tok/s single stream; RTX 5090 with speculation: 148-200+ tok/s\n\nThe takeaway? The local-first era just became real - frontier-adjacent AI on hardware you already own, with your data never leaving your machine.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/qwen-27b\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Qwen #LocalAI #OpenSource #Apache2"
+    },
+    {
+      "ep": 27,
+      "branch": "ep27",
+      "slug": "recirculation",
+      "title": "Recirculation: Free Lunch for Frozen Transformers",
+      "status": "queued",
+      "release_date": "2026-09-05",
+      "linkedin_post": "Episode 27: 5-minute read. Zero fluff : Recirculation: Free Lunch for Frozen Transformers\n\nTake any frozen transformer. Add recurrence at inference time by leaking activations from deep layers back to shallow ones. No retraining. No fine-tuning. Get 23% better perplexity and 21% better math accuracy on GSM8k. The first genuinely free architectural upgrade.\n\nKey findings:\n- Inference-time enhancement: introduces recurrence to off-the-shelf frozen models\n- 23% perplexity reduction on Gemma3 family across a suite of datasets\n- 21% accuracy boost on GSM8k math benchmark - with zero weight changes\n- Distinct from looping (depth-only): recirculation is recurrence in BOTH depth and input step\n- Trade-off: serial processing in prefill (cannot be parallelized), but zero extra latency during generation\n\nThe takeaway? Every deployed transformer just got a free upgrade path - no retraining budget required.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/recirculation\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Transformers #Recirculation #InferenceOptimization #arXiv"
     }
   ]
 }
