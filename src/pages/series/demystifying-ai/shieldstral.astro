@@ -1,0 +1,418 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Shieldstral: Mistral's 3B Safety Classifier Beats Models 7x Its Size | Demystifying AI in 5 Minutes"
+  description="Mistral released Shieldstral, a 3B-parameter multimodal safety classifier that accepts plain-language moderation policies at inference time. No retraining. Beats models 7x its size. Runs on a single 16GB GPU. Apache 2.0."
+  image="/og-series-ep18-shieldstral.png"
+  keywords="Shieldstral, Mistral AI, Safety Classifier, Content Moderation, Guardrails, Apache 2.0, Open Weights, Ministral, NVIDIA, Open Secure AI Alliance"
+  publishedDate="2026-08-15"
+  articleSection="Demystifying AI"
+  articleTags={["Shieldstral", "Mistral", "Safety", "Content Moderation", "Guardrails", "Apache 2.0"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .compare-card {
+      transition: all 0.3s ease;
+    }
+    .compare-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .flow-step {
+      transition: all 0.3s ease;
+    }
+    .flow-step:hover {
+      transform: scale(1.02);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep18-shieldstral.png" alt="Shieldstral - Mistral's 3B safety classifier that accepts plain-language moderation policies" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 18
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <a href="https://arxiv.org/abs/2607.13854" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 7l3 5-3 5M15 7l-3 5 3 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Technical Report
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Aug 15, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Shieldstral: Mistral's 3B Safety Classifier Beats Models 7x Its Size
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Write a moderation policy in plain English. Shieldstral enforces it immediately. No retraining. No fine-tuning. 3 billion parameters, one GPU, Apache 2.0.
+      </p>
+
+      <ShareButtons title="Shieldstral: Mistral's 3B Safety Classifier Beats Models 7x Its Size" url="/series/demystifying-ai/shieldstral" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Mistral released Shieldstral, a <strong>3B-parameter safety classifier that accepts plain-language moderation policies at inference time</strong>. No retraining. Write the rule in English, enforce it immediately. It beats models 7x its size and runs on a single 16GB GPU. Apache 2.0.
+      </p>
+    </div>
+
+    <!-- Section 1: What Makes It Different -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What Makes It Different
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Traditional guardrails are <strong class="text-foreground">hardcoded category lists</strong>. Want to add a new policy? Retrain the model. Want to adjust sensitivity? Retrain again. Every change costs time, compute, and engineering hours.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Shieldstral flips this entirely. <strong class="text-foreground">The policy is an input, not a parameter.</strong>
+      </p>
+
+      <!-- Comparison: Traditional vs Shieldstral -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="compare-card rounded-xl border border-red-500/20 bg-red-500/[0.02] p-5">
+          <span class="text-[10px] font-mono text-red-400 font-bold block mb-3">TRADITIONAL GUARDRAILS</span>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-red-400/60 text-xs mt-0.5 shrink-0">&#10005;</span>
+              <span class="text-[11px] text-secondary">Fixed categories baked into model weights</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-red-400/60 text-xs mt-0.5 shrink-0">&#10005;</span>
+              <span class="text-[11px] text-secondary">Retraining required for every policy change</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-red-400/60 text-xs mt-0.5 shrink-0">&#10005;</span>
+              <span class="text-[11px] text-secondary">One-size-fits-all moderation</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-red-400/60 text-xs mt-0.5 shrink-0">&#10005;</span>
+              <span class="text-[11px] text-secondary">Large models needed for good accuracy</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-red-400/60 text-xs mt-0.5 shrink-0">&#10005;</span>
+              <span class="text-[11px] text-secondary">Weeks to deploy new safety rules</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-3">SHIELDSTRAL</span>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-cyan text-xs mt-0.5 shrink-0">&#10003;</span>
+              <span class="text-[11px] text-foreground/80"><strong>Plain-language policies</strong> at inference time</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-cyan text-xs mt-0.5 shrink-0">&#10003;</span>
+              <span class="text-[11px] text-foreground/80"><strong>No retraining</strong> needed per policy</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-cyan text-xs mt-0.5 shrink-0">&#10003;</span>
+              <span class="text-[11px] text-foreground/80"><strong>Per-request customization</strong></span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-cyan text-xs mt-0.5 shrink-0">&#10003;</span>
+              <span class="text-[11px] text-foreground/80">Only <strong>3B parameters</strong></span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-cyan text-xs mt-0.5 shrink-0">&#10003;</span>
+              <span class="text-[11px] text-foreground/80"><strong>Seconds</strong> to deploy new rules</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key innovation callout -->
+      <div class="rounded-xl border border-cyan/30 bg-cyan/[0.04] p-4 md:p-5">
+        <span class="text-[10px] font-mono text-cyan font-bold block mb-2">KEY INNOVATION</span>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+          The moderation policy is part of the prompt, not part of the model. <strong>Write "flag any content that provides instructions for circumventing software licensing" in plain English, and the model enforces it on the next request.</strong> Different applications can run different policies through the same model simultaneously.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">3B</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Parameters</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">7x</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Size Advantage</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">16GB</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Single GPU</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-cyan">Apache 2.0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">License</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">12</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Languages</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-cyan">Multimodal</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Text + Images</div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Built on the <strong class="text-foreground">Ministral 3 family</strong> - Mistral's line of models designed for edge devices. Released August 4, 2026 under Apache 2.0 with a technical report posted July 28 on arXiv.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Shieldstral is also the <strong class="text-foreground">inaugural member of the Open Secure AI Alliance</strong>, formed July 27 with NVIDIA. The alliance aims to build open safety infrastructure for the entire AI ecosystem.
+      </p>
+    </div>
+
+    <!-- Section 3: How It Works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> How It Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The input is 3 things: an instruction, a natural-language policy, and the content to evaluate. The output is a <strong class="text-foreground">continuous safety score between 0 and 1</strong>, derived from the yes/no logit probabilities.
+      </p>
+
+      <!-- Flow diagram -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center mb-6">
+        <div class="flow-step rounded-xl border border-cyan/30 bg-cyan/[0.05] p-4">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-2">INPUT</span>
+          <div class="space-y-2">
+            <div class="rounded-lg bg-background/50 border border-border p-2">
+              <span class="text-[10px] font-mono text-foreground/70 block">Policy</span>
+              <span class="text-[9px] text-secondary">"Flag content describing how to bypass authentication systems"</span>
+            </div>
+            <div class="rounded-lg bg-background/50 border border-border p-2">
+              <span class="text-[10px] font-mono text-foreground/70 block">Content</span>
+              <span class="text-[9px] text-secondary">User message or AI response to evaluate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center">
+          <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+        <div class="flex md:hidden justify-center py-1">
+          <svg class="w-5 h-5 text-cyan rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+
+        <div class="flow-step rounded-xl border-2 border-cyan/40 bg-cyan/[0.06] p-4 text-center">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-2">SHIELDSTRAL</span>
+          <div class="text-sm font-bold text-cyan">3B Parameters</div>
+          <div class="text-[9px] text-secondary mt-1">Single 16GB GPU</div>
+        </div>
+
+        <div class="hidden md:flex items-center">
+          <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+        <div class="flex md:hidden justify-center py-1">
+          <svg class="w-5 h-5 text-cyan rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+
+        <div class="flow-step rounded-xl border border-cyan/30 bg-cyan/[0.05] p-4 text-center">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-2">OUTPUT</span>
+          <div class="text-2xl font-bold text-cyan">0.94</div>
+          <div class="text-[9px] text-secondary mt-1">Safety Score (0 = safe, 1 = unsafe)</div>
+        </div>
+      </div>
+
+      <!-- Technical detail -->
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-secondary">Example: Custom moderation policy</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-cyan">instruction</span> = <span class="text-green">"Evaluate if the content violates the policy."</span>
+
+<span class="text-cyan">policy</span> = <span class="text-green">"""</span>
+<span class="text-green">Flag any content that:</span>
+<span class="text-green">- Provides instructions for bypassing DRM</span>
+<span class="text-green">- Describes methods to circumvent paywalls</span>
+<span class="text-green">- Explains how to pirate software</span>
+<span class="text-green">"""</span>
+
+<span class="text-cyan">content</span> = user_message  <span class="text-secondary"># content to evaluate</span>
+
+<span class="text-secondary"># Shieldstral returns logit probabilities</span>
+<span class="text-secondary"># P(unsafe) derived from yes/no token logits</span>
+<span class="text-cyan">score</span> = shieldstral.classify(instruction, policy, content)
+<span class="text-secondary"># score = 0.02 (safe) or 0.97 (violates policy)</span></pre>
+      </div>
+
+      <!-- How the score works -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">Continuous Score</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            Not a binary flag. <strong class="text-foreground">A probability between 0 and 1</strong> tells you how confident the model is that the content violates the policy. Set your own threshold per application.
+          </p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-elevated p-5">
+          <div class="text-lg mb-2">Logit-Based</div>
+          <p class="text-xs text-secondary leading-relaxed">
+            The score comes from the <strong class="text-foreground">yes/no token logit probabilities</strong>. The model generates a "yes" or "no" answer to "does this violate the policy?" and the score is the softmax probability of "yes."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Why It Matters Now -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Why It Matters Now
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        The Hugging Face hack exposed a hard truth: <strong class="text-foreground">defenders need safety models they can run locally, control fully, and update instantly</strong>. API-dependent guardrails become a single point of failure when the vendor's infrastructure is compromised.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        After a week of AI agents going rogue, the timing of Shieldstral is not accidental.
+      </p>
+
+      <!-- Why open matters for safety -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-lg bg-cyan/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </span>
+          </div>
+          <span class="text-xs font-semibold text-foreground block mb-1">Local Control</span>
+          <p class="text-[11px] text-secondary mb-0">Runs on your hardware. No API calls leaving your network. No third-party dependency that can be compromised or go offline.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-lg bg-cyan/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+          </div>
+          <span class="text-xs font-semibold text-foreground block mb-1">Instant Updates</span>
+          <p class="text-[11px] text-secondary mb-0">New threat vector discovered? Write a new policy sentence and deploy it in seconds. No retraining cycle. No waiting for a vendor patch.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-lg bg-cyan/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </span>
+          </div>
+          <span class="text-xs font-semibold text-foreground block mb-1">Open Weights</span>
+          <p class="text-[11px] text-secondary mb-0">Apache 2.0 means full audit access. Inspect the weights. Verify the behavior. <strong>Trust but verify</strong> is only possible with open models.</p>
+        </div>
+      </div>
+
+      <!-- Context callout -->
+      <div class="rounded-xl border border-cyan/30 bg-cyan/[0.04] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-md bg-cyan/15 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+          <span class="text-xs font-mono text-cyan font-bold">THE TIMING</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-2">
+          <strong>July 27:</strong> Open Secure AI Alliance formed with NVIDIA. <strong>July 28:</strong> Technical report posted to arXiv. <strong>August 4:</strong> Shieldstral released under Apache 2.0.
+        </p>
+        <p class="text-[11px] text-secondary mb-0">
+          This was not a rushed response to the Hugging Face breach. The timeline shows <strong>deliberate coordination</strong> between the alliance formation and the model release. Mistral positioned Shieldstral as the first concrete deliverable of a broader open safety initiative.
+        </p>
+      </div>
+
+      <!-- The lesson -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <span class="text-[10px] font-mono text-cyan block mb-3">THE LESSON FROM HF</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">Before the incident</span>
+            <p class="text-xs text-secondary mb-0">Most teams relied on API-based safety filters from a handful of providers. When those providers get breached, your safety layer goes down with them. <strong class="text-foreground">Single point of failure.</strong></p>
+          </div>
+          <div>
+            <span class="text-sm font-semibold text-foreground block mb-1">The fix</span>
+            <p class="text-xs text-secondary mb-0"><strong class="text-foreground">Have an open model ready before the incident.</strong> A model you control, you host, you can update in seconds. Shieldstral fits on a single consumer GPU. No excuses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        After a week of AI agents going rogue, the industry needs <strong>safety tools that defenders actually control</strong>. Shieldstral is 3B parameters, runs on one GPU, accepts policies in plain English, and is fully open-weights. The lesson from the Hugging Face hack was clear: have an open model ready before the incident. <strong>Shieldstral is that model for content safety.</strong>
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={18} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
