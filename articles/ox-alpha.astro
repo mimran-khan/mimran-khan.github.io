@@ -1,0 +1,435 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="OX Alpha: The Ghost Model Nobody Can Trace | Demystifying AI in 5 Minutes"
+  description="An anonymous frontier model appeared on OpenRouter with 1M context, multimodal input, and zero cost. Nobody knows who built it. It is already carrying billions of tokens from Claude Code users."
+  image="/og-series-ep22-ox-alpha.png"
+  keywords="OX Alpha, OpenRouter, Ghost Model, Anonymous AI, Frontier Model, stealth/ox-alpha, GLM, Multimodal, Free AI, DeepSWE, Agentic Coding"
+  publishedDate="2026-08-24"
+  articleSection="Demystifying AI"
+  articleTags={["OX Alpha", "OpenRouter", "Ghost Model", "Frontier AI", "Anonymous", "Multimodal"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .mystery-card {
+      transition: all 0.3s ease;
+    }
+    .mystery-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(63, 185, 80, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep22-ox-alpha.png" alt="OX Alpha - The Ghost Model Nobody Can Trace" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 22
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Aug 24, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        OX Alpha: The Ghost Model Nobody Can Trace
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Someone dropped a frontier model on OpenRouter anonymously. 1M context window. Multimodal. Completely free. Nobody knows who built it. It is already carrying billions of tokens from agentic coding tools.
+      </p>
+
+      <ShareButtons title="OX Alpha: The Ghost Model Nobody Can Trace" url="/series/demystifying-ai/ox-alpha" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        On Aug 20, 2026, an anonymous model called <strong>OX Alpha</strong> appeared on OpenRouter under <code class="text-[10px] bg-green/10 text-green px-1 rounded">stealth/ox-alpha</code>. It has a <strong>1M token context window</strong>, accepts text, image, and video input, and costs <strong>$0 per million tokens</strong>. The operator claims capacity for <strong>100 trillion tokens per day</strong>. Community sleuths link it to the GLM family based on tokenizer behavior. Nobody has confirmed anything. The AI industry's first true ghost model.
+      </p>
+    </div>
+
+    <!-- Section 1: The Drop -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Drop
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        No announcement. No blog post. No company name. On August 20, a model just <strong>appeared on OpenRouter</strong> with a slug that said everything: <code class="text-[10px] bg-green/10 text-green px-1 rounded">stealth/ox-alpha</code>. Within hours, it was routing traffic from Claude Code users and Hermes Agent sessions.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">OPENROUTER MODEL CARD</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-green font-bold">Model:</span>        <span class="text-foreground">stealth/ox-alpha</span>
+<span class="text-green font-bold">Provider:</span>     <span class="text-foreground">Anonymous third-party</span>
+<span class="text-green font-bold">Context:</span>      <span class="text-foreground">1,000,000 tokens</span>
+<span class="text-green font-bold">Max Output:</span>   <span class="text-foreground">131,072 tokens</span>
+<span class="text-green font-bold">Modalities:</span>   <span class="text-foreground">Text, Image, Video (input)</span>
+<span class="text-green font-bold">Price:</span>        <span class="text-foreground">$0.00 / $0.00 per million tokens</span>
+<span class="text-green font-bold">Status:</span>       <span class="text-foreground">Preview</span>
+<span class="text-green font-bold">Developer:</span>    <span class="text-secondary">???</span></pre>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="mystery-card rounded-xl border border-green/20 bg-green/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-green"></span>
+            <span class="text-[10px] font-mono text-green font-bold">WHAT IS KNOWN</span>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Live on OpenRouter</strong> and OpenCode right now</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Completely free</strong> during preview period</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Multimodal</strong> - text, image, and video input</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Prompts retained</strong> by provider, not used for training</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mystery-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">WHAT IS UNKNOWN</span>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Who built it</strong> - no company, no team, no paper</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Model architecture</strong> - no technical details released</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Training data</strong> - zero transparency</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-400 text-xs mt-0.5">&#10007;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-red-400">Business model</strong> - free forever? Or bait?</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        This is not a beta launch. This is a <strong>frontier-class model dropped anonymously</strong> onto the busiest AI routing platform in the world. No press release. No waitlist. Just a slug and a million-token context window.
+      </p>
+    </div>
+
+    <!-- Section 2: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        OX Alpha is not a toy. The performance numbers are real, and the infrastructure behind it is massive. Here is what independent testing and the OpenRouter dashboard reveal.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">1M</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Context Window</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">131K</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Max Output Tokens</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">$0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Per Million Tokens</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">80%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">DeepSWE Score</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-green">99.99%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Uptime</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-lg md:text-xl font-bold text-green">100T</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Tokens/Day Capacity</div>
+        </div>
+      </div>
+
+      <!-- Performance Details -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">Metric</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">OX Alpha</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bg-green/[0.02]">
+              <td class="p-3 text-foreground/80">Throughput</td>
+              <td class="p-3 text-center font-bold text-green">22 tok/s</td>
+              <td class="p-3 text-center text-secondary text-xs">Competitive with frontier models</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Latency</td>
+              <td class="p-3 text-center font-bold text-green">5.74s</td>
+              <td class="p-3 text-center text-secondary text-xs">Time to first token</td>
+            </tr>
+            <tr class="bg-green/[0.02]">
+              <td class="p-3 text-foreground/80">Cache Hit Rate</td>
+              <td class="p-3 text-center font-bold text-green">~67%</td>
+              <td class="p-3 text-center text-secondary text-xs">Prompt caching active</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Claimed Capacity</td>
+              <td class="p-3 text-center font-bold text-green">~1.16B tok/s</td>
+              <td class="p-3 text-center text-secondary text-xs">100T tokens/day</td>
+            </tr>
+            <tr class="bg-green/[0.02]">
+              <td class="p-3 text-foreground/80">DeepSWE</td>
+              <td class="p-3 text-center font-bold text-green">80%</td>
+              <td class="p-3 text-center text-secondary text-xs">Independent, unverified for all repos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile performance cards -->
+      <div class="md:hidden space-y-3 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+          <div class="grid grid-cols-2 gap-3 text-center text-[10px] font-mono">
+            <div><span class="text-green font-bold block text-sm">22 tok/s</span><span class="text-secondary">throughput</span></div>
+            <div><span class="text-green font-bold block text-sm">5.74s</span><span class="text-secondary">latency</span></div>
+            <div><span class="text-green font-bold block text-sm">~67%</span><span class="text-secondary">cache hit rate</span></div>
+            <div><span class="text-green font-bold block text-sm">80%</span><span class="text-secondary">DeepSWE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green">SCALE CONTEXT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          <strong>100 trillion tokens per day</strong> translates to roughly <strong>1.16 billion tokens per second</strong>. For context, that is enough capacity to serve every Claude Code and Hermes Agent user simultaneously. Whoever is behind this has serious infrastructure.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: Who Built This? -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Who Built This?
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Nobody knows. And that is exactly the point. The AI industry has never seen a <strong>frontier-class model launch without attribution</strong>. Every theory so far is speculation.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="mystery-card rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">01</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">THE GLM THEORY</span>
+              <span class="text-[10px] text-secondary">Community consensus (unconfirmed)</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Multiple community members report the <strong>tokenizer fingerprint matches the GLM family</strong>. Video input behavior is also consistent with known GLM capabilities. If true, this could be a Zhipu AI model deployed through a proxy. But Zhipu has not claimed it, and the operator has not confirmed anything.
+          </p>
+        </div>
+
+        <div class="mystery-card rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">02</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">THE STEALTH STARTUP THEORY</span>
+              <span class="text-[10px] text-secondary">Plausible but no evidence</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            A well-funded stealth startup using OpenRouter as a <strong>live stress test</strong> before a formal launch. The "stealth" slug supports this reading. Free access generates real-world usage data at scale without marketing spend.
+          </p>
+        </div>
+
+        <div class="mystery-card rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">03</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">THE DATA PLAY</span>
+              <span class="text-[10px] text-secondary">The uncomfortable question</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Free frontier model plus "prompts retained by provider" equals <strong>massive prompt collection at zero marginal cost</strong>. Agentic coding tools route complex, multi-step prompts. That is extremely valuable training signal. The operator's privacy policy says prompts are not used for training - but the operator is anonymous.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">THE TRUST PROBLEM</span>
+        </div>
+        <p class="text-[11px] text-secondary mb-0">
+          Every other frontier model has a company behind it. A legal entity. A terms of service you can enforce. OX Alpha has <strong>an anonymous operator and a privacy policy nobody can hold anyone to</strong>. The model performs well. The question is whether "performs well" is enough when you cannot verify who receives your prompts.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: Why This Changes Everything -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Why This Changes Everything
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        OX Alpha is not just a model. It is a <strong>category event</strong>. The AI industry assumed frontier models required public companies, billion-dollar funding rounds, and marketing campaigns. That assumption just died.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-green/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Anonymous frontier is here</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">Training a frontier model no longer requires revealing who you are. Routing platforms like OpenRouter enable <strong>zero-attribution launches</strong>. Expect more ghost models.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-green/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Free kills pricing</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">A 1M-context multimodal model at $0 per token undercuts every commercial API. Subsidized or not, it forces competitors to justify their pricing.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-green/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Regulation cannot keep up</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">The EU AI Act requires frontier model providers to identify themselves. OX Alpha is a <strong>live test case</strong> for whether that framework actually works when the provider is a ghost.</p>
+        </div>
+        <div class="feature-card rounded-xl border border-green/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Agentic coding is the battleground</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">OX Alpha's strengths - coding, frontend, sustained agentic work - are exactly what <strong>Claude Code and Cursor users</strong> need. This is a targeted play for the highest-value segment.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">TRY IT YOURSELF</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary"># Via OpenRouter API</span>
+<span class="text-green font-bold">curl</span> <span class="text-foreground">https://openrouter.ai/api/v1/chat/completions</span> <span class="text-secondary">\</span>
+  <span class="text-green">-H</span> <span class="text-foreground">"Authorization: Bearer $OPENROUTER_API_KEY"</span> <span class="text-secondary">\</span>
+  <span class="text-green">-H</span> <span class="text-foreground">"Content-Type: application/json"</span> <span class="text-secondary">\</span>
+  <span class="text-green">-d</span> <span class="text-foreground">'{'{'}
+    "model": "stealth/ox-alpha",
+    "messages": [
+      {'{'}"role": "user", "content": "Build a React dashboard with auth"{'}'}
+    ]
+  {'}'}'</span>
+
+<span class="text-secondary"># Cost: $0.00</span>
+<span class="text-secondary"># Context: 1,000,000 tokens</span>
+<span class="text-secondary"># Developer: Unknown</span></pre>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        OX Alpha is the AI industry's first ghost model. A frontier-class system with <strong>no company, no paper, no attribution</strong> - just a slug on OpenRouter and enough infrastructure to serve 100 trillion tokens per day. The performance is real. The 80% DeepSWE score is promising. The $0 price tag is aggressive. But the fundamental question remains: <strong>should you route your code through a model when you cannot verify who receives it?</strong> The answer depends on your threat model. The fact that the question even exists is the story.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={22} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
