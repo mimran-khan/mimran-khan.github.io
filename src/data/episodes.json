@@ -250,5 +250,71 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep21-mixture-of-kittens.png"
+  },
+  {
+    "number": 22,
+    "slug": "ox-alpha",
+    "title": "OX Alpha: The Ghost Model Nobody Can Trace",
+    "hook": "Someone dropped a frontier model on OpenRouter anonymously. 1M context window. Multimodal. Completely free. Nobody knows who built it.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep22-ox-alpha.png"
+  },
+  {
+    "number": 23,
+    "slug": "claude-watermark",
+    "title": "Claude's Invisible Ink: Anthropic Watermarks All Output",
+    "hook": "Everything Claude writes now carries an invisible fingerprint. Not just in the EU - everywhere, for everyone. The watermark survives copy-paste.",
+    "category": "hot-topic",
+    "day": "Wed",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep23-claude-watermark.png"
+  },
+  {
+    "number": 24,
+    "slug": "deepseek-v4",
+    "title": "DeepSeek V4 Pro: First Open Model to Beat Frontier",
+    "hook": "An open-weight model just beat a frontier closed model on a major coding benchmark for the first time. MIT licensed. 29x cheaper.",
+    "category": "new-release",
+    "day": "Sat",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep24-deepseek-v4.png"
+  },
+  {
+    "number": 25,
+    "slug": "tokenmaxxing",
+    "title": "The Death of Tokenmaxxing: Corporate AI Spending Hits a Wall",
+    "hook": "Uber burned their entire 2026 AI coding budget in 4 months. Amazon scrapped their internal rankings. The great correction is here.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep25-tokenmaxxing.png"
+  },
+  {
+    "number": 26,
+    "slug": "qwen-27b",
+    "title": "Qwen 3.8 27B: Frontier on Your GPU",
+    "hook": "Alibaba released a 27B dense model that fits on a $300 used GPU and scores near-frontier on coding and agentic benchmarks. Apache 2.0.",
+    "category": "new-release",
+    "day": "Wed",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep26-qwen-27b.png"
+  },
+  {
+    "number": 27,
+    "slug": "recirculation",
+    "title": "Recirculation: Free Lunch for Frozen Transformers",
+    "hook": "Add recurrence to any frozen transformer at inference time. 23% better perplexity, 21% better math accuracy. No retraining. No fine-tuning.",
+    "category": "research-paper",
+    "day": "Sat",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep27-recirculation.png"
   }
 ]
