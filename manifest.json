@@ -226,16 +226,18 @@
       "branch": "ep22",
       "slug": "ox-alpha",
       "title": "OX Alpha: The Ghost Model",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-08-24",
-      "linkedin_post": "Episode 22: 5-minute read. Zero fluff : OX Alpha: The Ghost Model\n\nSomeone dropped a frontier-class AI model on OpenRouter. Anonymously. For free. Nobody knows who built it. It's already carrying billions of tokens from Claude Code and Hermes Agent users - and nobody can confirm who's behind it.\n\nKey findings:\n- 1M token context window, 131K max output, multimodal (text/image/video) - frontier specs\n- Completely free during preview ($0/M input, $0/M output) with 99.99% uptime\n- 80% on DeepSWE (independent score) - competitive with named frontier models\n- Community links it to the GLM family based on tokenizer behavior - unconfirmed\n- Operator claims capacity for 100 trillion tokens/day (1.16 billion tokens/second)\n\nThe takeaway? The AI industry just got its first ghost model - and it's good enough that thousands of developers are routing production traffic through an anonymous provider.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/ox-alpha\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #OpenRouter #FrontierAI #StealthModel"
+      "linkedin_post": "Episode 22: 5-minute read. Zero fluff : OX Alpha: The Ghost Model\n\nSomeone dropped a frontier-class AI model on OpenRouter. Anonymously. For free. Nobody knows who built it. It's already carrying billions of tokens from Claude Code and Hermes Agent users - and nobody can confirm who's behind it.\n\nKey findings:\n- 1M token context window, 131K max output, multimodal (text/image/video) - frontier specs\n- Completely free during preview ($0/M input, $0/M output) with 99.99% uptime\n- 80% on DeepSWE (independent score) - competitive with named frontier models\n- Community links it to the GLM family based on tokenizer behavior - unconfirmed\n- Operator claims capacity for 100 trillion tokens/day (1.16 billion tokens/second)\n\nThe takeaway? The AI industry just got its first ghost model - and it's good enough that thousands of developers are routing production traffic through an anonymous provider.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/ox-alpha\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #OpenRouter #FrontierAI #StealthModel",
+      "published_on": "2026-08-23",
+      "tag": "release/ep22"
     },
     {
       "ep": 23,
       "branch": "ep23",
       "slug": "claude-watermark",
       "title": "Claude's Invisible Ink: Anthropic Watermarks All Output",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-08-26",
       "linkedin_post": "Episode 23: 5-minute read. Zero fluff : Claude's Invisible Ink: Anthropic Watermarks All Output\n\nEverything Claude writes now carries an invisible fingerprint. Not metadata you can strip. A statistical pattern woven into the text itself. It travels with copy-paste. It persists through some editing. And it applies globally - not just in the EU.\n\nKey findings:\n- All Claude models launched after August 2, 2026 embed imperceptible watermarks in text output\n- Driven by EU AI Act compliance but applied worldwide across API, Claude Code, and all surfaces\n- The watermark is NOT metadata - it's part of the text, surviving copy-paste into any editor\n- Files (.svg, .png, .jpg) get signed C2PA provenance metadata\n- Detection API coming but not yet public - fines for non-compliance up to 15M euros or 3% global revenue\n\nThe takeaway? Every line of code, every email draft, every document touched by Claude now carries proof of AI involvement - whether you want it there or not.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-watermark\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Anthropic #Claude #EUAIAct #Watermarking"
     },
