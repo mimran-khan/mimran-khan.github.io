@@ -1,0 +1,518 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Claude's Invisible Ink: Anthropic Watermarks All Output | Demystifying AI in 5 Minutes"
+  description="Anthropic now watermarks all text output from Claude models. The watermark is woven into word selection patterns, survives copy-paste, and applies globally. Driven by the EU AI Act."
+  image="/og-series-ep23-claude-watermark.png"
+  keywords="Anthropic, Claude, Watermark, EU AI Act, Article 50, C2PA, AI Detection, Text Watermarking, Claude Code, Invisible Ink, AI Regulation"
+  publishedDate="2026-08-26"
+  articleSection="Demystifying AI"
+  articleTags={["Anthropic", "Claude", "Watermark", "EU AI Act", "C2PA", "AI Detection", "Regulation"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .timeline-card {
+      transition: all 0.3s ease;
+    }
+    .timeline-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(63, 185, 80, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep23-claude-watermark.png" alt="Claude's Invisible Ink - Anthropic Watermarks All Output" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 23
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Aug 26, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Claude's Invisible Ink: Anthropic Watermarks All Output
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Everything Claude writes now carries an invisible fingerprint. Not just in the EU - everywhere, for everyone. The watermark survives copy-paste. But can it survive the real world?
+      </p>
+
+      <ShareButtons title="Claude's Invisible Ink: Anthropic Watermarks All Output" url="/series/demystifying-ai/claude-watermark" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Since August 2, 2026, Anthropic watermarks <strong>all text output</strong> from Claude models. The watermark is not metadata - it is <strong>woven into the statistical patterns of word selection</strong>. It survives copy-paste. It applies to the API, Claude Code, Claude Cowork, and Claude Tag. Driven by <strong>EU AI Act Article 50(2)</strong>, but deployed globally. Files get C2PA provenance metadata. A detection API is coming. Fines for non-compliance: up to <strong>15 million euros or 3% of global turnover</strong>.
+      </p>
+    </div>
+
+    <!-- Section 1: What Changed -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What Changed on August 2
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        No opt-in. No toggle. No announcement until after it was live. Every Claude model launched on or after August 2, 2026 now <strong>embeds a statistical watermark</strong> into every text response. Ars Technica called it "Claude's new Scarlet Letter."
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Before -->
+        <div class="feature-card rounded-xl border border-red-400/20 bg-red-400/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-red-400/10 border border-red-400/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <span class="text-xs font-bold text-red-400">Before Aug 2</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#8226;</span> Plain text output
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#8226;</span> No provenance signal
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#8226;</span> Copy-paste = untraceable
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-foreground/40 shrink-0">&#8226;</span> Files without metadata
+            </div>
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">After Aug 2</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> <strong class="text-green">Statistical watermark</strong> in all text
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> <strong class="text-green">C2PA metadata</strong> on files
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> Copy-paste = <strong class="text-green">watermark travels</strong>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-green/60 shrink-0">&#10003;</span> Detection API <strong class="text-green">coming soon</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs font-mono text-green font-bold mb-3">WHERE THE WATERMARK APPLIES:</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xs font-bold text-green mb-1">Claude Platform</div>
+          <div class="text-[10px] text-secondary font-mono">API</div>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xs font-bold text-green mb-1">Claude Code</div>
+          <div class="text-[10px] text-secondary font-mono">Agentic Coding</div>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xs font-bold text-green mb-1">Claude Cowork</div>
+          <div class="text-[10px] text-secondary font-mono">Collaboration</div>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xs font-bold text-green mb-1">Claude Tag</div>
+          <div class="text-[10px] text-secondary font-mono">Consumer</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green">KEY DETAIL</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          The watermark is <strong>not opt-in</strong>. There is no setting to disable it. Anthropic chose to apply it globally rather than limiting it to EU-based requests. Every Claude user on the planet is affected.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: How It Works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> How the Watermark Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is not a visible stamp or metadata tag. The watermark is <strong>embedded in the text itself</strong> through subtle statistical patterns in how words are selected during generation.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">WATERMARK MECHANISM (SIMPLIFIED)</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-green font-bold">Normal generation:</span>
+<span class="text-secondary">  Token candidates: ["The", "A", "This", "One"]</span>
+<span class="text-secondary">  Selection: purely by probability distribution</span>
+<span class="text-secondary">  Result: "The quick brown fox..."</span>
+
+<span class="text-green font-bold">Watermarked generation:</span>
+<span class="text-secondary">  Token candidates: ["The", "A", "This", "One"]</span>
+<span class="text-green">  Selection: biased toward specific tokens using secret key</span>
+<span class="text-green">  Result: "A quick brown fox..."  (subtly different word choices)</span>
+
+<span class="text-green font-bold">Detection:</span>
+<span class="text-secondary">  Analyzer checks: do token choices correlate with the key?</span>
+<span class="text-green">  If correlation exceeds threshold -> AI-generated</span>
+<span class="text-secondary">  Short passages may fall below threshold</span></pre>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-green"></span>
+            <span class="text-[10px] font-mono text-green font-bold">TEXT WATERMARK</span>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Imperceptible</strong> - humans cannot see it</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Survives copy-paste</strong> - travels with text</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">No identifying info</strong> - cannot trace to a user</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Confidence scales</strong> with text length</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-green"></span>
+            <span class="text-[10px] font-mono text-green font-bold">FILE WATERMARK (C2PA)</span>
+          </div>
+          <ul class="space-y-1.5 mb-0">
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary">Applies to <strong class="text-green">.svg, .png, .jpg</strong> files</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Signed provenance</strong> metadata</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Industry standard</strong> - C2PA Coalition</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green text-xs mt-0.5">&#10003;</span>
+              <span class="text-[11px] text-secondary"><strong class="text-green">Verifiable</strong> with existing C2PA tools</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">KNOWN LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Short passages</strong> may not carry a detectable signal</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Paraphrasing or rewriting</strong> can remove the watermark</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Detection API</strong> not yet publicly available</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Only "new" models</strong> - grace period until Dec 2026 for older models</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 3: The EU AI Act Connection -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The EU AI Act Connection
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is not Anthropic being proactive about safety. This is <strong>regulatory compliance</strong>. The EU AI Act requires AI providers to watermark generated content. Anthropic chose to apply it worldwide rather than geo-fencing.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">EU AI ACT - ARTICLE 50(2)</span>
+        </div>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-green font-bold">REQUIREMENT:</span>
+<span class="text-secondary">  Providers of general-purpose AI systems shall</span>
+<span class="text-green">  mark the output of AI systems in a machine-readable format</span>
+<span class="text-secondary">  and ensure their technical solutions are effective,</span>
+<span class="text-secondary">  interoperable, robust and reliable.</span>
+
+<span class="text-green font-bold">SCOPE:</span>
+<span class="text-secondary">  Text, audio, image, and video content</span>
+<span class="text-secondary">  Generated by AI systems</span>
+
+<span class="text-green font-bold">PENALTY FOR NON-COMPLIANCE:</span>
+<span class="text-green">  Up to 15,000,000 EUR</span>
+<span class="text-secondary">  or 3% of global annual turnover</span>
+<span class="text-secondary">  (whichever is higher)</span>
+
+<span class="text-green font-bold">GRACE PERIOD:</span>
+<span class="text-secondary">  Models released before Aug 2, 2026: until Dec 2026</span>
+<span class="text-green">  Models released on/after Aug 2, 2026: immediate</span></pre>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-lg md:text-xl font-bold text-green">190+</div>
+          <div class="text-[10px] text-secondary font-mono">Code of Practice Signatories</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-lg md:text-xl font-bold text-green">15M</div>
+          <div class="text-[10px] text-secondary font-mono">Max Fine (EUR)</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-lg md:text-xl font-bold text-green">Dec 26</div>
+          <div class="text-[10px] text-secondary font-mono">Grace Period Ends</div>
+        </div>
+      </div>
+
+      <div class="space-y-3 mb-6">
+        <div class="timeline-card rounded-xl border border-green/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">Anthropic went global - not just EU</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            The regulation only requires watermarking for EU users. Anthropic chose to <strong>apply it everywhere</strong>. This avoids the technical complexity of geo-fencing and positions Anthropic as the compliance-first provider. It also means <strong>every developer using the Claude API worldwide</strong> now ships watermarked content, whether they know it or not.
+          </p>
+        </div>
+        <div class="timeline-card rounded-xl border border-green/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">190+ AI providers signed the Code of Practice</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            Anthropic is not alone. Over <strong>190 organizations</strong> signed the EU AI Pact's Code of Practice. Google, Meta, Microsoft, and others are expected to implement similar watermarking. Anthropic just moved first.
+          </p>
+        </div>
+        <div class="timeline-card rounded-xl border border-green/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">Previously released models get a grace period</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            Models released before August 2 have until <strong>December 2026</strong> to comply. This means older Claude versions in production are not yet watermarked. The clock is ticking.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Can It Survive the Real World? -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Can It Survive the Real World?
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Here is the uncomfortable truth: <strong>text watermarks are fragile</strong>. Researchers have been skeptical for years. A Nature article on AI watermarking concluded that current techniques face fundamental trade-offs between robustness, quality, and detectability.
+      </p>
+
+      <!-- Survival scenarios -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">Scenario</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Watermark Survives?</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bg-green/[0.02]">
+              <td class="p-3 text-foreground/80">Copy-paste full text</td>
+              <td class="p-3 text-center font-bold text-green">Yes</td>
+              <td class="p-3 text-center text-secondary text-xs">Watermark is in word patterns, not formatting</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Light editing (typos, additions)</td>
+              <td class="p-3 text-center font-bold text-green">Likely</td>
+              <td class="p-3 text-center text-secondary text-xs">Signal degrades but persists with enough text</td>
+            </tr>
+            <tr class="bg-green/[0.02]">
+              <td class="p-3 text-foreground/80">Heavy paraphrasing</td>
+              <td class="p-3 text-center font-bold text-red-400">No</td>
+              <td class="p-3 text-center text-secondary text-xs">Rewriting replaces the biased token choices</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Translation to another language</td>
+              <td class="p-3 text-center font-bold text-red-400">No</td>
+              <td class="p-3 text-center text-secondary text-xs">Different tokens destroy the signal</td>
+            </tr>
+            <tr class="bg-green/[0.02]">
+              <td class="p-3 text-foreground/80">Short passages (1-2 sentences)</td>
+              <td class="p-3 text-center font-bold text-yellow-400">Unlikely</td>
+              <td class="p-3 text-center text-secondary text-xs">Not enough tokens for statistical confidence</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Code output</td>
+              <td class="p-3 text-center font-bold text-yellow-400">Unclear</td>
+              <td class="p-3 text-center text-secondary text-xs">Code has less word-choice flexibility</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile survival cards -->
+      <div class="md:hidden space-y-3 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold text-foreground">Copy-paste full text</span>
+            <span class="text-[10px] font-mono text-green font-bold">SURVIVES</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Watermark is in word patterns, not formatting</p>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold text-foreground">Light editing</span>
+            <span class="text-[10px] font-mono text-green font-bold">LIKELY</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Signal degrades but persists with enough text</p>
+        </div>
+        <div class="rounded-xl border border-red-400/20 bg-red-400/[0.03] p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold text-foreground">Heavy paraphrasing</span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">REMOVED</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Rewriting replaces the biased token choices</p>
+        </div>
+        <div class="rounded-xl border border-red-400/20 bg-red-400/[0.03] p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold text-foreground">Translation</span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">REMOVED</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Different tokens destroy the signal</p>
+        </div>
+        <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold text-foreground">Short passages</span>
+            <span class="text-[10px] font-mono text-yellow-400 font-bold">UNLIKELY</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Not enough tokens for statistical confidence</p>
+        </div>
+        <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold text-foreground">Code output</span>
+            <span class="text-[10px] font-mono text-yellow-400 font-bold">UNCLEAR</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Code has less word-choice flexibility</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-green/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">Privacy by design</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">The watermark <strong>carries no identifying information</strong>. It cannot trace output to a specific person, organization, or conversation. It only answers one question: "Was this generated by Claude?"</p>
+        </div>
+        <div class="feature-card rounded-xl border border-green/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-6 h-6 rounded-md bg-green/10 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            <span class="text-xs font-semibold text-foreground">The developer problem</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">If Claude Code generates a function, is that code watermarked? Can a detector flag an entire codebase as AI-generated? Anthropic has not clarified how the watermark interacts with <strong>code generation at scale</strong>.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green">NATURE (2026)</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed italic">
+          "Current watermarking techniques face inherent trade-offs. A watermark robust enough to survive editing may degrade output quality. A watermark invisible enough to preserve quality may be trivially removed."
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Anthropic just made every Claude output carry a fingerprint. The EU AI Act forced their hand, and they chose global deployment over geo-fencing. The watermark <strong>survives copy-paste but dies on paraphrase</strong>. It cannot identify users, only the model. Short text slips through. Code output is a gray area. Researchers are skeptical about robustness. But none of that matters to the regulation - <strong>compliance is binary, and the fines are 15 million euros</strong>. Every other major AI provider will follow within months. The age of unmarked AI text is over - at least on paper.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={23} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
