@@ -1,0 +1,540 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Qwen 3.8 27B: Frontier on Your GPU | Demystifying AI in 5 Minutes"
+  description="Alibaba released Qwen 3.8 27B - a 27B dense multimodal model that fits on a $300 used RTX 3090 at 4-bit quantization and scores near frontier on coding and agentic benchmarks. Apache 2.0."
+  image="/og-series-ep26-qwen-27b.png"
+  keywords="Qwen 3.8, Qwen 27B, Alibaba, Local LLM, GGUF, Ollama, vLLM, Multimodal, Apache 2.0, RTX 3090, RTX 4090, YaRN, MTP, Speculative Decoding"
+  publishedDate="2026-09-02"
+  articleSection="Demystifying AI"
+  articleTags={["Qwen 3.8", "Local LLM", "Open Source", "Multimodal", "Apache 2.0"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .hw-card {
+      transition: all 0.3s ease;
+    }
+    .hw-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep26-qwen-27b.png" alt="Qwen 3.8 27B - Frontier on Your GPU" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 26
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <a href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.5 3.5a1 1 0 011 0l6.5 3.75a1 1 0 01.5.866v7.5a1 1 0 01-.5.866l-6.5 3.75a1 1 0 01-1 0l-6.5-3.75a1 1 0 01-.5-.866v-7.5a1 1 0 01.5-.866l6.5-3.75z"/></svg>
+          HuggingFace
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Sep 2, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Qwen 3.8 27B: Frontier on Your GPU
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Alibaba just released a 27B dense model that fits on a $300 used GPU and scores near-frontier on coding and agentic benchmarks. 1M downloads in 24 hours. The "you don't need an API" moment is here.
+      </p>
+
+      <ShareButtons title="Qwen 3.8 27B: Frontier on Your GPU" url="/series/demystifying-ai/qwen-27b" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Qwen 3.8 27B is a <strong>27B dense multimodal model</strong> from Alibaba that runs on ~17GB VRAM at 4-bit quantization. Native <strong>262K context</strong>, extendable to 1M. Text, image, and video understanding built in. Multi-token prediction head for speculative decoding. <strong>Outperforms Qwen3.7-Plus</strong> and claims parity with Claude Opus 4.6 Max on some coding tasks. Apache 2.0. Available on Ollama, LM Studio, and vLLM from day zero. <strong>1M downloads in 24 hours.</strong>
+      </p>
+    </div>
+
+    <!-- Section 1: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Numbers Nobody Expected
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is not another MoE with inflated total parameters. <strong>27B dense</strong> means every parameter activates on every token. No routing, no sparsity tricks, no asterisks. And the adoption numbers are unprecedented for a model this size.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">27B</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Dense Parameters</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">262K</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Native Context</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1M</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Extended (YaRN)</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">~17GB</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">VRAM (Q4)</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">52</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Agentic Index Score</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1M</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Downloads / 24h</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">Dense Architecture</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Every parameter fires on every token
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> No expert routing overhead
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Simpler deployment, lower latency
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Predictable memory footprint
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">Native Multimodal</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Text, image, video understanding
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Built-in, not bolted on
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Computer-use capable
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Same 27B parameter budget
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">ADOPTION VELOCITY</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          <strong>10,000+ downloads in 38 minutes.</strong> GGUF hit #3 trending on Hugging Face. Available on Ollama, LM Studio, vLLM, and SGLang from day zero. The community did not wait for benchmarks - they ran it and confirmed the claims themselves.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Hardware Guide -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The $300 GPU That Runs It
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Here is the real story. A <strong>used RTX 3090 costs $300.</strong> It has 24GB VRAM. Qwen 3.8 27B at Q4 quantization needs ~17GB. That leaves headroom for context. This is a frontier-scoring model running on hardware available in every used GPU market on the planet.
+      </p>
+
+      <!-- VRAM Requirements Table -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">Precision</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">VRAM</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Min Hardware</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Approx. Cost</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bg-cyan/[0.03]">
+              <td class="p-3 font-semibold text-cyan">Q4 (INT4)</td>
+              <td class="p-3 text-center font-bold text-cyan">~17GB</td>
+              <td class="p-3 text-center text-foreground/80">RTX 3090 24GB</td>
+              <td class="p-3 text-center text-green">~$300 used</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">FP8</td>
+              <td class="p-3 text-center text-secondary">~28GB</td>
+              <td class="p-3 text-center text-secondary">RTX 4090 / A6000</td>
+              <td class="p-3 text-center text-secondary">~$1,200+</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">BF16 (Full)</td>
+              <td class="p-3 text-center text-secondary">~56GB</td>
+              <td class="p-3 text-center text-secondary">A100 80GB / 2x RTX 3090</td>
+              <td class="p-3 text-center text-secondary">~$8,000+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile VRAM cards -->
+      <div class="md:hidden space-y-3 mb-6">
+        <div class="rounded-xl border border-cyan/30 bg-cyan/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-cyan text-sm">Q4 (INT4)</span>
+            <span class="text-[10px] font-mono text-green">~$300 used</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-cyan font-bold block">~17GB</span><span class="text-secondary">VRAM</span></div>
+            <div><span class="text-cyan font-bold block">RTX 3090</span><span class="text-secondary">min hardware</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">FP8</span>
+            <span class="text-[10px] font-mono text-secondary">~$1,200+</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">~28GB</span><span class="text-secondary">VRAM</span></div>
+            <div><span class="text-foreground block">RTX 4090</span><span class="text-secondary">min hardware</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">BF16 (Full)</span>
+            <span class="text-[10px] font-mono text-secondary">~$8,000+</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">~56GB</span><span class="text-secondary">VRAM</span></div>
+            <div><span class="text-foreground block">A100 80GB</span><span class="text-secondary">min hardware</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs font-mono text-cyan font-bold mb-3">REAL-WORLD THROUGHPUT:</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <div class="hw-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-cyan font-bold">RTX 3090</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">BEST VALUE</span>
+          </div>
+          <div class="text-2xl font-bold text-cyan mb-1">114 tok/s</div>
+          <p class="text-[11px] text-secondary mb-0">Single stream, Q4 quantization. ~$300 on the used market. The sweet spot for solo developers.</p>
+        </div>
+        <div class="hw-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-cyan font-bold">RTX 5090</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded">FASTEST</span>
+          </div>
+          <div class="text-2xl font-bold text-cyan mb-1">148-200+ tok/s</div>
+          <p class="text-[11px] text-secondary mb-0">NVFP4 + MTP speculative decoding. Pushing 200+ tok/s in optimized configurations.</p>
+        </div>
+        <div class="hw-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-cyan font-bold">Mac mini M4 Pro 48GB</span>
+          </div>
+          <div class="text-lg font-bold text-cyan mb-1">MLX Compatible</div>
+          <p class="text-[11px] text-secondary mb-0">Full BF16 fits in unified memory. Silent, always-on local inference. No GPU required.</p>
+        </div>
+        <div class="hw-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-cyan font-bold">DGX Spark</span>
+          </div>
+          <div class="text-lg font-bold text-cyan mb-1">~210 tok/s aggregate</div>
+          <p class="text-[11px] text-secondary mb-0">At 1M context window. The workstation setup for teams that need the full context range.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">THE MATH</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          At 114 tok/s on a $300 GPU, a 500-token response takes <strong>4.4 seconds</strong>. That is faster than most API round-trips when you include network latency. And the cost after buying the GPU is <strong>zero per token, forever</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: What Makes It Different -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What Makes It Different
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Plenty of open models exist at 27B. What separates Qwen 3.8 27B is the combination of <strong>features you normally only get from API providers</strong>, packaged into something that runs locally.
+      </p>
+
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+            <span class="text-cyan text-[10px] font-mono font-bold">01</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-cyan font-bold block">Multi-Token Prediction (MTP)</span>
+            <span class="text-[10px] text-secondary">Speculative Decoding Built In</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          The model ships with an <strong>MTP head</strong> that predicts multiple tokens simultaneously. Combined with speculative decoding, this pushes throughput significantly higher than standard autoregressive generation. On RTX 5090, this is the difference between 148 and 200+ tok/s.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+            <span class="text-cyan text-[10px] font-mono font-bold">02</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-cyan font-bold block">reasoning_effort Dial</span>
+            <span class="text-[10px] text-secondary">Configurable Reasoning Depth</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          Not every query needs deep reasoning. The <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">reasoning_effort</code> parameter lets you <strong>dial reasoning depth up or down per request</strong>. Quick factual lookups run fast and cheap. Complex coding problems get full chain-of-thought. The same model serves both use cases.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-5 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+            <span class="text-cyan text-[10px] font-mono font-bold">03</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-cyan font-bold block">262K Native Context + 1M YaRN</span>
+            <span class="text-[10px] text-secondary">Full Codebase In One Window</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          262,144 tokens natively - enough for <strong>most entire codebases in a single prompt</strong>. YaRN extension pushes to 1M tokens for extreme use cases. At Q4, the 262K context fits comfortably in 24GB VRAM with room to spare.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">QUICK START</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-cyan font-bold"># Ollama (easiest)</span>
+<span class="text-foreground">ollama run qwen3.8:27b</span>
+
+<span class="text-cyan font-bold"># LM Studio</span>
+<span class="text-secondary"># Search "Qwen3.8-27B-GGUF" in the model browser</span>
+
+<span class="text-cyan font-bold"># vLLM (production serving)</span>
+<span class="text-foreground">vllm serve Qwen/Qwen3.8-27B --quantization awq</span>
+
+<span class="text-cyan font-bold"># SGLang</span>
+<span class="text-foreground">python -m sglang.launch_server --model Qwen/Qwen3.8-27B</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 4: The Benchmark Reality -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Benchmark Reality
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Qwen claims parity with Claude Opus 4.6 Max on some coding and computer-use tasks. <strong>Those claims are unverified independently.</strong> What is verified: Artificial Analysis gave it a score of 52 on the Agentic Index, ahead of much larger frontier models.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/30 bg-cyan/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs font-bold text-cyan">Verified Claims</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">Outperforms Qwen3.7-Plus</strong> overall across standard benchmarks</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">Agentic Index: 52</strong> - ahead of larger frontier models</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">1M downloads in 24h</strong> - community confirms usability</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs font-bold text-yellow-400">Unverified Claims</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-yellow-400 shrink-0 mt-0.5">?</span>
+              <span><strong class="text-yellow-400">Claude Opus 4.6 Max parity</strong> on coding tasks - self-reported</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-yellow-400 shrink-0 mt-0.5">?</span>
+              <span><strong class="text-yellow-400">Computer-use performance</strong> - limited independent testing</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-yellow-400 shrink-0 mt-0.5">?</span>
+              <span><strong class="text-yellow-400">Long-context quality</strong> at 1M tokens - early reports only</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">HONEST TAKE</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Ignore the frontier-parity marketing. What matters is this: a model scoring <strong>52 on the Agentic Index</strong> and beating Qwen3.7-Plus overall - a model that previously required API access - now runs on your desk for the cost of one month of API bills. Even if the Opus 4.6 Max claims are overstated by 20%, the value proposition is extraordinary.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 5: The Democratization Moment -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The "You Don't Need an API" Moment
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Every year, the claim resurfaces: "open models are catching up." This time it is different. Not because the benchmarks are better, but because <strong>the hardware barrier collapsed.</strong>
+      </p>
+
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.02] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">$0.015/1K tok</div>
+          <div class="text-xl font-bold text-cyan">$0.00</div>
+          <div class="text-[10px] text-secondary font-mono">Per token after GPU</div>
+        </div>
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.02] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">100ms+</div>
+          <div class="text-xl font-bold text-cyan">0ms</div>
+          <div class="text-[10px] text-secondary font-mono">Network latency</div>
+        </div>
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.02] p-3 text-center">
+          <div class="text-sm font-bold text-red-400 line-through opacity-60">Rate limits</div>
+          <div class="text-xl font-bold text-cyan">None</div>
+          <div class="text-[10px] text-secondary font-mono">Throughput cap</div>
+        </div>
+      </div>
+
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-cyan/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">For solo developers</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            A $300 used RTX 3090 runs Qwen 3.8 27B at 114 tok/s. <strong>No API key, no rate limits, no per-token billing.</strong> Code completion, agentic workflows, multimodal analysis - all offline.
+          </p>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">For startups</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            Run it on vLLM or SGLang behind your own API. <strong>Your data never leaves your infrastructure.</strong> No vendor lock-in, no surprise billing, no compliance headaches. Apache 2.0 means do whatever you want with it.
+          </p>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-elevated p-4">
+          <span class="text-xs font-semibold text-foreground">For enterprises</span>
+          <p class="text-[11px] text-secondary mb-0 mt-1">
+            DGX Spark pushes ~210 tok/s at 1M context. <strong>Air-gapped deployment is trivial.</strong> No external API dependencies for production inference. Scale horizontally with commodity hardware.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <a href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-cyan/20 bg-elevated p-3 text-center hover:border-cyan/40 transition-colors block">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-1">HuggingFace</span>
+          <span class="text-[9px] text-secondary">Weights + Docs</span>
+        </a>
+        <a href="https://ollama.com/library/qwen3.8:27b" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-cyan/20 bg-elevated p-3 text-center hover:border-cyan/40 transition-colors block">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-1">Ollama</span>
+          <span class="text-[9px] text-secondary">One-line install</span>
+        </a>
+        <a href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-cyan/20 bg-elevated p-3 text-center hover:border-cyan/40 transition-colors block">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-1">LM Studio</span>
+          <span class="text-[9px] text-secondary">GUI + GGUF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        The API era is not over. But the <strong>API-only era is</strong>. Qwen 3.8 27B proves that a model scoring near-frontier on agentic tasks can be downloaded and running on a $300 used GPU in under 5 minutes. Zero per-token cost. Zero network latency. Zero vendor dependency. Apache 2.0. <strong>This is the model that makes local-first AI engineering viable</strong> - not as a compromise, but as a genuine alternative.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={26} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
