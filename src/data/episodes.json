@@ -250,5 +250,77 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep21-mixture-of-kittens.png"
+  },
+  {
+    "number": 22,
+    "slug": "ox-alpha",
+    "title": "OX Alpha: The Ghost Model",
+    "hook": "Someone dropped a frontier model anonymously on OpenRouter. Free. 1M context. Nobody knows who built it. Billions of tokens already flowing through it.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Aug 24",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep22-ox-alpha.png"
+  },
+  {
+    "number": 23,
+    "slug": "claude-watermark",
+    "title": "Claude's Invisible Ink: Anthropic Watermarks All Output",
+    "hook": "Everything Claude writes now carries an invisible fingerprint. Not just in the EU - everywhere, for everyone. The watermark travels with copy-paste. But can it survive the real world?",
+    "category": "hot-topic",
+    "day": "Wed",
+    "date": "Aug 26",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep23-claude-watermark.png"
+  },
+  {
+    "number": 24,
+    "slug": "deepseek-v4",
+    "title": "DeepSeek V4 Pro: First Open Model to Beat Frontier",
+    "hook": "1.6T parameters. MIT licensed. 87.9% on Terminal-Bench - beating Claude Opus 4.8. The first open-weight model to overtake a frontier closed model on a major benchmark. 29x cheaper.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Aug 29",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep24-deepseek-v4.png"
+  },
+  {
+    "number": 25,
+    "slug": "tokenmaxxing",
+    "title": "The Death of Tokenmaxxing: Corporate AI Spending Hits a Wall",
+    "hook": "Uber burned its entire 2026 AI budget by April. Amazon scrapped AI leaderboards. Enterprise AI bills up 320% while per-token prices dropped 98%. The great correction is here.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Aug 31",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep25-tokenmaxxing.png"
+  },
+  {
+    "number": 26,
+    "slug": "qwen-27b",
+    "title": "Qwen 3.8 27B: Frontier on Your GPU",
+    "hook": "27B dense parameters. 17GB at 4-bit. Runs on a $300 used RTX 3090. Native multimodal. 262K context. Apache 2.0. The model that makes local-first AI viable for production.",
+    "category": "new-release",
+    "day": "Wed",
+    "date": "Sep 2",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep26-qwen-27b.png"
+  },
+  {
+    "number": 27,
+    "slug": "recirculation",
+    "title": "Recirculation: Free Lunch for Frozen Transformers",
+    "hook": "Take any frozen transformer. Add recurrence at inference time. Get 23% better perplexity and 21% better math accuracy. No retraining. No fine-tuning. The first free architectural upgrade.",
+    "category": "research-paper",
+    "day": "Sat",
+    "date": "Sep 5",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep27-recirculation.png"
   }
 ]
