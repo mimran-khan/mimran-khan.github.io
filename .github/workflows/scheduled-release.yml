@@ -53,6 +53,67 @@ jobs:
             exit 1
           fi
 
+      - name: Pre-flight validation
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          BRANCH="${{ steps.find.outputs.branch }}"
+          SLUG="${{ steps.find.outputs.slug }}"
+          EP="${{ steps.find.outputs.ep }}"
+          ERRORS=0
+
+          echo "::group::Pre-flight checks for $BRANCH (ep$EP - $SLUG)"
+
+          # 1. Branch existence (belt-and-suspenders; also checked in find step)
+          if ! git rev-parse "origin/$BRANCH" >/dev/null 2>&1; then
+            echo "::error title=Branch Missing::Branch '$BRANCH' does not exist on remote"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ Branch '$BRANCH' exists"
+          fi
+
+          # 2. .astro file at expected path
+          ASTRO_PATH="src/pages/series/demystifying-ai/$SLUG.astro"
+          if ! git show "origin/$BRANCH:$ASTRO_PATH" >/dev/null 2>&1; then
+            echo "::error title=Missing Astro File::$ASTRO_PATH not found on branch '$BRANCH'"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ $ASTRO_PATH exists on $BRANCH"
+          fi
+
+          # 3. episodes.json exists
+          if ! git show "origin/$BRANCH:src/data/episodes.json" >/dev/null 2>&1; then
+            echo "::error title=Missing episodes.json::src/data/episodes.json not found on branch '$BRANCH'"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ episodes.json exists on $BRANCH"
+          fi
+
+          # 4. Hero image exists
+          HERO_PATH="public/series/ep$(printf '%02d' $EP)-$SLUG.png"
+          if ! git show "origin/$BRANCH:$HERO_PATH" >/dev/null 2>&1; then
+            echo "::error title=Missing Hero Image::$HERO_PATH not found on branch '$BRANCH'"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ Hero image exists on $BRANCH"
+          fi
+
+          # 5. OG image exists
+          OG_PATH="public/og-series-ep$(printf '%02d' $EP)-$SLUG.png"
+          if ! git show "origin/$BRANCH:$OG_PATH" >/dev/null 2>&1; then
+            echo "::error title=Missing OG Image::$OG_PATH not found on branch '$BRANCH'"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ OG image exists on $BRANCH"
+          fi
+
+          echo "::endgroup::"
+
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::Pre-flight failed with $ERRORS error(s). Fix the branch before the next scheduled run."
+            exit 1
+          fi
+          echo "All pre-flight checks passed ✓"
+
       - name: Rebase episode branch onto main
         if: steps.find.outputs.skip != 'true'
         run: |
