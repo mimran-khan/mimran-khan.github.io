@@ -63,7 +63,7 @@ jobs:
 
           echo "::group::Pre-flight checks for $BRANCH (ep$EP - $SLUG)"
 
-          # 1. Branch existence (belt-and-suspenders; also checked in find step)
+          # 1. Branch existence
           if ! git rev-parse "origin/$BRANCH" >/dev/null 2>&1; then
             echo "::error title=Branch Missing::Branch '$BRANCH' does not exist on remote"
             ERRORS=$((ERRORS + 1))
@@ -80,7 +80,7 @@ jobs:
             echo "✓ $ASTRO_PATH exists on $BRANCH"
           fi
 
-          # 3. episodes.json exists
+          # 3. episodes.json exists at correct path
           if ! git show "origin/$BRANCH:src/data/episodes.json" >/dev/null 2>&1; then
             echo "::error title=Missing episodes.json::src/data/episodes.json not found on branch '$BRANCH'"
             ERRORS=$((ERRORS + 1))
@@ -104,6 +104,21 @@ jobs:
             ERRORS=$((ERRORS + 1))
           else
             echo "✓ OG image exists on $BRANCH"
+          fi
+
+          # 6. REJECT stale directories on the branch (root cause of EP22/EP23 failures)
+          if git ls-tree -r --name-only "origin/$BRANCH" | grep -q '^articles/'; then
+            echo "::error title=Stale Directory::Branch '$BRANCH' contains an articles/ directory. Files must be at src/pages/series/demystifying-ai/"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ No stale articles/ directory on $BRANCH"
+          fi
+
+          if git ls-tree -r --name-only "origin/$BRANCH" | grep -q '^images/'; then
+            echo "::error title=Stale Directory::Branch '$BRANCH' contains an images/ directory. Files must be at public/series/ and public/og-series-*"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ No stale images/ directory on $BRANCH"
           fi
 
           echo "::endgroup::"
@@ -141,6 +156,76 @@ jobs:
             git -c core.editor=true merge --continue
           }
 
+      - name: Post-merge validation
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          SLUG="${{ steps.find.outputs.slug }}"
+          EP="${{ steps.find.outputs.ep }}"
+          ERRORS=0
+
+          echo "::group::Post-merge validation"
+
+          # 1. Verify .astro file landed at correct path
+          ASTRO_PATH="src/pages/series/demystifying-ai/$SLUG.astro"
+          if [ ! -f "$ASTRO_PATH" ]; then
+            echo "::error title=Missing Astro::$ASTRO_PATH missing after merge"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ $ASTRO_PATH present"
+          fi
+
+          # 2. NO articles/ directory anywhere
+          if [ -d "articles" ]; then
+            echo "::error title=Stale articles/::articles/ directory found after merge - would break public build"
+            echo "Contents:" && ls -la articles/
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ No articles/ directory"
+          fi
+
+          # 3. NO root images/ directory
+          if [ -d "images" ]; then
+            echo "::error title=Stale images/::images/ directory found after merge - would leak into public repo"
+            echo "Contents:" && ls -la images/
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ No images/ directory"
+          fi
+
+          # 4. Hero image at correct path
+          HERO_PATH="public/series/ep$(printf '%02d' $EP)-$SLUG.png"
+          if [ ! -f "$HERO_PATH" ]; then
+            echo "::error title=Missing Hero::$HERO_PATH missing after merge"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ Hero image present at $HERO_PATH"
+          fi
+
+          # 5. OG image at correct path
+          OG_PATH="public/og-series-ep$(printf '%02d' $EP)-$SLUG.png"
+          if [ ! -f "$OG_PATH" ]; then
+            echo "::error title=Missing OG::$OG_PATH missing after merge"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ OG image present at $OG_PATH"
+          fi
+
+          # 6. episodes.json at correct path
+          if [ ! -f "src/data/episodes.json" ]; then
+            echo "::error title=Missing episodes.json::src/data/episodes.json missing after merge"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ episodes.json present"
+          fi
+
+          echo "::endgroup::"
+
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::Post-merge validation failed with $ERRORS error(s). Aborting release."
+            exit 1
+          fi
+          echo "Post-merge validation passed ✓"
+
       - name: Reconcile episodes.json published states
         if: steps.find.outputs.skip != 'true'
         run: |
@@ -149,7 +234,6 @@ jobs:
             const fs = require('fs');
             const eps = JSON.parse(fs.readFileSync('src/data/episodes.json', 'utf-8'));
 
-            // Read the manifest to know which episodes are already published
             const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf-8'));
             const publishedEps = new Set(
               manifest.episodes
@@ -157,8 +241,6 @@ jobs:
                 .map(e => e.ep)
             );
 
-            // Ensure all previously published episodes stay published
-            // and mark the current episode as published
             eps.forEach(e => {
               if (publishedEps.has(e.number) || e.number === ${EP_NUM}) {
                 e.published = true;
@@ -210,15 +292,20 @@ jobs:
           git push origin main --tags
           git push origin --delete "${{ steps.find.outputs.branch }}"
 
-      - name: Push to public repo
+      - name: Prepare public repo push
         if: steps.find.outputs.skip != 'true'
         run: |
           git config --unset-all http.https://github.com/.extraheader || true
           git checkout -b release-clean
+
+          # Remove staging-only files
           git rm -f .github/workflows/scheduled-release.yml .github/workflows/linkedin-post.yml manifest.json
 
+          # CRITICAL: Remove any stale directories that should never exist in public repo
+          git rm -rf articles/ 2>/dev/null || true
+          git rm -rf images/ 2>/dev/null || true
+
           # Strip unreleased episode details from episodes.json
-          # Keep: all published episodes + immediate next episode (for "Up Next" teaser)
           node -e "
             const fs = require('fs');
             const eps = JSON.parse(fs.readFileSync('src/data/episodes.json', 'utf-8'));
@@ -229,7 +316,65 @@ jobs:
             console.log('Public episodes.json: ' + filtered.length + ' entries (leaked: 0)');
           "
           git add src/data/episodes.json
-
           git commit -m "release: Episode ${{ steps.find.outputs.ep }} - ${{ steps.find.outputs.title }}"
+
+      - name: Pre-push build validation
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          echo "Installing dependencies and running Astro build to verify site integrity..."
+          npm ci
+          npx astro build 2>&1 || {
+            echo "::error::Astro build failed! Aborting push to public repo."
+            exit 1
+          }
+          echo "Astro build passed ✓ - safe to push"
+
+      - name: Final safety check before push
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          ERRORS=0
+          echo "::group::Final safety check on release-clean branch"
+
+          # Verify no stale directories in the git tree
+          if git ls-tree -r --name-only HEAD | grep -q '^articles/'; then
+            echo "::error::articles/ directory found in release-clean tree!"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ No articles/ in release tree"
+          fi
+
+          if git ls-tree -r --name-only HEAD | grep -q '^images/'; then
+            echo "::error::images/ directory found in release-clean tree!"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ No images/ in release tree"
+          fi
+
+          # Verify staging-only files are stripped
+          if git ls-tree -r --name-only HEAD | grep -q 'manifest.json'; then
+            echo "::error::manifest.json found in release-clean tree!"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ manifest.json stripped"
+          fi
+
+          if git ls-tree -r --name-only HEAD | grep -q 'scheduled-release.yml'; then
+            echo "::error::scheduled-release.yml found in release-clean tree!"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "✓ scheduled-release.yml stripped"
+          fi
+
+          echo "::endgroup::"
+
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::Final safety check failed. Aborting push to public repo."
+            exit 1
+          fi
+          echo "Final safety check passed ✓"
+
+      - name: Push to public repo
+        if: steps.find.outputs.skip != 'true'
+        run: |
           git remote add public "https://x-access-token:${{ secrets.PUBLIC_REPO_PAT }}@github.com/mimran-khan/mimran-khan.github.io.git"
           git push public release-clean:main --force
