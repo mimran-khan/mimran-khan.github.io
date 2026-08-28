@@ -248,16 +248,18 @@
       "branch": "ep24",
       "slug": "deepseek-v4",
       "title": "DeepSeek V4 Pro: First Open Model to Beat Frontier",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-08-29",
-      "linkedin_post": "Episode 24: 5-minute read. Zero fluff : DeepSeek V4 Pro: First Open Model to Beat Frontier\n\nAn open-weight model just beat a frontier closed model on a major benchmark. Not \"close to.\" Beat. DeepSeek V4 Pro scored 87.9% on Terminal-Bench 2.1 - surpassing Claude Opus 4.8 at 85.0%. MIT licensed. Self-hostable. 29x cheaper per output token.\n\nKey findings:\n- 1.6T total params (49B active per token), MoE architecture, 1M context, 384K max output\n- Terminal-Bench 2.1: 87.9% vs Claude Opus 4.8 at 85.0% - first open model to beat frontier\n- LiveCodeBench: 93.5% vs 88.8% for Opus 4.8\n- Cost: $0.87/M output tokens vs $25/M for Opus 4.8 (29x cheaper)\n- Speed: 72.4 tok/s, time to first token 1.77s vs 30.22s for Opus\n\nThe takeaway? The open-source vs closed-source gap on coding and terminal tasks just went to zero - and the cost gap is 29x.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/deepseek-v4\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #DeepSeek #OpenSource #MIT #CodingAI"
+      "linkedin_post": "Episode 24: 5-minute read. Zero fluff : DeepSeek V4 Pro: First Open Model to Beat Frontier\n\nAn open-weight model just beat a frontier closed model on a major benchmark. Not \"close to.\" Beat. DeepSeek V4 Pro scored 87.9% on Terminal-Bench 2.1 - surpassing Claude Opus 4.8 at 85.0%. MIT licensed. Self-hostable. 29x cheaper per output token.\n\nKey findings:\n- 1.6T total params (49B active per token), MoE architecture, 1M context, 384K max output\n- Terminal-Bench 2.1: 87.9% vs Claude Opus 4.8 at 85.0% - first open model to beat frontier\n- LiveCodeBench: 93.5% vs 88.8% for Opus 4.8\n- Cost: $0.87/M output tokens vs $25/M for Opus 4.8 (29x cheaper)\n- Speed: 72.4 tok/s, time to first token 1.77s vs 30.22s for Opus\n\nThe takeaway? The open-source vs closed-source gap on coding and terminal tasks just went to zero - and the cost gap is 29x.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/deepseek-v4\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #DeepSeek #OpenSource #MIT #CodingAI",
+      "published_on": "2026-08-28",
+      "tag": "release/ep24"
     },
     {
       "ep": 25,
       "branch": "ep25",
       "slug": "tokenmaxxing",
       "title": "The Death of Tokenmaxxing: Corporate AI Spending Hits a Wall",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-08-31",
       "linkedin_post": "Episode 25: 5-minute read. Zero fluff : The Death of Tokenmaxxing: Corporate AI Spending Hits a Wall\n\nCompanies built leaderboards ranking employees by AI token consumption. Called it productivity. Uber burned their entire 2026 AI budget by April. Amazon scrapped leaderboards after employees gamed them. Enterprise AI bills climbed 320% while per-token prices dropped 98%.\n\nKey findings:\n- Uber hit its annual AI coding budget in 4 months - now caps at $1,500/month per employee per tool\n- Most AI-obsessed firms spend $7,500/employee/month; agentic tools tripled enterprise bills\n- Bain survey of 951 companies: 40% reported savings of 10% or less vs 37% who expected 10-20%\n- 89% of enterprises cannot predict AI costs to plus/minus 10% accuracy\n- New era: \"tokenminimizing\" - model routing sends routine tasks to cheap models, frontier for high-value only\n\nThe takeaway? The industry learned the hard way: AI spending without AI thinking is just spending.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/tokenmaxxing\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Tokenmaxxing #AISpending #EnterpriseAI #ROI"
     },
