@@ -2,13 +2,19 @@ name: Scheduled Release
 
 on:
   schedule:
-    - cron: '35 18 * * 0'  # Sunday 18:35 UTC = Monday 00:05 IST
-    - cron: '35 18 * * 2'  # Tuesday 18:35 UTC = Wednesday 00:05 IST
-    - cron: '35 18 * * 5'  # Friday 18:35 UTC = Saturday 00:05 IST
+    # Daily at 18:35 UTC (00:05 IST next day). Date gate in manifest decides whether to release.
+    - cron: '35 18 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Release pending episode even if release_date is in the future'
+        required: false
+        default: 'false'
+        type: boolean
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   release:
@@ -28,20 +34,42 @@ jobs:
         run: |
           git config user.name "mimran-khan"
           git config user.email "mimran-khan@users.noreply.github.com"
+          git fetch origin --prune
 
-      - name: Find next pending episode
+      - name: Find next due pending episode
         id: find
+        env:
+          FORCE_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
         run: |
-          BRANCH=$(jq -r '.episodes[] | select(.status == "pending") | .branch' manifest.json | head -1)
+          TODAY=$(date -u +'%Y-%m-%d')
+          echo "Today (UTC): $TODAY"
+
+          if [ "$FORCE_RELEASE" = "true" ]; then
+            BRANCH=$(jq -r '.episodes[] | select(.status == "pending") | .branch' manifest.json | head -1)
+          else
+            BRANCH=$(jq -r --arg t "$TODAY" \
+              '.episodes[] | select(.status == "pending" and ((.release_date // "9999-12-31") <= $t)) | .branch' \
+              manifest.json | head -1)
+          fi
+
           if [ -z "$BRANCH" ] || [ "$BRANCH" = "null" ]; then
-            echo "No pending episodes in manifest. Nothing to release."
+            PENDING=$(jq -r '.episodes[] | select(.status == "pending") | .ep' manifest.json | head -1)
+            if [ -n "$PENDING" ] && [ "$PENDING" != "null" ]; then
+              NEXT_DATE=$(jq -r --argjson ep "$PENDING" '.episodes[] | select(.ep == $ep) | .release_date // "unknown"' manifest.json)
+              echo "Pending episode EP$PENDING is not due yet (release_date=$NEXT_DATE, today=$TODAY). Skipping."
+            else
+              echo "No pending episodes in manifest. Nothing to release."
+            fi
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+
           EP=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .ep' manifest.json)
           TITLE=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .title' manifest.json)
           SLUG=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .slug' manifest.json)
-          echo "Found pending episode: ep$EP - $TITLE (branch: $BRANCH)"
+          RELEASE_DATE=$(jq -r --arg b "$BRANCH" '.episodes[] | select(.branch == $b) | .release_date // "unknown"' manifest.json)
+
+          echo "Found due pending episode: ep$EP - $TITLE (branch: $BRANCH, release_date: $RELEASE_DATE)"
           echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
           echo "ep=$EP" >> "$GITHUB_OUTPUT"
           echo "title=$TITLE" >> "$GITHUB_OUTPUT"
@@ -49,7 +77,7 @@ jobs:
           echo "skip=false" >> "$GITHUB_OUTPUT"
 
           if ! git rev-parse "origin/$BRANCH" >/dev/null 2>&1; then
-            echo "::error::Branch '$BRANCH' listed in manifest but does not exist"
+            echo "::error::Branch '$BRANCH' listed in manifest but does not exist on remote"
             exit 1
           fi
 
@@ -63,7 +91,6 @@ jobs:
 
           echo "::group::Pre-flight checks for $BRANCH (ep$EP - $SLUG)"
 
-          # 1. Branch existence
           if ! git rev-parse "origin/$BRANCH" >/dev/null 2>&1; then
             echo "::error title=Branch Missing::Branch '$BRANCH' does not exist on remote"
             ERRORS=$((ERRORS + 1))
@@ -71,7 +98,6 @@ jobs:
             echo "✓ Branch '$BRANCH' exists"
           fi
 
-          # 2. .astro file at expected path
           ASTRO_PATH="src/pages/series/demystifying-ai/$SLUG.astro"
           if ! git show "origin/$BRANCH:$ASTRO_PATH" >/dev/null 2>&1; then
             echo "::error title=Missing Astro File::$ASTRO_PATH not found on branch '$BRANCH'"
@@ -80,7 +106,6 @@ jobs:
             echo "✓ $ASTRO_PATH exists on $BRANCH"
           fi
 
-          # 3. episodes.json exists at correct path
           if ! git show "origin/$BRANCH:src/data/episodes.json" >/dev/null 2>&1; then
             echo "::error title=Missing episodes.json::src/data/episodes.json not found on branch '$BRANCH'"
             ERRORS=$((ERRORS + 1))
@@ -88,7 +113,6 @@ jobs:
             echo "✓ episodes.json exists on $BRANCH"
           fi
 
-          # 4. Hero image exists
           HERO_PATH="public/series/ep$(printf '%02d' $EP)-$SLUG.png"
           if ! git show "origin/$BRANCH:$HERO_PATH" >/dev/null 2>&1; then
             echo "::error title=Missing Hero Image::$HERO_PATH not found on branch '$BRANCH'"
@@ -97,7 +121,6 @@ jobs:
             echo "✓ Hero image exists on $BRANCH"
           fi
 
-          # 5. OG image exists
           OG_PATH="public/og-series-ep$(printf '%02d' $EP)-$SLUG.png"
           if ! git show "origin/$BRANCH:$OG_PATH" >/dev/null 2>&1; then
             echo "::error title=Missing OG Image::$OG_PATH not found on branch '$BRANCH'"
@@ -106,7 +129,6 @@ jobs:
             echo "✓ OG image exists on $BRANCH"
           fi
 
-          # 6. REJECT stale directories on the branch (root cause of EP22/EP23 failures)
           if git ls-tree -r --name-only "origin/$BRANCH" | grep -q '^articles/'; then
             echo "::error title=Stale Directory::Branch '$BRANCH' contains an articles/ directory. Files must be at src/pages/series/demystifying-ai/"
             ERRORS=$((ERRORS + 1))
@@ -165,7 +187,6 @@ jobs:
 
           echo "::group::Post-merge validation"
 
-          # 1. Verify .astro file landed at correct path
           ASTRO_PATH="src/pages/series/demystifying-ai/$SLUG.astro"
           if [ ! -f "$ASTRO_PATH" ]; then
             echo "::error title=Missing Astro::$ASTRO_PATH missing after merge"
@@ -174,25 +195,22 @@ jobs:
             echo "✓ $ASTRO_PATH present"
           fi
 
-          # 2. NO articles/ directory anywhere
           if [ -d "articles" ]; then
             echo "::error title=Stale articles/::articles/ directory found after merge - would break public build"
-            echo "Contents:" && ls -la articles/
+            ls -la articles/
             ERRORS=$((ERRORS + 1))
           else
             echo "✓ No articles/ directory"
           fi
 
-          # 3. NO root images/ directory
           if [ -d "images" ]; then
             echo "::error title=Stale images/::images/ directory found after merge - would leak into public repo"
-            echo "Contents:" && ls -la images/
+            ls -la images/
             ERRORS=$((ERRORS + 1))
           else
             echo "✓ No images/ directory"
           fi
 
-          # 4. Hero image at correct path
           HERO_PATH="public/series/ep$(printf '%02d' $EP)-$SLUG.png"
           if [ ! -f "$HERO_PATH" ]; then
             echo "::error title=Missing Hero::$HERO_PATH missing after merge"
@@ -201,7 +219,6 @@ jobs:
             echo "✓ Hero image present at $HERO_PATH"
           fi
 
-          # 5. OG image at correct path
           OG_PATH="public/og-series-ep$(printf '%02d' $EP)-$SLUG.png"
           if [ ! -f "$OG_PATH" ]; then
             echo "::error title=Missing OG::$OG_PATH missing after merge"
@@ -210,7 +227,6 @@ jobs:
             echo "✓ OG image present at $OG_PATH"
           fi
 
-          # 6. episodes.json at correct path
           if [ ! -f "src/data/episodes.json" ]; then
             echo "::error title=Missing episodes.json::src/data/episodes.json missing after merge"
             ERRORS=$((ERRORS + 1))
@@ -298,14 +314,11 @@ jobs:
           git config --unset-all http.https://github.com/.extraheader || true
           git checkout -b release-clean
 
-          # Remove staging-only files
           git rm -f .github/workflows/scheduled-release.yml .github/workflows/linkedin-post.yml manifest.json
 
-          # CRITICAL: Remove any stale directories that should never exist in public repo
           git rm -rf articles/ 2>/dev/null || true
           git rm -rf images/ 2>/dev/null || true
 
-          # Strip unreleased episode details from episodes.json
           node -e "
             const fs = require('fs');
             const eps = JSON.parse(fs.readFileSync('src/data/episodes.json', 'utf-8'));
@@ -335,7 +348,6 @@ jobs:
           ERRORS=0
           echo "::group::Final safety check on release-clean branch"
 
-          # Verify no stale directories in the git tree
           if git ls-tree -r --name-only HEAD | grep -q '^articles/'; then
             echo "::error::articles/ directory found in release-clean tree!"
             ERRORS=$((ERRORS + 1))
@@ -350,7 +362,6 @@ jobs:
             echo "✓ No images/ in release tree"
           fi
 
-          # Verify staging-only files are stripped
           if git ls-tree -r --name-only HEAD | grep -q 'manifest.json'; then
             echo "::error::manifest.json found in release-clean tree!"
             ERRORS=$((ERRORS + 1))
@@ -375,6 +386,130 @@ jobs:
 
       - name: Push to public repo
         if: steps.find.outputs.skip != 'true'
+        id: public_push
         run: |
           git remote add public "https://x-access-token:${{ secrets.PUBLIC_REPO_PAT }}@github.com/mimran-khan/mimran-khan.github.io.git"
+          PUSH_SHA=$(git rev-parse HEAD)
+          echo "sha=$PUSH_SHA" >> "$GITHUB_OUTPUT"
           git push public release-clean:main --force
+
+      - name: Wait for GitHub Pages deploy
+        if: steps.find.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PUBLIC_REPO_PAT }}
+        run: |
+          SLUG="${{ steps.find.outputs.slug }}"
+          PUSH_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          echo "Waiting for public repo deploy workflow to succeed (up to 10 minutes)..."
+
+          DEPLOY_OK=false
+          for i in $(seq 1 20); do
+            RUN_ID=$(gh api "repos/mimran-khan/mimran-khan.github.io/actions/runs?branch=main&event=push&per_page=5" \
+              --jq ".workflow_runs[] | select(.created_at >= \"$PUSH_TIME\" or .head_sha == \"${{ steps.public_push.outputs.sha }}\") | select(.name == \"Deploy to GitHub Pages\" or .name == \"pages build and deployment\") | .id" \
+              | head -1)
+
+            if [ -n "$RUN_ID" ]; then
+              CONCLUSION=$(gh api "repos/mimran-khan/mimran-khan.github.io/actions/runs/$RUN_ID" --jq .conclusion)
+              STATUS=$(gh api "repos/mimran-khan/mimran-khan.github.io/actions/runs/$RUN_ID" --jq .status)
+              echo "Attempt $i: run $RUN_ID status=$STATUS conclusion=$CONCLUSION"
+
+              if [ "$CONCLUSION" = "success" ]; then
+                DEPLOY_OK=true
+                break
+              fi
+              if [ "$CONCLUSION" = "failure" ] || [ "$CONCLUSION" = "cancelled" ]; then
+                echo "::error::Public repo deploy workflow $RUN_ID ended with: $CONCLUSION"
+                gh run view "$RUN_ID" --repo mimran-khan/mimran-khan.github.io --log-failed || true
+                exit 1
+              fi
+            else
+              echo "Attempt $i: deploy workflow not started yet..."
+            fi
+            sleep 30
+          done
+
+          if [ "$DEPLOY_OK" != "true" ]; then
+            echo "::error::Timed out waiting for GitHub Pages deploy workflow to succeed"
+            exit 1
+          fi
+          echo "GitHub Pages deploy workflow succeeded ✓"
+
+      - name: Verify live site URL
+        if: steps.find.outputs.skip != 'true'
+        run: |
+          SLUG="${{ steps.find.outputs.slug }}"
+          URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
+          echo "Polling live URL: $URL (up to 10 minutes)"
+
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+            if [ "$STATUS" = "200" ]; then
+              echo "Live site verified (HTTP 200) on attempt $i"
+              exit 0
+            fi
+            echo "Attempt $i: HTTP $STATUS - waiting 20s..."
+            sleep 20
+          done
+
+          echo "::error::Live URL $URL did not return HTTP 200 within 10 minutes"
+          exit 1
+
+  notify-failure:
+    needs: release
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create GitHub issue on release failure
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const title = `🚨 Scheduled Release failed — ${new Date().toISOString().slice(0, 10)}`;
+            const body = [
+              '## Scheduled Release pipeline failure',
+              '',
+              `- **Workflow run:** ${runUrl}`,
+              `- **Triggered by:** ${context.eventName}`,
+              `- **Time (UTC):** ${new Date().toISOString()}`,
+              '',
+              'Check the failed job logs for the root cause. Common causes:',
+              '- Pending episode branch missing on remote',
+              '- Merge conflict in `src/data/episodes.json`',
+              '- Stale `articles/` or `images/` directory on episode branch',
+              '- Astro build failure on public repo push',
+              '- GitHub Pages deploy did not complete',
+              '',
+              '### Recovery',
+              '1. Fix the underlying issue on the episode branch',
+              '2. Re-run **Scheduled Release** manually from Actions (use **force** only if release_date is still in the future)',
+              '3. The daily cron will also auto-retry any overdue pending episode on the next run',
+            ].join('\n');
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'release-failure',
+              per_page: 5,
+            });
+
+            const duplicate = existing.data.find(issue => issue.title === title);
+            if (duplicate) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: duplicate.number,
+                body: `Another failure occurred: ${runUrl}`,
+              });
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['release-failure', 'automation'],
+            });

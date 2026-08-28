@@ -5,7 +5,7 @@
     "saturday"
   ],
   "timezone": "IST (UTC+5:30)",
-  "cron_utc": "18:35 on Sun/Tue/Fri",
+  "cron_utc": "18:35 daily (date-gated release)",
   "episodes": [
     {
       "ep": 1,
