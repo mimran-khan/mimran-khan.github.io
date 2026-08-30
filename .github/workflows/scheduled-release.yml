@@ -1,9 +1,24 @@
+# Scheduled Release — Demystifying AI series
+#
+# Primary schedule: Mon/Wed/Sat at 00:05 IST
+#   Cron: 35 18 * * 0,2,5  (Sun/Tue/Fri 18:35 UTC)
+#
+# Backup catch-up: daily at 06:05 IST (if primary run missed)
+#   Cron: 35 0 * * *  (00:35 UTC)
+#
+# Date gating uses Asia/Kolkata (IST), not UTC.
+# An episode with release_date 2026-08-31 releases when IST date >= 2026-08-31.
+#
+# LinkedIn posts are handled separately by linkedin-post.yml at 11:00 AM IST.
+
 name: Scheduled Release
 
 on:
   schedule:
-    # Daily at 18:35 UTC (00:05 IST next day). Date gate in manifest decides whether to release.
-    - cron: '35 18 * * *'
+    # Primary: Sun/Tue/Fri 18:35 UTC = Mon/Wed/Sat 00:05 IST
+    - cron: '35 18 * * 0,2,5'
+    # Backup catch-up: daily 00:35 UTC = 06:05 IST
+    - cron: '35 0 * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -41,13 +56,14 @@ jobs:
         env:
           FORCE_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
         run: |
-          TODAY=$(date -u +'%Y-%m-%d')
-          echo "Today (UTC): $TODAY"
+          TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
+          echo "Today (IST): $TODAY_IST"
+          echo "today_ist=$TODAY_IST" >> "$GITHUB_OUTPUT"
 
           if [ "$FORCE_RELEASE" = "true" ]; then
             BRANCH=$(jq -r '.episodes[] | select(.status == "pending") | .branch' manifest.json | head -1)
           else
-            BRANCH=$(jq -r --arg t "$TODAY" \
+            BRANCH=$(jq -r --arg t "$TODAY_IST" \
               '.episodes[] | select(.status == "pending" and ((.release_date // "9999-12-31") <= $t)) | .branch' \
               manifest.json | head -1)
           fi
@@ -56,7 +72,7 @@ jobs:
             PENDING=$(jq -r '.episodes[] | select(.status == "pending") | .ep' manifest.json | head -1)
             if [ -n "$PENDING" ] && [ "$PENDING" != "null" ]; then
               NEXT_DATE=$(jq -r --argjson ep "$PENDING" '.episodes[] | select(.ep == $ep) | .release_date // "unknown"' manifest.json)
-              echo "Pending episode EP$PENDING is not due yet (release_date=$NEXT_DATE, today=$TODAY). Skipping."
+              echo "Pending episode EP$PENDING is not due yet (release_date=$NEXT_DATE, today_IST=$TODAY_IST). Skipping."
             else
               echo "No pending episodes in manifest. Nothing to release."
             fi
@@ -80,6 +96,74 @@ jobs:
             echo "::error::Branch '$BRANCH' listed in manifest but does not exist on remote"
             exit 1
           fi
+
+      - name: Alert on missed releases
+        if: steps.find.outputs.skip == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf-8'));
+            const todayIst = '${{ steps.find.outputs.today_ist }}';
+
+            const overdue = manifest.episodes.filter(
+              e => e.status === 'pending' &&
+                   (e.release_date || '9999-12-31') <= todayIst
+            );
+
+            if (overdue.length === 0) return;
+
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const epList = overdue.map(e =>
+              `- **EP${e.ep}** (${e.slug}): release_date=${e.release_date}, status=${e.status}`
+            ).join('\n');
+
+            const title = `⚠️ Missed release — EP${overdue[0].ep} overdue (IST ${todayIst})`;
+            const body = [
+              '## Pending episode was not released',
+              '',
+              'A pending episode has `release_date <= today (IST)` but was not published.',
+              '',
+              epList,
+              '',
+              `- **Today (IST):** ${todayIst}`,
+              `- **Workflow run:** ${runUrl}`,
+              '',
+              '### Recovery',
+              '1. Check the episode branch for pre-flight failures (missing files, stale directories)',
+              '2. Fix issues and re-run **Scheduled Release** from Actions',
+              '3. The backup cron at 06:05 IST will also retry automatically',
+            ].join('\n');
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'missed-release',
+              per_page: 10,
+            });
+
+            const duplicate = existing.data.find(issue =>
+              issue.title.includes(`EP${overdue[0].ep}`) && issue.title.includes('overdue')
+            );
+
+            if (duplicate) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: duplicate.number,
+                body: `Still overdue as of IST ${todayIst}: ${runUrl}`,
+              });
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['missed-release', 'automation'],
+            });
 
       - name: Pre-flight validation
         if: steps.find.outputs.skip != 'true'
@@ -277,10 +361,10 @@ jobs:
       - name: Update manifest
         if: steps.find.outputs.skip != 'true'
         run: |
-          TODAY=$(date -u +'%Y-%m-%d')
+          TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
           TAG="release/ep$(printf '%02d' ${{ steps.find.outputs.ep }})"
           jq --arg b "${{ steps.find.outputs.branch }}" \
-             --arg d "$TODAY" \
+             --arg d "$TODAY_IST" \
              --arg t "$TAG" \
              '(.episodes[] | select(.branch == $b)) |= . + {"status": "published", "published_on": $d, "tag": $t}' \
              manifest.json > manifest.tmp && mv manifest.tmp manifest.json
@@ -300,7 +384,8 @@ jobs:
         if: steps.find.outputs.skip != 'true'
         run: |
           TAG="release/ep$(printf '%02d' ${{ steps.find.outputs.ep }})"
-          git tag -a "$TAG" -m "Release Episode ${{ steps.find.outputs.ep }}: ${{ steps.find.outputs.title }} ($(date -u +'%Y-%m-%d'))"
+          TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
+          git tag -a "$TAG" -m "Release Episode ${{ steps.find.outputs.ep }}: ${{ steps.find.outputs.title }} ($TODAY_IST IST)"
 
       - name: Push main, tag, and delete episode branch
         if: steps.find.outputs.skip != 'true'
@@ -466,13 +551,15 @@ jobs:
         with:
           script: |
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const title = `🚨 Scheduled Release failed — ${new Date().toISOString().slice(0, 10)}`;
+            const todayIst = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+            const title = `🚨 Scheduled Release failed — IST ${todayIst}`;
             const body = [
               '## Scheduled Release pipeline failure',
               '',
               `- **Workflow run:** ${runUrl}`,
               `- **Triggered by:** ${context.eventName}`,
               `- **Time (UTC):** ${new Date().toISOString()}`,
+              `- **Today (IST):** ${todayIst}`,
               '',
               'Check the failed job logs for the root cause. Common causes:',
               '- Pending episode branch missing on remote',
@@ -484,7 +571,7 @@ jobs:
               '### Recovery',
               '1. Fix the underlying issue on the episode branch',
               '2. Re-run **Scheduled Release** manually from Actions (use **force** only if release_date is still in the future)',
-              '3. The daily cron will also auto-retry any overdue pending episode on the next run',
+              '3. The backup cron at 06:05 IST will also auto-retry any overdue pending episode',
             ].join('\n');
 
             const existing = await github.rest.issues.listForRepo({

@@ -1,10 +1,20 @@
+# LinkedIn Post — Demystifying AI series
+#
+# Schedule: Mon/Wed/Sat at 11:00 AM IST
+#   Cron: 30 5 * * 0,2,5  (Sun/Tue/Fri 05:30 UTC)
+#
+# Posts the episode published today (IST calendar date).
+# Release happens at 00:05 IST; LinkedIn posts ~11 hours later same day.
+# Does NOT post immediately after release — runs on its own schedule.
+#
+# Date matching uses Asia/Kolkata (IST), not UTC.
+
 name: LinkedIn Post
 
 on:
   schedule:
-    - cron: '30 5 * * 1'  # Monday 05:30 UTC = Monday 11:00 IST
-    - cron: '30 5 * * 3'  # Wednesday 05:30 UTC = Wednesday 11:00 IST
-    - cron: '30 5 * * 6'  # Saturday 05:30 UTC = Saturday 11:00 IST
+    # Sun/Tue/Fri 05:30 UTC = Mon/Wed/Sat 11:00 AM IST
+    - cron: '30 5 * * 0,2,5'
   workflow_dispatch:
 
 permissions:
@@ -18,18 +28,18 @@ jobs:
       - name: Checkout staging
         uses: actions/checkout@v4
 
-      - name: Find today's release
+      - name: Find today's published episode
         id: find
         run: |
-          TODAY=$(date -u +'%Y-%m-%d')
-          YESTERDAY=$(date -u -d 'yesterday' +'%Y-%m-%d')
+          TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
+          echo "Today (IST): $TODAY_IST"
 
-          EP=$(jq -r --arg t "$TODAY" --arg y "$YESTERDAY" \
-            '.episodes[] | select(.status == "published" and (.published_on == $t or .published_on == $y)) | .ep' \
+          EP=$(jq -r --arg t "$TODAY_IST" \
+            '.episodes[] | select(.status == "published" and .published_on == $t) | .ep' \
             manifest.json | tail -1)
 
           if [ -z "$EP" ] || [ "$EP" = "null" ]; then
-            echo "No episode published today or yesterday. Skipping LinkedIn post."
+            echo "No episode published today (IST $TODAY_IST). Skipping LinkedIn post."
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -43,7 +53,7 @@ jobs:
             exit 0
           fi
 
-          echo "Found EP$EP ($SLUG)"
+          echo "Found EP$EP ($SLUG) published on $TODAY_IST (IST)"
           echo "skip=false" >> "$GITHUB_OUTPUT"
           echo "ep=$EP" >> "$GITHUB_OUTPUT"
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
@@ -173,12 +183,14 @@ jobs:
         with:
           script: |
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const title = `🚨 LinkedIn Post failed — ${new Date().toISOString().slice(0, 10)}`;
+            const todayIst = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+            const title = `🚨 LinkedIn Post failed — IST ${todayIst}`;
             const body = [
               '## LinkedIn Post pipeline failure',
               '',
               `- **Workflow run:** ${runUrl}`,
               `- **Triggered by:** ${context.eventName}`,
+              `- **Today (IST):** ${todayIst}`,
               '',
               'Common causes:',
               '- Site not live yet (GitHub Pages deploy still running or failed)',

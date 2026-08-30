@@ -5,7 +5,8 @@
     "saturday"
   ],
   "timezone": "IST (UTC+5:30)",
-  "cron_utc": "18:35 daily (date-gated release)",
+  "release_cron_utc": "35 18 * * 0,2,5 (Mon/Wed/Sat 00:05 IST) + backup 35 0 * * * (06:05 IST)",
+  "linkedin_cron_utc": "30 5 * * 0,2,5 (Mon/Wed/Sat 11:00 IST)",
   "episodes": [
     {
       "ep": 1,
