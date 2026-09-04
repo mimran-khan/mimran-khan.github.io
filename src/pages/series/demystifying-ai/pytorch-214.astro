@@ -1,0 +1,480 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="PyTorch 2.14: Training Jobs Now Survive Node Failures | Demystifying AI in 5 Minutes"
+  description="PyTorch 2.14 ships NVGEMM auto-tuned kernels, fault-tolerant distributed training where nodes crash and rejoin, Apple Silicon native linalg, and declarative dynamic shapes."
+  image="/og-series-ep33-pytorch-214.png"
+  keywords="PyTorch 2.14, NVGEMM, CUTLASS, fault tolerance, distributed training, c10d, Apple Silicon, MPS, nccl2"
+  publishedDate="2026-09-19"
+  articleSection="Demystifying AI"
+  articleTags={["PyTorch 2.14", "NVGEMM", "Fault Tolerance", "Distributed Training", "Apple Silicon"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.08);
+    }
+    .code-block {
+      transition: all 0.3s ease;
+    }
+    .code-block:hover {
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.06);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep33-pytorch-214.png" alt="PyTorch 2.14 - Training Jobs Now Survive Node Failures" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 33
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <a href="https://pytorch.org/blog/pytorch-2-14-release-blog/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.5 3.5a1 1 0 011 0l6.5 3.75a1 1 0 01.5.866v7.5a1 1 0 01-.5.866l-6.5 3.75a1 1 0 01-1 0l-6.5-3.75a1 1 0 01-.5-.866v-7.5a1 1 0 01.5-.866l6.5-3.75z"/></svg>
+          Release Blog
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Sep 19, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        PyTorch 2.14: Training Jobs Now Survive Node Failures
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups where nodes crash and rejoin without restarting. Apple Silicon native linalg. The infra release every ML engineer needs.
+      </p>
+
+      <ShareButtons title="PyTorch 2.14: Training Jobs Now Survive Node Failures" url="/series/demystifying-ai/pytorch-214" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        PyTorch 2.14 ships 3 things that change daily ML work: <strong>NVGEMM auto-tuned CUTLASS kernels</strong>, <strong>fault-tolerant process groups</strong> where nodes crash and rejoin without restarting, and <strong>Apple Silicon native linear algebra</strong>. Released Sep 2. Upgrade now.
+      </p>
+    </div>
+
+    <!-- Section 1: NVGEMM -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> NVGEMM: The Kernel Backend You Didn't Know You Needed
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        TorchInductor now has a new GEMM backend called <strong>NVGEMM</strong>. It generates CUTLASS kernels using CuTeDSL, then auto-tunes them alongside Triton and ATen. You do not pick the winner. The compiler does.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        One config flag enables it. The compiler profiles every candidate and picks the fastest kernel per operation. No manual kernel selection, no performance guessing.
+      </p>
+
+      <!-- Code snippet -->
+      <div class="code-block rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">ENABLE NVGEMM</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed overflow-x-auto"><code><span class="text-violet-400">import</span> <span class="text-cyan">torch</span>
+
+<span class="text-secondary"># Enable all three GEMM backends for auto-tuning</span>
+<span class="text-cyan">torch._inductor.config</span>.<span class="text-foreground">max_autotune_gemm_backends</span> <span class="text-violet-400">=</span> <span class="text-green">"CUTLASS,ATen,Triton"</span>
+
+<span class="text-secondary"># Compile your model - NVGEMM auto-tunes automatically</span>
+<span class="text-foreground">model</span> <span class="text-violet-400">=</span> <span class="text-cyan">torch</span>.<span class="text-foreground">compile</span>(<span class="text-foreground">model</span>)
+
+<span class="text-secondary"># Requires: nvidia-cutlass-dsl 4.6.0</span>
+<span class="text-secondary"># NVFP4 paths require Blackwell GPUs</span></code></pre>
+      </div>
+
+      <!-- Feature cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">Epilogue Fusion</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Fuses post-GEMM operations directly into the kernel. Fewer memory round-trips. <strong>Less overhead per matmul.</strong>
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">Scaled GEMM + NVFP4</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Native scaled GEMM support. NVFP4 paths on Blackwell GPUs. <strong>Grouped-reduction epilogues</strong> for advanced quantization workflows.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">Graceful Fallback</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Unsupported epilogues? <strong>Falls back to Triton automatically.</strong> No crashes, no manual intervention. The compiler handles the edge cases.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">CuTeDSL Generated</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Kernels are generated via CuTeDSL, not hand-written. <strong>Requires nvidia-cutlass-dsl 4.6.0.</strong> Auto-tuned against every other backend.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">WHY IT MATTERS</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Before NVGEMM, you either used Triton (good default) or hand-tuned CUTLASS (expert-only). Now the compiler <strong>profiles all 3 backends and picks the winner per operation</strong>. Faster kernels, zero effort.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Fault Tolerance -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Node Fails? Training Continues.
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is the headline feature. PyTorch 2.14 introduces <strong>fault-tolerant process groups</strong> as a first-class c10d concept. Not a hack. Not a wrapper. A node can crash and rejoin without restarting the entire training job.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">enable_reconfigure</code> flag in <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">init_process_group</code> turns it on. When a node dies, surviving nodes detect the failure and reconfigure around it. The dead node can come back and re-join.
+      </p>
+
+      <!-- Cluster Diagram -->
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-6 mb-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-cyan font-bold">FAULT TOLERANCE IN ACTION</span>
+        </div>
+        <div class="grid grid-cols-4 gap-3 mb-4">
+          <div class="rounded-lg border border-cyan/30 bg-cyan/10 p-3 text-center">
+            <div class="text-lg mb-1">&#9899;</div>
+            <span class="text-[9px] font-mono text-cyan">Node 0</span>
+            <div class="text-[8px] text-cyan/60 mt-0.5">HEALTHY</div>
+          </div>
+          <div class="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-center">
+            <div class="text-lg mb-1">&#10060;</div>
+            <span class="text-[9px] font-mono text-red-400">Node 1</span>
+            <div class="text-[8px] text-red-400/60 mt-0.5">CRASHED</div>
+          </div>
+          <div class="rounded-lg border border-cyan/30 bg-cyan/10 p-3 text-center">
+            <div class="text-lg mb-1">&#9899;</div>
+            <span class="text-[9px] font-mono text-cyan">Node 2</span>
+            <div class="text-[8px] text-cyan/60 mt-0.5">HEALTHY</div>
+          </div>
+          <div class="rounded-lg border border-cyan/30 bg-cyan/10 p-3 text-center">
+            <div class="text-lg mb-1">&#9899;</div>
+            <span class="text-[9px] font-mono text-cyan">Node 3</span>
+            <div class="text-[8px] text-cyan/60 mt-0.5">HEALTHY</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-2 mb-4">
+          <div class="h-px flex-1 bg-cyan/20"></div>
+          <span class="text-[9px] font-mono text-cyan px-2">_reconfigure(new_peers)</span>
+          <div class="h-px flex-1 bg-cyan/20"></div>
+        </div>
+        <div class="grid grid-cols-4 gap-3">
+          <div class="rounded-lg border border-cyan/30 bg-cyan/10 p-3 text-center">
+            <div class="text-lg mb-1">&#9899;</div>
+            <span class="text-[9px] font-mono text-cyan">Node 0</span>
+            <div class="text-[8px] text-cyan/60 mt-0.5">TRAINING</div>
+          </div>
+          <div class="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3 text-center">
+            <div class="text-lg mb-1">&#128260;</div>
+            <span class="text-[9px] font-mono text-yellow-400">Node 1</span>
+            <div class="text-[8px] text-yellow-400/60 mt-0.5">REJOINING</div>
+          </div>
+          <div class="rounded-lg border border-cyan/30 bg-cyan/10 p-3 text-center">
+            <div class="text-lg mb-1">&#9899;</div>
+            <span class="text-[9px] font-mono text-cyan">Node 2</span>
+            <div class="text-[8px] text-cyan/60 mt-0.5">TRAINING</div>
+          </div>
+          <div class="rounded-lg border border-cyan/30 bg-cyan/10 p-3 text-center">
+            <div class="text-lg mb-1">&#9899;</div>
+            <span class="text-[9px] font-mono text-cyan">Node 3</span>
+            <div class="text-[8px] text-cyan/60 mt-0.5">TRAINING</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code snippet -->
+      <div class="code-block rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">FAULT-TOLERANT INIT</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed overflow-x-auto"><code><span class="text-violet-400">import</span> <span class="text-cyan">torch.distributed</span> <span class="text-violet-400">as</span> <span class="text-cyan">dist</span>
+
+<span class="text-secondary"># Initialize with fault tolerance enabled</span>
+<span class="text-cyan">dist</span>.<span class="text-foreground">init_process_group</span>(
+    <span class="text-foreground">backend</span><span class="text-violet-400">=</span><span class="text-green">"nccl2"</span>,
+    <span class="text-foreground">enable_reconfigure</span><span class="text-violet-400">=</span><span class="text-orange-400">True</span>
+)
+
+<span class="text-secondary"># Node crashes... other nodes detect failure</span>
+<span class="text-secondary"># Surviving nodes reconfigure automatically</span>
+<span class="text-cyan">dist</span>.<span class="text-foreground">_reconfigure</span>(<span class="text-foreground">new_peers</span>)
+
+<span class="text-secondary"># Crashed node can rejoin without full restart</span>
+<span class="text-secondary"># ReconfigureOptions: uuid, peer handles, timeout, hints</span></code></pre>
+      </div>
+
+      <!-- Key points -->
+      <div class="space-y-3 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold text-cyan">First-Class c10d Concept</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            <strong>In-place process-group reconfiguration.</strong> The <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">ReconfigureOptions</code> struct carries uuid, ordered/unordered peer handles, timeout, and hints. Helper functions: <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">_supports_reconfigure</code>, <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">_get_reconfigure_handle</code>, <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">_reconfigure</code>.
+          </p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold text-cyan">Flight Recorder for Any Backend</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Flight Recorder used to be NCCL-only. <strong>Now it works for ANY distributed backend.</strong> Debug distributed failures regardless of your communication layer.
+          </p>
+        </div>
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold text-cyan">nccl2 + One-Sided RMA</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            The <strong>nccl2 backend from torchcomms landed in-tree.</strong> One-sided RMA (Remote Memory Access) windows let nodes access remote memory directly. Gloo has native reconfigure support today.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">THE REAL IMPACT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Large training jobs on hundreds of nodes lose machines regularly. Before 2.14, a single node failure meant <strong>restarting the entire job from the last checkpoint.</strong> Now the cluster reconfigures and keeps training. Hours saved per failure. No human intervention needed.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: Apple Silicon -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Apple Silicon Gets Real
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        PyTorch on Apple Silicon used to mean "attention kernels work." That is no longer the story. <strong>2.14 ships native linear algebra across the MPS backend.</strong> The Mac is becoming a first-class ML development platform.
+      </p>
+
+      <!-- Before/After comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-2 py-0.5 text-[9px] font-mono bg-secondary/10 border border-border text-secondary rounded">BEFORE 2.14</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Attention kernels
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary/50">
+              <span class="text-red-400/60 shrink-0">&#10007;</span> <span class="line-through">Native linalg</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary/50">
+              <span class="text-red-400/60 shrink-0">&#10007;</span> <span class="line-through">Full MPS coverage</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary/50">
+              <span class="text-red-400/60 shrink-0">&#10007;</span> <span class="line-through">Production-ready</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/30 bg-cyan/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-2 py-0.5 text-[9px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded">PYTORCH 2.14</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-foreground">
+              <span class="text-cyan shrink-0">&#10003;</span> <strong>Attention kernels</strong>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-foreground">
+              <span class="text-cyan shrink-0">&#10003;</span> <strong>Native linear algebra</strong>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-foreground">
+              <span class="text-cyan shrink-0">&#10003;</span> <strong>Expanded MPS backend</strong>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-foreground">
+              <span class="text-cyan shrink-0">&#10003;</span> <strong>First-class platform</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">THE MAC AS ML WORKSTATION</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Moving beyond attention kernels to full native linalg means <strong>most training and inference workloads now run natively on Apple Silicon.</strong> M-series Macs with unified memory become legitimate ML development machines, not just "good enough for prototyping."
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: What Else Shipped -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What Else Shipped
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The big 3 features get the headlines. But 2.14 shipped a set of smaller changes that matter for anyone using <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">torch.compile</code> and <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">torch.export</code> in production.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">01</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-cyan font-bold block">Declarative Dynamic Shapes</span>
+              <span class="text-[10px] text-secondary">@dynamic_spec decorator</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Shapes become <strong>declarative rather than traced.</strong> The <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">@dynamic_spec</code> decorator works with compile, export, and tracing. No more shape surprises in production.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">02</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-cyan font-bold block">torch.switch</span>
+              <span class="text-[10px] text-secondary">Control Flow Primitive</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            A new control flow primitive for <strong>branching inside compiled graphs.</strong> Cleaner than nested <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">torch.cond</code> chains. Makes compiled models with conditional logic more readable.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">03</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-cyan font-bold block">CUDA Graph Capture</span>
+              <span class="text-[10px] text-secondary">for torch.while_loop</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            <strong>CUDA graphs now capture <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">torch.while_loop</code>.</strong> Iterative algorithms that were previously excluded from graph capture can now run at full CUDA graph speed.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">04</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-cyan font-bold block">Complex Tensor Compile</span>
+              <span class="text-[10px] text-secondary">Full Compilation Support</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            <strong>Complex-valued tensors now work with <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">torch.compile</code>.</strong> Signal processing, quantum computing, and physics simulation workloads get compilation support at last.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        PyTorch 2.14 is the infrastructure release. <strong>NVGEMM gives you faster kernels for free. Fault tolerance means training jobs survive hardware failures without human intervention.</strong> Apple Silicon gets promoted from experiment to supported platform. This is the release you upgrade for, not because of a new feature, but because the foundation got stronger.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={33} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>

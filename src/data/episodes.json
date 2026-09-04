@@ -320,7 +320,7 @@
     "day": "Sat",
     "date": "Sep 5",
     "readTime": "5 min",
-    "published": true,
+    "published": false,
     "image": "/series/ep27-gpt6-astra.png"
   },
   {
@@ -332,7 +332,7 @@
     "day": "Mon",
     "date": "Sep 7",
     "readTime": "5 min",
-    "published": true,
+    "published": false,
     "image": "/series/ep28-opaque-recurrence.png"
   },
   {
@@ -344,7 +344,7 @@
     "day": "Wed",
     "date": "Sep 10",
     "readTime": "5 min",
-    "published": true,
+    "published": false,
     "image": "/series/ep29-recirculation.png"
   },
   {
@@ -356,7 +356,7 @@
     "day": "Sat",
     "date": "Sep 13",
     "readTime": "5 min",
-    "published": true,
+    "published": false,
     "image": "/series/ep30-nvidia-pair.png"
   },
   {
@@ -368,43 +368,31 @@
     "day": "Mon",
     "date": "Sep 15",
     "readTime": "5 min",
-    "published": true,
+    "published": false,
     "image": "/series/ep31-einsummable.png"
   },
   {
     "number": 32,
-    "slug": "pace-the-frontier",
-    "title": "Pace the Frontier: When the Builders Say Stop",
-    "hook": "Three AI labs agree advancement needs brakes. One researcher quit. One alignment lead confirmed >10% extinction risk. Three CEOs, three regulatory models, zero enforcement.",
-    "category": "hot-topic",
-    "day": "Wed",
-    "date": "Sep 16",
-    "readTime": "5 min",
-    "published": true,
-    "image": "/series/ep32-pace-the-frontier.png"
-  },
-  {
-    "number": 33,
     "slug": "declarative-attention",
     "title": "Declarative Attention: Models Control Their Own KV Cache",
     "hook": "The model emits global, focus, and local declarations. The engine skips unneeded context. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Works with vLLM and FlashAttention today.",
     "category": "research-paper",
-    "day": "Sat",
-    "date": "Sep 19",
+    "day": "Wed",
+    "date": "Sep 17",
     "readTime": "5 min",
-    "published": true,
-    "image": "/series/ep33-declarative-attention.png"
+    "published": false,
+    "image": "/series/ep32-declarative-attention.png"
   },
   {
-    "number": 34,
+    "number": 33,
     "slug": "pytorch-214",
     "title": "PyTorch 2.14: Training Jobs Now Survive Node Failures",
     "hook": "NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups where nodes crash and rejoin without restarting. Apple Silicon native linalg. The infra release every ML engineer needs.",
     "category": "new-release",
-    "day": "Mon",
-    "date": "Sep 21",
+    "day": "Sat",
+    "date": "Sep 19",
     "readTime": "5 min",
     "published": false,
-    "image": "/series/ep34-pytorch-214.png"
+    "image": "/series/ep33-pytorch-214.png"
   }
 ]
