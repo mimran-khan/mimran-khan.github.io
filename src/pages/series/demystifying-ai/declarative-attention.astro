@@ -1,0 +1,439 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Declarative Attention: Models Control Their Own KV Cache | Demystifying AI in 5 Minutes"
+  description="Declarative Attention lets models declare where they need to attend in their chain-of-thought. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Works with vLLM today."
+  image="/og-series-ep32-declarative-attention.png"
+  keywords="Declarative Attention, KV cache, sparse attention, chain-of-thought, vLLM, FlashAttention, Gemma, inference optimization"
+  publishedDate="2026-09-17"
+  articleSection="Demystifying AI"
+  articleTags={["Declarative Attention", "KV Cache", "Sparse Attention", "Chain-of-Thought", "vLLM", "Research Paper"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .mode-card {
+      transition: all 0.3s ease;
+    }
+    .mode-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-violet-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep32-declarative-attention.png" alt="Declarative Attention - Models Control Their Own KV Cache" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet-400 font-mono bg-violet-500/5 border border-violet-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          EP 32
+        </span>
+        <a href="https://arxiv.org/abs/2609.02737" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 7l3 5-3 5M15 7l-3 5 3 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          arXiv: 2609.02737
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Sep 17, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Declarative Attention: Models Control Their Own KV Cache
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Your model already knows which parts of context matter. Declarative Attention lets it say so. 52% fewer KV cache reads on Gemma-4-31B, zero training, drop-in with vLLM.
+      </p>
+
+      <ShareButtons title="Declarative Attention: Models Control Their Own KV Cache" url="/series/demystifying-ai/declarative-attention" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Your model already knows which parts of context matter. <strong>Declarative Attention lets it say so.</strong> The model emits <code class="text-violet-400">global</code>, <code class="text-violet-400">focus</code>, and <code class="text-violet-400">local</code> tags in its chain-of-thought. The engine skips the rest. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Drop-in with vLLM.
+      </p>
+    </div>
+
+    <!-- Section 1: The 1M-Token Problem -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The 1M-Token Problem
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Long-context models can hold 1 million tokens. But every decoding step reads the <strong>entire KV cache</strong> to figure out where to attend. Most of that context is irrelevant to the current generation step. The cost is O(N) per step, even when only a fraction of tokens actually matter.
+      </p>
+
+      <!-- Visual: Long context diagram -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-violet-400 font-bold">YOUR MODEL READS ALL OF THIS...</span>
+        </div>
+        <div class="flex gap-1 flex-wrap mb-3">
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-violet-500/30 border border-violet-500/40"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-violet-500/30 border border-violet-500/40"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-violet-500/30 border border-violet-500/40"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+          <span class="w-6 h-6 rounded bg-foreground/5 border border-foreground/10"></span>
+        </div>
+        <div class="flex items-center gap-3 text-[10px] font-mono">
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-foreground/5 border border-foreground/10 inline-block"></span> <span class="text-secondary">Irrelevant</span></span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-violet-500/30 border border-violet-500/40 inline-block"></span> <span class="text-violet-400">Actually needed</span></span>
+        </div>
+        <p class="text-[10px] text-secondary/70 font-mono mt-3 mb-0">...to find THIS. Every single decoding step. O(N) cost.</p>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Proxy scoring methods try to pre-filter tokens, but they still require scanning. The real question: <strong>wouldn't the model already know which parts are relevant?</strong>
+      </p>
+
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.02] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400">KEY INSIGHT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+          The model already reasons about which context matters during chain-of-thought. <strong>Declarative Attention just makes that reasoning actionable.</strong> Instead of the model "thinking" about relevant context and the engine ignoring that knowledge, the model declares it and the engine acts on it.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Three Modes, Parsed Like Tool Calls -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Three Modes, Parsed Like Tool Calls
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Declarative Attention gives the model 3 tags it can emit mid-generation. The serving engine parses them like tool calls and <strong>dynamically constructs the attention mask</strong> at each decoding step. No custom kernels. Block-aligned masks, compatible with FlashAttention via vLLM.
+      </p>
+
+      <!-- Mode Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <!-- Global -->
+        <div class="mode-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5">
+          <div class="w-10 h-10 rounded-full bg-violet-500/20 border-2 border-violet-400 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.6 9h16.8M3.6 15h16.8"/></svg>
+          </div>
+          <div class="mb-2">
+            <code class="text-xs font-mono text-violet-400 font-bold">&lt;global&gt;</code>
+          </div>
+          <span class="text-xs font-semibold text-foreground block mb-1">Full Context Scan</span>
+          <p class="text-[11px] text-secondary mb-0">
+            "Find the answer anywhere." Reads the entire KV cache. Used when the model needs to search across all context.
+          </p>
+        </div>
+
+        <!-- Focus -->
+        <div class="mode-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5">
+          <div class="w-10 h-10 rounded-full bg-violet-500/20 border-2 border-violet-400 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <div class="mb-2">
+            <code class="text-xs font-mono text-violet-400 font-bold">&lt;focus&gt;</code>
+          </div>
+          <span class="text-xs font-semibold text-foreground block mb-1">Specific Region</span>
+          <p class="text-[11px] text-secondary mb-0">
+            "I found it, zoom in here." Restricts attention to a declared span. Only reads the relevant cache blocks.
+          </p>
+        </div>
+
+        <!-- Local -->
+        <div class="mode-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5">
+          <div class="w-10 h-10 rounded-full bg-violet-500/20 border-2 border-violet-400 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div class="mb-2">
+            <code class="text-xs font-mono text-violet-400 font-bold">&lt;local&gt;</code>
+          </div>
+          <span class="text-xs font-semibold text-foreground block mb-1">Recent Output Only</span>
+          <p class="text-[11px] text-secondary mb-0">
+            "Just generating, don't need context." Attends only to recent tokens. Maximum cache savings during pure generation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Flow diagram -->
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400 font-bold">HOW IT WORKS</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">Model chain-of-thought output:</span>
+
+<span class="text-foreground">"The user asked about paragraph 3.</span>
+<span class="text-violet-400 font-bold"> &lt;global&gt;</span><span class="text-secondary">  // scan full context to find it</span>
+<span class="text-foreground"> Found the relevant section at tokens 1200-1400.</span>
+<span class="text-violet-400 font-bold"> &lt;focus start=1200 end=1400&gt;</span><span class="text-secondary">  // zoom in</span>
+<span class="text-foreground"> The answer is: ...</span>
+<span class="text-violet-400 font-bold"> &lt;local&gt;</span><span class="text-secondary">  // just generating now, skip context</span>
+<span class="text-foreground"> ... detailed response continues ..."</span>
+
+<span class="text-secondary">Engine parses tags like tool calls.</span>
+<span class="text-secondary">Constructs attention mask per step.</span>
+<span class="text-secondary">Block-aligned. FlashAttention compatible.</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 3: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Tested across <strong>15 long-context benchmarks</strong>. Two off-the-shelf models. No fine-tuning, no retraining. The model just gets a system prompt explaining the 3 tags.
+      </p>
+
+      <!-- Results Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Gemma Card -->
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs font-bold text-violet-400">Gemma-4-31B</span>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[10px] font-mono text-secondary">KV Cache Reduction</span>
+                <span class="text-lg font-bold text-violet-400">52.0%</span>
+              </div>
+              <div class="h-2 rounded-full bg-violet-500/10 overflow-hidden">
+                <div class="h-full bg-violet-400 rounded-full" style="width: 52%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[10px] font-mono text-secondary">Accuracy Drop</span>
+                <span class="text-sm font-bold text-green">-1.27pp</span>
+              </div>
+              <div class="h-2 rounded-full bg-green/10 overflow-hidden">
+                <div class="h-full bg-green rounded-full" style="width: 5%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Qwen Card -->
+        <div class="stat-card rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs font-bold text-foreground/70">Qwen-3.6-27B</span>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[10px] font-mono text-secondary">KV Cache Reduction</span>
+                <span class="text-lg font-bold text-foreground/70">31.1%</span>
+              </div>
+              <div class="h-2 rounded-full bg-foreground/10 overflow-hidden">
+                <div class="h-full bg-foreground/30 rounded-full" style="width: 31%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[10px] font-mono text-secondary">Accuracy Drop</span>
+                <span class="text-sm font-bold text-yellow-400">-2.75pp</span>
+              </div>
+              <div class="h-2 rounded-full bg-yellow-500/10 overflow-hidden">
+                <div class="h-full bg-yellow-400 rounded-full" style="width: 10%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl font-bold text-violet-400">15</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Benchmarks</div>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-2xl font-bold text-violet-400">0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Training Required</div>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-lg font-bold text-green">Zero-Shot</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Off-the-Shelf</div>
+        </div>
+        <div class="stat-card rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center">
+          <div class="text-lg font-bold text-violet-400">Scales</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Gap Shrinks w/ Size</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.02] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400">THE SCALING SIGNAL</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+          Gemma-4-31B (larger) gets <strong>52% savings with only 1.27pp accuracy loss.</strong> Qwen-3.6-27B (smaller) gets 31.1% savings with 2.75pp loss. The pattern is clear: <strong>bigger models are better at knowing what they need.</strong> As models scale, the accuracy gap closes while savings hold steady.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: Why This Matters for Serving -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Why This Matters for Serving
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Sparse attention has always been an infrastructure hack: custom kernels, special training, modified architectures. Declarative Attention flips it into a <strong>model-level reasoning step.</strong> And it drops into existing serving stacks without touching a single kernel.
+      </p>
+
+      <!-- Feature Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-foreground">Zero Training Required</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Works on off-the-shelf models. No fine-tuning, no RLHF, no special checkpoints. <strong>Just a system prompt</strong> explaining the 3 tag modes.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-foreground">No Kernel Rewrites</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Masks at the cache bookkeeping layer. <strong>Does not rewrite attention kernels.</strong> Block-aligned for hardware efficiency. Compatible with FlashAttention.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-full bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-foreground">vLLM Compatible</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Implemented via vLLM's existing infrastructure. <strong>Drop-in integration</strong> with production serving stacks already deployed today.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-violet-500/20 bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-full bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <span class="text-xs font-bold text-foreground">52% Fewer Reads</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            At scale, <strong>halving KV cache reads directly cuts serving cost.</strong> Fewer memory reads per step means higher throughput and lower latency for long-context workloads.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400">THE SHIFT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+          Previous sparse attention methods decide what to skip at the infrastructure level. Declarative Attention moves that decision to where it belongs: <strong>the model itself.</strong> The model reasons about what it needs, emits a declaration, and the engine respects it. The infrastructure becomes a follower, not a guesser.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Declarative Attention flips sparse attention from an infrastructure hack to a model-level reasoning step. <strong>The model tells the engine what to skip.</strong> 52% savings with 1.27pp accuracy loss on a 31B model, and the gap closes with scale. This is how long-context inference gets cheap.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-cyan-500/30 bg-cyan-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-cyan-400 font-bold">#33</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">PyTorch 2.14: Training Jobs Now Survive Node Failures</h3>
+        <p class="text-xs text-secondary/70">NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups. Apple Silicon native linalg. The infra release every ML engineer needs.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-violet-400 hover:border-violet-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-xs text-violet-400 hover:bg-violet-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
