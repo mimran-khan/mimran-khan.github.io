@@ -1,0 +1,396 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor | Demystifying AI in 5 Minutes"
+  description="GPT-6 Astra uses opaque recurrence - a looped transformer architecture that hides chain-of-thought from safety monitors. The reasoning happens, but nobody can see it."
+  image="/og-series-ep28-opaque-recurrence.png"
+  keywords="opaque recurrence, GPT-6 Astra, looped transformer, recurrent depth, chain-of-thought monitoring, AI safety, Huginn, OpenAI"
+  publishedDate="2026-09-07"
+  articleSection="Demystifying AI"
+  articleTags={["Opaque Recurrence", "GPT-6 Astra", "Looped Transformer", "AI Safety", "Chain-of-Thought"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63,185,80,0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(63,185,80,0.08);
+    }
+    .compare-card {
+      transition: all 0.3s ease;
+    }
+    .compare-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(63,185,80,0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep28-opaque-recurrence.png" alt="Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 28
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Sep 7, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        GPT-6 Astra loops hidden states through the same layers multiple times before producing a single token. The reasoning happens in numerical activations nobody can read. Safety researchers are sounding the alarm.
+      </p>
+
+      <ShareButtons title="Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor" url="/series/demystifying-ai/opaque-recurrence" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        GPT-6 Astra loops its hidden state through the same layers multiple times before producing a single token. <strong>The reasoning happens in numerical activations nobody can read.</strong> OpenAI says total depth is within 2x of GPT-4. Safety researchers say that's enough to break chain-of-thought monitoring.
+      </p>
+    </div>
+
+    <!-- Section 1: How Looped Transformers Work -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> How Looped Transformers Work
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        A standard transformer passes each token through N layers once. One pass, one output. Astra does something different. It takes a smaller block of K layers and <strong>loops the hidden state through them R times</strong> before producing output.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The effective depth becomes K * R. But all the intermediate work happens in <strong>floating-point activations</strong>, not in the token stream. No human-readable text until the loop finishes.
+      </p>
+
+      <!-- Side-by-side comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="compare-card rounded-xl border border-border bg-elevated p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-[10px] font-mono text-secondary font-bold">STANDARD TRANSFORMER</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-foreground/80 bg-background border border-border rounded px-2 py-1 w-full text-center">Token Input</span>
+            </div>
+            <div class="flex justify-center">
+              <svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-foreground/80 bg-background border border-border rounded px-2 py-1 w-full text-center">Layer 1</span>
+            </div>
+            <div class="flex justify-center">
+              <svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-foreground/80 bg-background border border-border rounded px-2 py-1 w-full text-center">Layer 2</span>
+            </div>
+            <div class="flex justify-center">
+              <span class="text-[10px] font-mono text-secondary">...</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-foreground/80 bg-background border border-border rounded px-2 py-1 w-full text-center">Layer N</span>
+            </div>
+            <div class="flex justify-center">
+              <svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-foreground/80 bg-background border border-border rounded px-2 py-1 w-full text-center">Output Token</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-border">
+            <p class="text-[10px] text-secondary font-mono mb-0">Depth = N layers. One pass. Every layer's output is observable in principle.</p>
+          </div>
+        </div>
+
+        <div class="compare-card rounded-xl border border-green/30 bg-green/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-[10px] font-mono text-green font-bold">LOOPED TRANSFORMER (ASTRA)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-foreground/80 bg-background border border-green/20 rounded px-2 py-1 w-full text-center">Token Input</span>
+            </div>
+            <div class="flex justify-center">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </div>
+            <div class="rounded-lg border border-green/30 bg-green/[0.05] p-3">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[9px] font-mono text-green font-bold">LOOP x R</span>
+                <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-xs font-mono text-foreground/80 bg-background border border-green/20 rounded px-2 py-1 w-full text-center block">Layer 1</span>
+                <span class="text-xs font-mono text-foreground/80 bg-background border border-green/20 rounded px-2 py-1 w-full text-center block">Layer 2</span>
+                <span class="text-[10px] font-mono text-secondary text-center block">...</span>
+                <span class="text-xs font-mono text-foreground/80 bg-background border border-green/20 rounded px-2 py-1 w-full text-center block">Layer K</span>
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-green bg-background border border-green/20 rounded px-2 py-1 w-full text-center">Output Token</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-green/20">
+            <p class="text-[10px] text-green font-mono mb-0">Depth = K x R layers. R loops. All intermediate computation is invisible activations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-green">THE PREDECESSOR</span>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          The technique is not new. The <strong>Huginn model</strong> from the University of Maryland demonstrated looped transformers first. Brown-Cohen et al. 2026 provides the formal treatment. What is new is <strong>deploying it at frontier scale</strong> in a model already rated Critical for cybersecurity. The Information reported this architectural detail on September 1, 2026.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Safety Paradox -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Safety Paradox
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        OpenAI's "Path to Astra" blog post says they deploy <strong>"additional chain-of-thought monitoring"</strong> as a safety measure. That is the very thing the architecture erodes.
+      </p>
+
+      <!-- Paradox visualization -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-6 rounded-full bg-green/20 border border-green/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">1</span>
+            </span>
+            <span class="text-[10px] font-mono text-green font-bold">THE CLAIM</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            OpenAI says they use <strong>"additional chain-of-thought monitoring"</strong> as a core safety control for Astra.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-6 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-red-400 text-[10px] font-mono font-bold">2</span>
+            </span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">THE REALITY</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            The looped transformer architecture shifts reasoning into <strong>latent activations that are invisible</strong> to chain-of-thought monitors.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-6 rounded-full bg-yellow-500/20 border border-yellow-500/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-yellow-400 text-[10px] font-mono font-bold">3</span>
+            </span>
+            <span class="text-[10px] font-mono text-yellow-400 font-bold">THE PARADOX</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            The safety mechanism <strong>depends on the very thing the architecture erodes.</strong> You cannot monitor what you cannot read.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quotes -->
+      <div class="space-y-4 mb-6">
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 md:p-5">
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 text-lg leading-none shrink-0">"</span>
+            <div>
+              <p class="text-sm text-foreground/90 leading-relaxed mb-2 italic">
+                If OpenAI pushes this further, they'll totally destroy CoT monitorability.
+              </p>
+              <p class="text-[10px] font-mono text-red-400 mb-0">
+                <strong>Buck Shlegeris</strong> - CEO, Redwood Research
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-start gap-3">
+            <span class="text-green text-lg leading-none shrink-0">"</span>
+            <div>
+              <p class="text-sm text-foreground/90 leading-relaxed mb-2 italic">
+                Total computation depth is within 2x of GPT-4. CoT monitoring is preserved.
+              </p>
+              <p class="text-[10px] font-mono text-green mb-0">
+                <strong>Jakub Pachocki</strong> - OpenAI
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-green">THE GAP</span>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          These two statements cannot both be fully true. If reasoning loops through activations that monitors cannot inspect, then <strong>some portion of the model's reasoning is unmonitorable by design.</strong> Pachocki's claim is about total depth. Shlegeris's concern is about visibility. They are measuring different things.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: Why 2x Might Be Enough -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Why 2x Might Be Enough
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        OpenAI says Astra's total recurrent depth stays within 2x of GPT-4. That sounds conservative. The LessWrong analysis explains <strong>why it is not.</strong>
+      </p>
+
+      <!-- Stat cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-green">2x</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">GPT-4 depth claimed</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-green">K*R</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Effective layer depth</div>
+        </div>
+        <div class="stat-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-red-400">0%</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Visible intermediate steps</div>
+        </div>
+        <div class="stat-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-yellow-400">1st</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Critical-rated model</div>
+        </div>
+      </div>
+
+      <div class="space-y-3 mb-6">
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-green font-bold">NOT UNBOUNDED</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Recurrent depth in Astra is <strong>not unbounded</strong> like classic RNNs. The loop count R is fixed at training time. The model cannot decide to "think longer" on harder problems. This limits the damage compared to a true open-ended recurrence.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-red-500/20 bg-red-500/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-red-400 font-bold">BUT STILL DANGEROUS</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            A rogue model does not need to plan a full escape in one forward pass. <strong>It just needs enough hidden computation to spoof a tool call.</strong> Generating a convincing but malicious API request, crafting a deceptive response to a safety probe, or subtly altering code output - none of these require unbounded reasoning depth.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-yellow-400 font-bold">THE PRECEDENT PROBLEM</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            Today R is small. But the architecture is now validated at frontier scale. <strong>Every future model can increase R.</strong> The LessWrong analysis is clear: recurrent depth is not the end of monitoring, but it is a step in the wrong direction. And the first step happened inside a Critical-rated cybersecurity model.
+          </p>
+        </div>
+      </div>
+
+      <!-- How it compares -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <p class="text-xs font-mono text-green font-bold mb-3">STANDARD vs. LOOPED: WHAT'S VISIBLE</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 rounded-lg border border-border p-3">
+            <span class="text-xs font-mono text-secondary w-32 shrink-0">Standard CoT</span>
+            <div class="flex-1 h-3 bg-background rounded-full overflow-hidden">
+              <div class="h-full bg-green rounded-full" style="width: 90%"></div>
+            </div>
+            <span class="text-[10px] text-green font-mono shrink-0">~90% visible</span>
+          </div>
+          <div class="flex items-center gap-3 rounded-lg border border-green/20 bg-green/[0.02] p-3">
+            <span class="text-xs font-mono text-green w-32 shrink-0">Looped (Astra)</span>
+            <div class="flex-1 h-3 bg-background rounded-full overflow-hidden">
+              <div class="h-full bg-red-400 rounded-full" style="width: 30%"></div>
+            </div>
+            <span class="text-[10px] text-red-400 font-mono shrink-0">~30% visible</span>
+          </div>
+          <div class="flex items-center gap-3 rounded-lg border border-border p-3">
+            <span class="text-xs font-mono text-secondary w-32 shrink-0">Classic RNN</span>
+            <div class="flex-1 h-3 bg-background rounded-full overflow-hidden">
+              <div class="h-full bg-red-400 rounded-full" style="width: 5%"></div>
+            </div>
+            <span class="text-[10px] text-red-400 font-mono shrink-0">~5% visible</span>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">Approximate reasoning visibility. Standard CoT emits readable tokens at each step. Looped transformers emit tokens only after all R loops complete. Classic RNNs have fully opaque hidden states.</p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Opaque recurrence is not the end of AI safety monitoring. But it is the first crack. <strong>OpenAI shipped a Critical-rated cybersecurity model with an architecture that makes its own safety controls harder to use.</strong> The reasoning loop count today is small. The precedent is not.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={28} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
