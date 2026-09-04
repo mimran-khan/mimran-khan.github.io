@@ -1,0 +1,462 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="NVIDIA PAIR: Turn Your LAN Into an Inference Cluster | Demystifying AI in 5 Minutes"
+  description="NVIDIA PAIR is a free, Apache 2.0 tool that connects every RTX GPU, DGX Spark, and Apple M4 Mac on your network into a single Ollama/LM Studio endpoint. Up to 18 devices."
+  image="/og-series-ep30-nvidia-pair.png"
+  keywords="NVIDIA PAIR, Personal AI Router, local inference, Ollama, LM Studio, RTX, DGX Spark, Apple M4, home AI cluster"
+  publishedDate="2026-09-13"
+  articleSection="Demystifying AI"
+  articleTags={["NVIDIA PAIR", "Personal AI Router", "Local Inference", "Ollama", "Apache 2.0"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34,211,238,0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .hw-card {
+      transition: all 0.3s ease;
+    }
+    .hw-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(34,211,238,0.08);
+    }
+    .compare-card {
+      transition: all 0.3s ease;
+    }
+    .compare-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(34,211,238,0.08);
+    }
+    .arch-step {
+      transition: all 0.3s ease;
+    }
+    .arch-step:hover {
+      transform: translateX(4px);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep30-nvidia-pair.png" alt="NVIDIA PAIR - Turn Your LAN Into an Inference Cluster" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 30
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <a href="https://github.com/NVIDIA/Personal-AI-Router" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Sep 13, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        NVIDIA PAIR: Turn Your LAN Into an Inference Cluster
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        NVIDIA just shipped a free, open-source tool that discovers every GPU on your local network and exposes them as a single inference endpoint. Gaming PCs, workstations, Macs. Apache 2.0.
+      </p>
+
+      <ShareButtons title="NVIDIA PAIR: Turn Your LAN Into an Inference Cluster" url="/series/demystifying-ai/nvidia-pair" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        NVIDIA shipped a free, open-source router that connects every RTX GPU, DGX Spark, and Apple M4 Mac on your network into <strong>one Ollama/LM Studio endpoint</strong>. Up to 18 devices. Nothing leaves the LAN. Apache 2.0.
+      </p>
+    </div>
+
+    <!-- Section 1: What PAIR Actually Does -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What PAIR Actually Does (And Doesn't)
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        PAIR stands for <strong>Personal AI Router</strong>. Launched Sep 3, 2026 at IFA. Open-sourced on GitHub under <strong>NVIDIA/Personal-AI-Router</strong> (v0.1.1 beta). The name tells you exactly what it is. A router. Not a GPU pool.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- What PAIR IS -->
+        <div class="compare-card rounded-xl border border-cyan/30 bg-cyan/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-cyan">What PAIR IS</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">A request router</strong> that schedules whole requests to available nodes</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">Concurrency scaling</strong> via more machines handling parallel requests</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">Single endpoint</strong> speaking Ollama + OpenAI protocols</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">LAN-only</strong> with mTLS encryption and 6-digit pairing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- What PAIR ISN'T -->
+        <div class="compare-card rounded-xl border border-red-500/20 bg-red-500/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <span class="text-xs font-bold text-red-400">What PAIR ISN'T</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-red-400 shrink-0 mt-0.5">&#10007;</span>
+              <span><strong class="text-foreground/70">Not a GPU pool</strong> that merges hardware resources</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-red-400 shrink-0 mt-0.5">&#10007;</span>
+              <span><strong class="text-foreground/70">Not a VRAM combiner</strong> that spans memory across devices</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-red-400 shrink-0 mt-0.5">&#10007;</span>
+              <span><strong class="text-foreground/70">Not a model splitter</strong> that shards layers across nodes</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-red-400 shrink-0 mt-0.5">&#10007;</span>
+              <span><strong class="text-foreground/70">Not faster single requests</strong> from adding more machines</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">KEY DISTINCTION</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Each request runs <strong>whole on a single node</strong>. PAIR picks which node runs it. Adding machines means more parallel requests, not faster individual ones. Think load balancer, not supercomputer.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Supported Hardware -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Supported Hardware
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The hardware list is broader than expected. <strong>NVIDIA routing requests to Apple silicon</strong> was nobody's bet. But here it is.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="hw-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="w-10 h-10 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center mx-auto mb-3">
+            <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="text-xs font-bold text-cyan mb-1">RTX 20+</div>
+          <div class="text-[10px] text-secondary font-mono">Gaming GPUs</div>
+          <div class="text-[9px] text-secondary/60 mt-1">GeForce RTX 20-series and up</div>
+        </div>
+
+        <div class="hw-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="w-10 h-10 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center mx-auto mb-3">
+            <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+          </div>
+          <div class="text-xs font-bold text-cyan mb-1">RTX PRO</div>
+          <div class="text-[10px] text-secondary font-mono">Workstation</div>
+          <div class="text-[9px] text-secondary/60 mt-1">Professional GPU line</div>
+        </div>
+
+        <div class="hw-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="w-10 h-10 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center mx-auto mb-3">
+            <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+          </div>
+          <div class="text-xs font-bold text-cyan mb-1">DGX Spark</div>
+          <div class="text-[10px] text-secondary font-mono">Mini Datacenter</div>
+          <div class="text-[9px] text-secondary/60 mt-1">Desktop AI server</div>
+        </div>
+
+        <div class="hw-card rounded-xl border border-yellow-400/20 bg-yellow-400/[0.03] p-4 text-center">
+          <div class="w-10 h-10 rounded-full bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center mx-auto mb-3">
+            <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          </div>
+          <div class="text-xs font-bold text-yellow-400 mb-1">Apple M4+</div>
+          <div class="text-[10px] text-secondary font-mono">The Surprise</div>
+          <div class="text-[9px] text-secondary/60 mt-1">macOS Tahoe required</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-400/20 bg-yellow-400/[0.02] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-yellow-400">THE HEADLINE</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          NVIDIA is routing inference requests to Apple silicon. Read that again. <strong>The GPU company is treating competitor hardware as a first-class inference node.</strong> M4 Macs on macOS Tahoe are fully supported. The typical setup is now 1 MacBook + 1 gaming PC. 24GB+ VRAM recommended per node.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: How It Works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> How It Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The architecture is intentionally simple. <strong>Discovery, pairing, encryption, routing.</strong> No distributed training, no tensor parallelism, no fancy orchestration. Just a router that knows which machines are available.
+      </p>
+
+      <!-- Architecture Diagram -->
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-6 mb-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-cyan font-bold">ARCHITECTURE</span>
+        </div>
+
+        <div class="space-y-3">
+          <div class="arch-step flex items-center gap-3 p-3 rounded-lg border border-cyan/10 bg-cyan/[0.02]">
+            <div class="w-8 h-8 rounded-full bg-cyan/20 border border-cyan/30 flex items-center justify-center shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">1</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-cyan block">LAN Discovery</span>
+              <span class="text-[10px] text-secondary">PAIR scans your local network for compatible devices</span>
+            </div>
+            <svg class="w-4 h-4 text-cyan/40 ml-auto shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+
+          <div class="arch-step flex items-center gap-3 p-3 rounded-lg border border-cyan/10 bg-cyan/[0.02]">
+            <div class="w-8 h-8 rounded-full bg-cyan/20 border border-cyan/30 flex items-center justify-center shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">2</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-cyan block">6-Digit Pairing Code</span>
+              <span class="text-[10px] text-secondary">Each device pairs with a one-time code, no passwords stored</span>
+            </div>
+            <svg class="w-4 h-4 text-cyan/40 ml-auto shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+
+          <div class="arch-step flex items-center gap-3 p-3 rounded-lg border border-cyan/10 bg-cyan/[0.02]">
+            <div class="w-8 h-8 rounded-full bg-cyan/20 border border-cyan/30 flex items-center justify-center shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">3</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-cyan block">mTLS Encrypted Channel</span>
+              <span class="text-[10px] text-secondary">All traffic between nodes is encrypted with mutual TLS</span>
+            </div>
+            <svg class="w-4 h-4 text-cyan/40 ml-auto shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+
+          <div class="arch-step flex items-center gap-3 p-3 rounded-lg border border-cyan/10 bg-cyan/[0.02]">
+            <div class="w-8 h-8 rounded-full bg-cyan/20 border border-cyan/30 flex items-center justify-center shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">4</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-cyan block">Single Endpoint</span>
+              <span class="text-[10px] text-secondary">Exposes one URL speaking Ollama + OpenAI API protocols</span>
+            </div>
+            <svg class="w-4 h-4 text-cyan/40 ml-auto shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+
+          <div class="arch-step flex items-center gap-3 p-3 rounded-lg border border-green/10 bg-green/[0.02]">
+            <div class="w-8 h-8 rounded-full bg-green/20 border border-green/30 flex items-center justify-center shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">5</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-green block">Route to Available Node</span>
+              <span class="text-[10px] text-secondary">Each request dispatched whole to the best available machine</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Engine Manifests -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-bold text-cyan">Bundled Engines</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> Ollama (built-in)
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">&#10003;</span> LM Studio (built-in)
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-bold text-cyan">Custom Engines</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">+</span> vLLM (via JSON manifest)
+            </div>
+            <div class="flex items-center gap-2 text-xs text-secondary">
+              <span class="text-cyan/60 shrink-0">+</span> Any engine via custom manifest
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">ENGINE MANIFEST EXAMPLE</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-secondary">// engines/vllm.json</span>
+<span class="text-foreground">{'{'}
+  "name": "vllm",
+  "protocol": "openai",
+  "command": "vllm serve {'{'}"model"{'}'} --port {'{'}"port"{'}'}",
+  "health_check": "/health",
+  "models_endpoint": "/v1/models"
+{'}'}</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 4: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Numbers
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        NVIDIA tested PAIR with up to 18 devices in a single cluster. The performance gains come from <strong>kernel optimizations and speculative decoding</strong>, not from combining GPUs.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">18</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Max Devices Tested</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1.5x</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">RTX 5090 Speedup</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">1.4x</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Two-DGX Cluster</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Data Leaving LAN</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">5090</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-cyan font-bold block">RTX 5090 Gains</span>
+              <span class="text-[10px] text-secondary">Per-node Performance</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Up to <strong>1.5x speedup</strong> from kernel optimizations, speculative decoding, and faster prefill. These gains apply to each node individually. PAIR just makes them available to your whole network.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-cyan/20 border-2 border-cyan flex items-center justify-center flex-shrink-0">
+              <span class="text-cyan text-[10px] font-mono font-bold">DGX</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-cyan font-bold block">DGX Spark Clusters</span>
+              <span class="text-[10px] text-secondary">Aggregate Throughput</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            vLLM 1.x on RTX PRO 6000 Blackwell shows up to <strong>1.4x throughput on two-DGX-Spark clusters</strong>. Not because GPUs merge. Because 2 machines serve 2 requests simultaneously.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">SECURITY MODEL</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Every prompt, every file, every response stays on the local network. <strong>Zero data leaves your LAN.</strong> The 6-digit pairing code prevents unauthorized devices from joining. mTLS encrypts all traffic between nodes. No cloud relay, no phone-home, no telemetry endpoint.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        NVIDIA just made every idle GPU in your house a production inference node. <strong>If you have 2 computers and a LAN cable, you have an AI cluster.</strong> The Mac support is the surprise move. NVIDIA routing to Apple silicon was nobody's bet. Nothing leaves the network. Apache 2.0. Free forever.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={30} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>

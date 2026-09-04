@@ -320,20 +320,20 @@
     "day": "Sat",
     "date": "Sep 5",
     "readTime": "5 min",
-    "published": true,
+    "published": false,
     "image": "/series/ep27-gpt6-astra.png"
   },
   {
     "number": 28,
-    "slug": "tbd",
-    "title": "Coming Soon",
-    "hook": "Next hot topic dropping Monday.",
+    "slug": "opaque-recurrence",
+    "title": "Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor",
+    "hook": "GPT-6 Astra uses an opaque recurrence architecture that hides chain-of-thought from safety monitors. The reasoning happens - but nobody can see it. TechCrunch called it the most controversial design choice in AI.",
     "category": "hot-topic",
     "day": "Mon",
     "date": "Sep 7",
     "readTime": "5 min",
-    "published": true,
-    "image": ""
+    "published": false,
+    "image": "/series/ep28-opaque-recurrence.png"
   },
   {
     "number": 29,
@@ -344,7 +344,7 @@
     "day": "Wed",
     "date": "Sep 10",
     "readTime": "5 min",
-    "published": true,
+    "published": false,
     "image": "/series/ep29-recirculation.png"
   },
   {
@@ -363,7 +363,7 @@
     "number": 31,
     "slug": "einsummable",
     "title": "Einsummable: Every Kernel Is a Join",
-    "hook": "Write PyTorch. Get optimal multi-GPU sharding. No device assignments. No annotations. Einsummable beats hand-tuned PyTorch by 34% and vLLM by 40% on LLaMA transformer blocks. Zero code changes.",
+    "hook": "Write PyTorch. Get optimal multi-GPU sharding. No device assignments. No annotations. Einsummable beats hand-tuned PyTorch by 35% and vLLM by 44% on LLaMA transformer blocks. Zero code changes.",
     "category": "hot-topic",
     "day": "Mon",
     "date": "Sep 15",
