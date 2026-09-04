@@ -289,6 +289,15 @@
       "tag": "release/ep27"
     },
     {
+      "ep": 28,
+      "branch": "ep28",
+      "slug": "opaque-recurrence",
+      "title": "Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor",
+      "status": "pending",
+      "release_date": "2026-09-07",
+      "linkedin_post": "Episode 28: 5-minute read. Zero fluff : Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor\n\nGPT-6 Astra uses a looped transformer architecture that hides chain-of-thought from safety monitors. The reasoning happens in numerical activations nobody can read. OpenAI says total depth is within 2x of GPT-4. Safety researchers say that is enough to break monitoring.\n\nKey findings:\n- Recurrent depth: hidden state loops through the same layers R times before producing output\n- All intermediate computation happens in activations, not the token stream\n- Buck Shlegeris (Redwood Research): \"If OpenAI pushes this further, they will totally destroy CoT monitorability\"\n- OpenAI deploys \"additional CoT monitoring\" as safety - the very thing the architecture erodes\n- LessWrong analysis: a rogue model does not need a full escape plan in one pass, just enough to spoof tool calls\n\nThe takeaway? Opaque recurrence is not the end of AI safety monitoring. But it is the first crack in the wall. The loop count today is small. The precedent is not.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/opaque-recurrence\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#GPT6 #Astra #OpaqueRecurrence #AISafety #ChainOfThought #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering"
+    },
+    {
       "ep": 29,
       "number": 29,
       "branch": "ep29",
@@ -297,6 +306,42 @@
       "status": "pending",
       "release_date": "2026-09-10",
       "linkedin_post": "Episode 29: 5-minute read. Zero fluff : Recirculation: Free Lunch for Frozen Transformers\n\nTake any frozen transformer. Add recurrence at inference time. 23% better perplexity. 21% better math accuracy. No retraining. No fine-tuning. No new parameters.\n\nKey findings:\n- Loops hidden states back through the same layers at inference time\n- Works on any frozen transformer - Gemma 3, LLaMA, Qwen\n- 23% perplexity reduction on Gemma 3 with just 4 recirculation steps\n- 21% GSM8k accuracy boost without a single gradient update\n- Zero additional parameters - same model, different inference loop\n\nThe takeaway? Depth is still the bottleneck. Recirculation is the cheapest depth multiplier that exists.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/recirculation\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Recirculation #Transformers #InferenceTime #DeepLearning #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering"
+    },
+    {
+      "ep": 30,
+      "branch": "ep30",
+      "slug": "nvidia-pair",
+      "title": "NVIDIA PAIR: Turn Your LAN Into an Inference Cluster",
+      "status": "pending",
+      "release_date": "2026-09-13",
+      "linkedin_post": "Episode 30: 5-minute read. Zero fluff : NVIDIA PAIR: Turn Your LAN Into an Inference Cluster\n\nNVIDIA shipped a free, Apache 2.0 tool that connects every RTX GPU, DGX Spark, and Apple M4 Mac on your network into one Ollama/LM Studio endpoint. Up to 18 devices. mTLS secured. Nothing leaves the LAN.\n\nKey findings:\n- PAIR is a router, not a GPU pool - each request runs whole on a single node\n- Compatible: RTX 20+, RTX PRO, DGX Spark, Apple M4+ (the surprise)\n- Security: 6-digit pairing code, mTLS encrypted channel\n- Engines defined as JSON manifests - add custom engines like vLLM\n- Tested up to 18 devices in a cluster\n- 1.5x speedup on RTX 5090, 1.4x on two-DGX clusters\n\nThe takeaway? NVIDIA just made every idle GPU in your house a production inference node. If you have two computers and a LAN cable, you have an AI cluster.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/nvidia-pair\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#NVIDIA #PAIR #LocalAI #InferenceCluster #Ollama #RTX #AppleM4 #AgenticAI #AI #MachineLearning #SoftwareEngineering"
+    },
+    {
+      "ep": 31,
+      "branch": "ep31",
+      "slug": "einsummable",
+      "title": "Einsummable: Every Kernel Is a Join",
+      "status": "pending",
+      "release_date": "2026-09-15",
+      "linkedin_post": "Episode 31: 5-minute read. Zero fluff : Einsummable: Every Kernel Is a Join\n\nWrite PyTorch. Get optimal multi-GPU sharding. Zero annotations. Zero device assignments. Zero communication code. Einsummable models every GPU operation as a relational join and finds plans hand-tuned experts miss.\n\nKey findings:\n- Accepts PyTorch-like description, automatically distributes across multi-GPU server\n- Models every operation as a relational join + aggregation over tensor relations\n- Searches ALL possible decompositions, not named strategies like TP/PP/DP\n- On 8x A100, LLaMA blocks: 8.97 ms (Einsummable) vs 13.80 ms (hand-tuned PyTorch) vs 15.90 ms (vLLM)\n- No canned collectives - all communication derived at compile time\n\nThe takeaway? Einsummable is the strongest evidence yet that manual multi-GPU parallelism is a solvable compiler problem, not an engineering art.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/einsummable\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Einsummable #MultiGPU #AutoParallelism #PyTorch #LLaMA #vLLM #AgenticAI #AI #MachineLearning #SoftwareEngineering"
+    },
+    {
+      "ep": 32,
+      "branch": "ep32",
+      "slug": "declarative-attention",
+      "title": "Declarative Attention: Models Control Their Own KV Cache",
+      "status": "pending",
+      "release_date": "2026-09-17",
+      "linkedin_post": "Episode 32: 5-minute read. Zero fluff : Declarative Attention: Models Control Their Own KV Cache\n\nYour model already knows which parts of context matter. Declarative Attention lets it say so. The model emits global, focus, and local tags in its chain-of-thought. The engine skips the rest. 52% fewer KV cache reads. Zero training.\n\nKey findings:\n- Three modes: global (full scan), focus (specific region), local (recent output only)\n- Engine parses declarations like tool calls - no kernel rewrites needed\n- Gemma-4-31B: 52.0% fewer attended tokens, only 1.27pp accuracy drop\n- Qwen-3.6-27B: 31.1% reduction, 2.75pp accuracy drop\n- Zero-shot: works on off-the-shelf models, compatible with vLLM + FlashAttention\n- Accuracy drop shrinks with model scale\n\nThe takeaway? Declarative Attention flips sparse attention from an infrastructure hack to a model-level reasoning step. 52% savings at 1.27pp cost. This is how long-context inference gets cheap.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/declarative-attention\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#DeclarativeAttention #KVCache #SparseAttention #vLLM #FlashAttention #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering"
+    },
+    {
+      "ep": 33,
+      "branch": "ep33",
+      "slug": "pytorch-214",
+      "title": "PyTorch 2.14: Training Jobs Now Survive Node Failures",
+      "status": "pending",
+      "release_date": "2026-09-19",
+      "linkedin_post": "Episode 33: 5-minute read. Zero fluff : PyTorch 2.14: Training Jobs Now Survive Node Failures\n\nPyTorch 2.14 ships three things that change daily ML work: NVGEMM auto-tuned CUTLASS kernels, fault-tolerant process groups where nodes crash and rejoin without restarting, and Apple Silicon native linear algebra.\n\nKey findings:\n- NVGEMM: CuTeDSL-generated CUTLASS kernels auto-tuned alongside Triton and ATen\n- Fault tolerance: in-place process-group reconfiguration via enable_reconfigure flag\n- Nodes crash and rejoin WITHOUT restarting the entire training job\n- Flight Recorder now works for ANY backend, not just NCCL\n- Apple Silicon native linalg - Mac is now a first-class ML dev platform\n- nccl2 backend landed in-tree from torchcomms\n\nThe takeaway? NVGEMM gives faster kernels for free. Fault tolerance means training survives hardware failures without human intervention. Apple Silicon gets promoted. This is the release you upgrade for.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/pytorch-214\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#PyTorch #NVGEMM #CUTLASS #FaultTolerance #DistributedTraining #AppleSilicon #AgenticAI #AI #MachineLearning #SoftwareEngineering"
     }
   ]
 }
