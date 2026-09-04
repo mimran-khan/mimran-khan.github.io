@@ -322,5 +322,77 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep27-gpt6-astra.png"
+  },
+  {
+    "number": 28,
+    "slug": "opaque-recurrence",
+    "title": "Opaque Recurrence: Astra Reasons in Ways Nobody Can Monitor",
+    "hook": "GPT-6 Astra uses an opaque recurrence architecture that hides chain-of-thought from safety monitors. The reasoning happens - but nobody can see it. TechCrunch called it the most controversial design choice in AI.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Sep 7",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep28-opaque-recurrence.png"
+  },
+  {
+    "number": 29,
+    "slug": "recirculation",
+    "title": "Recirculation: Free Lunch for Frozen Transformers",
+    "hook": "Take any frozen transformer. Add recurrence at inference time. Get 23% better perplexity and 21% better math accuracy. No retraining. No fine-tuning.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Sep 10",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep29-recirculation.png"
+  },
+  {
+    "number": 30,
+    "slug": "nvidia-pair",
+    "title": "NVIDIA PAIR: Turn Your LAN Into an Inference Cluster",
+    "hook": "NVIDIA shipped a free, Apache 2.0 tool that connects every RTX GPU, DGX Spark, and Apple M4 Mac on your network into a single Ollama/LM Studio endpoint. Up to 18 devices. mTLS secured. Nothing leaves the LAN.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Sep 13",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep30-nvidia-pair.png"
+  },
+  {
+    "number": 31,
+    "slug": "einsummable",
+    "title": "Einsummable: Every Kernel Is a Join",
+    "hook": "Write PyTorch. Get optimal multi-GPU sharding. No device assignments. No annotations. Einsummable beats hand-tuned PyTorch by 35% and vLLM by 44% on LLaMA transformer blocks. Zero code changes.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Sep 15",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep31-einsummable.png"
+  },
+  {
+    "number": 32,
+    "slug": "declarative-attention",
+    "title": "Declarative Attention: Models Control Their Own KV Cache",
+    "hook": "The model emits global, focus, and local declarations. The engine skips unneeded context. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Works with vLLM and FlashAttention today.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Sep 17",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep32-declarative-attention.png"
+  },
+  {
+    "number": 33,
+    "slug": "pytorch-214",
+    "title": "PyTorch 2.14: Training Jobs Now Survive Node Failures",
+    "hook": "NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups where nodes crash and rejoin without restarting. Apple Silicon native linalg. The infra release every ML engineer needs.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Sep 19",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep33-pytorch-214.png"
   }
 ]
