@@ -63,6 +63,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           arXiv: 2609.02737
           <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </a>
+        <span class="text-[10px] text-secondary font-mono">KAIST AI + Google DeepMind</span>
         <span class="text-[10px] text-secondary font-mono">Sep 17, 2026</span>
         <span class="text-[10px] text-secondary font-mono">5 min</span>
       </div>
@@ -96,7 +97,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       </h2>
 
       <p class="text-sm text-secondary leading-relaxed mb-6">
-        Long-context models can hold 1 million tokens. But every decoding step reads the <strong>entire KV cache</strong> to figure out where to attend. Most of that context is irrelevant to the current generation step. The cost is O(N) per step, even when only a fraction of tokens actually matter.
+        Long-context models can hold 1 million tokens. But every decoding step reads the <strong>entire KV cache</strong> to figure out where to attend.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Most of that context is irrelevant to the current generation step. The cost is O(N) per step, even when only a fraction of tokens actually matter.
       </p>
 
       <!-- Visual: Long context diagram -->
@@ -158,7 +162,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       </h2>
 
       <p class="text-sm text-secondary leading-relaxed mb-6">
-        Declarative Attention gives the model 3 tags it can emit mid-generation. The serving engine parses them like tool calls and <strong>dynamically constructs the attention mask</strong> at each decoding step. No custom kernels. Block-aligned masks, compatible with FlashAttention via vLLM.
+        Declarative Attention gives the model 3 tags it can emit mid-generation. The serving engine parses them like tool calls and <strong>dynamically constructs the attention mask</strong> at each decoding step.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        No custom kernels. Block-aligned masks, compatible with FlashAttention via vLLM.
       </p>
 
       <!-- Mode Cards -->
@@ -187,7 +194,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           </div>
           <span class="text-xs font-semibold text-foreground block mb-1">Specific Region</span>
           <p class="text-[11px] text-secondary mb-0">
-            "I found it, zoom in here." Restricts attention to a declared span. Only reads the relevant cache blocks.
+            "Found it, zoom in here." Restricts attention to a declared span. Only reads the relevant cache blocks.
           </p>
         </div>
 
@@ -319,7 +326,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <span class="text-[10px] font-mono text-violet-400">THE SCALING SIGNAL</span>
         </div>
         <p class="text-sm text-foreground/90 leading-relaxed mb-0">
-          Gemma-4-31B (larger) gets <strong>52% savings with only 1.27pp accuracy loss.</strong> Qwen-3.6-27B (smaller) gets 31.1% savings with 2.75pp loss. The pattern is clear: <strong>bigger models are better at knowing what they need.</strong> As models scale, the accuracy gap closes while savings hold steady.
+          Gemma-4-31B (larger) gets <strong>52% savings with only 1.27pp accuracy loss.</strong> Qwen-3.6-27B (smaller) gets 31.1% savings with 2.75pp loss. The pattern is clear: <strong>bigger models are better at knowing what they need.</strong>
         </p>
       </div>
     </div>
@@ -390,7 +397,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <span class="text-[10px] font-mono text-violet-400">THE SHIFT</span>
         </div>
         <p class="text-sm text-foreground/90 leading-relaxed mb-0">
-          Previous sparse attention methods decide what to skip at the infrastructure level. Declarative Attention moves that decision to where it belongs: <strong>the model itself.</strong> The model reasons about what it needs, emits a declaration, and the engine respects it. The infrastructure becomes a follower, not a guesser.
+          Previous sparse attention methods decide what to skip at the infrastructure level. Declarative Attention moves that decision to where it belongs: <strong>the model itself.</strong> The model reasons about what it needs, emits a declaration, and the engine follows instead of guessing.
         </p>
       </div>
     </div>
