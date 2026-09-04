@@ -1,0 +1,542 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Einsummable: Every Kernel Is a Join | Demystifying AI in 5 Minutes"
+  description="Einsummable automatically distributes AI computations across GPUs with zero code changes. It beats hand-tuned PyTorch by 35% and vLLM by 44% on LLaMA transformer blocks."
+  image="/og-series-ep31-einsummable.png"
+  keywords="Einsummable, multi-GPU parallelism, automatic sharding, tensor decomposition, relational joins, LLaMA, vLLM, PyTorch"
+  publishedDate="2026-09-15"
+  articleSection="Demystifying AI"
+  articleTags={["Einsummable", "Multi-GPU Parallelism", "Automatic Sharding", "Tensor Decomposition", "Research Paper"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .flow-block {
+      transition: all 0.3s ease;
+    }
+    .flow-block:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(63, 185, 80, 0.08);
+    }
+    .bar-glow {
+      box-shadow: 0 0 12px rgba(63, 185, 80, 0.3);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <!-- Hero Image -->
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep31-einsummable.png" alt="Einsummable: Every Kernel Is a Join" class="w-full h-auto block" />
+      </div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 31
+        </span>
+        <span class="px-2 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">Hot Topic</span>
+        <a href="https://arxiv.org/abs/2609.03905" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full hover:bg-green/20 hover:border-green/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 7l3 5-3 5M15 7l-3 5 3 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          arXiv: 2609.03905
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Sep 15, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Einsummable: Every Kernel Is a Join
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        Write PyTorch. Get optimal multi-GPU sharding. Zero annotations. Zero device assignments. Zero communication code. Einsummable beats hand-tuned experts by modeling every GPU operation as a relational join.
+      </p>
+
+      <ShareButtons title="Einsummable: Every Kernel Is a Join" url="/series/demystifying-ai/einsummable" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Write PyTorch. Get optimal multi-GPU sharding. <strong>Zero annotations. Zero device assignments. Zero communication code.</strong> Einsummable models every GPU operation as a relational join and finds decomposition plans that hand-tuned experts miss. 8.97 ms vs 13.80 ms (PyTorch) on LLaMA blocks.
+      </p>
+    </div>
+
+    <!-- Section 1: The Problem It Kills -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Problem It Kills
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Multi-GPU parallelism today requires PhD-level expertise. You need to understand tensor parallelism, pipeline parallelism, data parallelism, FSDP configurations, and the subtle ways they interact. <strong>Most teams spend weeks tuning sharding strategies that a compiler should handle.</strong>
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Before -->
+        <div class="feature-card rounded-xl border border-red-400/20 bg-red-400/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-red-400/10 border border-red-400/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+            <span class="text-xs font-bold text-red-400">Before Einsummable</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flow-block rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5">
+              <span class="text-[10px] font-mono text-secondary">Manual device placement</span>
+            </div>
+            <div class="flow-block rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5">
+              <span class="text-[10px] font-mono text-secondary">Sharding annotations per tensor</span>
+            </div>
+            <div class="flow-block rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5">
+              <span class="text-[10px] font-mono text-secondary">AllReduce / AllGather calls</span>
+            </div>
+            <div class="flow-block rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5">
+              <span class="text-[10px] font-mono text-secondary">FSDP / DeepSpeed configs</span>
+            </div>
+            <div class="flow-block rounded-lg border border-red-400/15 bg-red-400/[0.03] p-2.5">
+              <span class="text-[10px] font-mono text-secondary">Weeks of tuning</span>
+            </div>
+            <div class="mt-2 text-center">
+              <span class="text-[9px] text-red-400/70 font-mono">Requires: distributed systems PhD</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-6 h-6 rounded-full bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-3 h-3 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">With Einsummable</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flow-block rounded-lg border border-green/30 bg-green/[0.05] p-3 text-center">
+              <span class="text-[10px] font-mono text-green font-bold block mb-1">Write PyTorch</span>
+              <span class="text-[9px] text-secondary block">Standard model code. Nothing special.</span>
+            </div>
+            <div class="flex justify-center text-green/40 text-xs">&#8595;</div>
+            <div class="flow-block rounded-lg border border-green/30 bg-green/[0.05] p-3 text-center">
+              <span class="text-[10px] font-mono text-green font-bold block mb-1">Einsummable Compiles</span>
+              <span class="text-[9px] text-secondary block">Automatic sharding + distribution</span>
+            </div>
+            <div class="flex justify-center text-green/40 text-xs">&#8595;</div>
+            <div class="flow-block rounded-lg border border-green/30 bg-green/[0.05] p-3 text-center">
+              <span class="text-[10px] font-mono text-green font-bold block mb-1">Multi-GPU Execution</span>
+              <span class="text-[9px] text-secondary block">35% faster than hand-tuned</span>
+            </div>
+            <div class="mt-2 text-center">
+              <span class="text-[9px] text-green/70 font-mono">Requires: nothing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green">KEY INSIGHT</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          Current auto-parallelizers (Megatron, Alpa, Unity) choose from a menu of <strong>named strategies</strong>: tensor parallelism, pipeline parallelism, data parallelism. Einsummable does not pick from a menu. It searches the <strong>full space of possible decompositions</strong> and discovers plans those tools structurally cannot find.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: How It Works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> How It Works: Joins, Not Strategies
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The core insight is radical. <strong>Every tensor operation is a relational join followed by an aggregation.</strong> Matrix multiply, convolution, attention, normalization. All of them. Once you model operations this way, the parallelism problem becomes a database query optimization problem.
+      </p>
+
+      <!-- Architecture Flow -->
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">01</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">PyTorch Input</span>
+              <span class="text-[10px] text-secondary">Standard Model Description</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Accept a PyTorch-like description of the AI computation. <strong>No annotations, no device maps, no sharding specs.</strong> Just the math your model needs to compute.
+          </p>
+        </div>
+
+        <div class="flex justify-center text-green/30 text-xs">&#8595;</div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">02</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">Join-Agg Specs</span>
+              <span class="text-[10px] text-secondary">Relational Decomposition</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Each operation is modeled as a <strong>relational join + aggregation over tensor relations</strong>. Tuples contain sub-tensors. Each operation exposes all possible decompositions through "join-agg specs." This is where named strategies become irrelevant.
+          </p>
+        </div>
+
+        <div class="flex justify-center text-green/30 text-xs">&#8595;</div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">03</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">Optimizer</span>
+              <span class="text-[10px] text-secondary">Searches All Decompositions</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            The optimizer selects decompositions across the <strong>whole computation graph</strong> to minimize a communication-cost proxy. It does not choose between TP, PP, and DP. It searches the complete space and finds hybrid plans that mesh-based auto-parallelizers cannot express.
+          </p>
+        </div>
+
+        <div class="flex justify-center text-green/30 text-xs">&#8595;</div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <span class="text-green text-[10px] font-mono font-bold">04</span>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">Exchange Programs</span>
+              <span class="text-[10px] text-secondary">Topology-Aware Communication</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Instead of calling AllReduce or AllGather, Einsummable <strong>synthesizes custom exchange programs</strong> at compile time. These are topology-aware generalizations of Volcano's exchange operator. Every byte of communication is purpose-built for the specific computation and hardware layout.
+          </p>
+        </div>
+
+        <div class="flex justify-center text-green/30 text-xs">&#8595;</div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.05] p-4 md:p-5 border-2">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-green/20 border-2 border-green flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-green font-bold block">Multi-GPU Execution</span>
+              <span class="text-[10px] text-secondary">Automatically Distributed</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            <strong>Faster than hand-tuned code.</strong> The compiled plan runs across all GPUs with zero programmer intervention. On 8x A100: 8.97 ms geometric mean on LLaMA transformer blocks.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: The Benchmarks -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Benchmarks
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Tested on an 8-GPU A100 server running LLaMA transformer blocks. <strong>A fully automatic system beats the humans who wrote the manual code.</strong>
+      </p>
+
+      <!-- Bar Chart -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-[10px] font-mono text-green font-bold">8x A100 | LLaMA TRANSFORMER BLOCKS | GEOMETRIC MEAN</span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Einsummable -->
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+              <span class="text-green font-bold">Einsummable</span>
+              <span class="text-green font-bold">8.97 ms</span>
+            </div>
+            <div class="h-8 rounded-lg bg-foreground/5 overflow-hidden relative">
+              <div class="h-full bg-green/80 rounded-lg bar-glow flex items-center justify-end pr-3" style="width: 56.4%">
+                <span class="text-[9px] font-mono text-white font-bold">FASTEST</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hand-tuned PyTorch -->
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+              <span class="text-foreground/60">Hand-tuned PyTorch</span>
+              <span class="text-foreground/60">13.80 ms</span>
+            </div>
+            <div class="h-8 rounded-lg bg-foreground/5 overflow-hidden">
+              <div class="h-full bg-foreground/20 rounded-lg flex items-center justify-end pr-3" style="width: 86.8%">
+                <span class="text-[9px] font-mono text-foreground/50">+35% slower</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- vLLM -->
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+              <span class="text-foreground/60">vLLM</span>
+              <span class="text-foreground/60">15.90 ms</span>
+            </div>
+            <div class="h-8 rounded-lg bg-foreground/5 overflow-hidden">
+              <div class="h-full bg-foreground/20 rounded-lg flex items-center justify-end pr-3" style="width: 100%">
+                <span class="text-[9px] font-mono text-foreground/50">+44% slower</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">35%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Faster Than PyTorch</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">44%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Faster Than vLLM</div>
+        </div>
+        <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green">0</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Lines of Sharding Code</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">READ THAT AGAIN</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          <strong>A fully automatic system, with zero human guidance, produced a faster execution plan than expert engineers who manually tuned the parallelism.</strong> The compiler did not match human performance. It exceeded it. By 35%.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: What Makes It Different -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What Makes It Different
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Einsummable is not an incremental improvement on existing auto-parallelizers. It rethinks the problem from first principles. <strong>4 architectural choices separate it from everything else.</strong>
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Card 1: No Canned Collectives -->
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">No Canned Collectives</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Einsummable invokes <strong>zero</strong> standard collectives. No AllReduce. No AllGather. No ReduceScatter. All communication is special-purpose, <strong>derived at compile time</strong> for the specific computation graph.
+          </p>
+        </div>
+
+        <!-- Card 2: Topology-Aware -->
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">Topology-Aware</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Exchange programs adapt to the <strong>actual GPU interconnect topology</strong>. NVLink bandwidth, PCIe bottlenecks, NUMA boundaries. The communication plan is physically optimal, not just logically correct.
+          </p>
+        </div>
+
+        <!-- Card 3: Relational Model -->
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">Relational Model</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            Tensors are treated as <strong>relations</strong>. Operations become joins. This reframing exposes decomposition possibilities that tensor-centric frameworks cannot see. Decades of relational query optimization apply directly.
+          </p>
+        </div>
+
+        <!-- Card 4: Zero Annotations -->
+        <div class="feature-card rounded-xl border border-green/20 bg-green/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-green/10 border border-green/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-bold text-green">Zero Annotations</span>
+          </div>
+          <p class="text-[11px] text-secondary leading-relaxed mb-0">
+            No device maps. No sharding specs. No <code class="text-[10px] bg-foreground/5 px-1 rounded">@parallelize</code> decorators. No <code class="text-[10px] bg-foreground/5 px-1 rounded">mesh</code> definitions. <strong>The programmer writes single-device PyTorch.</strong> Everything else is the compiler's problem.
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparison Table (Desktop) -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">System</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Search Space</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Collectives</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Annotations</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bg-green/[0.03]">
+              <td class="p-3 font-semibold text-green">Einsummable</td>
+              <td class="p-3 text-center text-green">All decompositions</td>
+              <td class="p-3 text-center text-green">Synthesized</td>
+              <td class="p-3 text-center text-green">None</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Megatron-LM</td>
+              <td class="p-3 text-center text-secondary">TP + PP + DP</td>
+              <td class="p-3 text-center text-red-400">Canned</td>
+              <td class="p-3 text-center text-red-400">Manual</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">Alpa</td>
+              <td class="p-3 text-center text-secondary">Intra + inter-op</td>
+              <td class="p-3 text-center text-red-400">Canned</td>
+              <td class="p-3 text-center text-yellow-400">Minimal</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground/80">FSDP / DeepSpeed</td>
+              <td class="p-3 text-center text-secondary">DP + sharding stages</td>
+              <td class="p-3 text-center text-red-400">Canned</td>
+              <td class="p-3 text-center text-red-400">Config-heavy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile comparison cards -->
+      <div class="md:hidden space-y-3 mb-6">
+        <div class="rounded-xl border border-green/30 bg-green/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-green text-sm">Einsummable</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-green font-bold block">All</span><span class="text-secondary">decompositions</span></div>
+            <div><span class="text-green font-bold block">Synth</span><span class="text-secondary">collectives</span></div>
+            <div><span class="text-green font-bold block">None</span><span class="text-secondary">annotations</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">Megatron-LM</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">TP+PP+DP</span><span class="text-secondary">search</span></div>
+            <div><span class="text-red-400 block">Canned</span><span class="text-secondary">collectives</span></div>
+            <div><span class="text-red-400 block">Manual</span><span class="text-secondary">annotations</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">Alpa</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">Intra+Inter</span><span class="text-secondary">search</span></div>
+            <div><span class="text-red-400 block">Canned</span><span class="text-secondary">collectives</span></div>
+            <div><span class="text-yellow-400 block">Minimal</span><span class="text-secondary">annotations</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-semibold text-foreground/80 text-sm">FSDP / DeepSpeed</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <div><span class="text-foreground block">DP+Stages</span><span class="text-secondary">search</span></div>
+            <div><span class="text-red-400 block">Canned</span><span class="text-secondary">collectives</span></div>
+            <div><span class="text-red-400 block">Config</span><span class="text-secondary">annotations</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-green/[0.02] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green">THE PATTERN</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed">
+          The database community solved query optimization decades ago by <strong>searching decomposition spaces instead of choosing from named strategies.</strong> Einsummable applies that same principle to GPU parallelism. The result: plans that named-strategy tools cannot even represent, let alone discover.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Einsummable is the strongest evidence yet that <strong>manual multi-GPU parallelism is a solvable compiler problem, not an engineering art.</strong> It beat hand-tuned PyTorch by 35% with zero human guidance. It beat vLLM by 44%. The sharding annotations you wrote last month? A compiler can do better. The AllReduce calls you carefully placed? A compiler can synthesize something faster. The 10 authors behind this paper (Zhimin Ding + 9 others) have shown that <strong>the right abstraction eliminates the problem entirely.</strong>
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={31} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
