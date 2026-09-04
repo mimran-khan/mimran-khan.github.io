@@ -89,7 +89,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         NVIDIA PAIR: Turn Your LAN Into an Inference Cluster
       </h1>
       <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
-        NVIDIA just shipped a free, open-source tool that discovers every GPU on your local network and exposes them as a single inference endpoint. Gaming PCs, workstations, Macs. Apache 2.0.
+        NVIDIA just shipped a free, open-source tool that discovers every compatible GPU on your local network and exposes them as a single inference endpoint. Gaming PCs, workstations, Macs. Apache 2.0.
       </p>
 
       <ShareButtons title="NVIDIA PAIR: Turn Your LAN Into an Inference Cluster" url="/series/demystifying-ai/nvidia-pair" />
@@ -103,7 +103,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
     <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
       <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        NVIDIA shipped a free, open-source router that connects every RTX GPU, DGX Spark, and Apple M4 Mac on your network into <strong>one Ollama/LM Studio endpoint</strong>. Up to 18 devices. Nothing leaves the LAN. Apache 2.0.
+        NVIDIA shipped a free, open-source router that connects every RTX GPU, DGX Spark, and Apple M4 Mac on your network into <strong>one Ollama/LM Studio endpoint</strong>. Up to 18 devices.<br/><br/>Nothing leaves the LAN. Apache 2.0.
       </p>
     </div>
 
@@ -113,8 +113,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         <span class="text-cyan font-mono text-sm">#</span> What PAIR Actually Does (And Doesn't)
       </h2>
 
+      <p class="text-sm text-secondary leading-relaxed mb-3">
+        PAIR stands for <strong>Personal AI Router</strong>. Launched Sep 3, 2026 at IFA. Open-sourced on GitHub under <strong>NVIDIA/Personal-AI-Router</strong> (v0.1.1 beta).
+      </p>
       <p class="text-sm text-secondary leading-relaxed mb-6">
-        PAIR stands for <strong>Personal AI Router</strong>. Launched Sep 3, 2026 at IFA. Open-sourced on GitHub under <strong>NVIDIA/Personal-AI-Router</strong> (v0.1.1 beta). The name tells you exactly what it is. A router. Not a GPU pool.
+        The name tells you exactly what it is. A router. Not a GPU pool.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -180,7 +183,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           <span class="text-[10px] font-mono text-cyan">KEY DISTINCTION</span>
         </div>
         <p class="text-sm text-foreground/90 leading-relaxed">
-          Each request runs <strong>whole on a single node</strong>. PAIR picks which node runs it. Adding machines means more parallel requests, not faster individual ones. Think load balancer, not supercomputer.
+          Each request runs <strong>whole on a single node</strong>. PAIR picks which node runs it.<br/><br/>Adding machines means more parallel requests, not faster individual ones. Think load balancer, not supercomputer.
         </p>
       </div>
     </div>
@@ -238,7 +241,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           <span class="text-[10px] font-mono text-yellow-400">THE HEADLINE</span>
         </div>
         <p class="text-sm text-foreground/90 leading-relaxed">
-          NVIDIA is routing inference requests to Apple silicon. Read that again. <strong>The GPU company is treating competitor hardware as a first-class inference node.</strong> M4 Macs on macOS Tahoe are fully supported. The typical setup is now 1 MacBook + 1 gaming PC. 24GB+ VRAM recommended per node.
+          NVIDIA is routing inference requests to Apple silicon. Read that again. <strong>The GPU company is treating competitor hardware as a first-class inference node.</strong><br/><br/>M4 Macs on macOS Tahoe are fully supported. The typical setup is now 1 MacBook + 1 gaming PC. 24GB+ VRAM recommended per node.
         </p>
       </div>
     </div>
@@ -249,8 +252,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         <span class="text-cyan font-mono text-sm">#</span> How It Works
       </h2>
 
+      <p class="text-sm text-secondary leading-relaxed mb-3">
+        The architecture is intentionally simple. <strong>Discovery, pairing, encryption, routing.</strong>
+      </p>
       <p class="text-sm text-secondary leading-relaxed mb-6">
-        The architecture is intentionally simple. <strong>Discovery, pairing, encryption, routing.</strong> No distributed training, no tensor parallelism, no fancy orchestration. Just a router that knows which machines are available.
+        No distributed training, no tensor parallelism, no fancy orchestration. Just a router that knows which machines are available.
       </p>
 
       <!-- Architecture Diagram -->
@@ -428,7 +434,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           <span class="text-[10px] font-mono text-cyan">SECURITY MODEL</span>
         </div>
         <p class="text-sm text-foreground/90 leading-relaxed">
-          Every prompt, every file, every response stays on the local network. <strong>Zero data leaves your LAN.</strong> The 6-digit pairing code prevents unauthorized devices from joining. mTLS encrypts all traffic between nodes. No cloud relay, no phone-home, no telemetry endpoint.
+          Every prompt, every file, every response stays on the local network. <strong>Zero data leaves your LAN.</strong><br/><br/>The 6-digit pairing code prevents unauthorized devices from joining. mTLS encrypts all traffic between nodes. No cloud relay, no phone-home, no telemetry endpoint.
         </p>
       </div>
     </div>
@@ -436,8 +442,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
     <!-- Bottom Line -->
     <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
       <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
-      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        NVIDIA just made every idle GPU in your house a production inference node. <strong>If you have 2 computers and a LAN cable, you have an AI cluster.</strong> The Mac support is the surprise move. NVIDIA routing to Apple silicon was nobody's bet. Nothing leaves the network. Apache 2.0. Free forever.
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-2">
+        NVIDIA just made every idle GPU in your house a production inference node. <strong>If you have 2 computers and a LAN cable, you have an AI cluster.</strong> The Mac support is the surprise move.
+      </p>
+      <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+        NVIDIA routing to Apple silicon was nobody's bet. Nothing leaves the network. Apache 2.0, free forever.
       </p>
     </div>
 
