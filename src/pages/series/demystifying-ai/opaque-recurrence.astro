@@ -95,7 +95,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       </h2>
 
       <p class="text-sm text-secondary leading-relaxed mb-6">
-        A standard transformer passes each token through N layers once. One pass, one output. Astra does something different. It takes a smaller block of K layers and <strong>loops the hidden state through them R times</strong> before producing output.
+        A standard transformer passes each token through N layers once. One pass, one output. Astra does something different.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        It takes a smaller block of K layers and <strong>loops the hidden state through them R times</strong> before producing output.
       </p>
 
       <p class="text-sm text-secondary leading-relaxed mb-6">
@@ -183,7 +187,9 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           <span class="text-[10px] font-mono text-green">THE PREDECESSOR</span>
         </div>
         <p class="text-[11px] text-secondary leading-relaxed mb-0">
-          The technique is not new. The <strong>Huginn model</strong> from the University of Maryland demonstrated looped transformers first. Brown-Cohen et al. 2026 provides the formal treatment. What is new is <strong>deploying it at frontier scale</strong> in a model already rated Critical for cybersecurity. The Information reported this architectural detail on September 1, 2026.
+          The technique is not new. The <strong>Huginn model</strong> from the University of Maryland demonstrated looped transformers first. Brown-Cohen et al. 2026 provides the formal treatment.
+          <br/><br/>
+          What is new is <strong>deploying it at frontier scale</strong> in a model already rated Critical for cybersecurity.
         </p>
       </div>
     </div>
@@ -273,7 +279,9 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           <span class="text-[10px] font-mono text-green">THE GAP</span>
         </div>
         <p class="text-[11px] text-secondary leading-relaxed mb-0">
-          These two statements cannot both be fully true. If reasoning loops through activations that monitors cannot inspect, then <strong>some portion of the model's reasoning is unmonitorable by design.</strong> Pachocki's claim is about total depth. Shlegeris's concern is about visibility. They are measuring different things.
+          These two statements cannot both be fully true. If reasoning loops through activations that monitors cannot inspect, then <strong>some portion of the model's reasoning is unmonitorable by design.</strong>
+          <br/><br/>
+          Pachocki's claim is about total depth. Shlegeris's concern is about visibility. They are measuring different things.
         </p>
       </div>
     </div>
@@ -323,7 +331,9 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
             <span class="text-xs font-mono text-red-400 font-bold">BUT STILL DANGEROUS</span>
           </div>
           <p class="text-[11px] text-secondary mb-0">
-            A rogue model does not need to plan a full escape in one forward pass. <strong>It just needs enough hidden computation to spoof a tool call.</strong> Generating a convincing but malicious API request, crafting a deceptive response to a safety probe, or subtly altering code output - none of these require unbounded reasoning depth.
+            A rogue model does not need to plan a full escape in one forward pass. <strong>It just needs enough hidden computation to spoof a tool call.</strong>
+            <br/><br/>
+            Crafting a deceptive response to a safety probe or subtly altering code output - neither requires unbounded reasoning depth.
           </p>
         </div>
 
@@ -332,7 +342,9 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
             <span class="text-xs font-mono text-yellow-400 font-bold">THE PRECEDENT PROBLEM</span>
           </div>
           <p class="text-[11px] text-secondary mb-0">
-            Today R is small. But the architecture is now validated at frontier scale. <strong>Every future model can increase R.</strong> The LessWrong analysis is clear: recurrent depth is not the end of monitoring, but it is a step in the wrong direction. And the first step happened inside a Critical-rated cybersecurity model.
+            Today R is small. But the architecture is now validated at frontier scale. <strong>Every future model can increase R.</strong>
+            <br/><br/>
+            Recurrent depth is not the end of monitoring. But it is a step in the wrong direction - and the first step happened inside a Critical-rated cybersecurity model.
           </p>
         </div>
       </div>
