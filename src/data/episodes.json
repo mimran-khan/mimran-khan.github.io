@@ -320,7 +320,7 @@
     "day": "Sat",
     "date": "Sep 5",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep27-gpt6-astra.png"
   }
 ]
