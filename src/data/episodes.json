@@ -313,14 +313,14 @@
   },
   {
     "number": 27,
-    "slug": "recirculation",
-    "title": "Recirculation: Free Lunch for Frozen Transformers",
-    "hook": "Take any frozen transformer. Add recurrence at inference time. Get 23% better perplexity and 21% better math accuracy. No retraining. No fine-tuning. The first free architectural upgrade.",
-    "category": "research-paper",
+    "slug": "gpt6-astra",
+    "title": "GPT-6 Astra: They Paused It. They Shipped It.",
+    "hook": "OpenAI shipped the model they paused for being too dangerous. First Critical cybersecurity rating. 100% ExploitBench. Two zero-days found mid-benchmark. $10/$50 per 1M tokens.",
+    "category": "new-release",
     "day": "Sat",
     "date": "Sep 5",
     "readTime": "5 min",
     "published": false,
-    "image": "/series/ep27-recirculation.png"
+    "image": "/series/ep27-gpt6-astra.png"
   }
 ]

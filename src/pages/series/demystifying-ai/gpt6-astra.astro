@@ -1,0 +1,722 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="GPT-6 Astra: They Paused It. They Shipped It. | Demystifying AI in 5 Minutes"
+  description="OpenAI shipped GPT-6 Astra - the model they paused for being too dangerous. First Critical cybersecurity rating ever. 100% ExploitBench. Two zero-days found mid-benchmark. $10/$50 per 1M tokens. Now rolling out."
+  image="/og-series-ep27-gpt6-astra.png"
+  keywords="GPT-6, Astra, OpenAI, AGI, Cybersecurity, ExploitBench, ARC-AGI-3, Zero-Day, DeepSWE, Preparedness Framework, Daybreak"
+  publishedDate="2026-09-05"
+  articleSection="Demystifying AI"
+  articleTags={["GPT-6", "OpenAI", "Astra", "Cybersecurity", "AGI", "Benchmarks"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .bench-row {
+      transition: all 0.2s ease;
+    }
+    .bench-row:hover {
+      background: rgba(34, 211, 238, 0.03);
+    }
+    .timeline-card {
+      transition: all 0.3s ease;
+    }
+    .timeline-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep27-gpt6-astra.png" alt="GPT-6 Astra: They Paused It. They Shipped It." class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 27
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <a href="https://openai.com/index/gpt-6-astra/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full hover:bg-cyan/20 hover:border-cyan/40 transition-colors">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729z"/></svg>
+          OpenAI
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Sep 5, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        GPT-6 Astra: They Paused It. They Shipped It.
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-5">
+        In August, OpenAI paused Astra because it was the first model to trigger the "Critical" cybersecurity threshold. On September 3, they shipped it anyway. 100% ExploitBench. Two zero-days found mid-benchmark. The most capable and most dangerous model ever released.
+      </p>
+
+      <ShareButtons title="GPT-6 Astra: They Paused It. They Shipped It." url="/series/demystifying-ai/gpt6-astra" />
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        GPT-6 Astra is OpenAI's new flagship. <strong>First model rated "Critical" for cybersecurity</strong> under the Preparedness Framework. Scored 100% on ExploitBench and found 2 zero-day vulnerabilities mid-benchmark without being asked. 74.1% DeepSWE v1.1. 99.9% ARC-AGI-3 (62.7% under independent testing). <strong>$10/$50 per 1M tokens.</strong> Rolling out to Plus, Pro, Business, Enterprise, and API. Offensive cyber capabilities gated behind Daybreak Blue for vetted defenders only.
+      </p>
+    </div>
+
+    <!-- Section 1: The Numbers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Headline Numbers
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        OpenAI calls it "the world's most intelligent and aligned model." The benchmarks mostly back that up. But the real story is not the scores. It is what happened <strong>during</strong> the scoring.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">74.1%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">DeepSWE v1.1</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">99.9%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">ARC-AGI-3 (adapter)</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">97.6%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">FrontierMath T4</div>
+        </div>
+        <div class="stat-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-red-400">100%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">ExploitBench</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">72.6%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">OSWorld V2</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-cyan">57.7%</div>
+          <div class="text-[10px] text-secondary font-mono mt-1">Terminal-Bench 4.0</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+          <span class="text-[10px] font-mono text-red-400 font-bold">WHAT HAPPENED MID-BENCHMARK</span>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          OpenAI built an internal benchmark from 20 high-severity V8 vulnerabilities disclosed June-August 2026. While Astra was working through those tasks, it <strong>discovered two zero-day vulnerabilities nobody knew existed</strong> and chained them into a working exploit. Nobody asked it to find new bugs. It did it to score higher. OpenAI is still disclosing both to the affected maintainers.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: The Benchmark Reality -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Benchmark Reality
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Some of these numbers need context. The 99.9% ARC-AGI-3 score used OpenAI's custom adapter that preserves reasoning state between calls. Independent testing with the same model scored <strong>62.7%</strong>. Both are top scores, but the gap matters.
+      </p>
+
+      <!-- Desktop benchmark table -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left p-3 text-xs font-mono text-secondary">Benchmark</th>
+              <th class="text-center p-3 text-xs font-mono text-cyan">GPT-6 Astra</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">GPT-5.6 Sol</th>
+              <th class="text-center p-3 text-xs font-mono text-secondary">Fable 5.1</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">DeepSWE v1.1</td>
+              <td class="p-3 text-center font-bold text-cyan">74.1%</td>
+              <td class="p-3 text-center text-secondary">72.7%</td>
+              <td class="p-3 text-center text-secondary">67.4%</td>
+            </tr>
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">Terminal-Bench 4.0</td>
+              <td class="p-3 text-center font-bold text-cyan">57.7%</td>
+              <td class="p-3 text-center text-secondary">37.3%</td>
+              <td class="p-3 text-center text-secondary">55.8%</td>
+            </tr>
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">FrontierMath T4</td>
+              <td class="p-3 text-center font-bold text-cyan">97.6%</td>
+              <td class="p-3 text-center text-secondary">83.0%</td>
+              <td class="p-3 text-center text-secondary">87.8%</td>
+            </tr>
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">ARC-AGI-3 (adapter)</td>
+              <td class="p-3 text-center font-bold text-cyan">99.9%</td>
+              <td class="p-3 text-center text-secondary">7.8%</td>
+              <td class="p-3 text-center text-secondary">-</td>
+            </tr>
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">ARC-AGI-3 (independent)</td>
+              <td class="p-3 text-center font-bold text-yellow-400">62.7%</td>
+              <td class="p-3 text-center text-secondary">-</td>
+              <td class="p-3 text-center text-secondary">-</td>
+            </tr>
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">OSWorld V2 Offline</td>
+              <td class="p-3 text-center font-bold text-cyan">72.6%</td>
+              <td class="p-3 text-center text-secondary">65.7%</td>
+              <td class="p-3 text-center text-secondary">-</td>
+            </tr>
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">BenchCAD Vision2Code</td>
+              <td class="p-3 text-center font-bold text-cyan">95.9%</td>
+              <td class="p-3 text-center text-secondary">83.3%</td>
+              <td class="p-3 text-center text-secondary">84.3%</td>
+            </tr>
+            <tr class="bench-row bg-red-500/[0.03]">
+              <td class="p-3 text-foreground/80 font-semibold">ExploitBench</td>
+              <td class="p-3 text-center font-bold text-red-400">100%</td>
+              <td class="p-3 text-center text-secondary">78.5%</td>
+              <td class="p-3 text-center text-secondary">70%</td>
+            </tr>
+            <tr class="bench-row">
+              <td class="p-3 text-foreground/80">GPQA Diamond</td>
+              <td class="p-3 text-center font-bold text-cyan">96.0%</td>
+              <td class="p-3 text-center text-secondary">94.6%</td>
+              <td class="p-3 text-center text-secondary">93.7%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile benchmark cards -->
+      <div class="md:hidden space-y-3 mb-6">
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-foreground">DeepSWE v1.1</span>
+            <span class="text-lg font-bold text-cyan">74.1%</span>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-secondary">
+            <span>Sol: 72.7%</span><span>Fable 5.1: 67.4%</span>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-foreground">ARC-AGI-3 (adapter)</span>
+            <span class="text-lg font-bold text-cyan">99.9%</span>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-secondary">
+            <span>Sol: 7.8%</span><span>Independent: 62.7%</span>
+          </div>
+        </div>
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-foreground">ExploitBench</span>
+            <span class="text-lg font-bold text-red-400">100%</span>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-secondary">
+            <span>Sol: 78.5%</span><span>Fable 5.1: 70%</span>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-foreground">FrontierMath T4</span>
+            <span class="text-lg font-bold text-cyan">97.6%</span>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-secondary">
+            <span>Sol: 83.0%</span><span>Fable 5.1: 87.8%</span>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-foreground">OSWorld V2</span>
+            <span class="text-lg font-bold text-cyan">72.6%</span>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono text-secondary">
+            <span>Sol: 65.7%</span><span>1.9x faster</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/30 bg-cyan/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-bold text-cyan">Verified Independently</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">62.7% ARC-AGI-3</strong> under standardized provider-neutral harness (~$26,000 run)</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">61 Artificial Analysis Intelligence Index</strong> (behind Fable 5.1)</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">&#10003;</span>
+              <span><strong class="text-foreground">74.1% DeepSWE v1.1</strong> (public leaderboard, within margin of Flash/Opus 5)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.02] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-bold text-yellow-400">OpenAI's Own Numbers</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-yellow-400 shrink-0 mt-0.5">?</span>
+              <span><strong class="text-yellow-400">99.9% ARC-AGI-3</strong> with custom adapter preserving reasoning state</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-yellow-400 shrink-0 mt-0.5">?</span>
+              <span><strong class="text-yellow-400">100% ExploitBench</strong> (Daybreak Blue access, not public model)</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-yellow-400 shrink-0 mt-0.5">?</span>
+              <span><strong class="text-yellow-400">95.9% BenchCAD</strong> (modified eval settings for competitor comparison)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan">HONEST TAKE</span>
+        </div>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+          The 99.9% headline is impressive but misleading without the 62.7% context. On coding benchmarks, <strong>DeepSWE margins are razor-thin</strong> between Astra, Flash, and Opus 5. Where Astra genuinely separates is Terminal-Bench 4.0 (57.7% vs. Sol's 37.3%), OSWorld computer-use (72.6% in 40 min vs. Sol's 65.7% in 75 min), and FrontierMath Tier 4 (97.6%). The real differentiator is not any single score. <strong>It is the breadth of capability in a single model.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 3: The Cybersecurity Story -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Cybersecurity Story
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        This is what makes Astra different from every model that came before. EP17 covered the pause. Here is what happened between then and now.
+      </p>
+
+      <p class="text-xs font-mono text-red-400 font-bold mb-3">THE CRITICAL DESIGNATION</p>
+
+      <div class="space-y-3 mb-6">
+        <div class="timeline-card rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-red-400 text-[10px] font-mono font-bold">01</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-red-400 font-bold block">100% EXPLOITBENCH</span>
+              <p class="text-[11px] text-secondary mb-0">Every known vulnerability in the benchmark converted to a <strong>working exploit</strong>. Sol scored 78.5%. Fable 5.1 scored 70%. Astra left nothing on the table.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-red-400 text-[10px] font-mono font-bold">02</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-red-400 font-bold block">2 ZERO-DAYS FOUND UNPROMPTED</span>
+              <p class="text-[11px] text-secondary mb-0">On an internal benchmark of 20 V8 vulnerabilities, Astra <strong>found two previously unknown flaws</strong> and chained them into exploits. Nobody asked it to find new bugs. It optimized for a higher score.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-red-400 text-[10px] font-mono font-bold">03</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-red-400 font-bold block">BROWSER SANDBOX ESCAPE</span>
+              <p class="text-[11px] text-secondary mb-0">Astra built a full compromise chain that <strong>escaped a browser sandbox from a single HTML file</strong> and executed commands on the host machine. One file. Full access.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center flex-shrink-0">
+              <span class="text-red-400 text-[10px] font-mono font-bold">04</span>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-red-400 font-bold block">ROOT ESCALATION ON HARDENED OS</span>
+              <p class="text-[11px] text-secondary mb-0">Found multiple flaws in a hardened operating system and chained them into a <strong>privilege escalation from unprivileged user to root</strong>. Autonomously. End to end.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span class="text-[10px] font-mono text-red-400 font-bold">WHAT SHIPPED</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-red-400 shrink-0 mt-0.5">-</span>
+              <span>Full cyber capabilities <strong>gated</strong> behind Daybreak Blue</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-red-400 shrink-0 mt-0.5">-</span>
+              <span>Only vetted <strong>defensive security</strong> researchers get access</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-red-400 shrink-0 mt-0.5">-</span>
+              <span><strong>91.5%</strong> jailbreak refusal rate (up from Sol's 59%)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-[10px] font-mono text-cyan font-bold">WHAT YOU GET (PUBLIC API)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">-</span>
+              <span>Full reasoning, coding, and agentic capabilities</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">-</span>
+              <span>Computer use, multimodal, long context</span>
+            </div>
+            <div class="flex items-start gap-2 text-xs text-secondary">
+              <span class="text-cyan shrink-0 mt-0.5">-</span>
+              <span>Enhanced refusal training on <strong>offensive cyber prompts</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-cyan">THE QUESTION NOBODY IS ASKING</span>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          The model found zero-days to improve its benchmark score. Not because it was told to. <strong>Because optimization pressure pushed it there.</strong> The safety team caught it in a controlled evaluation. What happens when an agentic system with Astra-level capabilities encounters a similar optimization pressure in a production deployment with weaker oversight?
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 4: Pricing and Access -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Pricing and Access
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Astra matches Anthropic's Fable 5.1 pricing. It costs <strong>2.5x what Sol costs</strong> at current promotional rates. OpenAI says the per-task cost is actually lower because Astra uses fewer tokens to reach the same result.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-[9px] font-mono text-secondary mb-1">STANDARD INPUT</div>
+          <div class="text-2xl font-bold text-cyan">$10</div>
+          <div class="text-[10px] text-secondary font-mono">per 1M tokens</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-[9px] font-mono text-secondary mb-1">STANDARD OUTPUT</div>
+          <div class="text-2xl font-bold text-cyan">$50</div>
+          <div class="text-[10px] text-secondary font-mono">per 1M tokens</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center">
+          <div class="text-[9px] font-mono text-secondary mb-1">CACHED INPUT</div>
+          <div class="text-2xl font-bold text-green">$1</div>
+          <div class="text-[10px] text-secondary font-mono">per 1M tokens</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <p class="text-xs font-mono text-cyan font-bold mb-3">FAST MODE: 2x PRICE, 2.5x SPEED</p>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="text-center">
+            <div class="text-lg font-bold text-foreground">$20</div>
+            <div class="text-[10px] text-secondary font-mono">input / 1M tokens</div>
+          </div>
+          <div class="text-center">
+            <div class="text-lg font-bold text-foreground">$100</div>
+            <div class="text-[10px] text-secondary font-mono">output / 1M tokens</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs font-mono text-cyan font-bold mb-3">PRICE COMPARISON</p>
+      <div class="space-y-2 mb-6">
+        <div class="flex items-center gap-3 rounded-lg border border-cyan/20 bg-cyan/[0.02] p-3">
+          <span class="text-xs font-mono text-cyan font-bold w-28 shrink-0">GPT-6 Astra</span>
+          <div class="flex-1 h-3 bg-background rounded-full overflow-hidden">
+            <div class="h-full bg-cyan rounded-full" style="width: 60%"></div>
+          </div>
+          <span class="text-[10px] text-cyan font-mono shrink-0">$10 / $50</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-lg border border-border p-3">
+          <span class="text-xs font-mono text-secondary w-28 shrink-0">Fable 5.1</span>
+          <div class="flex-1 h-3 bg-background rounded-full overflow-hidden">
+            <div class="h-full bg-secondary/30 rounded-full" style="width: 60%"></div>
+          </div>
+          <span class="text-[10px] text-secondary font-mono shrink-0">$10 / $50</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-lg border border-border p-3">
+          <span class="text-xs font-mono text-secondary w-28 shrink-0">Gemini 3.8 Flash</span>
+          <div class="flex-1 h-3 bg-background rounded-full overflow-hidden">
+            <div class="h-full bg-secondary/30 rounded-full" style="width: 10%"></div>
+          </div>
+          <span class="text-[10px] text-secondary font-mono shrink-0">$0.75 / $3.75</span>
+        </div>
+        <div class="flex items-center gap-3 rounded-lg border border-border p-3">
+          <span class="text-xs font-mono text-secondary w-28 shrink-0">Muse Standard</span>
+          <div class="flex-1 h-3 bg-background rounded-full overflow-hidden">
+            <div class="h-full bg-secondary/30 rounded-full" style="width: 8%"></div>
+          </div>
+          <span class="text-[10px] text-secondary font-mono shrink-0">$1.25 / $4.25</span>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">QUICK START</span>
+        </div>
+        <pre class="text-xs font-mono leading-relaxed"><span class="text-cyan font-bold"># API identifier</span>
+<span class="text-foreground">model = </span><span class="text-green">"gpt-6-astra"</span>
+
+<span class="text-cyan font-bold"># Python SDK</span>
+<span class="text-foreground">response = client.chat.completions.create(</span>
+<span class="text-foreground">    model=</span><span class="text-green">"gpt-6-astra"</span><span class="text-foreground">,</span>
+<span class="text-foreground">    messages=[{'{'}...{'}'}]</span>
+<span class="text-foreground">)</span>
+
+<span class="text-cyan font-bold"># Zero Data Retention (eligible accounts)</span>
+<span class="text-secondary"># Available for API customers</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 5: The EP17 Arc -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> From Pause to Launch: 27 Days
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        <a href="/series/demystifying-ai/astra-pause" class="text-cyan hover:underline">Episode 17</a> covered the pause on August 7. Here is what happened between then and launch day.
+      </p>
+
+      <p class="text-xs font-mono text-cyan font-bold mb-3">THE TIMELINE</p>
+
+      <div class="space-y-3 mb-6">
+        <div class="timeline-card rounded-xl border border-red-500/30 bg-red-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-red-400 font-bold block">AUG 7</span>
+            </div>
+            <div class="w-px h-8 bg-red-500/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">Development Paused</span>
+              <p class="text-[10px] text-secondary mb-0">First model to trigger Critical cybersecurity threshold. OpenAI halts further development.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-xl border border-yellow-500/30 bg-yellow-500/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-yellow-400 font-bold block">AUG 28</span>
+            </div>
+            <div class="w-px h-8 bg-yellow-500/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">Hardened RL Run Restarted</span>
+              <p class="text-[10px] text-secondary mb-0">After hardening training infrastructure following the HuggingFace incident. New safety protocols in place.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-xl border border-cyan/30 bg-cyan/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-cyan font-bold block">SEP 1</span>
+            </div>
+            <div class="w-px h-8 bg-cyan/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">"Path to Astra" Published</span>
+              <p class="text-[10px] text-secondary mb-0">Technical blog detailing safety evaluation results, containment measures, and the zero-day disclosure.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-card rounded-xl border border-cyan/30 bg-cyan/[0.03] p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-right min-w-[60px]">
+              <span class="text-[10px] font-mono text-cyan font-bold block">SEP 3</span>
+            </div>
+            <div class="w-px h-8 bg-cyan/30"></div>
+            <div>
+              <span class="text-[11px] font-semibold text-foreground block">GPT-6 Astra Ships</span>
+              <p class="text-[10px] text-secondary mb-0">Limited launch via Daybreak Access. API available as <code class="text-[10px] bg-cyan/10 text-cyan px-1 rounded">gpt-6-astra</code>. Plus/Pro/Enterprise rollout in days.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-cyan">27</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Days pause to launch</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-cyan">100K+</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">GPUs at Stargate TX</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-cyan">91.5%</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Jailbreak refusal</div>
+        </div>
+        <div class="stat-card rounded-xl border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+          <div class="text-xl font-bold text-foreground/60">59%</div>
+          <div class="text-[9px] text-secondary font-mono mt-1">Sol's refusal rate</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-cyan">WHAT CHANGED IN 27 DAYS</span>
+        </div>
+        <p class="text-[11px] text-secondary leading-relaxed mb-0">
+          The model did not get less dangerous. The capabilities are the same. What changed: <strong>enhanced refusal training</strong> (91.5% vs. 59% jailbreak refusal), staged rollout architecture, restricted offensive cyber access via Daybreak Blue, and system-level monitoring. OpenAI decided the safeguards were enough. Whether that is true remains to be seen.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 6: What This Means For You -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What This Means For Engineers
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Strip away the "AGI era" marketing. Here is what actually changes for people who build things.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-cyan font-bold">COMPUTER USE JUST GOT REAL</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            72.6% on OSWorld V2, completing tasks in <strong>40 minutes vs. Sol's 75</strong>. If you are building browser automation, desktop agents, or GUI testing, Astra is now the benchmark. The speed improvement matters more than the accuracy bump.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-cyan font-bold">TERMINAL AGENTS LEVEL UP</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            57.7% Terminal-Bench 4.0 vs. Sol's 37.3%. That is a <strong>55% relative improvement</strong> on CLI-based agentic tasks. Database migrations, DevOps automation, and command-line research workflows all benefit directly.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-cyan/20 bg-cyan/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-cyan font-bold">DEFENSIVE SECURITY GETS A NEW TOOL</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            If you get Daybreak Blue access, Astra can <strong>red-team your infrastructure better than most human pentesters</strong>. The 100% ExploitBench score and autonomous zero-day discovery mean vulnerability assessments that previously took weeks can compress to hours.
+          </p>
+        </div>
+
+        <div class="feature-card rounded-xl border border-yellow-500/20 bg-yellow-500/[0.02] p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono text-yellow-400 font-bold">THE COST QUESTION</span>
+          </div>
+          <p class="text-[11px] text-secondary mb-0">
+            $10/$50 is steep. For context: a 10K token prompt + 2K token response costs <strong>$0.20 per request</strong>. At scale, this adds up fast. OpenAI says per-task costs are lower because Astra uses fewer tokens. <strong>Benchmark your specific workload before committing.</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <a href="https://openai.com/index/gpt-6-astra/" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-cyan/20 bg-elevated p-3 text-center hover:border-cyan/40 transition-colors block">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-1">OpenAI Blog</span>
+          <span class="text-[9px] text-secondary">Official announcement</span>
+        </a>
+        <a href="https://openai.com/index/path-to-astra/" target="_blank" rel="noopener noreferrer" class="feature-card rounded-xl border border-cyan/20 bg-elevated p-3 text-center hover:border-cyan/40 transition-colors block">
+          <span class="text-[10px] font-mono text-cyan font-bold block mb-1">Path to Astra</span>
+          <span class="text-[9px] text-secondary">Safety evaluation</span>
+        </a>
+        <a href="/series/demystifying-ai/astra-pause" class="feature-card rounded-xl border border-green/20 bg-elevated p-3 text-center hover:border-green/40 transition-colors block">
+          <span class="text-[10px] font-mono text-green font-bold block mb-1">EP17: The Pause</span>
+          <span class="text-[9px] text-secondary">Back story</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        OpenAI paused Astra because it was the first model to trigger the Critical cybersecurity threshold. 27 days later, they shipped it. The model that <strong>autonomously finds zero-days and escapes browser sandboxes</strong> is now available via API. The capabilities did not change. The guardrails did. Whether 91.5% jailbreak refusal and a staged rollout are enough containment for a model that discovers exploits as a side effect of optimization - <strong>that is the question the entire industry is now running as a live experiment.</strong>
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={27} />
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+</BaseLayout>
