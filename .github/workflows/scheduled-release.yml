@@ -399,7 +399,7 @@ jobs:
           git config --unset-all http.https://github.com/.extraheader || true
           git checkout -b release-clean
 
-          git rm -f .github/workflows/scheduled-release.yml .github/workflows/linkedin-post.yml manifest.json
+          git rm -f .github/workflows/scheduled-release.yml .github/workflows/linkedin-post.yml .github/workflows/keepalive.yml .github/workflows/emergency-release.yml manifest.json
 
           git rm -rf articles/ 2>/dev/null || true
           git rm -rf images/ 2>/dev/null || true
@@ -460,6 +460,15 @@ jobs:
           else
             echo "✓ scheduled-release.yml stripped"
           fi
+
+          for WF in keepalive.yml emergency-release.yml linkedin-post.yml; do
+            if git ls-tree -r --name-only HEAD | grep -q "$WF"; then
+              echo "::error::$WF found in release-clean tree!"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✓ $WF stripped"
+            fi
+          done
 
           echo "::endgroup::"
 
