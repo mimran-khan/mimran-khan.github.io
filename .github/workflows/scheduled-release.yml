@@ -385,6 +385,8 @@ jobs:
         run: |
           TAG="release/ep$(printf '%02d' ${{ steps.find.outputs.ep }})"
           TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
+          git tag -d "$TAG" 2>/dev/null || true
+          git push origin --delete "$TAG" 2>/dev/null || true
           git tag -a "$TAG" -m "Release Episode ${{ steps.find.outputs.ep }}: ${{ steps.find.outputs.title }} ($TODAY_IST IST)"
 
       - name: Push main, tag, and delete episode branch
