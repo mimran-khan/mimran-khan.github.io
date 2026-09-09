@@ -539,6 +539,20 @@ jobs:
           echo "::error::Live URL $URL did not return HTTP 200 within 10 minutes"
           exit 1
 
+      - name: Trigger LinkedIn post workflow
+        if: steps.find.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Dispatching LinkedIn post workflow for EP${{ steps.find.outputs.ep }}..."
+          gh api repos/${{ github.repository }}/dispatches \
+            -f event_type=linkedin-post \
+            -f "client_payload[ep]=${{ steps.find.outputs.ep }}" \
+            -f "client_payload[slug]=${{ steps.find.outputs.slug }}" || {
+            echo "::warning::LinkedIn dispatch failed (non-blocking). Cron will retry."
+          }
+          echo "LinkedIn workflow dispatched ✓"
+
   notify-failure:
     needs: release
     if: failure()
