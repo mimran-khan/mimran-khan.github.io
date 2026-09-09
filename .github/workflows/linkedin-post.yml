@@ -1,28 +1,29 @@
 # LinkedIn Post — Demystifying AI series
 #
-# MULTI-WINDOW: tries every hour from 9:30 AM to 3:30 PM IST on release days.
-# If GitHub drops one cron, the next hour catches it.
+# PRIMARY: dispatched automatically by scheduled-release after the article goes live at 11:00 AM IST.
+#
+# BACKUP: cron tries every hour from 12:00 PM to 4:30 PM IST on release days.
+# If the release chain dispatch fails or GitHub drops a cron, the next hour catches it.
 #
 # DEDUP: checks manifest for linkedin_posted_on == today before posting.
 # After posting, writes linkedin_posted_on to prevent repeats.
 #
 # TRIGGERS:
-#   1. Cron (hourly on Mon/Wed/Sat during posting window)
-#   2. workflow_dispatch (manual)
-#   3. repository_dispatch (chained from scheduled-release)
+#   1. repository_dispatch (chained from scheduled-release — primary)
+#   2. Cron (hourly backup on Mon/Wed/Sat afternoon)
+#   3. workflow_dispatch (manual)
 
 name: LinkedIn Post
 
 on:
   schedule:
-    # Every hour from 04:00-10:00 UTC = 09:30-15:30 IST on Mon/Wed/Sat
-    - cron: '0 4 * * 1,3,6'
-    - cron: '0 5 * * 1,3,6'
-    - cron: '0 6 * * 1,3,6'
-    - cron: '0 7 * * 1,3,6'
-    - cron: '0 8 * * 1,3,6'
-    - cron: '0 9 * * 1,3,6'
-    - cron: '0 10 * * 1,3,6'
+    # Backup: every hour from 06:30-11:00 UTC = 12:00-4:30 PM IST on Mon/Wed/Sat
+    - cron: '30 6 * * 1,3,6'
+    - cron: '30 7 * * 1,3,6'
+    - cron: '30 8 * * 1,3,6'
+    - cron: '30 9 * * 1,3,6'
+    - cron: '30 10 * * 1,3,6'
+    - cron: '30 11 * * 1,3,6'
   repository_dispatch:
     types: [linkedin-post]
   workflow_dispatch:
