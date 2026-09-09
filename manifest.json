@@ -309,8 +309,7 @@
       "release_date": "2026-09-10",
       "linkedin_post": "Episode 29: 5-minute read. Zero fluff : Recirculation: Free Lunch for Frozen Transformers\n\nTake any frozen transformer. Add recurrence at inference time. 23% better perplexity. 21% better math accuracy. No retraining. No fine-tuning. No new parameters.\n\nKey findings:\n- Loops hidden states back through the same layers at inference time\n- Works on any frozen transformer - Gemma 3, LLaMA, Qwen\n- 23% perplexity reduction on Gemma 3 with just 4 recirculation steps\n- 21% GSM8k accuracy boost without a single gradient update\n- Zero additional parameters - same model, different inference loop\n\nThe takeaway? Depth is still the bottleneck. Recirculation is the cheapest depth multiplier that exists.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/recirculation\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Recirculation #Transformers #InferenceTime #DeepLearning #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering",
       "published_on": "2026-09-10",
-      "tag": "release/ep29",
-      "linkedin_posted_on": "2026-09-10"
+      "tag": "release/ep29"
     },
     {
       "ep": 30,
