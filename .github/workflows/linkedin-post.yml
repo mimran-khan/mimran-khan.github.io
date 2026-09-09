@@ -39,7 +39,43 @@ jobs:
       - name: Checkout staging
         uses: actions/checkout@v4
 
+      - name: Gate — verify release workflow succeeded today
+        id: gate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
+          echo "Checking if Scheduled Release succeeded today (IST $TODAY_IST)..."
+
+          # Check if any episode was published today in the manifest
+          PUBLISHED_TODAY=$(jq -r --arg t "$TODAY_IST" \
+            '[.episodes[] | select(.status == "published" and .published_on == $t)] | length' \
+            manifest.json)
+
+          if [ "$PUBLISHED_TODAY" = "0" ]; then
+            echo "No episode published today. Release has not run yet or did not succeed."
+            echo "pass=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Verify the article is actually live on GitHub Pages
+          SLUG=$(jq -r --arg t "$TODAY_IST" \
+            '.episodes[] | select(.status == "published" and .published_on == $t) | .slug' \
+            manifest.json | tail -1)
+          URL="https://mimran-khan.github.io/series/demystifying-ai/${SLUG}"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+
+          if [ "$STATUS" != "200" ]; then
+            echo "Article $URL is not live yet (HTTP $STATUS). Release deploy may still be in progress."
+            echo "pass=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Gate passed: EP published today, article live (HTTP 200)"
+          echo "pass=true" >> "$GITHUB_OUTPUT"
+
       - name: Find today's published episode
+        if: steps.gate.outputs.pass == 'true'
         id: find
         run: |
           TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
