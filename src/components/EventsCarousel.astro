@@ -52,7 +52,23 @@ import gooderaActivity from '../assets/images/volunteering/goodera-activity.png'
 import gooderaPacking from '../assets/images/volunteering/goodera-packing.png';
 import gooderaTeam from '../assets/images/volunteering/goodera-team.png';
 
-const workEvents = [
+interface EventItem {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  type: string;
+  category: string;
+  cover: ImageMetadata;
+  coverPosition?: string;
+  images: ImageMetadata[];
+  imagePositions?: string[];
+  description: string;
+  highlights: string[];
+  tags: string[];
+}
+
+const workEvents: EventItem[] = [
   {
     id: 'rh-loop-engineering',
     title: 'Loop Engineering Impact Award — Q3 2026',
@@ -214,7 +230,7 @@ const workEvents = [
   }
 ];
 
-const publicEvents = [
+const publicEvents: EventItem[] = [
   {
     id: 'iitk-convocation',
     title: 'IIT Kanpur E-Masters Convocation 2026',
