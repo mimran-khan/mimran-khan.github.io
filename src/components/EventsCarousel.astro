@@ -263,7 +263,9 @@ const publicEvents = [
     type: 'Graduation',
     category: 'public',
     cover: bitsGraduation,
+    coverPosition: 'top',
     images: [bitsGraduation, bitsConvocationHall, bitsConvocationStage],
+    imagePositions: ['top', 'center', 'center'],
     description: 'Graduated with M.Tech in Artificial Intelligence & Machine Learning from Birla Institute of Technology and Science, Pilani through the Work Integrated Learning Programme (WILP). Completed a rigorous two-year program alongside full-time work, applying cutting-edge Generative AI and machine learning models to solve complex enterprise problems.',
     highlights: [
       'M.Tech in Artificial Intelligence & Machine Learning',
@@ -363,7 +365,7 @@ const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.da
             <Image 
               src={event.cover} 
               alt={event.title}
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              class={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${event.coverPosition === 'top' ? 'object-top' : ''}`}
             />
             <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
             
@@ -609,14 +611,17 @@ const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.da
           <!-- Image Carousel -->
           <div class="relative">
             <div class="relative aspect-[16/9] overflow-hidden">
-              ${event.images.map((img, i) => `
+              ${event.images.map((img, i) => {
+                const pos = event.imagePositions && event.imagePositions[i] ? event.imagePositions[i] : 'center';
+                return `
                 <img 
                   src="${img.src}" 
                   alt="${event.title}" 
                   class="modal-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === 0 ? 'opacity-100' : 'opacity-0'}"
+                  style="object-position: ${pos};"
                   data-index="${i}"
                 />
-              `).join('')}
+              `}).join('')}
             </div>
             
             ${imageCount > 1 ? `
