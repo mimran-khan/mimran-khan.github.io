@@ -31,6 +31,7 @@ import anniInjury from '../assets/images/community/anni/anni-injury.jpg';
 import cocoInjury from '../assets/images/community/coco/coco-injury.jpg';
 import brunoReunited from '../assets/images/community/bruno/bruno-reunited.jpg';
 import departedDog from '../assets/images/community/departed/community-dog.png';
+import departedDogBlurred from '../assets/images/community/departed/departed-dog-blurred.png';
 ---
 
 <BaseLayout title="Beyond Code — Animal Rescue & Community Care" description="Street rescues, daily community dog care, and giving dignity to every life — the things that matter beyond the keyboard.">
@@ -334,6 +335,7 @@ import departedDog from '../assets/images/community/departed/community-dog.png';
         </div>
         <div class="relative aspect-[16/9] md:aspect-[21/9]">
           <div class="media-slide absolute inset-0 opacity-100 transition-opacity duration-700 is-sensitive" data-type="photo" data-sensitive="true" data-label="Buried with dignity in the community he called home"><img src={departedDog.src} alt="Community dog" class="w-full h-full object-contain" loading="lazy" /><div class="blur-overlay"></div><button class="eye-toggle" title="Reveal"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button></div>
+          <div class="media-slide absolute inset-0 opacity-0 transition-opacity duration-700 is-sensitive" data-type="photo" data-sensitive="true" data-label="The reality of life on the streets"><img src={departedDogBlurred.src} alt="Community dog — blurred for sensitivity" class="w-full h-full object-cover" loading="lazy" /><div class="blur-overlay"></div><button class="eye-toggle" title="Reveal"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none"></div>
           <div class="absolute bottom-4 left-5 z-10"><span class="player-label text-sm text-white/90 font-medium">Buried with dignity in the community he called home</span></div>
         </div>
