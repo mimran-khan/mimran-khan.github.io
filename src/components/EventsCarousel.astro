@@ -27,6 +27,9 @@ import bitsConvocationStage from '../assets/images/education/bits-convocation-st
 import iitkFlightLab from '../assets/images/education/iitk-flight-lab.png';
 import iitkCohort from '../assets/images/education/iitk-cohort.png';
 import iitkCampus from '../assets/images/education/iitk-campus.png';
+import iitkGraduation from '../assets/images/education/iitk-graduation.png';
+import iitkConvocationHall from '../assets/images/education/iitk-convocation-hall.png';
+import iitkConvocationStage from '../assets/images/education/iitk-convocation-stage.png';
 
 // Awards
 import syncxTeam from '../assets/images/awards/syncx-team.png';
@@ -36,13 +39,75 @@ import meetiaTeam from '../assets/images/awards/meetia-team.png';
 import meetiaWinner from '../assets/images/awards/meetia-winner.png';
 import meetiaTrophy from '../assets/images/awards/meetia-trophy.png';
 import silverStarCert from '../assets/images/awards/silver-star.png';
+import rhLoopEngineering from '../assets/images/awards/rh-loop-engineering.png';
+import rhCollaborateSep from '../assets/images/awards/rh-collaborate-sep.png';
+import rhFocusTeamSep from '../assets/images/awards/rh-focus-team-sep.png';
+import rhCollaborateAug from '../assets/images/awards/rh-collaborate-aug.png';
+import rhCustomerFocusJul from '../assets/images/awards/rh-customer-focus-jul.png';
+import rhCollaborateJul from '../assets/images/awards/rh-collaborate-jul.png';
+import rhEncourageJul from '../assets/images/awards/rh-encourage-jul.png';
 
 // Volunteering
 import gooderaActivity from '../assets/images/volunteering/goodera-activity.png';
 import gooderaPacking from '../assets/images/volunteering/goodera-packing.png';
 import gooderaTeam from '../assets/images/volunteering/goodera-team.png';
 
-const workEvents = [
+interface EventItem {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  type: string;
+  category: string;
+  cover: ImageMetadata;
+  coverPosition?: string;
+  images: ImageMetadata[];
+  imagePositions?: string[];
+  description: string;
+  highlights: string[];
+  tags: string[];
+}
+
+const workEvents: EventItem[] = [
+  {
+    id: 'rh-loop-engineering',
+    title: 'Loop Engineering Impact Award — Q3 2026',
+    location: 'Red Hat, Data and AI Team',
+    date: 'Sep 2026',
+    type: 'Award',
+    category: 'work',
+    cover: rhLoopEngineering,
+    images: [rhLoopEngineering],
+    description: 'Received the Loop Engineering Impact Award for Q3 2026 under the Dataverse Impact category from Red Hat\'s Data and AI team. The Loop award is an org-level quarterly recognition given to engineers whose work creates measurable impact at a division-wide scale — spanning platform capabilities, tooling, and cross-team enablement.',
+    highlights: [
+      'Org-level award from Red Hat\'s Data and AI division',
+      'Dataverse Impact category — engineering contributions with measurable reach across the organization',
+      'Quarterly recognition for sustained delivery and technical impact throughout Q3 2026',
+      'Part of the Loop Engineering program that highlights high-impact individual contributors',
+      'Recognized within the broader Data and AI team spanning multiple product lines and initiatives'
+    ],
+    tags: ['Red Hat', 'Loop Engineering', 'Dataverse Impact', 'Data and AI', 'Award', 'Q3 2026']
+  },
+  {
+    id: 'rh-reward-zone',
+    title: 'Red Hat Reward Zone — 8 Recognitions in 3 Months',
+    location: 'Red Hat',
+    date: 'Sep 2026',
+    type: 'Recognition',
+    category: 'work',
+    cover: rhCollaborateSep,
+    images: [rhCollaborateSep, rhFocusTeamSep, rhCollaborateAug, rhCustomerFocusJul, rhCollaborateJul, rhEncourageJul],
+    description: 'Received eight peer-nominated awards through Red Hat\'s Reward Zone program between July and September 2026, spanning four distinct recognition categories. The nominations came from engineers, managers, and cross-functional partners across the AI Factory initiative — recognizing contributions in technical leadership, cross-team collaboration, mentorship, and delivery under pressure. Peers highlighted architectural problem-solving, rapid PR turnarounds, knowledge sharing, and a drive toward research and patents as standout qualities.',
+    highlights: [
+      '4× Red Hat Multiplier (Collaborate) — recognized for cross-team technical partnership on AI Factory architecture, debugging, and production readiness',
+      '2× Customer Focus (Go Above and Beyond) — cited for exceeding delivery expectations and technical acumen on AI Factory execution',
+      '1× Team Advocate (Encourage Others) — nominated for mentorship, introducing impactful initiatives, and fostering a research-driven culture',
+      '1× Team Advocate (Focus on Team) — recognized for elevating team AI strategy and being a dependable, insight-driven collaborator',
+      'Praised for engineering reliability — rapid response on PRs, bug fixes, and commitment from early POC stages through product launch',
+      'Noted for passion toward research and patent disclosures alongside core delivery'
+    ],
+    tags: ['Red Hat', 'Reward Zone', 'AI Factory', 'Collaboration', 'Mentorship', 'Technical Leadership', 'Recognition']
+  },
   {
     id: 'servicegipfel',
     title: 'European ServiceGipfel 2025',
@@ -165,7 +230,27 @@ const workEvents = [
   }
 ];
 
-const publicEvents = [
+const publicEvents: EventItem[] = [
+  {
+    id: 'iitk-convocation',
+    title: 'IIT Kanpur E-Masters Convocation 2026',
+    location: 'Indian Institute of Technology Kanpur',
+    date: 'Jul 2026',
+    type: 'Graduation',
+    category: 'public',
+    cover: iitkGraduation,
+    images: [iitkGraduation, iitkConvocationHall, iitkConvocationStage],
+    description: 'Earned a second postgraduate degree — E-Masters from IIT Kanpur\'s Department of Electrical Engineering — at the 59th Convocation. The program covered the full depth of modern AI: from the mathematical foundations in linear algebra, probability, and optimization that underpin every model, through machine learning, deep learning, NLP, and computer vision, to the systems layer — hardware accelerators and edge deployment. Pursuing two masters back-to-back while shipping production AI at Mercedes-Benz and Red Hat shaped a perspective where theory, research, and engineering reinforce each other.',
+    highlights: [
+      'E-Masters, Dept. of Electrical Engineering — IIT Kanpur (59th Convocation, 15 Jul 2026)',
+      'Full-spectrum AI curriculum: ML, deep learning, NLP, computer vision, and AI systems',
+      'Strong mathematical foundations — linear algebra, probability theory, and optimization',
+      'Exposure to hardware accelerators and edge AI deployment',
+      'Second postgraduate degree alongside M.Tech AI/ML from BITS Pilani',
+      'Completed while working full-time — first at Mercedes-Benz, then at Red Hat'
+    ],
+    tags: ['IIT Kanpur', 'E-Masters', 'Deep Learning', 'NLP', 'Computer Vision', 'AI Systems', 'Optimization', 'Education']
+  },
   {
     id: 'technoverse',
     title: 'Technoverse AI Conclave 2026',
@@ -194,7 +279,9 @@ const publicEvents = [
     type: 'Graduation',
     category: 'public',
     cover: bitsGraduation,
+    coverPosition: 'top',
     images: [bitsGraduation, bitsConvocationHall, bitsConvocationStage],
+    imagePositions: ['top', 'center', 'center'],
     description: 'Graduated with M.Tech in Artificial Intelligence & Machine Learning from Birla Institute of Technology and Science, Pilani through the Work Integrated Learning Programme (WILP). Completed a rigorous two-year program alongside full-time work, applying cutting-edge Generative AI and machine learning models to solve complex enterprise problems.',
     highlights: [
       'M.Tech in Artificial Intelligence & Machine Learning',
@@ -294,7 +381,7 @@ const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.da
             <Image 
               src={event.cover} 
               alt={event.title}
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              class={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${event.coverPosition === 'top' ? 'object-top' : ''}`}
             />
             <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
             
@@ -540,14 +627,17 @@ const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.da
           <!-- Image Carousel -->
           <div class="relative">
             <div class="relative aspect-[16/9] overflow-hidden">
-              ${event.images.map((img, i) => `
+              ${event.images.map((img, i) => {
+                const pos = event.imagePositions && event.imagePositions[i] ? event.imagePositions[i] : 'center';
+                return `
                 <img 
                   src="${img.src}" 
                   alt="${event.title}" 
                   class="modal-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === 0 ? 'opacity-100' : 'opacity-0'}"
+                  style="object-position: ${pos};"
                   data-index="${i}"
                 />
-              `).join('')}
+              `}).join('')}
             </div>
             
             ${imageCount > 1 ? `

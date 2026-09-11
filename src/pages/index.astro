@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import EducationTimeline from '../components/EducationTimeline.astro';
 import EventsCarousel from '../components/EventsCarousel.astro';
+import CommunityRescue from '../components/CommunityRescue.astro';
 import { getCollection } from 'astro:content';
 import episodes from '../data/episodes.json';
 
@@ -384,10 +385,10 @@ const education = [
     </div>
   </section>
 
-  <!-- Events & Speaking -->
+  <!-- Milestones & Moments -->
   <section class="section border-t border-border">
     <div class="container-main">
-      <p class="section-heading">Events & Speaking</p>
+      <p class="section-heading">Milestones & Moments</p>
       <EventsCarousel />
     </div>
   </section>
@@ -724,6 +725,14 @@ const education = [
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Beyond Code -->
+  <section id="beyond-code" class="section border-t border-border">
+    <div class="container-main">
+      <p class="section-heading">Beyond Code</p>
+      <CommunityRescue />
     </div>
   </section>
 

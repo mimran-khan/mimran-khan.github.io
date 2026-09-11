@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import alaiLogo from '../assets/images/community/alai-logo.png';
+import goodooLogo from '../assets/images/community/goodoo-logo.png';
+import heroBg from '../assets/images/community/beyond-code-hero-bg.png';
+import rescueBg from '../assets/images/community/beyond-code-rescue-bg.png';
+---
+
+<div class="relative rounded-2xl border border-border overflow-hidden">
+  <!-- Layered background: bokeh base + rescue illustration -->
+  <div class="absolute inset-0">
+    <img src={heroBg.src} alt="" class="w-full h-full object-cover opacity-40" />
+  </div>
+  <div class="absolute inset-0">
+    <img src={rescueBg.src} alt="" class="w-full h-full object-cover opacity-45" />
+  </div>
+  <div class="absolute inset-0 bg-background/40"></div>
+
+  <div class="relative p-6 md:p-10">
+    <!-- Header -->
+    <div class="flex items-start justify-between gap-4 mb-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg md:text-xl font-bold text-foreground">Animal Rescue & Community Care</h3>
+        </div>
+        <p class="text-sm text-secondary leading-relaxed max-w-2xl">
+          In 2024, I stopped walking past a stray dog that everyone else did. That one decision rewired how I see the world. Today, it's rescuing animals from the streets, sitting with the ones who won't make it, and showing up every night since 2025 to feed ~20 community dogs in North Bangalore — because compassion isn't a one-time act, it's a daily practice.
+        </p>
+      </div>
+      <a
+        href="/beyond-code"
+        class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-mono hover:bg-amber-500/20 transition-colors shrink-0"
+      >
+        Full story <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+
+    <!-- Story cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <a href="/beyond-code" class="group relative rounded-xl border border-border bg-background/50 backdrop-blur-sm p-5 hover:border-amber-500/40 transition-all duration-300">
+        <div class="absolute top-0 left-0 w-1 h-full bg-amber-500/50 rounded-l-xl"></div>
+        <div class="pl-2">
+          <span class="text-[10px] font-mono text-amber-400 mb-2 block">01 — The Beginning</span>
+          <h4 class="text-sm font-semibold text-foreground group-hover:text-amber-400 transition-colors mb-1">Rocky</h4>
+          <p class="text-xs text-secondary leading-relaxed">Rescued a stray from the streets. Adopted him. He started everything that followed.</p>
+        </div>
+      </a>
+
+      <a href="/beyond-code" class="group relative rounded-xl border border-border bg-background/50 backdrop-blur-sm p-5 hover:border-green/40 transition-all duration-300">
+        <div class="absolute top-0 left-0 w-1 h-full bg-green/50 rounded-l-xl"></div>
+        <div class="pl-2">
+          <span class="text-[10px] font-mono text-green mb-2 block">02 — Rescues</span>
+          <h4 class="text-sm font-semibold text-foreground group-hover:text-green transition-colors mb-1">5+ Animals Rescued</h4>
+          <p class="text-xs text-secondary leading-relaxed">Coordinating rescues, rehab, and palliative care — with help from ALAI and Goodoo.</p>
+        </div>
+      </a>
+
+      <a href="/beyond-code" class="group relative rounded-xl border border-border bg-background/50 backdrop-blur-sm p-5 hover:border-violet-400/40 transition-all duration-300">
+        <div class="absolute top-0 left-0 w-1 h-full bg-violet-500/50 rounded-l-xl"></div>
+        <div class="pl-2">
+          <span class="text-[10px] font-mono text-violet-400 mb-2 block">03 — Daily Care</span>
+          <h4 class="text-sm font-semibold text-foreground group-hover:text-violet-400 transition-colors mb-1">~20 Dogs, Every Night</h4>
+          <p class="text-xs text-secondary leading-relaxed">Nightly feeding and wellness care for community dogs in a small neighborhood in North Bangalore.</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Bottom bar: orgs + mobile CTA -->
+    <div class="flex items-center justify-between pt-5 border-t border-border/50">
+      <div class="flex items-center gap-4">
+        <span class="text-[9px] text-secondary/60 font-mono uppercase tracking-widest">With help from</span>
+        <div class="flex items-center gap-3">
+          <a href="https://alairescues.in" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+            <Image src={alaiLogo} alt="ALAI" class="h-6 w-auto" />
+          </a>
+          <a href="https://goodoo.org.in" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+            <Image src={goodooLogo} alt="Goodoo Animal Welfare Trust" class="h-5 w-auto invert" />
+          </a>
+        </div>
+      </div>
+      <a href="/beyond-code" class="md:hidden text-xs text-amber-500 flex items-center gap-1 font-mono shrink-0">
+        Full story <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
