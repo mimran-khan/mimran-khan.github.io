@@ -318,7 +318,7 @@
       "slug": "nvidia-pair",
       "title": "NVIDIA PAIR: Turn Your LAN Into an Inference Cluster",
       "status": "pending",
-      "release_date": "2026-09-13",
+      "release_date": "2026-09-12",
       "linkedin_post": "Episode 30: 5-minute read. Zero fluff : NVIDIA PAIR: Turn Your LAN Into an Inference Cluster\n\nNVIDIA shipped a free, Apache 2.0 tool that connects every RTX GPU, DGX Spark, and Apple M4 Mac on your network into one Ollama/LM Studio endpoint. Up to 18 devices. mTLS secured. Nothing leaves the LAN.\n\nKey findings:\n- PAIR is a router, not a GPU pool - each request runs whole on a single node\n- Compatible: RTX 20+, RTX PRO, DGX Spark, Apple M4+ (the surprise)\n- Security: 6-digit pairing code, mTLS encrypted channel\n- Engines defined as JSON manifests - add custom engines like vLLM\n- Tested up to 18 devices in a cluster\n- 1.5x speedup on RTX 5090, 1.4x on two-DGX clusters\n\nThe takeaway? NVIDIA just made every idle GPU in your house a production inference node. If you have two computers and a LAN cable, you have an AI cluster.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/nvidia-pair\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#NVIDIA #PAIR #LocalAI #InferenceCluster #Ollama #RTX #AppleM4 #AgenticAI #AI #MachineLearning #SoftwareEngineering"
     },
     {
