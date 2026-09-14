@@ -372,13 +372,25 @@
     "image": "/series/ep31-einsummable.png"
   },
   {
+    "number": 32,
+    "slug": "pace-the-frontier",
+    "title": "Pace the Frontier: When the Builders Say Stop",
+    "hook": "Three AI labs agree advancement needs brakes.",
+    "category": "hot-topic",
+    "day": "Wed",
+    "date": "Sep 16",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep32-pace-the-frontier.png"
+  },
+  {
     "number": 33,
     "slug": "declarative-attention",
     "title": "Declarative Attention: Models Control Their Own KV Cache",
     "hook": "The model emits global, focus, and local declarations. The engine skips unneeded context. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Works with vLLM and FlashAttention today.",
     "category": "research-paper",
-    "day": "Wed",
-    "date": "Sep 17",
+    "day": "Sat",
+    "date": "Sep 19",
     "readTime": "5 min",
     "published": false,
     "image": "/series/ep33-declarative-attention.png"
