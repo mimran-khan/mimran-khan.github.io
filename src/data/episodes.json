@@ -377,7 +377,7 @@
     "title": "Declarative Attention: Models Control Their Own KV Cache",
     "hook": "The model emits global, focus, and local declarations. The engine skips unneeded context. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Works with vLLM and FlashAttention today.",
     "category": "research-paper",
-    "day": "Wed",
+    "day": "Sat",
     "date": "Sep 19",
     "readTime": "5 min",
     "published": false,
