@@ -329,9 +329,11 @@
       "branch": "ep31",
       "slug": "einsummable",
       "title": "Einsummable: Every Kernel Is a Join",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-09-14",
-      "linkedin_post": "Episode 31: 5-minute read. Zero fluff : Einsummable: Every Kernel Is a Join\n\nWrite PyTorch. Get optimal multi-GPU sharding. Zero annotations. Zero device assignments. Zero communication code. Einsummable models every GPU operation as a relational join and finds plans hand-tuned experts miss.\n\nKey findings:\n- Accepts PyTorch-like description, automatically distributes across multi-GPU server\n- Models every operation as a relational join + aggregation over tensor relations\n- Searches ALL possible decompositions, not named strategies like TP/PP/DP\n- On 8x A100, LLaMA blocks: 8.97 ms (Einsummable) vs 13.80 ms (hand-tuned PyTorch) vs 15.90 ms (vLLM)\n- No canned collectives - all communication derived at compile time\n\nThe takeaway? Einsummable is the strongest evidence yet that manual multi-GPU parallelism is a solvable compiler problem, not an engineering art.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/einsummable\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Einsummable #MultiGPU #AutoParallelism #PyTorch #LLaMA #vLLM #AgenticAI #AI #MachineLearning #SoftwareEngineering"
+      "linkedin_post": "Episode 31: 5-minute read. Zero fluff : Einsummable: Every Kernel Is a Join\n\nWrite PyTorch. Get optimal multi-GPU sharding. Zero annotations. Zero device assignments. Zero communication code. Einsummable models every GPU operation as a relational join and finds plans hand-tuned experts miss.\n\nKey findings:\n- Accepts PyTorch-like description, automatically distributes across multi-GPU server\n- Models every operation as a relational join + aggregation over tensor relations\n- Searches ALL possible decompositions, not named strategies like TP/PP/DP\n- On 8x A100, LLaMA blocks: 8.97 ms (Einsummable) vs 13.80 ms (hand-tuned PyTorch) vs 15.90 ms (vLLM)\n- No canned collectives - all communication derived at compile time\n\nThe takeaway? Einsummable is the strongest evidence yet that manual multi-GPU parallelism is a solvable compiler problem, not an engineering art.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/einsummable\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Einsummable #MultiGPU #AutoParallelism #PyTorch #LLaMA #vLLM #AgenticAI #AI #MachineLearning #SoftwareEngineering",
+      "published_on": "2026-09-14",
+      "tag": "release/ep31"
     },
     {
       "ep": 32,
