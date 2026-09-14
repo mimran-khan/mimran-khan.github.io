@@ -382,17 +382,5 @@
     "readTime": "5 min",
     "published": false,
     "image": "/series/ep32-declarative-attention.png"
-  },
-  {
-    "number": 33,
-    "slug": "pytorch-214",
-    "title": "PyTorch 2.14: Training Jobs Now Survive Node Failures",
-    "hook": "NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups where nodes crash and rejoin without restarting. Apple Silicon native linalg. The infra release every ML engineer needs.",
-    "category": "new-release",
-    "day": "Sat",
-    "date": "Sep 19",
-    "readTime": "5 min",
-    "published": false,
-    "image": "/series/ep33-pytorch-214.png"
   }
 ]
