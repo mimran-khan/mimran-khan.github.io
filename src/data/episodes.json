@@ -389,8 +389,8 @@
     "title": "PyTorch 2.14: Training Jobs Now Survive Node Failures",
     "hook": "NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups where nodes crash and rejoin without restarting. Apple Silicon native linalg. The infra release every ML engineer needs.",
     "category": "new-release",
-    "day": "Sat",
-    "date": "Sep 22",
+    "day": "Mon",
+    "date": "Sep 21",
     "readTime": "5 min",
     "published": false,
     "image": "/series/ep33-pytorch-214.png"
