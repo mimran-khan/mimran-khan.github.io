@@ -372,7 +372,7 @@
     "image": "/series/ep31-einsummable.png"
   },
   {
-    "number": 32,
+    "number": 33,
     "slug": "declarative-attention",
     "title": "Declarative Attention: Models Control Their Own KV Cache",
     "hook": "The model emits global, focus, and local declarations. The engine skips unneeded context. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Works with vLLM and FlashAttention today.",
@@ -381,10 +381,10 @@
     "date": "Sep 19",
     "readTime": "5 min",
     "published": false,
-    "image": "/series/ep32-declarative-attention.png"
+    "image": "/series/ep33-declarative-attention.png"
   },
   {
-    "number": 33,
+    "number": 34,
     "slug": "pytorch-214",
     "title": "PyTorch 2.14: Training Jobs Now Survive Node Failures",
     "hook": "NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups where nodes crash and rejoin without restarting. Apple Silicon native linalg. The infra release every ML engineer needs.",
@@ -393,6 +393,6 @@
     "date": "Sep 19",
     "readTime": "5 min",
     "published": false,
-    "image": "/series/ep33-pytorch-214.png"
+    "image": "/series/ep34-pytorch-214.png"
   }
 ]
