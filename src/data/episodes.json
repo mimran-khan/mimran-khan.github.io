@@ -378,9 +378,19 @@
     "hook": "The model emits global, focus, and local declarations. The engine skips unneeded context. 52% fewer KV cache reads on Gemma-4-31B. Zero training. Works with vLLM and FlashAttention today.",
     "category": "research-paper",
     "day": "Wed",
-    "date": "Sep 17",
+    "date": "Sep 19",
     "readTime": "5 min",
     "published": false,
     "image": "/series/ep32-declarative-attention.png"
+  },
+  {
+    "number": 34,
+    "title": "Pace the Frontier: When the Builders Say Stop",
+    "slug": "pace-the-frontier",
+    "date": "Sep 16",
+    "category": "hot-topic",
+    "hook": "Three AI labs agree advancement needs brakes. One researcher quit. One alignment lead confirmed >10% extinction risk. Three CEOs, three regulatory models, zero enforcement.",
+    "published": true,
+    "image": "/series/ep34-pace-the-frontier.png"
   }
 ]

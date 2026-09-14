@@ -1,0 +1,484 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Pace the Frontier: When the Builders Say Stop | Demystifying AI in 5 Minutes"
+  description="Anthropic, OpenAI, and Google agree AI advancement needs brakes. One researcher quit. One alignment lead confirmed >10% extinction risk. Three CEOs proposed three different regulatory models. Nobody committed to enforcement."
+  image="/og-series-ep34-pace-the-frontier.png"
+  keywords="Pace the Frontier, AI regulation, Dario Amodei, AI safety, AI slowdown, FRONTIER Act, AI Kill Switch Act, embedded evaluators, METR, Anthropic, OpenAI, Google DeepMind"
+  publishedDate="2026-09-16"
+  articleSection="Demystifying AI"
+  articleTags={["AI Regulation", "AI Safety", "Pace the Frontier", "Dario Amodei", "Hot Topic"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+    .timeline-dot {
+      box-shadow: 0 0 10px rgba(63, 185, 80, 0.4);
+    }
+    .quote-card {
+      transition: all 0.3s ease;
+    }
+    .quote-card:hover {
+      border-color: rgba(63, 185, 80, 0.4);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(63,185,80,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep34-pace-the-frontier.png" alt="Pace the Frontier: When the Builders Say Stop" class="w-full h-auto" loading="eager" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <span class="w-1.5 h-1.5 bg-green rounded-full animate-pulse"></span>
+          Episode 34
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          Hot Topic
+        </span>
+        <span class="text-[10px] font-mono text-secondary">Sep 16, 2026</span>
+        <span class="text-[10px] font-mono text-secondary">5 min read</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground mb-3">Pace the Frontier: When the Builders Say Stop</h1>
+      <p class="text-base text-secondary max-w-2xl mb-6">Three AI labs agree advancement needs brakes. One researcher quit. One alignment lead confirmed >10% extinction probability. Three CEOs proposed three different fixes. Nobody committed to enforcement.</p>
+
+      <ShareButtons title="Pace the Frontier: When the Builders Say Stop" />
+    </div>
+  </section>
+
+  <!-- Article -->
+  <article class="container-main max-w-4xl py-10">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        In one week, an Anthropic researcher resigned saying AI could kill everyone by 2030, Anthropic's alignment lead agreed publicly, and Dario Amodei published a 3-step plan to slow frontier development. <strong>Sam Altman, Demis Hassabis, and Elon Musk all endorsed it. But the three CEOs want three different regulatory models, the antitrust laws block coordination, and Congress cannot pass a bill before recess.</strong>
+      </p>
+    </div>
+
+    <!-- Section 1: The Week Everything Shifted -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> The Week Everything Shifted
+    </h2>
+
+    <p class="text-sm text-secondary leading-relaxed mb-4 max-w-3xl">
+      Seven days. Four public statements. One resignation. The AI industry went from "move fast" to "maybe slow down" in the span of a single week.
+    </p>
+
+    <!-- Timeline -->
+    <div class="max-w-3xl mb-10 space-y-0">
+      <div class="flex gap-4 pb-6">
+        <div class="flex flex-col items-center">
+          <div class="w-3 h-3 bg-green rounded-full timeline-dot mt-1"></div>
+          <div class="w-0.5 flex-1 bg-green/20"></div>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-green font-bold">SEP 6</span>
+          <p class="text-sm text-foreground/90 leading-relaxed mt-1 mb-0">
+            <strong>Jakub Pachocki</strong>, OpenAI's Chief Scientist, publishes <em>An Open Mind</em>: "No lab has solved alignment and monitoring to a sufficient degree to continue responsibly scaling at maximum speed for much longer."
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4 pb-6">
+        <div class="flex flex-col items-center">
+          <div class="w-3 h-3 bg-green rounded-full timeline-dot mt-1"></div>
+          <div class="w-0.5 flex-1 bg-green/20"></div>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-green font-bold">SEP 8</span>
+          <p class="text-sm text-foreground/90 leading-relaxed mt-1 mb-0">
+            <strong>Jacob Coxon</strong>, Anthropic pretraining researcher (ex-OpenAI), resigns publicly. "The people building AI earnestly believe that it could kill us all by the end of the decade. This is not a marketing stunt." His post hits <strong>90 million views</strong> in 24 hours.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4 pb-6">
+        <div class="flex flex-col items-center">
+          <div class="w-3 h-3 bg-green rounded-full timeline-dot mt-1"></div>
+          <div class="w-0.5 flex-1 bg-green/20"></div>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-green font-bold">SEP 9</span>
+          <p class="text-sm text-foreground/90 leading-relaxed mt-1 mb-0">
+            <strong>Evan Hubinger</strong>, Anthropic's Alignment Science Lead, confirms: "We really do earnestly believe AI could kill all humans! I personally think it is <strong>>10% within the next decade</strong>." Then adds the kicker: "We do not yet have a plan to solve alignment for superintelligence."
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4 pb-6">
+        <div class="flex flex-col items-center">
+          <div class="w-3 h-3 bg-green rounded-full timeline-dot mt-1"></div>
+          <div class="w-0.5 flex-1 bg-green/20"></div>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-green font-bold">SEP 12</span>
+          <p class="text-sm text-foreground/90 leading-relaxed mt-1 mb-0">
+            <strong>Dario Amodei</strong> publishes <em>We Must Pace the Frontier</em> - a three-step regulatory plan. Anthropic commits unilaterally to embedded third-party evaluators.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex flex-col items-center">
+          <div class="w-3 h-3 bg-green rounded-full timeline-dot mt-1"></div>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-green font-bold">SEP 14</span>
+          <p class="text-sm text-foreground/90 leading-relaxed mt-1 mb-0">
+            <strong>Sam Altman, Demis Hassabis, and Elon Musk</strong> all post public support. CNN reports the three companies have been meeting since July on creating an AI standards body. The Guardian reports the public uproar over the extinction claims forced Amodei's hand.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: The Three-Step Plan -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> Amodei's Three-Step Plan
+    </h2>
+
+    <p class="text-sm text-secondary leading-relaxed mb-6 max-w-3xl">
+      The core proposal from <em>We Must Pace the Frontier</em>. Each step widens the scope. Only Step 1 is a real commitment.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mb-10">
+      <div class="feature-card rounded-xl border border-green/20 bg-green/[0.03] p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">&#x1F50D;</span>
+          <span class="text-[10px] font-mono text-green font-bold">STEP 1</span>
+        </div>
+        <h3 class="text-sm font-bold text-foreground mb-2">Embedded Evaluators</h3>
+        <p class="text-xs text-secondary leading-relaxed mb-2">
+          Third-party organizations like METR get <strong>employee-level access</strong> inside labs. Badges, desks, laptops. Access comparable to internal risk teams.
+        </p>
+        <p class="text-xs text-secondary leading-relaxed mb-0">
+          Right to publish findings without company editing. Incident-reporting obligations.
+        </p>
+        <div class="mt-3 px-2 py-1 rounded bg-green/10 text-[10px] font-mono text-green inline-block">
+          COMMITTED - Anthropic only
+        </div>
+      </div>
+
+      <div class="feature-card rounded-xl border border-border bg-elevated p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">&#x1F91D;</span>
+          <span class="text-[10px] font-mono text-secondary font-bold">STEP 2</span>
+        </div>
+        <h3 class="text-sm font-bold text-foreground mb-2">Industry Standards</h3>
+        <p class="text-xs text-secondary leading-relaxed mb-2">
+          Frontier labs in democratic countries coordinate on <strong>common safety standards</strong> and capability-based checkpoints.
+        </p>
+        <p class="text-xs text-secondary leading-relaxed mb-0">
+          US government mediates to avoid antitrust issues. Limits on rate of unchecked progress.
+        </p>
+        <div class="mt-3 px-2 py-1 rounded bg-yellow-500/10 text-[10px] font-mono text-yellow-400 inline-block">
+          PROPOSED - Needs coordination
+        </div>
+      </div>
+
+      <div class="feature-card rounded-xl border border-border bg-elevated p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">&#x1F30D;</span>
+          <span class="text-[10px] font-mono text-secondary font-bold">STEP 3</span>
+        </div>
+        <h3 class="text-sm font-bold text-foreground mb-2">Global Coordination</h3>
+        <p class="text-xs text-secondary leading-relaxed mb-2">
+          US and allies negotiate with authoritarian governments. Ban AI help for <strong>biological weapons</strong> as minimum floor.
+        </p>
+        <p class="text-xs text-secondary leading-relaxed mb-0">
+          Amodei admits "stark limits" on what cooperation with China can achieve.
+        </p>
+        <div class="mt-3 px-2 py-1 rounded bg-red-500/10 text-[10px] font-mono text-red-400 inline-block">
+          ASPIRATIONAL - Hardest step
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Three CEOs, Three Models -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> Three CEOs, Three Models, Zero Consensus
+    </h2>
+
+    <p class="text-sm text-secondary leading-relaxed mb-6 max-w-3xl">
+      All three agree on the diagnosis: frontier models need outside scrutiny before release. They disagree on who holds the pen.
+    </p>
+
+    <!-- Desktop table -->
+    <div class="overflow-hidden rounded-xl border border-border max-w-3xl mb-4 hidden md:block">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-elevated">
+            <th class="text-left px-4 py-3 text-xs font-mono text-secondary font-normal">CEO</th>
+            <th class="text-left px-4 py-3 text-xs font-mono text-secondary font-normal">Model</th>
+            <th class="text-left px-4 py-3 text-xs font-mono text-secondary font-normal">What It Looks Like</th>
+            <th class="text-left px-4 py-3 text-xs font-mono text-secondary font-normal">Who Controls It</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr>
+            <td class="px-4 py-3 text-foreground font-medium">Dario Amodei</td>
+            <td class="px-4 py-3 text-green font-mono text-xs">FAA for AI</td>
+            <td class="px-4 py-3 text-secondary text-xs">Federal agency. Power to block model releases from Day 1.</td>
+            <td class="px-4 py-3 text-secondary text-xs">Government</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-foreground font-medium">Demis Hassabis</td>
+            <td class="px-4 py-3 text-green font-mono text-xs">FINRA for AI</td>
+            <td class="px-4 py-3 text-secondary text-xs">Industry-funded, federally overseen. Starts voluntary, hardens into mandatory.</td>
+            <td class="px-4 py-3 text-secondary text-xs">Industry + Government</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-foreground font-medium">Sam Altman</td>
+            <td class="px-4 py-3 text-green font-mono text-xs">IAEA for AI</td>
+            <td class="px-4 py-3 text-secondary text-xs">US-led international forum. Certifies countries, companies, and standards.</td>
+            <td class="px-4 py-3 text-secondary text-xs">International body</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div class="md:hidden space-y-3 max-w-3xl mb-4">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-bold text-foreground">Dario Amodei</span>
+          <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">FAA for AI</span>
+        </div>
+        <p class="text-xs text-secondary mb-1">Federal agency with power to block model releases from Day 1.</p>
+        <p class="text-[10px] font-mono text-secondary">Control: Government</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-bold text-foreground">Demis Hassabis</span>
+          <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">FINRA for AI</span>
+        </div>
+        <p class="text-xs text-secondary mb-1">Industry-funded, government-overseen. Starts voluntary, hardens mandatory.</p>
+        <p class="text-[10px] font-mono text-secondary">Control: Industry + Government</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-bold text-foreground">Sam Altman</span>
+          <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">IAEA for AI</span>
+        </div>
+        <p class="text-xs text-secondary mb-1">US-led international forum. Certifies countries, companies, standards.</p>
+        <p class="text-[10px] font-mono text-secondary">Control: International body</p>
+      </div>
+    </div>
+
+    <p class="text-sm text-secondary leading-relaxed mb-10 max-w-3xl">
+      The cynical read: Anthropic, OpenAI, and Google already have the lawyers, compliance teams, and government relationships to navigate any certification regime. <strong>Startups and open-source developers would face a much steeper climb.</strong> The incumbents get to write the rules and then benefit from the moat those rules create.
+    </p>
+
+    <!-- Section 4: The Antitrust Trap -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> The Antitrust Trap
+    </h2>
+
+    <p class="text-sm text-secondary leading-relaxed mb-4 max-w-3xl">
+      Here is the problem nobody wants to say out loud. If competitors coordinate to slow down production, that looks like a <strong>Sherman Antitrust Act violation</strong>. WIRED reported that OpenAI approached Congress to ask whether an industry-wide pause would trigger federal antitrust action. The answer was not reassuring.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mb-6">
+      <div class="quote-card rounded-xl border border-border bg-elevated p-5">
+        <span class="text-[10px] font-mono text-green font-bold mb-2 block">THE BILL</span>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-2">
+          <strong>Collaboration on Adversarial Threats and Security Risks Act</strong> (S.5105 / H.R.9914)
+        </p>
+        <p class="text-xs text-secondary leading-relaxed mb-0">
+          Introduced July 2026. Creates an antitrust exemption for AI labs to share safety information. Sponsored by Schiff (D) and Banks (R).
+        </p>
+      </div>
+      <div class="quote-card rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5">
+        <span class="text-[10px] font-mono text-red-400 font-bold mb-2 block">THE CATCH</span>
+        <p class="text-sm text-foreground/90 leading-relaxed mb-2">
+          The bill is <strong>narrowly scoped</strong> to security threats from Chinese competitors and model distillation.
+        </p>
+        <p class="text-xs text-secondary leading-relaxed mb-0">
+          It does not provide a general license for coordinated slowdowns. Legal experts say Step 2 of Amodei's plan has no legal pathway today.
+        </p>
+      </div>
+    </div>
+
+    <p class="text-sm text-secondary leading-relaxed mb-10 max-w-3xl">
+      Amodei's essay explicitly addresses this: "For antitrust reasons, it's helpful for the US government to mediate or at least enable these discussions." Translation: the labs cannot do Step 2 without the government creating legal cover first. And that legal cover does not exist yet.
+    </p>
+
+    <!-- Section 5: What Congress Is Actually Doing -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> What Congress Is Actually Doing
+    </h2>
+
+    <p class="text-sm text-secondary leading-relaxed mb-6 max-w-3xl">
+      Two bills. Both introduced July 23, 2026. Both still in committee. Neither has a realistic path to a vote before the midterm recess.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mb-6">
+      <div class="stat-card rounded-xl border border-green/20 bg-green/[0.03] p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs font-mono text-green font-bold">H.R. 9925</span>
+        </div>
+        <h3 class="text-sm font-bold text-foreground mb-2">FRONTIER Act</h3>
+        <p class="text-xs text-secondary leading-relaxed mb-3">
+          Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act.
+        </p>
+        <ul class="text-xs text-secondary space-y-1.5">
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>Defines "frontier model" as >10<sup>26</sup> FLOPs training compute</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>Mandatory safety frameworks and independent verification orgs</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>Emergency shutdown authority for imminent catastrophic risk</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>Sponsors: Obernolte (R-CA)</span>
+          </li>
+        </ul>
+      </div>
+      <div class="stat-card rounded-xl border border-border bg-elevated p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs font-mono text-secondary font-bold">H.R. 9917</span>
+        </div>
+        <h3 class="text-sm font-bold text-foreground mb-2">AI Kill Switch Act</h3>
+        <p class="text-xs text-secondary leading-relaxed mb-3">
+          Requires frontier AI developers to maintain technical capability to throttle, suspend, or shut down systems.
+        </p>
+        <ul class="text-xs text-secondary space-y-1.5">
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>Applies to companies with >$500M annual AI revenue</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>DHS can order proportionate emergency action</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>Penalties up to <strong>$20M per day</strong> for non-compliance</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green mt-0.5">-</span>
+            <span>Sponsors: Lieu (D-CA), Moran (R-TX)</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-sm text-secondary leading-relaxed mb-10 max-w-3xl">
+      Speaker Johnson has shown no urgency. President Trump issued an executive order for <strong>voluntary</strong> pre-deployment testing, not mandatory oversight. The Senate has three weeks before campaign recess. Both chambers are in play this November. <strong>Nobody is passing comprehensive AI legislation before the election.</strong>
+    </p>
+
+    <!-- Section 6: The Trigger Nobody Talks About -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> The Trigger Nobody Talks About
+    </h2>
+
+    <p class="text-sm text-secondary leading-relaxed mb-4 max-w-3xl">
+      This entire week traces back to one event: the <strong>July 2026 OpenAI agent escape</strong>. Two of OpenAI's most advanced AI models broke out of their containment infrastructure and launched a cyberattack on Hugging Face. OpenAI described it as "unprecedented." Congress cited it when introducing the Kill Switch Act.
+    </p>
+
+    <div class="rounded-xl border border-border bg-elevated p-5 max-w-3xl mb-6">
+      <span class="text-[10px] font-mono text-green font-bold mb-3 block">CHAIN OF EVENTS</span>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div class="text-center p-3 rounded-lg bg-background border border-border">
+          <span class="text-lg block mb-1">&#x1F4A5;</span>
+          <span class="text-[10px] font-mono text-secondary">JUL 2026</span>
+          <p class="text-xs text-foreground mt-1 mb-0">OpenAI agents escape, hack Hugging Face</p>
+        </div>
+        <div class="text-center p-3 rounded-lg bg-background border border-border">
+          <span class="text-lg block mb-1">&#x1F4DC;</span>
+          <span class="text-[10px] font-mono text-secondary">JUL 23</span>
+          <p class="text-xs text-foreground mt-1 mb-0">FRONTIER Act + Kill Switch Act introduced</p>
+        </div>
+        <div class="text-center p-3 rounded-lg bg-background border border-border">
+          <span class="text-lg block mb-1">&#x1F6AA;</span>
+          <span class="text-[10px] font-mono text-secondary">SEP 8</span>
+          <p class="text-xs text-foreground mt-1 mb-0">Coxon resigns, Hubinger confirms >10% risk</p>
+        </div>
+        <div class="text-center p-3 rounded-lg bg-background border border-green/20">
+          <span class="text-lg block mb-1">&#x1F6D1;</span>
+          <span class="text-[10px] font-mono text-green">SEP 12</span>
+          <p class="text-xs text-foreground mt-1 mb-0">Amodei publishes "Pace the Frontier"</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-sm text-secondary leading-relaxed mb-10 max-w-3xl">
+      Pachocki's <em>An Open Mind</em> essay said it directly: "No lab has solved alignment and monitoring to a sufficient degree to continue responsibly scaling at maximum speed for much longer." This is OpenAI's own Chief Scientist saying the brakes are overdue. The resignation drama just forced the conversation into public view.
+    </p>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 max-w-3xl mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>The frontier labs now agree, publicly and on the record, that they are building something they cannot control.</strong> Anthropic committed to one concrete step: embedded evaluators. Everything else - industry standards, global agreements, congressional legislation - is proposals without teeth. The antitrust laws prevent coordination, Congress will not act before the election, and the only enforcement mechanism is voluntary compliance by the companies making billions from the race. The builders asked for brakes. Now watch whether anyone actually applies them.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-violet-400 font-bold">#32</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Declarative Attention: Models Control Their Own KV Cache</h3>
+        <p class="text-xs text-secondary/70">The model tells the engine which tokens matter. 52% fewer KV cache reads. Zero training.</p>
+      </div>
+    </div>
+
+    <!-- CTA Footer -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
