@@ -342,7 +342,7 @@
       "slug": "declarative-attention",
       "title": "Declarative Attention: Models Control Their Own KV Cache",
       "status": "pending",
-      "release_date": "2026-09-16",
+      "release_date": "2026-09-19",
       "linkedin_post": "Episode 32: 5-minute read. Zero fluff : Declarative Attention: Models Control Their Own KV Cache\n\nYour model already knows which parts of context matter. Declarative Attention lets it say so. The model emits global, focus, and local tags in its chain-of-thought. The engine skips the rest. 52% fewer KV cache reads. Zero training.\n\nKey findings:\n- Three modes: global (full scan), focus (specific region), local (recent output only)\n- Engine parses declarations like tool calls - no kernel rewrites needed\n- Gemma-4-31B: 52.0% fewer attended tokens, only 1.27pp accuracy drop\n- Qwen-3.6-27B: 31.1% reduction, 2.75pp accuracy drop\n- Zero-shot: works on off-the-shelf models, compatible with vLLM + FlashAttention\n- Accuracy drop shrinks with model scale\n\nThe takeaway? Declarative Attention flips sparse attention from an infrastructure hack to a model-level reasoning step. 52% savings at 1.27pp cost. This is how long-context inference gets cheap.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/declarative-attention\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#DeclarativeAttention #KVCache #SparseAttention #vLLM #FlashAttention #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering"
     },
     {
@@ -351,8 +351,17 @@
       "slug": "pytorch-214",
       "title": "PyTorch 2.14: Training Jobs Now Survive Node Failures",
       "status": "pending",
-      "release_date": "2026-09-19",
+      "release_date": "2026-09-22",
       "linkedin_post": "Episode 33: 5-minute read. Zero fluff : PyTorch 2.14: Training Jobs Now Survive Node Failures\n\nPyTorch 2.14 ships three things that change daily ML work: NVGEMM auto-tuned CUTLASS kernels, fault-tolerant process groups where nodes crash and rejoin without restarting, and Apple Silicon native linear algebra.\n\nKey findings:\n- NVGEMM: CuTeDSL-generated CUTLASS kernels auto-tuned alongside Triton and ATen\n- Fault tolerance: in-place process-group reconfiguration via enable_reconfigure flag\n- Nodes crash and rejoin WITHOUT restarting the entire training job\n- Flight Recorder now works for ANY backend, not just NCCL\n- Apple Silicon native linalg - Mac is now a first-class ML dev platform\n- nccl2 backend landed in-tree from torchcomms\n\nThe takeaway? NVGEMM gives faster kernels for free. Fault tolerance means training survives hardware failures without human intervention. Apple Silicon gets promoted. This is the release you upgrade for.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/pytorch-214\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#PyTorch #NVGEMM #CUTLASS #FaultTolerance #DistributedTraining #AppleSilicon #AgenticAI #AI #MachineLearning #SoftwareEngineering"
+    },
+    {
+      "ep": 34,
+      "branch": "ep34",
+      "slug": "pace-the-frontier",
+      "title": "Pace the Frontier: When the Builders Say Stop",
+      "status": "pending",
+      "release_date": "2026-09-16",
+      "linkedin_post": "Episode 34: 5-minute read. Zero fluff : Pace the Frontier: When the Builders Say Stop\n\nAn Anthropic researcher quit. The company's alignment lead confirmed >10% chance AI kills all humans this decade. Three days later, Dario Amodei published a plan to slow frontier AI development. Altman, Hassabis, and Musk endorsed it. Nobody committed to enforcement.\n\nKey findings:\n- Anthropic commits to embedded third-party evaluators (METR) with employee-level access and publishing rights\n- Three CEOs, three models: FAA for AI (Amodei), FINRA for AI (Hassabis), IAEA for AI (Altman)\n- Antitrust law blocks coordinated slowdowns - no legal pathway exists today\n- FRONTIER Act and AI Kill Switch Act both stalled in committee\n- Congress will not pass comprehensive AI legislation before the election\n- OpenAI's July agent escape triggered the entire chain of events\n\nThe takeaway? The labs agree they need brakes. The antitrust laws prevent coordination. Congress will not act. The only enforcement is voluntary compliance by the companies making billions from the race.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/pace-the-frontier\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#PaceTheFrontier #AIRegulation #AISafety #DarioAmodei #Anthropic #OpenAI #FRONTIERAct #AgenticAI #AI #MachineLearning #SoftwareEngineering"
     }
   ]
 }
