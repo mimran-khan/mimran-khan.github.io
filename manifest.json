@@ -330,7 +330,7 @@
       "slug": "einsummable",
       "title": "Einsummable: Every Kernel Is a Join",
       "status": "pending",
-      "release_date": "2026-09-15",
+      "release_date": "2026-09-14",
       "linkedin_post": "Episode 31: 5-minute read. Zero fluff : Einsummable: Every Kernel Is a Join\n\nWrite PyTorch. Get optimal multi-GPU sharding. Zero annotations. Zero device assignments. Zero communication code. Einsummable models every GPU operation as a relational join and finds plans hand-tuned experts miss.\n\nKey findings:\n- Accepts PyTorch-like description, automatically distributes across multi-GPU server\n- Models every operation as a relational join + aggregation over tensor relations\n- Searches ALL possible decompositions, not named strategies like TP/PP/DP\n- On 8x A100, LLaMA blocks: 8.97 ms (Einsummable) vs 13.80 ms (hand-tuned PyTorch) vs 15.90 ms (vLLM)\n- No canned collectives - all communication derived at compile time\n\nThe takeaway? Einsummable is the strongest evidence yet that manual multi-GPU parallelism is a solvable compiler problem, not an engineering art.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/einsummable\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Einsummable #MultiGPU #AutoParallelism #PyTorch #LLaMA #vLLM #AgenticAI #AI #MachineLearning #SoftwareEngineering"
     },
     {
@@ -339,7 +339,7 @@
       "slug": "declarative-attention",
       "title": "Declarative Attention: Models Control Their Own KV Cache",
       "status": "pending",
-      "release_date": "2026-09-17",
+      "release_date": "2026-09-16",
       "linkedin_post": "Episode 32: 5-minute read. Zero fluff : Declarative Attention: Models Control Their Own KV Cache\n\nYour model already knows which parts of context matter. Declarative Attention lets it say so. The model emits global, focus, and local tags in its chain-of-thought. The engine skips the rest. 52% fewer KV cache reads. Zero training.\n\nKey findings:\n- Three modes: global (full scan), focus (specific region), local (recent output only)\n- Engine parses declarations like tool calls - no kernel rewrites needed\n- Gemma-4-31B: 52.0% fewer attended tokens, only 1.27pp accuracy drop\n- Qwen-3.6-27B: 31.1% reduction, 2.75pp accuracy drop\n- Zero-shot: works on off-the-shelf models, compatible with vLLM + FlashAttention\n- Accuracy drop shrinks with model scale\n\nThe takeaway? Declarative Attention flips sparse attention from an infrastructure hack to a model-level reasoning step. 52% savings at 1.27pp cost. This is how long-context inference gets cheap.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/declarative-attention\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#DeclarativeAttention #KVCache #SparseAttention #vLLM #FlashAttention #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering"
     },
     {
