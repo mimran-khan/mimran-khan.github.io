@@ -390,7 +390,7 @@
     "hook": "NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups where nodes crash and rejoin without restarting. Apple Silicon native linalg. The infra release every ML engineer needs.",
     "category": "new-release",
     "day": "Sat",
-    "date": "Sep 19",
+    "date": "Sep 22",
     "readTime": "5 min",
     "published": false,
     "image": "/series/ep33-pytorch-214.png"
