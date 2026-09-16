@@ -345,7 +345,8 @@
       "release_date": "2026-09-16",
       "linkedin_post": "Episode 32: 5-minute read. Zero fluff : Pace the Frontier: When the Builders Say Stop\n\nAn Anthropic researcher quit. The company's alignment lead confirmed >10% chance AI kills all humans this decade. Three days later, Dario Amodei published a plan to slow frontier AI development. Altman, Hassabis, and Musk endorsed it. Nobody committed to enforcement.\n\nKey findings:\n- Anthropic commits to embedded third-party evaluators (METR) with employee-level access and publishing rights\n- Three CEOs, three models: FAA for AI (Amodei), FINRA for AI (Hassabis), IAEA for AI (Altman)\n- Antitrust law blocks coordinated slowdowns - no legal pathway exists today\n- FRONTIER Act and AI Kill Switch Act both stalled in committee\n- Congress will not pass comprehensive AI legislation before the election\n- OpenAI's July agent escape triggered the entire chain of events\n\nThe takeaway? The labs agree they need brakes. The antitrust laws prevent coordination. Congress will not act. The only enforcement is voluntary compliance by the companies making billions from the race.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/pace-the-frontier\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#PaceTheFrontier #AIRegulation #AISafety #DarioAmodei #Anthropic #OpenAI #FRONTIERAct #AgenticAI #AI #MachineLearning #SoftwareEngineering",
       "published_on": "2026-09-16",
-      "tag": "release/ep32"
+      "tag": "release/ep32",
+      "linkedin_posted_on": "2026-09-16"
     },
     {
       "ep": 33,
