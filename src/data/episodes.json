@@ -378,7 +378,7 @@
     "date": "Sep 16",
     "category": "hot-topic",
     "hook": "Three AI labs agree advancement needs brakes. One researcher quit. One alignment lead confirmed >10% extinction risk. Three CEOs, three regulatory models, zero enforcement.",
-    "published": false,
+    "published": true,
     "image": "/series/ep32-pace-the-frontier.png",
     "day": "Wed",
     "readTime": "5 min"
