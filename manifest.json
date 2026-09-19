@@ -357,7 +357,8 @@
       "release_date": "2026-09-19",
       "linkedin_post": "Episode 33: 5-minute read. Zero fluff : Declarative Attention: Models Control Their Own KV Cache\n\nYour model already knows which parts of context matter. Declarative Attention lets it say so. The model emits global, focus, and local tags in its chain-of-thought. The engine skips the rest. 52% fewer KV cache reads. Zero training.\n\nKey findings:\n- Three modes: global (full scan), focus (specific region), local (recent output only)\n- Engine parses declarations like tool calls - no kernel rewrites needed\n- Gemma-4-31B: 52.0% fewer attended tokens, only 1.27pp accuracy drop\n- Qwen-3.6-27B: 31.1% reduction, 2.75pp accuracy drop\n- Zero-shot: works on off-the-shelf models, compatible with vLLM + FlashAttention\n- Accuracy drop shrinks with model scale\n\nThe takeaway? Declarative Attention flips sparse attention from an infrastructure hack to a model-level reasoning step. 52% savings at 1.27pp cost. This is how long-context inference gets cheap.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/declarative-attention\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#DeclarativeAttention #KVCache #SparseAttention #vLLM #FlashAttention #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering",
       "published_on": "2026-09-19",
-      "tag": "release/ep33"
+      "tag": "release/ep33",
+      "linkedin_posted_on": "2026-09-19"
     },
     {
       "ep": 34,
