@@ -320,7 +320,7 @@
     "day": "Sat",
     "date": "Sep 5",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep27-gpt6-astra.png"
   },
   {
@@ -332,7 +332,7 @@
     "day": "Mon",
     "date": "Sep 7",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep28-opaque-recurrence.png"
   },
   {
@@ -344,7 +344,7 @@
     "day": "Wed",
     "date": "Sep 10",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep29-recirculation.png"
   },
   {
@@ -356,7 +356,7 @@
     "day": "Sat",
     "date": "Sep 13",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep30-nvidia-pair.png"
   },
   {
@@ -368,7 +368,7 @@
     "day": "Mon",
     "date": "Sep 15",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep31-einsummable.png"
   },
   {
@@ -380,7 +380,7 @@
     "day": "Wed",
     "date": "Sep 16",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep32-pace-the-frontier.png"
   },
   {
@@ -392,7 +392,7 @@
     "day": "Sat",
     "date": "Sep 19",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep33-declarative-attention.png"
   },
   {
@@ -404,7 +404,7 @@
     "day": "Mon",
     "date": "Sep 21",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep34-pytorch-214.png"
   }
 ]
