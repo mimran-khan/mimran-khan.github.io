@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="CLOSEDQUORUM: Four LLMs Vote on What to Steal | Demystifying AI in 5 Minutes"
+  description="The first documented AI-driven malware with no human operator. Four commercial LLMs vote on every attack decision. Exfiltrated 2.4 GB from 17 honeypot servers in 72 hours."
+  image="/og-series-ep39-closedquorum.png"
+  keywords="CLOSEDQUORUM, AI malware, LLM attack, autonomous hacking, cybersecurity, quorum voting, agent threat, AI safety"
+  publishedDate="2026-10-06"
+  articleSection="Demystifying AI"
+  articleTags={["CLOSEDQUORUM", "AI Malware", "Cybersecurity", "LLM Attack", "Autonomous Agents", "AI Safety"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); }
+    .phase-card { transition: all 0.3s ease; }
+    .phase-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(34, 197, 94, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep39-closedquorum.png" alt="CLOSEDQUORUM: Four LLMs Vote on What to Steal" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 39
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 6, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        CLOSEDQUORUM: Four LLMs Vote on What to Steal
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        The first documented AI-driven malware where no human touches the keyboard after deployment. Four commercial LLMs — GPT-6, Claude Opus, Gemini Ultra, and Llama-4 — form a quorum and vote on every attack decision.
+      </p>
+
+      <ShareButtons title="CLOSEDQUORUM: Four LLMs Vote on What to Steal" url="/series/demystifying-ai/closedquorum" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-10">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Security researchers at Sentinel Labs discovered <strong>CLOSEDQUORUM</strong>, a malware framework that uses four commercial LLMs as a decision committee. The system performs reconnaissance, selects targets, chooses exploits, exfiltrates data, and covers its tracks — all without human intervention. In a controlled test against 17 honeypot servers, it <strong>exfiltrated 2.4 GB in 72 hours</strong>. Every action required a 3-of-4 majority vote.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">4</div>
+        <div class="text-[10px] font-mono text-secondary">LLMs in Quorum</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">3/4</div>
+        <div class="text-[10px] font-mono text-secondary">Majority Required</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">17</div>
+        <div class="text-[10px] font-mono text-secondary">Servers Compromised</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">2.4 GB</div>
+        <div class="text-[10px] font-mono text-secondary">Data Exfiltrated</div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> How the Quorum Works
+    </h2>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-4 max-w-3xl">
+      CLOSEDQUORUM is not one model doing everything. It is a <strong>committee of four</strong>. Each model receives the same context — reconnaissance data, available exploits, current foothold — and independently votes on the next action. Three of four must agree before anything executes.
+    </p>
+
+    <div class="rounded-xl border border-border bg-elevated p-5 mb-10 max-w-3xl">
+      <div class="text-xs font-mono text-secondary mb-4">ATTACK PIPELINE</div>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">1</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Recon → Vote</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">All four models analyze the target network. Each votes on which hosts to probe further. Majority selects the target.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">2</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Exploit Selection → Vote</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Models evaluate available CVEs and zero-day patterns. Quorum decides the exploit chain to attempt. If one model flags a honeypot, the quorum can abort.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">3</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Lateral Movement → Vote</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Once inside, models vote on pivot targets. The diversity of four model architectures means each "sees" different patterns in network topology.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">4</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Exfiltration → Vote</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Final vote decides what data to take and which channel to use. Data is chunked, encrypted, and sent through DNS tunneling or HTTPS.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">5</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Cover Tracks → Vote</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Models vote on log manipulation, timestamp alteration, and which artifacts to clean. One model specializes in evasion patterns the others miss.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why Quorum -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> Why Four Models, Not One?
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-border bg-elevated p-4 phase-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x1F6E1;&#xFE0F;</span>
+          <span class="text-xs font-bold text-foreground">Resilience to guardrails</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">If one model refuses due to safety filters, the other three still vote. The system routes around individual model restrictions automatically.</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 phase-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x1F9E0;</span>
+          <span class="text-xs font-bold text-foreground">Cognitive diversity</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">Different architectures spot different things. GPT-6 excels at code-level exploits, Claude at social engineering scripts, Gemini at network topology reasoning.</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 phase-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x26A0;&#xFE0F;</span>
+          <span class="text-xs font-bold text-foreground">Reduced false positives</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">Quorum voting means reckless single-model hallucinations get outvoted. The system avoids obvious honeypots 83% more often than single-model attacks.</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 phase-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x1F575;&#xFE0F;</span>
+          <span class="text-xs font-bold text-foreground">Attribution obfuscation</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">Mixing four providers means traffic patterns, prompt styles, and API fingerprints are harder to trace to a single actor or service.</p>
+      </div>
+    </div>
+
+    <!-- Defense -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> What Defenders Should Do Now
+    </h2>
+
+    <div class="rounded-xl border border-border bg-elevated p-5 mb-10 max-w-3xl">
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">01</span>
+          <p class="text-xs text-foreground/80"><strong>Monitor LLM API usage anomalies.</strong> Sudden bursts of structured prompts from your network (even via legitimate APIs) may indicate agent-driven recon.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">02</span>
+          <p class="text-xs text-foreground/80"><strong>Deploy AI-aware honeypots.</strong> CLOSEDQUORUM detected 60% of traditional honeypots but struggled with dynamically generated fake environments.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">03</span>
+          <p class="text-xs text-foreground/80"><strong>Watch for multi-provider traffic.</strong> A single compromise event hitting GPT, Claude, Gemini, and Llama endpoints from the same subnet is a signature.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">04</span>
+          <p class="text-xs text-foreground/80"><strong>Assume autonomous persistence.</strong> Unlike human-operated malware, CLOSEDQUORUM does not need C2 instructions. Cutting a single model's API does not stop it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 max-w-3xl mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>CLOSEDQUORUM is the threat model we warned about, built with tools anyone can access.</strong> No custom models. No novel architectures. Just four API keys and a voting loop. The quorum pattern makes it more reliable than any single-model attack, and the multi-provider approach defeats most fingerprinting defenses. <strong>The era of autonomous AI-driven attacks is not coming. It arrived.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Wednesday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#40</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Meta Connect: Personal Superintelligence on a Keychain</h3>
+        <p class="text-xs text-secondary/70">Meta's Muse Charm is a wearable AI companion with always-on audio, 72-hour local context, and Llama-5 inference at 3W.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
