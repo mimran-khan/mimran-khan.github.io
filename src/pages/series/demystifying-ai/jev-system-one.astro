@@ -107,6 +107,74 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <strong>Jev's argument: stop generating strings for decisions that have known answer sets.</strong> Instead of asking an LLM <em>"classify this as billing or technical and respond in JSON"</em> and hoping the response is valid, you define the options in code and the model picks one. The output is typed by construction. There is no string to parse. There is no schema to validate. There is nothing to retry.
       </p>
 
+      <!-- DIAGRAM: LLM vs Jev path -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
+        <div class="text-[10px] font-mono text-secondary mb-4 text-center">TWO PATHS TO "ROUTE THIS TICKET"</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <!-- LLM Path -->
+          <div class="space-y-2">
+            <div class="text-[10px] font-mono text-red-400 font-bold text-center mb-3">THE LLM WAY (~2.3s, $0.0024)</div>
+            <div class="flex flex-col items-center gap-1.5">
+              <div class="w-full rounded-lg border border-border bg-background px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-foreground/70">Prompt: "Classify as billing or technical. Respond in JSON."</span>
+              </div>
+              <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              <div class="w-full rounded-lg border border-border bg-background px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-foreground/70">Generate tokens one by one...</span>
+              </div>
+              <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              <div class="w-full rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-yellow-400">JSON.parse() — hope it's valid</span>
+              </div>
+              <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              <div class="w-full rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-yellow-400">zod.safeParse() — validate schema</span>
+              </div>
+              <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              <div class="w-full rounded-lg border border-red-500/30 bg-red-500/[0.05] px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-red-400">Failed? Retry (back to top) ↺</span>
+              </div>
+              <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              <div class="w-full rounded-lg border border-foreground/20 bg-foreground/5 px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-foreground/80">"billing" — finally usable</span>
+              </div>
+            </div>
+          </div>
+          <!-- Jev Path -->
+          <div class="space-y-2">
+            <div class="text-[10px] font-mono text-cyan font-bold text-center mb-3">THE JEV WAY (~175ms, $0.00011)</div>
+            <div class="flex flex-col items-center gap-1.5">
+              <div class="w-full rounded-lg border border-cyan/30 bg-cyan/[0.05] px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-cyan">choice("dept", &#123; billing, technical &#125;)</span>
+              </div>
+              <svg class="w-4 h-4 text-cyan/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              <div class="w-full rounded-lg border border-cyan/30 bg-cyan/[0.05] px-3 py-2 text-center">
+                <span class="text-[10px] font-mono text-cyan">Parallel pass — all options at once</span>
+              </div>
+              <svg class="w-4 h-4 text-cyan/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              <div class="w-full rounded-lg border border-cyan/30 bg-cyan/[0.05] px-3 py-2 text-center">
+                <div class="text-[10px] font-mono text-cyan font-bold">&#123; choice: "billing", confidence: 0.94 &#125;</div>
+                <div class="text-[9px] text-cyan/60 mt-0.5">Typed. No parse. No validate. No retry.</div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-border/50">
+              <div class="flex items-center justify-between text-[10px] font-mono">
+                <span class="text-foreground/40">Steps</span>
+                <span class="text-cyan">3 vs 7</span>
+              </div>
+              <div class="flex items-center justify-between text-[10px] font-mono mt-1">
+                <span class="text-foreground/40">Can fail mid-pipeline</span>
+                <span class="text-cyan">No</span>
+              </div>
+              <div class="flex items-center justify-between text-[10px] font-mono mt-1">
+                <span class="text-foreground/40">Confidence score</span>
+                <span class="text-cyan">Built in</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
         <div class="text-xs font-mono text-secondary mb-3">THE KAHNEMAN SPLIT</div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -149,6 +217,79 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <p class="text-[11px] text-foreground/70 mb-2">Yes or no, returned as a probability from 0 to 1. Calibrated: when Jev says 0.8, outcomes should match ~80% of the time across many predictions.</p>
           <div class="text-[10px] font-mono text-foreground/40">Your code: if/else</div>
         </div>
+      </div>
+
+      <!-- DIAGRAM: Parallel Evaluation -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
+        <div class="text-[10px] font-mono text-secondary mb-4 text-center">HOW JEV EVALUATES — ONE STATE, THREE QUESTIONS, ONE PASS</div>
+
+        <!-- State input -->
+        <div class="flex justify-center mb-4">
+          <div class="rounded-lg border border-cyan/30 bg-cyan/[0.05] px-4 py-2.5 max-w-sm w-full text-center">
+            <div class="text-[10px] font-mono text-cyan font-bold mb-1">STATE</div>
+            <div class="text-[10px] font-mono text-foreground/60">"Charged twice. I need this fixed today."</div>
+            <div class="text-[9px] text-foreground/40 mt-0.5">+ plan: annual, history: [...customer records]</div>
+          </div>
+        </div>
+
+        <!-- Fan-out arrows -->
+        <div class="flex justify-center mb-2">
+          <div class="flex items-end gap-8 md:gap-16">
+            <svg class="w-6 h-6 text-cyan/40 -rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            <svg class="w-6 h-6 text-cyan/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            <svg class="w-6 h-6 text-cyan/40 rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+        </div>
+
+        <!-- Three parallel questions -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+          <div class="rounded-lg border border-cyan/20 bg-background px-3 py-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan/60 mb-1">CHOICE — "dept"</div>
+            <div class="flex justify-center gap-1.5 flex-wrap">
+              <span class="px-1.5 py-0.5 text-[9px] rounded bg-cyan/20 text-cyan font-mono font-bold">billing 94%</span>
+              <span class="px-1.5 py-0.5 text-[9px] rounded bg-foreground/5 text-foreground/40 font-mono">technical 4%</span>
+              <span class="px-1.5 py-0.5 text-[9px] rounded bg-foreground/5 text-foreground/40 font-mono">account 2%</span>
+            </div>
+          </div>
+          <div class="rounded-lg border border-cyan/20 bg-background px-3 py-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan/60 mb-1">SCORE — "urgency"</div>
+            <div class="flex items-center gap-1 justify-center">
+              <div class="h-2 w-3 rounded-sm bg-foreground/10"></div>
+              <div class="h-2 w-3 rounded-sm bg-foreground/10"></div>
+              <div class="h-2 w-3 rounded-sm bg-cyan/70"></div>
+            </div>
+            <div class="text-[9px] font-mono text-cyan mt-1">2.87 / 3 — "needs attention today"</div>
+          </div>
+          <div class="rounded-lg border border-cyan/20 bg-background px-3 py-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan/60 mb-1">NOUL — "wants_refund"</div>
+            <div class="flex items-center gap-2 justify-center mt-1">
+              <div class="w-full max-w-[100px] h-2 rounded-full bg-foreground/10 overflow-hidden">
+                <div class="h-full rounded-full bg-cyan/70" style="width: 73%"></div>
+              </div>
+              <span class="text-[9px] font-mono text-cyan font-bold">0.73</span>
+            </div>
+            <div class="text-[9px] text-foreground/40 mt-0.5">probably yes</div>
+          </div>
+        </div>
+
+        <!-- Fan-in -->
+        <div class="flex justify-center mb-2">
+          <div class="flex items-start gap-8 md:gap-16">
+            <svg class="w-6 h-6 text-cyan/40 rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            <svg class="w-6 h-6 text-cyan/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            <svg class="w-6 h-6 text-cyan/40 -rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+        </div>
+
+        <!-- Typed response -->
+        <div class="flex justify-center">
+          <div class="rounded-lg border border-cyan/30 bg-cyan/[0.05] px-4 py-2.5 max-w-md w-full text-center">
+            <div class="text-[10px] font-mono text-cyan font-bold mb-1">TYPED RESPONSE — 175ms TOTAL</div>
+            <div class="text-[9px] font-mono text-foreground/60">&#123; dept: ChoiceAnswer, urgency: ScoreAnswer, wants_refund: NoulAnswer &#125;</div>
+          </div>
+        </div>
+
+        <div class="text-[9px] text-foreground/40 text-center mt-3">All three questions share the same state. Evaluated in parallel. Single HTTP round-trip.</div>
       </div>
     </div>
 
@@ -202,6 +343,60 @@ import ShareButtons from '../../../components/ShareButtons.astro';
 <span class="text-secondary">&#125;</span></pre>
       </div>
 
+      <!-- DIAGRAM: Confidence Ladder -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
+        <div class="text-[10px] font-mono text-secondary mb-4 text-center">CONFIDENCE-GATED DECISION FLOW</div>
+
+        <!-- Jev returns -->
+        <div class="flex justify-center mb-3">
+          <div class="rounded-lg border border-cyan/30 bg-cyan/[0.05] px-4 py-2 text-center">
+            <span class="text-[10px] font-mono text-cyan font-bold">Jev returns: &#123; choice: "billing", confidence: ? &#125;</span>
+          </div>
+        </div>
+        <div class="flex justify-center mb-3">
+          <svg class="w-4 h-4 text-cyan/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+
+        <!-- Three tiers -->
+        <div class="space-y-3 max-w-lg mx-auto">
+          <!-- Tier 1: High confidence -->
+          <div class="flex items-stretch gap-3">
+            <div class="w-20 md:w-24 shrink-0 rounded-lg border border-green/30 bg-green/[0.05] flex flex-col items-center justify-center px-2 py-2">
+              <div class="text-xs font-mono text-green font-bold">&gt; 0.9</div>
+            </div>
+            <svg class="w-4 h-4 text-green/40 shrink-0 self-center" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <div class="flex-1 rounded-lg border border-green/30 bg-green/[0.05] px-3 py-2">
+              <div class="text-[10px] font-mono text-green font-bold">AUTO-ROUTE</div>
+              <div class="text-[9px] text-foreground/60 mt-0.5">Jev is confident. Route directly to billing. No human in the loop. Fastest path.</div>
+            </div>
+          </div>
+          <!-- Tier 2: Medium confidence -->
+          <div class="flex items-stretch gap-3">
+            <div class="w-20 md:w-24 shrink-0 rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] flex flex-col items-center justify-center px-2 py-2">
+              <div class="text-xs font-mono text-yellow-400 font-bold">0.6–0.9</div>
+            </div>
+            <svg class="w-4 h-4 text-yellow-400/40 shrink-0 self-center" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <div class="flex-1 rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] px-3 py-2">
+              <div class="text-[10px] font-mono text-yellow-400 font-bold">ROUTE + FLAG</div>
+              <div class="text-[9px] text-foreground/60 mt-0.5">Moderate confidence. Route to billing but flag for review. Human audits afterward.</div>
+            </div>
+          </div>
+          <!-- Tier 3: Low confidence -->
+          <div class="flex items-stretch gap-3">
+            <div class="w-20 md:w-24 shrink-0 rounded-lg border border-red-500/30 bg-red-500/[0.05] flex flex-col items-center justify-center px-2 py-2">
+              <div class="text-xs font-mono text-red-400 font-bold">&lt; 0.6</div>
+            </div>
+            <svg class="w-4 h-4 text-red-400/40 shrink-0 self-center" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <div class="flex-1 rounded-lg border border-red-500/30 bg-red-500/[0.05] px-3 py-2">
+              <div class="text-[10px] font-mono text-red-400 font-bold">ESCALATE TO HUMAN</div>
+              <div class="text-[9px] text-foreground/60 mt-0.5">Jev isn't sure. Skip automation entirely. A human decides. You don't pay for a wrong answer.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-[9px] text-foreground/40 text-center mt-4">The thresholds live in YOUR code, not in Jev. You decide the risk tolerance. Jev provides the probability.</div>
+      </div>
+
       <div class="rounded-xl border border-border bg-elevated p-4 mb-6">
         <span class="text-[10px] font-mono text-secondary mb-2 block">ALSO AVAILABLE VIA</span>
         <div class="flex flex-wrap gap-2">
@@ -243,6 +438,78 @@ import ShareButtons from '../../../components/ShareButtons.astro';
             <span class="text-xs font-bold text-cyan">LangChain — Agent Harness Pattern</span>
           </div>
           <p class="text-[11px] text-foreground/70">Published a "harness" pattern: Jev as middleware that checks tool calls for risky actions <strong>before the tool executes</strong>. Same pattern that Claude Code, Codex, and Cursor use for their internal safety classifiers — but now available to anyone. A Noul per tool call: "Is this action dangerous?" Act or block based on the probability.</p>
+        </div>
+      </div>
+
+      <!-- DIAGRAM: The Jev Gate Pattern -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
+        <div class="text-[10px] font-mono text-secondary mb-4 text-center">THE JEV GATE PATTERN — USED BY VEGA, NYM, AND LANGCHAIN</div>
+
+        <div class="flex flex-col items-center gap-2 max-w-md mx-auto">
+          <!-- Incoming request -->
+          <div class="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-center">
+            <div class="text-[10px] font-mono text-foreground/80 font-bold">INCOMING REQUEST</div>
+            <div class="text-[9px] text-foreground/50">alert / ticket / tool call / user message</div>
+          </div>
+
+          <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+
+          <!-- Jev gate -->
+          <div class="w-full rounded-lg border-2 border-cyan/40 bg-cyan/[0.05] px-3 py-3 text-center relative">
+            <div class="absolute -top-2 left-3 bg-elevated px-1.5 text-[8px] font-mono text-cyan font-bold">JEV GATE</div>
+            <div class="text-[10px] font-mono text-cyan font-bold">~175ms · ~$0.0001</div>
+            <div class="text-[9px] text-foreground/50 mt-0.5">Choice + Noul(s) — single round-trip</div>
+          </div>
+
+          <!-- Fork -->
+          <div class="flex items-start justify-center gap-6 md:gap-10 w-full">
+            <!-- Left: confident -->
+            <div class="flex flex-col items-center gap-2 flex-1">
+              <div class="flex items-center gap-1">
+                <svg class="w-4 h-4 text-green/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                <span class="text-[9px] font-mono text-green">confident</span>
+              </div>
+              <div class="w-full rounded-lg border border-green/30 bg-green/[0.05] px-3 py-2.5 text-center">
+                <div class="text-[10px] font-mono text-green font-bold">DIRECT ACTION</div>
+                <div class="text-[9px] text-foreground/50 mt-0.5">Auto-close alert</div>
+                <div class="text-[9px] text-foreground/50">Route ticket</div>
+                <div class="text-[9px] text-foreground/50">Execute tool</div>
+              </div>
+              <div class="text-[9px] font-mono text-green/60">⚡ sub-second, fractions of a cent</div>
+            </div>
+            <!-- Right: uncertain -->
+            <div class="flex flex-col items-center gap-2 flex-1">
+              <div class="flex items-center gap-1">
+                <svg class="w-4 h-4 text-yellow-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                <span class="text-[9px] font-mono text-yellow-400">uncertain</span>
+              </div>
+              <div class="w-full rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] px-3 py-2.5 text-center">
+                <div class="text-[10px] font-mono text-yellow-400 font-bold">LLM AGENT</div>
+                <div class="text-[9px] text-foreground/50 mt-0.5">Full reasoning</div>
+                <div class="text-[9px] text-foreground/50">Chain-of-thought</div>
+                <div class="text-[9px] text-foreground/50">~$0.34, ~2 min</div>
+              </div>
+              <div class="text-[9px] font-mono text-yellow-400/60">🧠 expensive but only when needed</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-border/50 grid grid-cols-3 gap-2 text-center">
+          <div>
+            <div class="text-[10px] font-mono text-cyan font-bold">Vega SOC</div>
+            <div class="text-[9px] text-foreground/50">15-33% auto-closed</div>
+            <div class="text-[9px] text-foreground/50">98% accuracy</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-mono text-cyan font-bold">Nym</div>
+            <div class="text-[9px] text-foreground/50">36% cost reduction</div>
+            <div class="text-[9px] text-foreground/50">on generative spend</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-mono text-cyan font-bold">LangChain</div>
+            <div class="text-[9px] text-foreground/50">Tool safety gate</div>
+            <div class="text-[9px] text-foreground/50">before execution</div>
+          </div>
         </div>
       </div>
     </div>
@@ -309,6 +576,97 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <div class="text-[10px] text-foreground/40 mt-2">Sources: OpenRouter Banking77 (3,080 utterances, Sep 22); AY Automate (791 decisions, Sep 19). Jev's slowest call (1.42s) was faster than Opus's fastest (~1.9s).</div>
       </div>
 
+      <!-- DIAGRAM: Latency & Cost Visual Bars -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Latency bars -->
+          <div>
+            <div class="text-[10px] font-mono text-secondary mb-3">LATENCY p50 (LOWER IS BETTER)</div>
+            <div class="space-y-2.5">
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-cyan font-bold">Jev 1.13</span>
+                  <span class="text-cyan">175ms</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-cyan/80 to-cyan/40" style="width: 7.7%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-foreground/60">GPT-5.4 nano</span>
+                  <span class="text-foreground/40">670ms</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-foreground/20" style="width: 29.6%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-foreground/60">Haiku 4.5</span>
+                  <span class="text-foreground/40">890ms</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-foreground/20" style="width: 39.3%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-foreground/60">Claude Opus 5</span>
+                  <span class="text-foreground/40">2,266ms</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-foreground/20" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cost bars -->
+          <div>
+            <div class="text-[10px] font-mono text-secondary mb-3">COST PER 1K DECISIONS (LOWER IS BETTER)</div>
+            <div class="space-y-2.5">
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-cyan font-bold">Jev 1.13</span>
+                  <span class="text-cyan">$0.11</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-cyan/80 to-cyan/40" style="width: 4.5%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-foreground/60">GPT-5.4 nano</span>
+                  <span class="text-foreground/40">$0.52</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-foreground/20" style="width: 21.5%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-foreground/60">Haiku 4.5</span>
+                  <span class="text-foreground/40">$1.15</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-foreground/20" style="width: 47.5%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[9px] font-mono mb-1">
+                  <span class="text-foreground/60">Claude Opus 5</span>
+                  <span class="text-foreground/40">$2.42</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-foreground/5 overflow-hidden">
+                  <div class="h-full rounded-full bg-foreground/20" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-[9px] text-foreground/40 text-center mt-3">Jev's slowest call (1.42s p99) was still faster than Opus 5's fastest (~1.9s). Cost includes output tokens — Jev charges $0 for output.</div>
+      </div>
+
       <p class="text-sm text-foreground/80 leading-relaxed">
         <strong>The real comparison point is small models, not frontier ones.</strong> Against GPT-5.4 nano and Gemini Flash-Lite, Jev is 2-3.6x faster and 4.7-7.5x cheaper — real but not two orders of magnitude. Against frontier (Opus 5), it's 13x faster and 22x cheaper. The accuracy gap is consistent: 3-5 percentage points behind frontier LLMs on classification. The question is whether confidence-gated escalation closes that gap in practice. Vega's 98% accuracy at triage suggests it can.
       </p>
@@ -356,6 +714,48 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       <p class="text-sm text-foreground/80 leading-relaxed mb-4">
         The calibration claim is specific: when Jev says a probability is 0.8, outcomes should be correct ~80% of the time <em>across many predictions</em>. This is a batch property, not a guarantee about any single answer. TypeSafe's own docs are explicit about this distinction.
       </p>
+
+      <!-- DIAGRAM: RL Training Evolution -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
+        <div class="text-[10px] font-mono text-secondary mb-4 text-center">THE THREE RL TRAINING PARADIGMS</div>
+        <div class="flex flex-col md:flex-row items-stretch gap-3">
+          <!-- RLHF -->
+          <div class="flex-1 rounded-lg border border-border bg-background p-3 relative">
+            <div class="text-[9px] font-mono text-foreground/40 mb-1">2020</div>
+            <div class="text-xs font-mono text-foreground/80 font-bold mb-1.5">RLHF</div>
+            <div class="text-[10px] text-foreground/60 leading-relaxed">
+              <strong>Signal:</strong> Human raters pick preferred outputs<br/>
+              <strong>Makes:</strong> Chat models — fluent, helpful, aligned<br/>
+              <strong>Ships:</strong> ChatGPT, Claude, Gemini
+            </div>
+            <div class="hidden md:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-foreground/20 text-lg z-10">→</div>
+            <div class="md:hidden flex justify-center mt-2 text-foreground/20 text-lg">↓</div>
+          </div>
+          <!-- RLVR -->
+          <div class="flex-1 rounded-lg border border-border bg-background p-3 relative">
+            <div class="text-[9px] font-mono text-foreground/40 mb-1">2024</div>
+            <div class="text-xs font-mono text-foreground/80 font-bold mb-1.5">RLVR</div>
+            <div class="text-[10px] text-foreground/60 leading-relaxed">
+              <strong>Signal:</strong> Programmatic verifiers check answers<br/>
+              <strong>Makes:</strong> Reasoning models — chain-of-thought<br/>
+              <strong>Ships:</strong> o3, DeepSeek R1, QwQ
+            </div>
+            <div class="hidden md:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-foreground/20 text-lg z-10">→</div>
+            <div class="md:hidden flex justify-center mt-2 text-foreground/20 text-lg">↓</div>
+          </div>
+          <!-- RLCD -->
+          <div class="flex-1 rounded-lg border border-cyan/30 bg-cyan/[0.05] p-3">
+            <div class="text-[9px] font-mono text-cyan/60 mb-1">2026</div>
+            <div class="text-xs font-mono text-cyan font-bold mb-1.5">RLCD</div>
+            <div class="text-[10px] text-foreground/60 leading-relaxed">
+              <strong class="text-cyan">Signal:</strong> <span class="text-cyan">"Epistemically honest probabilities"</span><br/>
+              <strong class="text-cyan">Makes:</strong> <span class="text-cyan">Decision models — calibrated, typed</span><br/>
+              <strong class="text-cyan">Ships:</strong> <span class="text-cyan">Jev (only known implementation)</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-[9px] text-foreground/40 text-center mt-3">Each paradigm produces a different kind of model by changing what the reward function optimizes for.</div>
+      </div>
 
       <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
         <span class="text-[10px] font-mono text-yellow-400 font-bold">WHAT'S NOT PUBLISHED</span>
