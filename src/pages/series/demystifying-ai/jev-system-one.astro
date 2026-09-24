@@ -1,0 +1,406 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Jev: The Model That Gave Up Talking | Demystifying AI in 5 Minutes"
+  description="TypeSafe AI ships Jev, the first System One model. No text generation. Just typed decisions with calibrated probabilities. 13x faster than Claude Opus. $0.042 per million tokens. Can't hallucinate by design."
+  image="/og-series-ep35-jev-system-one.png"
+  keywords="Jev, TypeSafe AI, System One, decision model, classification, routing, RLCD, structured decisions, Kahneman, Jevons paradox"
+  publishedDate="2026-09-25"
+  articleSection="Demystifying AI"
+  articleTags={["Jev", "TypeSafe AI", "System One", "Decision Model", "Classification", "Structured Decisions"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
+    .feat-card { transition: all 0.3s ease; }
+    .feat-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(6, 182, 212, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep35-jev-system-one.png" alt="Jev: The Model That Gave Up Talking" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 35
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Sep 25, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Jev: The Model That Gave Up Talking
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        TypeSafe AI ships the first System One model. No text generation. No hallucination. Just typed decisions with calibrated probabilities. 13x faster than Claude Opus 5. $0.042 per million input tokens. Output is free.
+      </p>
+
+      <ShareButtons title="Jev: The Model That Gave Up Talking" url="/series/demystifying-ai/jev-system-one" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Jev is not a chatbot.</strong> It is a decision model. You send it state (text or JSON) and typed questions. It returns structured answers — a choice from your options, a score on your scale, or a yes/no probability — with calibrated confidence. No prose. No parsing. <strong>No hallucination, by design.</strong> Built by Diogo Almeida (ex-OpenAI, co-inventor of RLHF behind ChatGPT) after two years in stealth. $40M seed from DCVC. Available now in early access via TypeSafe API, Vercel AI Gateway, OpenRouter, and Cloudflare.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">175ms</div>
+        <div class="text-[10px] font-mono text-secondary">Median Latency</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">$0.042</div>
+        <div class="text-[10px] font-mono text-secondary">Per 1M Input Tokens</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">$0</div>
+        <div class="text-[10px] font-mono text-secondary">Output Tokens</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">13x</div>
+        <div class="text-[10px] font-mono text-secondary">Faster Than Opus 5</div>
+      </div>
+    </div>
+
+    <!-- What is Jev -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What Is a System One Model?
+      </h2>
+
+      <p class="text-sm text-foreground/80 leading-relaxed mb-4">
+        Every LLM you use today is a System Two model. It generates text one token at a time, reasons through chains of thought, and returns a string you have to parse. That is powerful and general. It is also expensive, slow, and structurally prone to hallucination — because any sequence of tokens is a valid output.
+      </p>
+
+      <p class="text-sm text-foreground/80 leading-relaxed mb-6">
+        <strong>Jev inverts this.</strong> Inspired by Kahneman's <em>Thinking, Fast and Slow</em>, TypeSafe built a model that only does System One thinking: fast, intuitive, bounded decisions. You define the possible answers in your code. Jev evaluates all questions in a single parallel pass and returns typed values with calibrated probabilities. It cannot generate a string. It cannot hallucinate a format. It can only pick from what you gave it.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 feat-card">
+          <span class="text-xs font-mono text-red-400 font-bold block mb-3">LLM (SYSTEM TWO)</span>
+          <div class="space-y-2 text-[11px] text-foreground/70 font-mono">
+            <p>Input: prompt (string)</p>
+            <p>Output: text (string)</p>
+            <p>Parse: JSON.parse(response)</p>
+            <p>Retry: if parse fails</p>
+            <p>Validate: if schema wrong</p>
+            <p>Latency: 1-4 seconds</p>
+            <p>Can hallucinate: <span class="text-red-400">yes</span></p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 feat-card">
+          <span class="text-xs font-mono text-cyan font-bold block mb-3">JEV (SYSTEM ONE)</span>
+          <div class="space-y-2 text-[11px] text-foreground/70 font-mono">
+            <p>Input: state + typed questions</p>
+            <p>Output: typed answers + probabilities</p>
+            <p>Parse: <span class="text-cyan">not needed</span></p>
+            <p>Retry: <span class="text-cyan">not needed</span></p>
+            <p>Validate: <span class="text-cyan">not needed</span></p>
+            <p>Latency: 70-500ms</p>
+            <p>Can hallucinate: <span class="text-cyan">no</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three Primitives -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Three Primitives. That's It.
+      </h2>
+
+      <p class="text-sm text-foreground/80 leading-relaxed mb-6">
+        Jev has exactly three question types. Every decision you can make with Jev maps to one of these. No agents, no tools, no chains. Three primitives that map directly to <code class="text-xs bg-background px-1 py-0.5 rounded">if</code>, <code class="text-xs bg-background px-1 py-0.5 rounded">switch</code>, and <code class="text-xs bg-background px-1 py-0.5 rounded">threshold</code> in your code.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 feat-card">
+          <div class="text-xs font-mono text-cyan font-bold mb-2">CHOICE</div>
+          <p class="text-[11px] text-foreground/70 mb-2">Pick one from up to 255 labelled options. Returns the winner, probability per option, and confidence.</p>
+          <div class="text-[10px] font-mono text-foreground/40">Maps to: switch/case</div>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 feat-card">
+          <div class="text-xs font-mono text-cyan font-bold mb-2">SCORE</div>
+          <p class="text-[11px] text-foreground/70 mb-2">Place the state on an ordered 2-10 level scale. Returns a fractional position and the full distribution.</p>
+          <div class="text-[10px] font-mono text-foreground/40">Maps to: threshold</div>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 feat-card">
+          <div class="text-xs font-mono text-cyan font-bold mb-2">NOUL</div>
+          <p class="text-[11px] text-foreground/70 mb-2">Yes or no, returned as probability 0-1. When Jev says 0.8, it is right ~80% of the time (calibrated).</p>
+          <div class="text-[10px] font-mono text-foreground/40">Maps to: if/else</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Example -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What It Looks Like in Code
+      </h2>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">TYPESCRIPT: ROUTE A SUPPORT TICKET</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">import &#123; TypeSafeClient, choice, score, noul &#125;</span>
+<span class="text-secondary">  from "@typesafe-ai/sdk";</span>
+
+<span class="text-secondary">const client = new TypeSafeClient();</span>
+
+<span class="text-cyan font-bold">// One call. Three questions. All evaluated in parallel.</span>
+<span class="text-secondary">const response = await client.systemOne(&#123;</span>
+<span class="text-secondary">  model: "jev-latest",</span>
+<span class="text-secondary">  state: &#123;</span>
+<span class="text-secondary">    ticket: "I was charged twice and I need this fixed today.",</span>
+<span class="text-secondary">    plan: "annual",</span>
+<span class="text-secondary">  &#125;,</span>
+<span class="text-secondary">  questions: &#123;</span>
+<span class="text-secondary">    department: choice("Which team?", &#123;</span>
+<span class="text-secondary">      billing: "Payment or subscription issue",</span>
+<span class="text-secondary">      technical: "Product bug or integration",</span>
+<span class="text-secondary">      account: "Login or access issue",</span>
+<span class="text-secondary">    &#125;),</span>
+<span class="text-secondary">    urgency: score("How urgent?", [</span>
+<span class="text-secondary">      "Can wait", "Needs attention soon", "Needs attention today"</span>
+<span class="text-secondary">    ]),</span>
+<span class="text-secondary">    refund: noul("Is the customer requesting a refund?"),</span>
+<span class="text-secondary">  &#125;,</span>
+<span class="text-secondary">&#125;);</span>
+
+<span class="text-cyan font-bold">// Typed answers — no parsing, no validation</span>
+<span class="text-secondary">response.answers.department.choice  // "billing"</span>
+<span class="text-secondary">response.answers.department.confidence // 0.97</span>
+<span class="text-secondary">response.answers.urgency.score      // 2.0 (max urgency)</span>
+<span class="text-secondary">response.answers.refund.noul        // 0.85</span>
+
+<span class="text-cyan font-bold">// Your code makes the decision, not the model</span>
+<span class="text-secondary">if (response.answers.department.confidence > 0.9) &#123;</span>
+<span class="text-secondary">  await routeToTeam(response.answers.department.choice);</span>
+<span class="text-secondary">&#125; else &#123;</span>
+<span class="text-secondary">  await escalateToHuman(ticket);</span>
+<span class="text-secondary">&#125;</span></pre>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        All three questions evaluate in a single round trip. The TypeScript SDK infers answer types from the question map — <code class="text-xs bg-background px-1 py-0.5 rounded">department</code> is typed as <code class="text-xs bg-background px-1 py-0.5 rounded">ChoiceAnswer</code>, <code class="text-xs bg-background px-1 py-0.5 rounded">urgency</code> as <code class="text-xs bg-background px-1 py-0.5 rounded">ScoreAnswer</code>, <code class="text-xs bg-background px-1 py-0.5 rounded">refund</code> as <code class="text-xs bg-background px-1 py-0.5 rounded">NoulAnswer</code>. No <code class="text-xs bg-background px-1 py-0.5 rounded">JSON.parse</code>. No schema validation. No retry loops.
+      </p>
+    </div>
+
+    <!-- Independent Benchmarks -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Independent Benchmarks
+      </h2>
+
+      <p class="text-sm text-foreground/80 leading-relaxed mb-4">
+        TypeSafe claims 40-200x speed and 40-400x cost improvements. Independent tests tell a more nuanced story: Jev is genuinely fast and cheap, but the gap is smaller than the marketing says.
+      </p>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Metric</th>
+              <th class="text-center py-3 px-3 text-cyan font-mono font-bold">Jev 1.13</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Claude Opus 5</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">GPT-5.6 Terra</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Banking77 accuracy</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">81.0%</td>
+              <td class="py-2.5 px-3 text-center">84.4%</td>
+              <td class="py-2.5 px-3 text-center">86.0%</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Latency (p50)</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">175ms</td>
+              <td class="py-2.5 px-3 text-center">2,266ms</td>
+              <td class="py-2.5 px-3 text-center">1,170ms</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Latency (p95)</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">270ms</td>
+              <td class="py-2.5 px-3 text-center">3,004ms</td>
+              <td class="py-2.5 px-3 text-center">2,540ms</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Cost per 1K decisions</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">$0.11</td>
+              <td class="py-2.5 px-3 text-center">$2.42</td>
+              <td class="py-2.5 px-3 text-center">$1.80</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3">Invalid responses</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">0</td>
+              <td class="py-2.5 px-3 text-center">0</td>
+              <td class="py-2.5 px-3 text-center">2</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-[10px] text-foreground/40 mt-2">Source: OpenRouter independent Banking77 benchmark, Sep 22, 2026. 3,080 utterances, 77 intents.</div>
+      </div>
+
+      <p class="text-sm text-foreground/80 leading-relaxed">
+        The accuracy gap is real: 3.3 percentage points behind Opus on 77-way classification. But Jev's median response was faster than Opus's <em>fastest</em> response (175ms vs ~1,900ms). For routing, guardrails, and classification where 81% accuracy with confidence-gated escalation is fine, the economics are compelling: <strong>22x cheaper per decision</strong>.
+      </p>
+    </div>
+
+    <!-- Why it matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Why Engineers Should Care
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x26A1;</span>
+            <span class="text-xs font-bold text-foreground">No more JSON parsing hell</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Every LLM integration has the same pain: parse the response, validate the schema, retry on malformed JSON. Jev's output is typed by the SDK. The parsing layer disappears entirely.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F3AF;</span>
+            <span class="text-xs font-bold text-foreground">Confidence as a first-class value</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Every Choice and Score answer includes a calibrated confidence score. Your code can auto-act when confidence is high, flag for review when medium, and escalate to a human or LLM when low. The model tells you when it doesn't know.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F6E1;</span>
+            <span class="text-xs font-bold text-foreground">Agent guardrails that don't cost $2</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Right now, checking if an agent's action is safe means calling another LLM. That's slow and expensive. A Jev Noul call costs fractions of a cent and returns in 175ms. Safety checks can run on every action, not just risky-looking ones.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F310;</span>
+            <span class="text-xs font-bold text-foreground">Already in the ecosystem</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Available on Vercel AI Gateway, OpenRouter, and Cloudflare AI Gateway. TanStack AI and LangChain adapters ship. You don't need a TypeSafe API key to start — OpenRouter and Vercel serve it through their auth.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Founder -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Team Behind It
+      </h2>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-3">TYPESAFE AI</div>
+        <div class="space-y-2 text-[11px] text-foreground/70">
+          <p><strong class="text-foreground">Diogo Almeida</strong> (CEO) — ~4 years at OpenAI. Worked on RLHF, InstructGPT, ChatGPT, and GPT-4 before leaving in 2024.</p>
+          <p><strong class="text-foreground">Erik Gafni</strong> and <strong class="text-foreground">Sasha Sheng</strong> — co-founders.</p>
+          <p><strong class="text-foreground">$40M seed</strong> led by DCVC. Announced alongside the Jev launch on Sep 14, 2026.</p>
+          <p><strong class="text-foreground">Two years in stealth.</strong> The thesis: if AI changes how work gets done, most intelligence should live quietly inside software — not in chatbots. Named after <strong>William Stanley Jevons</strong> (Jevons paradox: cheaper resource → more consumption).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Limitations -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Cannot generate text.</strong> No code, no explanations, no summaries. If your task needs a string output, Jev is the wrong tool. Use it alongside an LLM, not instead of one.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">3.3pp accuracy gap vs frontier on classification.</strong> On Banking77 (77 intents), Opus 5 scores 84.4% vs Jev's 81.0%. For tasks where every percentage point matters, the frontier LLM is still more accurate.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Architecture is unpublished.</strong> No paper. No weights. No parameter count. No reproducible training method. RLCD is described in marketing terms only. You are trusting a black box.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Early access / waitlist.</strong> The direct TypeSafe API is gated. OpenRouter, Vercel AI Gateway, and Cloudflare serve it without a waitlist, but these are gateway-routed calls.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">No free tier.</strong> $0.042/M is cheap, but there is no trial credit or hobby plan. First real experiment will cost pennies, but the barrier exists.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Jev is the first serious attempt to split AI into two systems: one that thinks and one that decides.</strong> LLMs are System Two — slow, general, expensive, powerful. Jev is System One — fast, bounded, cheap, reliable. The 193x speed claims from TypeSafe are inflated (independent tests show 3-13x), but the core insight holds: most decisions in software don't need text generation. They need a typed answer and a confidence score. If your agent calls an LLM to decide whether to escalate a ticket, classify intent, approve a tool call, or filter a RAG passage, <strong>Jev does the same job in 175ms for $0.042 per million tokens.</strong> That changes where AI fits in your codebase — not just in the "AI features" but in every <code class="text-xs bg-background px-1 py-0.5 rounded">if</code> statement that's currently hard-coded.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Monday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-cyan/30 bg-cyan/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-cyan font-bold">#36</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">GPT-6 Sol & Luna: The 8x Honesty Upgrade</h3>
+        <p class="text-xs text-secondary/70">Half the price, 8x less deception. But warning circumvention barely moved.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

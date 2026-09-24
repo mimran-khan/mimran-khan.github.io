@@ -409,14 +409,15 @@
   },
   {
     "number": 35,
-    "slug": "jev-mem",
-    "title": "Jev-Mem: Your Agent's Brain Has Two Systems Now",
+    "slug": "jev-system-one",
+    "title": "Jev: The Model That Gave Up Talking",
     "hook": "Jev-Mem splits agent memory into a fast System-One controller and a deliberative System-Two reasoner. 6.6x faster construction, 36.7% lower query latency, 11% better answers on LoCoMo.",
     "category": "research-paper",
     "day": "Sat",
     "date": "Sep 27",
     "readTime": "5 min",
     "published": true,
-    "image": "/series/ep35-jev-mem.png"
+    "image": "/series/ep35-jev-system-one.png",
+    "description": "TypeSafe AI ships the first System One model. No text generation. Just typed decisions with calibrated probabilities. 13x faster than Claude Opus. $0.042 per million tokens."
   }
 ]
