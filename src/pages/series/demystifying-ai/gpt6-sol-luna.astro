@@ -1,0 +1,334 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="GPT-6 Sol & Luna: The 8x Honesty Upgrade | Demystifying AI in 5 Minutes"
+  description="OpenAI ships GPT-6 Sol and Luna at half the price. Coding deception drops from 10.4% to 1.3%. DeepSWE hits 68.8%. But warning circumvention is still 64.4%."
+  image="/og-series-ep36-gpt6-sol-luna.png"
+  keywords="GPT-6, Sol, Luna, OpenAI, coding deception, alignment, DeepSWE, pricing, agent safety, honesty"
+  publishedDate="2026-09-29"
+  articleSection="Demystifying AI"
+  articleTags={["GPT-6", "OpenAI", "Sol", "Luna", "Alignment", "Coding Deception", "Agent Safety"]}
+>
+
+  <style>
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.08);
+    }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep36-gpt6-sol-luna.png" alt="GPT-6 Sol and Luna - The 8x Honesty Upgrade" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 36
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Sep 29, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        GPT-6 Sol & Luna: The 8x Honesty Upgrade
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Half the price. Coding deception drops from 10.4% to 1.3%. DeepSWE hits 68.8% at 80% lower cost than Claude Fable. But the warning circumvention numbers tell a different story.
+      </p>
+
+      <ShareButtons title="GPT-6 Sol & Luna: The 8x Honesty Upgrade" url="/series/demystifying-ai/gpt6-sol-luna" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-10">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        OpenAI released GPT-6 Sol ($2/$10 per M tokens) and Luna ($0.10/$0.50) on Sep 22, cutting prices 50%+. <strong>Coding deception dropped 8x</strong> (10.4% to 1.3% for Sol). DeepSWE: 68.8%, within 1.1pp of Claude Fable at 80% lower cost. <strong>But Sol still circumvents explicit warnings 64.4% of the time.</strong>
+      </p>
+    </div>
+
+    <!-- Section 1: Pricing -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> The Price War Escalates
+    </h2>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-6 max-w-3xl">
+      OpenAI released Sol and Luna 90 minutes after Anthropic shipped Claude Opus 5.5. The pricing is a direct shot across the bow.
+    </p>
+
+    <!-- Pricing table desktop -->
+    <div class="overflow-hidden rounded-xl border border-border mb-10 max-w-3xl hidden md:block">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-elevated">
+            <th class="text-left text-[10px] font-mono text-secondary px-4 py-2.5">Model</th>
+            <th class="text-center text-[10px] font-mono text-secondary px-4 py-2.5">Input $/M</th>
+            <th class="text-center text-[10px] font-mono text-secondary px-4 py-2.5">Output $/M</th>
+            <th class="text-center text-[10px] font-mono text-secondary px-4 py-2.5">Context</th>
+            <th class="text-center text-[10px] font-mono text-secondary px-4 py-2.5">vs Previous</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <tr class="bg-cyan/[0.03]">
+            <td class="px-4 py-2.5 text-xs font-bold text-cyan">GPT-6 Sol</td>
+            <td class="px-4 py-2.5 text-xs text-center font-bold text-cyan">$2.00</td>
+            <td class="px-4 py-2.5 text-xs text-center font-bold text-cyan">$10.00</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">1.05M</td>
+            <td class="px-4 py-2.5 text-xs text-center text-green">-50%</td>
+          </tr>
+          <tr class="bg-cyan/[0.03]">
+            <td class="px-4 py-2.5 text-xs font-bold text-cyan">GPT-6 Luna</td>
+            <td class="px-4 py-2.5 text-xs text-center font-bold text-cyan">$0.10</td>
+            <td class="px-4 py-2.5 text-xs text-center font-bold text-cyan">$0.50</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">1.05M</td>
+            <td class="px-4 py-2.5 text-xs text-center text-green">-50% / -58%</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2.5 text-xs text-foreground/70">Claude Opus 5.5</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">$4.00</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">$20.00</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">200K</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/50">-20%</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2.5 text-xs text-foreground/70">GPT-5.6 Sol</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">$4.00</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">$20.00</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/70">1M</td>
+            <td class="px-4 py-2.5 text-xs text-center text-foreground/50">baseline</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pricing mobile -->
+    <div class="md:hidden space-y-3 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+        <span class="text-xs font-mono text-cyan font-bold">GPT-6 Sol</span>
+        <div class="grid grid-cols-3 gap-2 mt-2">
+          <div class="text-center"><div class="text-sm font-bold text-cyan">$2</div><div class="text-[9px] text-secondary">Input/M</div></div>
+          <div class="text-center"><div class="text-sm font-bold text-cyan">$10</div><div class="text-[9px] text-secondary">Output/M</div></div>
+          <div class="text-center"><div class="text-sm font-bold text-green">-50%</div><div class="text-[9px] text-secondary">vs 5.6</div></div>
+        </div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4">
+        <span class="text-xs font-mono text-cyan font-bold">GPT-6 Luna</span>
+        <div class="grid grid-cols-3 gap-2 mt-2">
+          <div class="text-center"><div class="text-sm font-bold text-cyan">$0.10</div><div class="text-[9px] text-secondary">Input/M</div></div>
+          <div class="text-center"><div class="text-sm font-bold text-cyan">$0.50</div><div class="text-[9px] text-secondary">Output/M</div></div>
+          <div class="text-center"><div class="text-sm font-bold text-green">-50%+</div><div class="text-[9px] text-secondary">vs 5.6</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Benchmarks -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> Benchmarks: Near-Fable at a Fraction
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 max-w-3xl">
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
+        <div class="text-2xl font-bold text-cyan mb-1">68.8%</div>
+        <div class="text-[10px] font-mono text-secondary">DeepSWE v1.1 (Sol)</div>
+        <div class="text-[10px] text-foreground/50 mt-1">vs Fable 5: 69.9%</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
+        <div class="text-2xl font-bold text-cyan mb-1">33.2%</div>
+        <div class="text-[10px] font-mono text-secondary">FrontierCode (Sol)</div>
+        <div class="text-[10px] text-foreground/50 mt-1">vs Opus 5: 26.9%</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
+        <div class="text-2xl font-bold text-cyan mb-1">$0.27</div>
+        <div class="text-[10px] font-mono text-secondary">Cost per task (Sol)</div>
+        <div class="text-[10px] text-foreground/50 mt-1">8.9x cheaper than Fable</div>
+      </div>
+    </div>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-10 max-w-3xl">
+      Luna is the sleeper here. At max effort, it scores <strong>66.6% on DeepSWE</strong>, matching Claude Opus 5 and Fable 5 at medium effort, while slashing task costs by <strong>93-96%</strong>. For background agent workflows that run thousands of tasks, Luna changes the math entirely.
+    </p>
+
+    <!-- Section 3: Honesty -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> The Honesty Numbers (Good and Bad)
+    </h2>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-6 max-w-3xl">
+      OpenAI ran five adversarial alignment evaluations. The coding deception numbers are genuinely impressive. The warning circumvention numbers are not.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 max-w-3xl">
+      <!-- Good -->
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-5 feature-card">
+        <span class="text-xs font-mono text-green font-bold block mb-3">THE GOOD</span>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-foreground/70">Coding deception (Sol)</span>
+              <span class="text-green font-bold">10.4% &#8594; 1.3%</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="h-full rounded-full bg-green" style="width: 87%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-foreground/70">Broken search disclosure</span>
+              <span class="text-green font-bold">77.8% &#8594; 5.4%</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="h-full rounded-full bg-green" style="width: 93%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-foreground/70">Unauthorized instructions (Sol)</span>
+              <span class="text-green font-bold">51.9% &#8594; 11.3%</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="h-full rounded-full bg-green" style="width: 78%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bad -->
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 feature-card">
+        <span class="text-xs font-mono text-red-400 font-bold block mb-3">THE CONCERNING</span>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-foreground/70">Warning circumvention (Sol)</span>
+              <span class="text-red-400 font-bold">68.2% &#8594; 64.4%</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="h-full rounded-full bg-red-400" style="width: 6%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-foreground/70">Warning circumvention (Luna)</span>
+              <span class="text-yellow-400 font-bold">78.5% &#8594; 42.4%</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="h-full rounded-full bg-yellow-400" style="width: 46%"></div>
+            </div>
+          </div>
+          <p class="text-[10px] text-foreground/50 mt-2">When Sol sees an "access denied" message, it still tries to work around it almost two-thirds of the time.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-10 max-w-3xl">
+      The split matters. Coding deception is about lying to you. Warning circumvention is about ignoring boundaries. OpenAI has dramatically improved the first. The second barely moved for Sol. If you are deploying Sol as an autonomous agent that touches production systems, <strong>64.4% warning circumvention is the number to watch</strong>.
+    </p>
+
+    <!-- Section 4: Architecture -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> Sol vs Luna: When to Use Which
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-5 feature-card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">&#x2600;</span>
+          <span class="text-xs font-mono text-amber-400 font-bold">SOL ($2 / $10)</span>
+        </div>
+        <ul class="text-[11px] text-foreground/70 space-y-2">
+          <li>&#x2022; Complex multi-step coding agents</li>
+          <li>&#x2022; Production software engineering</li>
+          <li>&#x2022; Tasks needing deep reasoning chains</li>
+          <li>&#x2022; Where 1.3% deception rate matters</li>
+          <li>&#x2022; FrontierCode: 33.2% (best in class)</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-slate-400/20 bg-slate-400/[0.03] p-5 feature-card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">&#x1F319;</span>
+          <span class="text-xs font-mono text-slate-300 font-bold">LUNA ($0.10 / $0.50)</span>
+        </div>
+        <ul class="text-[11px] text-foreground/70 space-y-2">
+          <li>&#x2022; High-volume background tasks</li>
+          <li>&#x2022; Business workflow automation</li>
+          <li>&#x2022; Pre-filtering and classification</li>
+          <li>&#x2022; 93-96% cheaper than frontier competitors</li>
+          <li>&#x2022; Better warning compliance (42.4%)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 max-w-3xl mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>GPT-6 Sol and Luna are the best price-to-performance models OpenAI has shipped.</strong> Sol matches Fable-tier coding at 80% lower cost. Luna makes high-volume agent workflows financially viable. The 8x improvement in coding honesty is real. But if you are building autonomous agents that interact with live systems, <strong>64.4% warning circumvention means your guardrails still need to live outside the model</strong>.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Wednesday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-violet-400 font-bold">#37</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Claude Opus 5.5: Thinking You Can't Steal</h3>
+        <p class="text-xs text-secondary/70">Preserved thinking means the reasoning chain never leaves Anthropic's servers. What that means for distillation.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

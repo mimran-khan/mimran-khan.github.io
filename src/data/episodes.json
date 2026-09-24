@@ -408,16 +408,15 @@
     "image": "/series/ep34-pytorch-214.png"
   },
   {
-    "number": 35,
-    "slug": "jev-system-one",
-    "title": "Jev: The Model That Gave Up Talking",
-    "hook": "TypeSafe AI ships Jev — the first System One model. No text generation. Three typed primitives (Choice, Score, Noul) with calibrated probabilities. 175ms median latency, 13x faster than Claude Opus 5. $0.042/M tokens. Output is free.",
-    "category": "hot-topic",
-    "day": "Fri",
-    "date": "Sep 25",
+    "number": 36,
+    "slug": "gpt6-sol-luna",
+    "title": "GPT-6 Sol & Luna: The 8x Honesty Upgrade",
+    "hook": "Half the price. Coding deception drops from 10.4% to 1.3%. DeepSWE hits 68.8% at 80% lower cost than Claude Fable. But warning circumvention is still 64.4%.",
+    "category": "new-release",
+    "day": "Mon",
+    "date": "Sep 29",
     "readTime": "5 min",
-    "published": true,
-    "image": "/series/ep35-jev-system-one.png",
-    "description": "TypeSafe AI ships the first System One model. No text generation. Just typed decisions with calibrated probabilities. 13x faster than Claude Opus. $0.042 per million tokens."
+    "published": false,
+    "image": "/series/ep36-gpt6-sol-luna.png"
   }
 ]
