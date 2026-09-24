@@ -59,10 +59,10 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     </div>
   </section>
 
-  <article class="container-main max-w-4xl py-10">
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
 
     <!-- TL;DR -->
-    <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-6 mb-10 max-w-3xl">
+    <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
       <span class="text-xs font-mono text-violet font-bold">// TL;DR</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
         <strong>Muse Charm</strong> is a 12g keychain pendant with a custom MTIA-3 chip that runs a distilled <strong>Llama-5 Scout (17B MoE, 3.6B active)</strong> at 3W. It records ambient audio, maintains 72-hour local context, and can answer questions, take notes, and manage tasks without a phone connection. <strong>$149 with no subscription.</strong> Ships February 2027. The catch: always-on audio capture raises questions nobody at Connect answered.
@@ -70,7 +70,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     </div>
 
     <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-3xl">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
       <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 text-center stat-card">
         <div class="text-xl font-bold text-violet mb-1">12g</div>
         <div class="text-[10px] font-mono text-secondary">Weight</div>
@@ -90,114 +90,286 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     </div>
 
     <!-- Hardware -->
-    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-      <span class="text-violet font-mono text-sm">#</span> The Hardware
-    </h2>
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> The Hardware
+      </h2>
 
-    <div class="rounded-xl border border-border bg-elevated p-5 mb-10 max-w-3xl">
-      <div class="text-xs font-mono text-secondary mb-4">MUSE CHARM SPECS</div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="space-y-2">
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Chip</span>
-            <span class="text-foreground font-mono">MTIA-3 (custom)</span>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Muse Charm is the first consumer product built on Meta's third-generation Training and Inference Accelerator (MTIA-3). The chip was designed from the ground up for transformer inference at edge power budgets. At 3 watts, it achieves roughly 15 tokens/second on the 3.6B active parameter model — comparable to what an M2 MacBook Air does with a 7B model, but in a package smaller than an AirTag.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">MUSE CHARM SPECS</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Chip</span>
+              <span class="text-foreground font-mono">MTIA-3 (7nm, custom)</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Model</span>
+              <span class="text-foreground font-mono">Llama-5 Scout 17B MoE</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Active params</span>
+              <span class="text-foreground font-mono">3.6B (4-bit quant)</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Memory</span>
+              <span class="text-foreground font-mono">8 GB LPDDR5X</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Inference speed</span>
+              <span class="text-foreground font-mono">~15 tok/s</span>
+            </div>
           </div>
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Model</span>
-            <span class="text-foreground font-mono">Llama-5 Scout 17B MoE</span>
-          </div>
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Active params</span>
-            <span class="text-foreground font-mono">3.6B (4-bit quant)</span>
-          </div>
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Memory</span>
-            <span class="text-foreground font-mono">8 GB LPDDR5X</span>
-          </div>
-        </div>
-        <div class="space-y-2">
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Battery</span>
-            <span class="text-foreground font-mono">18h active / 5 days standby</span>
-          </div>
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Audio</span>
-            <span class="text-foreground font-mono">3-mic array, bone conduction</span>
-          </div>
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Connectivity</span>
-            <span class="text-foreground font-mono">BLE 5.4, Wi-Fi 7, UWB</span>
-          </div>
-          <div class="flex justify-between text-xs">
-            <span class="text-foreground/60">Storage</span>
-            <span class="text-foreground font-mono">64 GB (encrypted)</span>
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Battery</span>
+              <span class="text-foreground font-mono">18h active / 5d standby</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Audio</span>
+              <span class="text-foreground font-mono">3-mic array + bone conduction</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Connectivity</span>
+              <span class="text-foreground font-mono">BLE 5.4, Wi-Fi 7, UWB</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Storage</span>
+              <span class="text-foreground font-mono">64 GB (AES-256 encrypted)</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-foreground/60">Charging</span>
+              <span class="text-foreground font-mono">Qi2 wireless, 40min to full</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- How it works -->
-    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-      <span class="text-violet font-mono text-sm">#</span> How the 72-Hour Context Works
-    </h2>
+    <!-- How Context Works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> How the 72-Hour Context Works
+      </h2>
 
-    <p class="text-sm text-foreground/80 leading-relaxed mb-4 max-w-3xl">
-      Muse Charm continuously records ambient audio, runs real-time speech-to-text on-device, and builds a <strong>rolling 72-hour context window</strong>. Audio is never stored raw — only the transcribed text and extracted semantic embeddings persist. After 72 hours, old context is summarized into compressed memory nodes.
-    </p>
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Muse Charm continuously records ambient audio, runs real-time speech-to-text on-device using a distilled Whisper-v4 model, and builds a <strong>rolling 72-hour context window</strong>. Audio is never stored raw — only the transcribed text and extracted semantic embeddings persist. After 72 hours, old context is compressed into summary nodes using a separate summarization pass.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The result is that you can ask "What did Sarah say about the project timeline in yesterday's meeting?" and the device will retrieve the relevant transcript segment, generate an answer from context, and respond through its bone conduction speaker — all without touching a network.
+      </p>
 
-    <div class="space-y-3 mb-10 max-w-3xl">
-      <div class="rounded-xl border border-border bg-elevated p-4 spec-card">
-        <div class="flex items-center gap-2 mb-1">
-          <span class="text-[10px] font-mono text-violet bg-violet/10 px-2 py-1 rounded font-bold">LOCAL</span>
-          <span class="text-xs font-bold text-foreground">Core interactions</span>
+      <div class="rounded-xl border border-violet/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet font-bold">CONTEXT PIPELINE (ON-DEVICE)</span>
         </div>
-        <p class="text-[11px] text-foreground/60">Questions, reminders, note-taking, calendar, and task management all run locally on the MTIA-3 chip. No network needed.</p>
+        <pre class="text-[10px] font-mono leading-relaxed"><span class="text-violet">Audio In</span> <span class="text-secondary">(3-mic array, noise-cancelled)</span>
+<span class="text-violet">  →</span> <span class="text-secondary">Whisper-v4-tiny (real-time STT, 0.8W)</span>
+<span class="text-violet">  →</span> <span class="text-secondary">Speaker diarization (who said what)</span>
+<span class="text-violet">  →</span> <span class="text-secondary">Semantic embedding (128-dim per utterance)</span>
+<span class="text-violet">  →</span> <span class="text-secondary">Rolling context store (72h window, ~2GB)</span>
+<span class="text-secondary"></span>
+<span class="text-violet">Query</span> <span class="text-secondary">("What did Sarah say about timelines?")</span>
+<span class="text-violet">  →</span> <span class="text-secondary">Embedding search over 72h context</span>
+<span class="text-violet">  →</span> <span class="text-secondary">Top-K transcript retrieval</span>
+<span class="text-violet">  →</span> <span class="text-secondary">Llama-5 Scout inference (3.6B active, ~15 tok/s)</span>
+<span class="text-violet">  →</span> <span class="text-violet font-bold">Answer via bone conduction speaker</span></pre>
       </div>
-      <div class="rounded-xl border border-border bg-elevated p-4 spec-card">
-        <div class="flex items-center gap-2 mb-1">
-          <span class="text-[10px] font-mono text-violet bg-violet/10 px-2 py-1 rounded font-bold">CLOUD</span>
-          <span class="text-xs font-bold text-foreground">Complex reasoning</span>
+
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 spec-card">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono text-violet bg-violet/10 px-2 py-1 rounded font-bold">LOCAL</span>
+            <span class="text-xs font-bold text-foreground">Core interactions — no network</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Questions about context, reminders, note dictation, calendar queries, timer, task management. Response latency: <strong>under 100ms</strong>. Works on airplane mode, in tunnels, in the woods.</p>
         </div>
-        <p class="text-[11px] text-foreground/60">Deep research, image generation, and multi-step agentic tasks route to Llama-5 Maverick (128B) in Meta's cloud. Local context is sent as a compressed summary.</p>
-      </div>
-      <div class="rounded-xl border border-border bg-elevated p-4 spec-card">
-        <div class="flex items-center gap-2 mb-1">
-          <span class="text-[10px] font-mono text-violet bg-violet/10 px-2 py-1 rounded font-bold">HYBRID</span>
-          <span class="text-xs font-bold text-foreground">Adaptive routing</span>
+        <div class="rounded-xl border border-border bg-elevated p-4 spec-card">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono text-violet bg-violet/10 px-2 py-1 rounded font-bold">CLOUD</span>
+            <span class="text-xs font-bold text-foreground">Complex reasoning — via Llama-5 Maverick 128B</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Deep research, image generation, multi-step agentic tasks, web search. Local context is sent as a <strong>compressed summary</strong> (never raw transcripts). Response: 2-4 seconds. Requires Wi-Fi or phone tethering.</p>
         </div>
-        <p class="text-[11px] text-foreground/60">The device estimates query complexity and routes accordingly. Under 100ms for local responses. 2-4 seconds for cloud offload.</p>
+        <div class="rounded-xl border border-border bg-elevated p-4 spec-card">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono text-violet bg-violet/10 px-2 py-1 rounded font-bold">HYBRID</span>
+            <span class="text-xs font-bold text-foreground">Adaptive routing — device decides</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">A lightweight classifier on the MTIA-3 estimates query complexity and routes accordingly. Simple factual recall stays local. "Write me an email summarizing today's meetings" goes to cloud. The user has no per-query approval, but can force local-only mode.</p>
+        </div>
       </div>
     </div>
 
-    <!-- Privacy Concerns -->
-    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-      <span class="text-violet font-mono text-sm">#</span> The Privacy Questions Nobody Asked
-    </h2>
+    <!-- Competitor Comparison -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> How It Compares
+      </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
-      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 spec-card">
-        <span class="text-xs font-bold text-red-400 block mb-2">Always-on audio</span>
-        <p class="text-[11px] text-foreground/60">The device records everything around you. Even if audio is "only transcribed locally," that transcription captures everyone nearby — with or without consent.</p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Muse Charm is not the first AI wearable. But it is the first with genuine on-device language model inference. Here is how it stacks up against the current field.
+      </p>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Feature</th>
+              <th class="text-center py-3 px-3 text-violet font-mono font-bold">Muse Charm</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono">Humane Ai Pin</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono">Rabbit R1</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono">Limitless Pendant</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">On-device LLM</td>
+              <td class="py-2.5 px-3 text-center text-violet font-bold">&#x2713; 3.6B MoE</td>
+              <td class="py-2.5 px-3 text-center text-red-400">&#x2717;</td>
+              <td class="py-2.5 px-3 text-center text-red-400">&#x2717;</td>
+              <td class="py-2.5 px-3 text-center text-red-400">&#x2717;</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Works offline</td>
+              <td class="py-2.5 px-3 text-center text-violet font-bold">&#x2713; Core features</td>
+              <td class="py-2.5 px-3 text-center text-red-400">&#x2717;</td>
+              <td class="py-2.5 px-3 text-center text-red-400">&#x2717;</td>
+              <td class="py-2.5 px-3 text-center text-yellow-400">Record only</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Local context window</td>
+              <td class="py-2.5 px-3 text-center text-violet font-bold">72 hours</td>
+              <td class="py-2.5 px-3 text-center">None</td>
+              <td class="py-2.5 px-3 text-center">None</td>
+              <td class="py-2.5 px-3 text-center">Unlimited (cloud)</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Weight</td>
+              <td class="py-2.5 px-3 text-center text-violet font-bold">12g</td>
+              <td class="py-2.5 px-3 text-center">55g</td>
+              <td class="py-2.5 px-3 text-center">115g</td>
+              <td class="py-2.5 px-3 text-center">10g</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Price</td>
+              <td class="py-2.5 px-3 text-center text-violet font-bold">$149</td>
+              <td class="py-2.5 px-3 text-center">$699 + $24/mo</td>
+              <td class="py-2.5 px-3 text-center">$199</td>
+              <td class="py-2.5 px-3 text-center">$99 + $19/mo</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3">Subscription</td>
+              <td class="py-2.5 px-3 text-center text-violet font-bold">None</td>
+              <td class="py-2.5 px-3 text-center text-red-400">Required</td>
+              <td class="py-2.5 px-3 text-center text-green">None</td>
+              <td class="py-2.5 px-3 text-center text-red-400">Required</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 spec-card">
-        <span class="text-xs font-bold text-red-400 block mb-2">Cloud escalation path</span>
-        <p class="text-[11px] text-foreground/60">Complex queries send compressed context summaries to Meta's servers. What counts as "complex"? The device decides. User has no per-query approval.</p>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        The key differentiator is clear: <strong>Muse Charm is the only wearable that can reason about your day without calling home.</strong> Every other device is essentially a microphone that sends audio to a cloud API. Muse Charm runs the model on your keychain.
+      </p>
+    </div>
+
+    <!-- Privacy -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> The Privacy Questions Nobody Asked
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        At the Connect keynote, Mark Zuckerberg spent 14 minutes on Muse Charm and zero minutes on privacy. The press Q&A was limited to five questions, all about hardware specs. Here are the questions that should have been asked.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 spec-card">
+          <span class="text-xs font-bold text-red-400 block mb-2">Always-on audio capture</span>
+          <p class="text-[11px] text-foreground/60">The device records everything around you. Even if audio is "only transcribed locally," that transcription captures everyone nearby — coworkers, family, strangers on the subway — with or without their consent. Two-party consent laws in states like California and Illinois have not been tested against ambient AI transcription.</p>
+        </div>
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 spec-card">
+          <span class="text-xs font-bold text-red-400 block mb-2">Cloud escalation without consent</span>
+          <p class="text-[11px] text-foreground/60">Complex queries send compressed context summaries to Meta's servers. What counts as "complex"? The device's classifier decides. Users have no per-query approval. You can force local-only mode, but then you lose the features that make the device compelling.</p>
+        </div>
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 spec-card">
+          <span class="text-xs font-bold text-red-400 block mb-2">$149 with no subscription</span>
+          <p class="text-[11px] text-foreground/60">At $149 with no ongoing revenue, the business model raises questions. Meta's cloud costs for Maverick 128B inference are real. Either the hardware margin covers it (unlikely at $149), or the value comes from aggregate usage data that improves Meta's models and ad targeting.</p>
+        </div>
+        <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 spec-card">
+          <span class="text-xs font-bold text-violet block mb-2">Meta's counter-arguments</span>
+          <p class="text-[11px] text-foreground/60">End-to-end encryption for cloud escalation. On-device processing by default. No raw audio ever leaves the device. Context encrypted at rest with secure enclave + user biometrics. Open-source Llama-5 model weights for auditing. GDPR and CCPA compliance certification planned for launch.</p>
+        </div>
       </div>
-      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 spec-card">
-        <span class="text-xs font-bold text-red-400 block mb-2">$149, no subscription</span>
-        <p class="text-[11px] text-foreground/60">If you're not paying a subscription, the business model is either hardware margin (thin at $149) or data monetization. Meta's history suggests the latter.</p>
+    </div>
+
+    <!-- Developer Angle -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> What Developers Should Know
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Meta announced a developer SDK launching in January 2027 alongside the hardware. Muse Charm will support third-party "Skills" — lightweight app-like experiences that run on-device using the Llama-5 Scout model and local context.
+      </p>
+
+      <div class="rounded-xl border border-violet/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet font-bold">SKILL MANIFEST (PREVIEW FROM SDK DOCS)</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">name: "Meeting Summarizer"</span>
+<span class="text-secondary">trigger: "summarize today's meetings"</span>
+<span class="text-secondary">context_access:</span>
+<span class="text-secondary">  audio_transcript: true</span>
+<span class="text-secondary">  calendar_events: true</span>
+<span class="text-secondary">  contacts: false</span>
+<span class="text-secondary">cloud_escalation: optional</span>
+<span class="text-secondary">output: text  # spoken via bone conduction</span>
+<span class="text-secondary">max_tokens: 500</span>
+<span class="text-secondary">permissions:</span>
+<span class="text-secondary">  - ambient_context_read</span>
+<span class="text-secondary">  - calendar_read</span></pre>
       </div>
-      <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 spec-card">
-        <span class="text-xs font-bold text-violet block mb-2">Meta's counter</span>
-        <p class="text-[11px] text-foreground/60">End-to-end encryption. On-device processing by default. No raw audio leaves the device. Context encrypted at rest with user biometrics. Open-source Llama-5 model weights.</p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Skills run sandboxed on the MTIA-3 chip. They can read from the context store but cannot write to it or access raw audio. Cloud escalation is opt-in per skill and requires user approval at install time. Meta says the Muse SDK will be open-source, with skill distribution through a curated store (not sideloading — at least initially).
+      </p>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">LIMITATIONS AT LAUNCH</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">No display.</strong> All output is audio (bone conduction) or haptic (tap patterns). No visual feedback beyond LED color codes.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">English only at launch.</strong> On-device STT and inference are English-optimized. Multi-language support planned for Q3 2027.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">No camera.</strong> Audio-only input. No visual understanding, no photo capture, no OCR. This is a deliberate privacy-first design choice.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Requires Meta account.</strong> No anonymous setup. Device links to your Meta ID for cloud features and skill distribution.</span>
+          </li>
+        </ul>
       </div>
     </div>
 
     <!-- Bottom Line -->
-    <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-6 max-w-3xl mb-10">
+    <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
       <span class="text-xs font-mono text-violet font-bold">// Bottom Line</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        <strong>Muse Charm is the most compelling AI hardware since AirPods.</strong> A 12-gram pendant that genuinely understands your day because it was there for all of it. The on-device inference is real — 3.6B active parameters at 3W is a silicon achievement. But "always-on audio capture" and "Meta" in the same sentence will make anyone pause. <strong>The product is amazing. The company making it is the reason you'll hesitate.</strong>
+        <strong>Muse Charm is the most compelling AI hardware since AirPods.</strong> A 12-gram pendant that genuinely understands your day because it was there for all of it. The on-device inference is real — 3.6B active parameters at 3W is a silicon achievement. The SDK preview is promising. But "always-on audio capture" and "Meta" in the same sentence will make anyone pause. <strong>The product is amazing. The company making it is the reason you'll hesitate.</strong> If you can stomach the trade-off, this is the closest thing to a personal AI that actually works without a cloud crutch.
       </p>
     </div>
 
