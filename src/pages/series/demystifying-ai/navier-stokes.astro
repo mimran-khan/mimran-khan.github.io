@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="10,000 Agents, 88 Hours, One Millennium Prize | Demystifying AI in 5 Minutes"
+  description="OpenAI deployed 10,000 coordinating AI agents that solved the Navier-Stokes Millennium Prize Problem in 88 hours. 130 billion tokens. Lean-verified. And then the controversy started."
+  image="/og-series-ep38-navier-stokes.png"
+  keywords="Navier-Stokes, Millennium Prize, OpenAI, AI agents, mathematical proof, Lean verification, Buckmaster, Alpoge, fluid dynamics"
+  publishedDate="2026-10-04"
+  articleSection="Demystifying AI"
+  articleTags={["Navier-Stokes", "Millennium Prize", "OpenAI", "AI Agents", "Mathematical Proof", "Lean"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); }
+    .timeline-card { transition: all 0.3s ease; }
+    .timeline-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(34, 197, 94, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep38-navier-stokes.png" alt="10,000 Agents, 88 Hours, One Millennium Prize" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 38
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 4, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        10,000 Agents, 88 Hours, One Millennium Prize
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        OpenAI deployed 10,000 coordinating AI agents that claimed to solve the Navier-Stokes Millennium Prize Problem in 88 hours. 130 billion output tokens. Lean-verified. And then a mathematician said they got there first.
+      </p>
+
+      <ShareButtons title="10,000 Agents, 88 Hours, One Millennium Prize" url="/series/demystifying-ai/navier-stokes" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-10">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        OpenAI says ~10,000 coordinating agents, powered by an unreleased model <strong>"significantly more capable than GPT-6 Astra"</strong>, produced a proof that Navier-Stokes equations can blow up in finite time. <strong>88 hours. 2.7 million messages. 130 billion output tokens. Lean-verified.</strong> An NYU professor and Anthropic employee say they were already solving the same problem using OpenAI's own Codex. The Clay Mathematics Institute has not verified the result.
+      </p>
+    </div>
+
+    <!-- Section 1: The Numbers -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> The Scale of the Sprint
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">~10,000</div>
+        <div class="text-[10px] font-mono text-secondary">Concurrent Agents</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">88 hrs</div>
+        <div class="text-[10px] font-mono text-secondary">Time to Solution</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">130B</div>
+        <div class="text-[10px] font-mono text-secondary">Output Tokens</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">2.7M</div>
+        <div class="text-[10px] font-mono text-secondary">Messages Sent</div>
+      </div>
+    </div>
+
+    <!-- Section 2: What They Claim -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> What They Claim to Have Solved
+    </h2>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-4 max-w-3xl">
+      The Navier-Stokes existence and smoothness problem is one of seven <strong>Millennium Prize Problems</strong>, each carrying a $1 million bounty from the Clay Mathematics Institute. It has been unsolved for roughly 90 years.
+    </p>
+    <p class="text-sm text-foreground/80 leading-relaxed mb-4 max-w-3xl">
+      The question: can a smooth, three-dimensional fluid flow develop a <strong>singularity</strong> - a point where velocity grows to infinity in finite time? OpenAI's 166-page paper and Lean formalization claim to show that yes, it can. A smooth fluid at rest can blow up.
+    </p>
+    <p class="text-sm text-foreground/80 leading-relaxed mb-6 max-w-3xl">
+      The proof resolves two of the four statements required by the Millennium Prize. OpenAI says it does not intend to claim the prize. The Clay Institute still lists the problem as unsolved and requires publication, two years of review, and broad mathematical acceptance before considering any claim.
+    </p>
+
+    <!-- How it worked -->
+    <div class="rounded-xl border border-border bg-elevated p-5 mb-10 max-w-3xl">
+      <div class="text-xs font-mono text-secondary mb-3">HOW THE AGENTS WORKED</div>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">1</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Agent swarm deployed</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">~10,000 concurrent agents subdivided into communicating groups, powered by an unreleased model more capable than GPT-6 Astra</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">2</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Tools: cached internet + code execution</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Agents could read from a cached web snapshot and run code. 100 agents started with the related Euler equations first.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">3</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">88-hour sprint</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Started Sep 1. Resolution reached Sep 5. Total: 2.7M messages, ~130B output tokens across all attempted problems.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">4</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Lean formalization</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">GPT-6 Astra formalized the proof in Lean in 17 additional hours. Machine-verifiable.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: The Controversy -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> The Controversy
+    </h2>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-6 max-w-3xl">
+      This is where it gets ugly. <strong>Tristan Buckmaster</strong> (NYU math professor) and <strong>Levent Alpoge</strong> (mathematician at Anthropic) had been working on the same problem. They used OpenAI's own Codex tool. And the timeline raises questions.
+    </p>
+
+    <div class="space-y-3 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">Aug 15</span>
+          <p class="text-xs text-foreground/80">Buckmaster and Alpoge achieve blowup results for the <strong>forced Euler equations</strong> using Anthropic and OpenAI models.</p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 text-[10px] font-mono text-yellow-400 bg-yellow-500/10 px-2 py-1 rounded font-bold">Sep 1</span>
+          <p class="text-xs text-foreground/80">OpenAI says it heard <strong>"rumors that two Millennium Prize problems had been resolved."</strong> Launches its 10,000-agent sprint the same day.</p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 text-[10px] font-mono text-yellow-400 bg-yellow-500/10 px-2 py-1 rounded font-bold">Sep 3</span>
+          <p class="text-xs text-foreground/80">Buckmaster says he learned <strong>"information about our progress had been passed to OpenAI."</strong></p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">Sep 5</span>
+          <p class="text-xs text-foreground/80">OpenAI's agents produce the Navier-Stokes resolution. <strong>88 hours after launch.</strong></p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">Sep 6</span>
+          <p class="text-xs text-foreground/80">Lean verification completed in 17 hours. OpenAI reaches out to Buckmaster/Alpoge for a joint announcement.</p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 text-[10px] font-mono text-red-400 bg-red-500/10 px-2 py-1 rounded font-bold">Sep 8</span>
+          <p class="text-xs text-foreground/80">OpenAI publishes. Buckmaster publishes his own statement hours later, alleging OpenAI did not start until <strong>"after information about our work had reached OpenAI."</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Both Sides -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> Two Stories, One Problem
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-5 timeline-card">
+        <span class="text-xs font-mono text-green font-bold block mb-3">OPENAI'S POSITION</span>
+        <ul class="text-[11px] text-foreground/70 space-y-2">
+          <li>&#x2022; "We heard rumors on Sep 1 and were curious"</li>
+          <li>&#x2022; Did not see Buckmaster/Alpoge's work until public release</li>
+          <li>&#x2022; Proofs "differ significantly" (forced vs unforced Euler)</li>
+          <li>&#x2022; Buckmaster's Codex prompts could not have influenced training</li>
+          <li>&#x2022; "Cannot rule out that de-identified data" played a role</li>
+          <li>&#x2022; Does not intend to claim the $1M prize</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 timeline-card">
+        <span class="text-xs font-mono text-red-400 font-bold block mb-3">BUCKMASTER'S ALLEGATIONS</span>
+        <ul class="text-[11px] text-foreground/70 space-y-2">
+          <li>&#x2022; "Almost nobody else I know of was working on this approach"</li>
+          <li>&#x2022; Information about their progress reached OpenAI</li>
+          <li>&#x2022; OpenAI started their sprint <strong>after</strong> hearing about his work</li>
+          <li>&#x2022; He used OpenAI's Codex tool for his research</li>
+          <li>&#x2022; Disputes that the proofs are truly independent</li>
+          <li>&#x2022; Questions the 88-hour timeline</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 5: Why It Matters -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-green font-mono text-sm">#</span> Why Engineers Should Care
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x1F9E0;</span>
+          <span class="text-xs font-bold text-foreground">Multi-agent coordination at scale</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">10,000 agents communicating in groups, subdividing problems, and converging on a proof. This is not chain-of-thought prompting. This is swarm intelligence with structure.</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x2705;</span>
+          <span class="text-xs font-bold text-foreground">Machine-verified proofs</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">Lean formalization means the proof can be checked by a computer, not just reviewed by humans. This sets a new bar for AI-generated mathematics.</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x1F6A8;</span>
+          <span class="text-xs font-bold text-foreground">The data boundary problem</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">A researcher uses your product. Your model may learn from their usage patterns. You then compete with them. Where is the boundary? This will define the next decade of AI-academia relations.</p>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 timeline-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">&#x1F3C6;</span>
+          <span class="text-xs font-bold text-foreground">Unreleased model revelation</span>
+        </div>
+        <p class="text-[11px] text-foreground/60">The model that solved this is "significantly more capable than GPT-6 Astra." Astra already scores 96% on GPQA Diamond and 100% on ExploitBench. What is this model?</p>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 max-w-3xl mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Whether or not OpenAI's proof survives peer review, the capability demonstration is real.</strong> 10,000 coordinating agents solved a problem that stumped mathematicians for 90 years, in the time it takes to binge a TV show. The controversy around the Buckmaster/Alpoge timeline is equally important: it exposes the fundamental tension of AI labs whose models learn from the same researchers they compete with. <strong>The data boundary between "product user" and "research competitor" does not exist yet.</strong> Someone needs to draw it.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Monday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#39</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">CLOSEDQUORUM: Four LLMs Vote on What to Steal</h3>
+        <p class="text-xs text-secondary/70">The first documented AI-driven malware. No human operator. Four commercial LLMs vote on every attack decision.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
