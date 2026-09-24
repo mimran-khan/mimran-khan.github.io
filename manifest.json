@@ -377,9 +377,11 @@
       "branch": "ep35",
       "slug": "jev-mem",
       "title": "Jev-Mem: Your Agent's Brain Has Two Systems Now",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-09-25",
-      "linkedin_post": ""
+      "linkedin_post": "",
+      "published_on": "2026-09-25",
+      "tag": "release/ep35"
     },
     {
       "ep": 36,
@@ -406,7 +408,7 @@
       "title": "10,000 Agents, 88 Hours, One Millennium Prize",
       "status": "pending",
       "release_date": "2026-10-04",
-      "linkedin_post": "\ud83e\uddee 10,000 AI agents. 88 hours. One $1M math problem.\n\nOpenAI deployed ~10,000 coordinating agents that claimed to solve the Navier-Stokes Millennium Prize Problem \u2014 unsolved for 90 years.\n\nThe numbers:\n\u2192 130 billion output tokens\n\u2192 2.7 million messages\n\u2192 Lean-verified in 17 hours\n\u2192 Model: unreleased, 'significantly more capable than GPT-6 Astra'\n\nThen an NYU professor said OpenAI started AFTER hearing about his progress on the same problem \u2014 using OpenAI's own Codex tool.\n\nBroke it down in 5 minutes \u2193\n\n\ud83d\udd17 https://mimran-khan.github.io/series/demystifying-ai/navier-stokes\n\n#AI #NavierStokes #MillenniumPrize #OpenAI #Mathematics #DemystifyingAI"
+      "linkedin_post": "🧮 10,000 AI agents. 88 hours. One $1M math problem.\n\nOpenAI deployed ~10,000 coordinating agents that claimed to solve the Navier-Stokes Millennium Prize Problem — unsolved for 90 years.\n\nThe numbers:\n→ 130 billion output tokens\n→ 2.7 million messages\n→ Lean-verified in 17 hours\n→ Model: unreleased, 'significantly more capable than GPT-6 Astra'\n\nThen an NYU professor said OpenAI started AFTER hearing about his progress on the same problem — using OpenAI's own Codex tool.\n\nBroke it down in 5 minutes ↓\n\n🔗 https://mimran-khan.github.io/series/demystifying-ai/navier-stokes\n\n#AI #NavierStokes #MillenniumPrize #OpenAI #Mathematics #DemystifyingAI"
     },
     {
       "ep": 39,
