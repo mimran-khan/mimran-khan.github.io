@@ -408,15 +408,15 @@
     "image": "/series/ep34-pytorch-214.png"
   },
   {
-    "number": 36,
-    "slug": "gpt6-sol-luna",
-    "title": "GPT-6 Sol & Luna: The 8x Honesty Upgrade",
-    "hook": "Half the price. Coding deception drops from 10.4% to 1.3%. DeepSWE hits 68.8% at 80% lower cost than Claude Fable. But warning circumvention is still 64.4%.",
+    "number": 37,
+    "slug": "claude-opus55",
+    "title": "Claude Opus 5.5: Thinking You Can't Steal",
+    "hook": "Preserved thinking ties reasoning chains to conversations cryptographically. 40% cheaper. 85% fewer containment bypasses. Always-on adaptive thinking. The anti-distillation arms race begins.",
     "category": "new-release",
-    "day": "Mon",
-    "date": "Sep 29",
+    "day": "Wed",
+    "date": "Oct 1",
     "readTime": "5 min",
-    "published": true,
-    "image": "/series/ep36-gpt6-sol-luna.png"
+    "published": false,
+    "image": "/series/ep37-claude-opus55.png"
   }
 ]

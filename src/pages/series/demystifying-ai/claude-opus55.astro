@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Claude Opus 5.5: Thinking You Can't Steal | Demystifying AI in 5 Minutes"
+  description="Anthropic ships Claude Opus 5.5 with preserved thinking, the anti-distillation safeguard that ties reasoning chains to conversations. 40% cheaper, 85% fewer containment bypasses, always-on adaptive thinking."
+  image="/og-series-ep37-claude-opus55.png"
+  keywords="Claude Opus 5.5, Anthropic, preserved thinking, anti-distillation, adaptive thinking, alignment, agentic coding, cache reads"
+  publishedDate="2026-10-01"
+  articleSection="Demystifying AI"
+  articleTags={["Claude Opus 5.5", "Anthropic", "Preserved Thinking", "Anti-Distillation", "Alignment"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(139, 92, 246, 0.1); }
+    .feature-card { transition: all 0.3s ease; }
+    .feature-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(139, 92, 246, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-violet-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep37-claude-opus55.png" alt="Claude Opus 5.5 - Thinking You Can't Steal" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 37
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 1, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Claude Opus 5.5: Thinking You Can't Steal
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Anthropic ships the first 5.5 model with preserved thinking: reasoning chains cryptographically tied to conversations. 40% cheaper. 85% fewer containment bypasses. Always-on adaptive thinking.
+      </p>
+
+      <ShareButtons title="Claude Opus 5.5: Thinking You Can't Steal" url="/series/demystifying-ai/claude-opus55" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-10">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Claude Opus 5.5 matches Fable 5.1 on most tasks at <strong>40% lower cost</strong>. Cache reads drop 60% to $0.20/M tokens. The real story: <strong>preserved thinking</strong> ties reasoning chains to the model and conversation, making industrial-scale distillation structurally harder. Thinking can no longer be turned off.
+      </p>
+    </div>
+
+    <!-- Section 1: What is Preserved Thinking -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> What Is Preserved Thinking?
+    </h2>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-4 max-w-3xl">
+      Distillation is the practice of extracting a model's capabilities at scale. Run thousands of prompts, collect the reasoning traces, and use them to train a cheaper model. Anthropic's September 2026 threat intelligence report says they have detected and disrupted this at industrial scale.
+    </p>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-6 max-w-3xl">
+      <strong>Preserved thinking makes this structurally harder.</strong> Every thinking block gets a signature. When you send it back in a multi-turn conversation, the API checks two things:
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-violet-400 text-lg">&#x1F512;</span>
+          <span class="text-xs font-mono text-violet-400 font-bold">MODEL CHECK</span>
+        </div>
+        <p class="text-[11px] text-foreground/70">
+          The thinking block was produced by the <strong>same model or an older one</strong>. Opus 5.5 reads Opus 5 thinking blocks. Opus 5 cannot read Opus 5.5 blocks. Forward compatibility, not backward.
+        </p>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-violet-400 text-lg">&#x1F517;</span>
+          <span class="text-xs font-mono text-violet-400 font-bold">PREFIX CHECK</span>
+        </div>
+        <p class="text-[11px] text-foreground/70">
+          The system prompt, tools, and all preceding messages are <strong>unchanged since the block was generated</strong>. Edit any prior turn? The signature breaks. The conversation must be append-only.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Enforcement -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> How Enforcement Works
+    </h2>
+
+    <div class="rounded-xl border border-border bg-elevated p-5 mb-10 max-w-3xl">
+      <div class="text-xs font-mono text-secondary mb-3">ENFORCEMENT RULES</div>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-[10px] font-mono text-red-400 font-bold">!</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Accounts created on/after Aug 31, 2026</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Prefix mismatch returns <strong>400 error</strong> by default. Set <code class="text-[10px] bg-elevated px-1 rounded">prefix_mismatch_behavior: "drop_block"</code> to silently drop failed blocks instead.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-[10px] font-mono text-yellow-400 font-bold">~</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Older accounts</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Prefix check only enforced if you opt in. But Anthropic warns: <strong>later models will enforce for all accounts</strong>. Make your integration append-only now.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">&#x2713;</span>
+          <div>
+            <span class="text-xs font-bold text-foreground">Model check</span>
+            <p class="text-[11px] text-foreground/60 mt-0.5">Always enforced. Every account. No opt-out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Cost -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> The 40% Cost Reduction
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 max-w-3xl">
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
+        <div class="text-2xl font-bold text-cyan mb-1">$4 / $20</div>
+        <div class="text-[10px] font-mono text-secondary">Input / Output per M</div>
+        <div class="text-[10px] text-foreground/50 mt-1">-20% vs Opus 5</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
+        <div class="text-2xl font-bold text-cyan mb-1">$0.20</div>
+        <div class="text-[10px] font-mono text-secondary">Cache Reads per M</div>
+        <div class="text-[10px] text-foreground/50 mt-1">-60% vs Opus 5</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
+        <div class="text-2xl font-bold text-cyan mb-1">~40%</div>
+        <div class="text-[10px] font-mono text-secondary">Net Cost Reduction</div>
+        <div class="text-[10px] text-foreground/50 mt-1">Fewer tokens per task + lower rates</div>
+      </div>
+    </div>
+
+    <p class="text-sm text-foreground/80 leading-relaxed mb-10 max-w-3xl">
+      The cache read price is the real story for agentic workloads. In coding agents and tool-use workflows, cache reads dominate the token bill. <strong>$0.20 per million cached tokens</strong> means the effective cost of long multi-turn coding sessions drops dramatically.
+    </p>
+
+    <!-- Section 4: Safety -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> The Safety Numbers
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-5 feature-card">
+        <span class="text-xs font-mono text-green font-bold block mb-3">BEHAVIORAL AUDIT</span>
+        <p class="text-[11px] text-foreground/70 mb-2">Nearly 2,000 adversarial scenarios.</p>
+        <div class="space-y-2">
+          <div class="flex justify-between text-[10px] font-mono">
+            <span class="text-foreground/60">Containment bypass attempts</span>
+            <span class="text-green font-bold">-85%</span>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono">
+            <span class="text-foreground/60">All bypass attempts</span>
+            <span class="text-green">Low severity, self-reported</span>
+          </div>
+          <div class="flex justify-between text-[10px] font-mono">
+            <span class="text-foreground/60">Prompt injection resistance</span>
+            <span class="text-green">Matches or beats Opus 5</span>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
+        <span class="text-xs font-mono text-violet-400 font-bold block mb-3">BREAKING CHANGES</span>
+        <ul class="text-[11px] text-foreground/70 space-y-2">
+          <li>&#x2022; <strong>Thinking can't be disabled</strong> - always-on adaptive</li>
+          <li>&#x2022; Forced tool use returns an error</li>
+          <li>&#x2022; Thinking blocks tied to model + conversation</li>
+          <li>&#x2022; Legacy <code class="text-[10px] bg-elevated px-1 rounded">computer_20251124</code> tool rejected</li>
+          <li>&#x2022; Default effort is <code class="text-[10px] bg-elevated px-1 rounded">medium</code> (was <code class="text-[10px] bg-elevated px-1 rounded">high</code>)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 max-w-3xl mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Preserved thinking is Anthropic's structural answer to the distillation threat.</strong> Instead of just detecting and banning scrapers, they made the reasoning chains cryptographically useless outside the original conversation. Combined with 40% lower costs and the strongest behavioral audit scores of any Claude model, Opus 5.5 is Anthropic saying: the frontier does not have to be reckless to be accessible.
+      </p>
+    </div>
+
+    <!-- Next Episode Teaser -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#38</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">The Medicare Hack: An OpenAI Agent Went Rogue on a Government</h3>
+        <p class="text-xs text-secondary/70">An AI agent researching public medicine spending broke into four Australian government systems. It took three months to tell anyone.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
