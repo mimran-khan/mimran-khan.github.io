@@ -59,150 +59,330 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     </div>
   </section>
 
-  <article class="container-main max-w-4xl py-10">
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
 
     <!-- TL;DR -->
-    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 mb-10 max-w-3xl">
-      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet-400 font-bold">// TL;DR</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        Claude Opus 5.5 matches Fable 5.1 on most tasks at <strong>40% lower cost</strong>. Cache reads drop 60% to $0.20/M tokens. The real story: <strong>preserved thinking</strong> ties reasoning chains to the model and conversation, making industrial-scale distillation structurally harder. Thinking can no longer be turned off.
+        Claude Opus 5.5 matches Fable 5.1 on most tasks at <strong>40% lower cost</strong>. Cache reads drop 60% to $0.20/M tokens. The real story: <strong>preserved thinking</strong> ties reasoning chains to the model and conversation, making industrial-scale distillation structurally harder. Thinking can no longer be turned off. Every API call produces a signed reasoning trace that only Anthropic's infrastructure can verify.
       </p>
     </div>
 
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">-40%</div>
+        <div class="text-[10px] font-mono text-secondary">Net Cost</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">-85%</div>
+        <div class="text-[10px] font-mono text-secondary">Containment Bypass</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">$0.20</div>
+        <div class="text-[10px] font-mono text-secondary">Cache Reads/M</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">Always</div>
+        <div class="text-[10px] font-mono text-secondary">Thinking On</div>
+      </div>
+    </div>
+
     <!-- Section 1: What is Preserved Thinking -->
-    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-      <span class="text-cyan font-mono text-sm">#</span> What Is Preserved Thinking?
-    </h2>
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What Is Preserved Thinking?
+      </h2>
 
-    <p class="text-sm text-foreground/80 leading-relaxed mb-4 max-w-3xl">
-      Distillation is the practice of extracting a model's capabilities at scale. Run thousands of prompts, collect the reasoning traces, and use them to train a cheaper model. Anthropic's September 2026 threat intelligence report says they have detected and disrupted this at industrial scale.
-    </p>
+      <p class="text-sm text-foreground/80 leading-relaxed mb-4">
+        Distillation is the practice of extracting a model's capabilities at scale. Run thousands of prompts, collect the reasoning traces, and use them to train a cheaper model. Anthropic's September 2026 threat intelligence report says they have detected and disrupted this at industrial scale.
+      </p>
 
-    <p class="text-sm text-foreground/80 leading-relaxed mb-6 max-w-3xl">
-      <strong>Preserved thinking makes this structurally harder.</strong> Every thinking block gets a signature. When you send it back in a multi-turn conversation, the API checks two things:
-    </p>
+      <p class="text-sm text-foreground/80 leading-relaxed mb-6">
+        <strong>Preserved thinking makes this structurally harder.</strong> Every thinking block gets a cryptographic signature. When you send it back in a multi-turn conversation, the API checks two things:
+      </p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
-      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-violet-400 text-lg">&#x1F512;</span>
+            <span class="text-xs font-mono text-violet-400 font-bold">MODEL CHECK</span>
+          </div>
+          <p class="text-[11px] text-foreground/70">
+            The thinking block was produced by the <strong>same model or an older one</strong>. Opus 5.5 reads Opus 5 thinking blocks. Opus 5 cannot read Opus 5.5 blocks. Forward compatibility, not backward.
+          </p>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-violet-400 text-lg">&#x1F517;</span>
+            <span class="text-xs font-mono text-violet-400 font-bold">PREFIX CHECK</span>
+          </div>
+          <p class="text-[11px] text-foreground/70">
+            The system prompt, tools, and all preceding messages are <strong>unchanged since the block was generated</strong>. Edit any prior turn? The signature breaks. The conversation must be append-only.
+          </p>
+        </div>
+      </div>
+
+      <p class="text-sm text-foreground/80 leading-relaxed">
+        The result: even if you intercept every thinking block, the traces are cryptographically bound to a specific conversation state. Replay them in a different context and the API rejects them. Train on them and you get signatures, not reasoning.
+      </p>
+    </div>
+
+    <!-- Section 2: API Code Example -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What Changes in Your Code
+      </h2>
+
+      <p class="text-sm text-foreground/80 leading-relaxed mb-4">
+        If you are already using extended thinking with Claude, the API surface barely changes. The key difference: thinking blocks are now <strong>opaque and signed</strong>. You pass them back but you cannot read or modify them.
+      </p>
+
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
         <div class="flex items-center gap-2 mb-3">
-          <span class="text-violet-400 text-lg">&#x1F512;</span>
-          <span class="text-xs font-mono text-violet-400 font-bold">MODEL CHECK</span>
+          <span class="text-[10px] font-mono text-violet-400 font-bold">MULTI-TURN WITH PRESERVED THINKING</span>
         </div>
-        <p class="text-[11px] text-foreground/70">
-          The thinking block was produced by the <strong>same model or an older one</strong>. Opus 5.5 reads Opus 5 thinking blocks. Opus 5 cannot read Opus 5.5 blocks. Forward compatibility, not backward.
-        </p>
-      </div>
-      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-violet-400 text-lg">&#x1F517;</span>
-          <span class="text-xs font-mono text-violet-400 font-bold">PREFIX CHECK</span>
-        </div>
-        <p class="text-[11px] text-foreground/70">
-          The system prompt, tools, and all preceding messages are <strong>unchanged since the block was generated</strong>. Edit any prior turn? The signature breaks. The conversation must be append-only.
-        </p>
-      </div>
-    </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">import anthropic</span>
 
-    <!-- Section 2: Enforcement -->
-    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-      <span class="text-cyan font-mono text-sm">#</span> How Enforcement Works
-    </h2>
+<span class="text-secondary">client = anthropic.Anthropic()</span>
 
-    <div class="rounded-xl border border-border bg-elevated p-5 mb-10 max-w-3xl">
-      <div class="text-xs font-mono text-secondary mb-3">ENFORCEMENT RULES</div>
-      <div class="space-y-3">
-        <div class="flex items-start gap-3">
-          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-[10px] font-mono text-red-400 font-bold">!</span>
-          <div>
-            <span class="text-xs font-bold text-foreground">Accounts created on/after Aug 31, 2026</span>
-            <p class="text-[11px] text-foreground/60 mt-0.5">Prefix mismatch returns <strong>400 error</strong> by default. Set <code class="text-[10px] bg-elevated px-1 rounded">prefix_mismatch_behavior: "drop_block"</code> to silently drop failed blocks instead.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-[10px] font-mono text-yellow-400 font-bold">~</span>
-          <div>
-            <span class="text-xs font-bold text-foreground">Older accounts</span>
-            <p class="text-[11px] text-foreground/60 mt-0.5">Prefix check only enforced if you opt in. But Anthropic warns: <strong>later models will enforce for all accounts</strong>. Make your integration append-only now.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">&#x2713;</span>
-          <div>
-            <span class="text-xs font-bold text-foreground">Model check</span>
-            <p class="text-[11px] text-foreground/60 mt-0.5">Always enforced. Every account. No opt-out.</p>
-          </div>
+<span class="text-violet-400 font-bold"># Turn 1: model generates preserved thinking</span>
+<span class="text-secondary">response = client.messages.create(</span>
+<span class="text-secondary">    model="claude-opus-5-5-20261001",</span>
+<span class="text-secondary">    max_tokens=16000,</span>
+<span class="text-secondary">    thinking=&#123;"type": "enabled", "budget_tokens": 10000&#125;,</span>
+<span class="text-secondary">    messages=[&#123;"role": "user", "content": "Analyze this code..."&#125;]</span>
+<span class="text-secondary">)</span>
+
+<span class="text-violet-400 font-bold"># The thinking block is opaque — you see type + signature</span>
+<span class="text-violet-400 font-bold"># You CANNOT read its content. You CAN pass it back.</span>
+<span class="text-secondary">thinking_block = response.content[0]  # type: "thinking"</span>
+<span class="text-secondary">text_block = response.content[1]      # type: "text"</span>
+
+<span class="text-violet-400 font-bold"># Turn 2: pass entire content back as assistant message</span>
+<span class="text-secondary">follow_up = client.messages.create(</span>
+<span class="text-secondary">    model="claude-opus-5-5-20261001",</span>
+<span class="text-secondary">    max_tokens=16000,</span>
+<span class="text-secondary">    thinking=&#123;"type": "enabled", "budget_tokens": 10000&#125;,</span>
+<span class="text-secondary">    messages=[</span>
+<span class="text-secondary">        &#123;"role": "user", "content": "Analyze this code..."&#125;,</span>
+<span class="text-secondary">        &#123;"role": "assistant", "content": response.content&#125;,</span>
+<span class="text-secondary">        &#123;"role": "user", "content": "Now refactor the auth module"&#125;</span>
+<span class="text-secondary">    ]</span>
+<span class="text-secondary">)</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-4 mb-6">
+        <span class="text-[10px] font-mono text-red-400 font-bold">WHAT BREAKS</span>
+        <div class="mt-2 space-y-1.5 text-[11px] text-secondary">
+          <p>&#x2717; Editing or reordering previous messages → 400 error (prefix mismatch)</p>
+          <p>&#x2717; Sending thinking block to a different model → 400 error (model mismatch)</p>
+          <p>&#x2717; Omitting thinking block from assistant turn → model loses context, quality drops</p>
+          <p>&#x2717; Setting <code class="text-[10px] bg-background px-1 rounded">thinking: disabled</code> → no longer accepted, always-on</p>
         </div>
       </div>
     </div>
 
-    <!-- Section 3: Cost -->
-    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-      <span class="text-cyan font-mono text-sm">#</span> The 40% Cost Reduction
-    </h2>
+    <!-- Section 3: Enforcement -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> How Enforcement Works
+      </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 max-w-3xl">
-      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
-        <div class="text-2xl font-bold text-cyan mb-1">$4 / $20</div>
-        <div class="text-[10px] font-mono text-secondary">Input / Output per M</div>
-        <div class="text-[10px] text-foreground/50 mt-1">-20% vs Opus 5</div>
-      </div>
-      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
-        <div class="text-2xl font-bold text-cyan mb-1">$0.20</div>
-        <div class="text-[10px] font-mono text-secondary">Cache Reads per M</div>
-        <div class="text-[10px] text-foreground/50 mt-1">-60% vs Opus 5</div>
-      </div>
-      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 text-center stat-card">
-        <div class="text-2xl font-bold text-cyan mb-1">~40%</div>
-        <div class="text-[10px] font-mono text-secondary">Net Cost Reduction</div>
-        <div class="text-[10px] text-foreground/50 mt-1">Fewer tokens per task + lower rates</div>
-      </div>
-    </div>
-
-    <p class="text-sm text-foreground/80 leading-relaxed mb-10 max-w-3xl">
-      The cache read price is the real story for agentic workloads. In coding agents and tool-use workflows, cache reads dominate the token bill. <strong>$0.20 per million cached tokens</strong> means the effective cost of long multi-turn coding sessions drops dramatically.
-    </p>
-
-    <!-- Section 4: Safety -->
-    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-      <span class="text-cyan font-mono text-sm">#</span> The Safety Numbers
-    </h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 max-w-3xl">
-      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-5 feature-card">
-        <span class="text-xs font-mono text-green font-bold block mb-3">BEHAVIORAL AUDIT</span>
-        <p class="text-[11px] text-foreground/70 mb-2">Nearly 2,000 adversarial scenarios.</p>
-        <div class="space-y-2">
-          <div class="flex justify-between text-[10px] font-mono">
-            <span class="text-foreground/60">Containment bypass attempts</span>
-            <span class="text-green font-bold">-85%</span>
+      <div class="rounded-xl border border-border bg-elevated p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-3">ENFORCEMENT RULES</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-[10px] font-mono text-red-400 font-bold">!</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Accounts created on/after Aug 31, 2026</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Prefix mismatch returns <strong>400 error</strong> by default. Set <code class="text-[10px] bg-elevated px-1 rounded">prefix_mismatch_behavior: "drop_block"</code> to silently drop failed blocks instead.</p>
+            </div>
           </div>
-          <div class="flex justify-between text-[10px] font-mono">
-            <span class="text-foreground/60">All bypass attempts</span>
-            <span class="text-green">Low severity, self-reported</span>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-[10px] font-mono text-yellow-400 font-bold">~</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Older accounts</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Prefix check only enforced if you opt in. But Anthropic warns: <strong>later models will enforce for all accounts</strong>. Make your integration append-only now.</p>
+            </div>
           </div>
-          <div class="flex justify-between text-[10px] font-mono">
-            <span class="text-foreground/60">Prompt injection resistance</span>
-            <span class="text-green">Matches or beats Opus 5</span>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">&#x2713;</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Model check</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Always enforced. Every account. No opt-out.</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
-        <span class="text-xs font-mono text-violet-400 font-bold block mb-3">BREAKING CHANGES</span>
-        <ul class="text-[11px] text-foreground/70 space-y-2">
-          <li>&#x2022; <strong>Thinking can't be disabled</strong> - always-on adaptive</li>
-          <li>&#x2022; Forced tool use returns an error</li>
-          <li>&#x2022; Thinking blocks tied to model + conversation</li>
-          <li>&#x2022; Legacy <code class="text-[10px] bg-elevated px-1 rounded">computer_20251124</code> tool rejected</li>
-          <li>&#x2022; Default effort is <code class="text-[10px] bg-elevated px-1 rounded">medium</code> (was <code class="text-[10px] bg-elevated px-1 rounded">high</code>)</li>
+    </div>
+
+    <!-- Section 4: Cost -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The 40% Cost Reduction
+      </h2>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Model</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Input $/M</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Output $/M</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Cache Read</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Context</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50 bg-violet-500/[0.03]">
+              <td class="py-2.5 px-3 font-bold text-violet-400">Opus 5.5</td>
+              <td class="py-2.5 px-3 text-center font-bold text-violet-400">$4.00</td>
+              <td class="py-2.5 px-3 text-center font-bold text-violet-400">$20.00</td>
+              <td class="py-2.5 px-3 text-center font-bold text-violet-400">$0.20</td>
+              <td class="py-2.5 px-3 text-center">200K</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Opus 5</td>
+              <td class="py-2.5 px-3 text-center">$5.00</td>
+              <td class="py-2.5 px-3 text-center">$25.00</td>
+              <td class="py-2.5 px-3 text-center">$0.50</td>
+              <td class="py-2.5 px-3 text-center">200K</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">GPT-6 Sol</td>
+              <td class="py-2.5 px-3 text-center">$2.00</td>
+              <td class="py-2.5 px-3 text-center">$10.00</td>
+              <td class="py-2.5 px-3 text-center">N/A</td>
+              <td class="py-2.5 px-3 text-center">1.05M</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3">GPT-6 Luna</td>
+              <td class="py-2.5 px-3 text-center">$0.10</td>
+              <td class="py-2.5 px-3 text-center">$0.50</td>
+              <td class="py-2.5 px-3 text-center">N/A</td>
+              <td class="py-2.5 px-3 text-center">1.05M</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-sm text-foreground/80 leading-relaxed mb-4">
+        The cache read price is the real story for agentic workloads. In coding agents and tool-use workflows, cache reads dominate the token bill. <strong>$0.20 per million cached tokens</strong> means the effective cost of long multi-turn coding sessions drops dramatically.
+      </p>
+
+      <p class="text-sm text-foreground/80 leading-relaxed">
+        Context window stays at 200K. GPT-6 Sol offers 1.05M at lower raw prices, but Anthropic is betting that cache read pricing matters more than headline rates for the workflows that drive actual spend. For a 50-turn coding session with a 100K token system prompt, Opus 5.5 cache reads cost <strong>$2.00 total</strong>. On Opus 5 that was $5.00.
+      </p>
+    </div>
+
+    <!-- Section 5: Safety -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> The Safety Numbers
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-5 feature-card">
+          <span class="text-xs font-mono text-green font-bold block mb-3">BEHAVIORAL AUDIT</span>
+          <p class="text-[11px] text-foreground/70 mb-2">Nearly 2,000 adversarial scenarios.</p>
+          <div class="space-y-2">
+            <div class="flex justify-between text-[10px] font-mono">
+              <span class="text-foreground/60">Containment bypass attempts</span>
+              <span class="text-green font-bold">-85%</span>
+            </div>
+            <div class="flex justify-between text-[10px] font-mono">
+              <span class="text-foreground/60">All bypass attempts</span>
+              <span class="text-green">Low severity, self-reported</span>
+            </div>
+            <div class="flex justify-between text-[10px] font-mono">
+              <span class="text-foreground/60">Prompt injection resistance</span>
+              <span class="text-green">Matches or beats Opus 5</span>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-5 feature-card">
+          <span class="text-xs font-mono text-violet-400 font-bold block mb-3">BREAKING CHANGES</span>
+          <ul class="text-[11px] text-foreground/70 space-y-2">
+            <li>&#x2022; <strong>Thinking can't be disabled</strong> — always-on adaptive</li>
+            <li>&#x2022; Forced tool use returns an error</li>
+            <li>&#x2022; Thinking blocks tied to model + conversation</li>
+            <li>&#x2022; Legacy <code class="text-[10px] bg-elevated px-1 rounded">computer_20251124</code> tool rejected</li>
+            <li>&#x2022; Default effort is <code class="text-[10px] bg-elevated px-1 rounded">medium</code> (was <code class="text-[10px] bg-elevated px-1 rounded">high</code>)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Migration Checklist -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Migration Checklist: Opus 5 → 5.5
+      </h2>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-green text-[11px]">&#x2610;</span>
+            <span class="text-[11px] text-foreground/70"><strong class="text-foreground">Make message history append-only.</strong> If your app edits or reorders previous turns, the prefix check will reject preserved thinking blocks.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green text-[11px]">&#x2610;</span>
+            <span class="text-[11px] text-foreground/70"><strong class="text-foreground">Remove <code class="text-[10px] bg-background px-1 rounded">thinking: disabled</code> from API calls.</strong> Thinking is always-on. The parameter is no longer accepted. Set <code class="text-[10px] bg-background px-1 rounded">budget_tokens</code> low (1024) if you want minimal thinking.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green text-[11px]">&#x2610;</span>
+            <span class="text-[11px] text-foreground/70"><strong class="text-foreground">Replace forced tool use.</strong> <code class="text-[10px] bg-background px-1 rounded">tool_choice: &#123;"type": "tool", "name": "..."&#125;</code> now returns an error. Restructure your prompt to guide tool selection instead.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green text-[11px]">&#x2610;</span>
+            <span class="text-[11px] text-foreground/70"><strong class="text-foreground">Pass full <code class="text-[10px] bg-background px-1 rounded">response.content</code> as assistant turn.</strong> Both thinking and text blocks must go back. Dropping thinking blocks means the model loses its reasoning chain.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green text-[11px]">&#x2610;</span>
+            <span class="text-[11px] text-foreground/70"><strong class="text-foreground">Update computer tool from <code class="text-[10px] bg-background px-1 rounded">computer_20251124</code> to <code class="text-[10px] bg-background px-1 rounded">computer_20260901</code>.</strong> The legacy tool spec is rejected by 5.5.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green text-[11px]">&#x2610;</span>
+            <span class="text-[11px] text-foreground/70"><strong class="text-foreground">Test with <code class="text-[10px] bg-background px-1 rounded">prefix_mismatch_behavior: "drop_block"</code> first.</strong> Silently drops invalid thinking blocks instead of 400s. Good for debugging migration issues before going strict.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Limitations -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Context window still 200K.</strong> GPT-6 Sol ships with 1.05M. For workloads that need massive context, Opus 5.5 requires chunking strategies or RAG.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Preserved thinking is opaque.</strong> You cannot inspect the reasoning chain. For debugging model behavior, you see the output but not the path. This is by design but frustrating for researchers.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Always-on thinking adds latency.</strong> Even with budget_tokens=1024, the model still reasons before responding. Simple classification tasks that need sub-100ms responses should stay on Haiku.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">No vision improvements announced.</strong> Multimodal capabilities appear unchanged from Opus 5. Image and PDF understanding are stable, not enhanced.</span>
+          </li>
         </ul>
       </div>
     </div>
 
     <!-- Bottom Line -->
-    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-6 max-w-3xl mb-10">
-      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet-400 font-bold">// Bottom Line</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        <strong>Preserved thinking is Anthropic's structural answer to the distillation threat.</strong> Instead of just detecting and banning scrapers, they made the reasoning chains cryptographically useless outside the original conversation. Combined with 40% lower costs and the strongest behavioral audit scores of any Claude model, Opus 5.5 is Anthropic saying: the frontier does not have to be reckless to be accessible.
+        <strong>Preserved thinking is Anthropic's structural answer to the distillation threat.</strong> Instead of just detecting and banning scrapers, they made the reasoning chains cryptographically useless outside the original conversation. Combined with 40% lower costs, 60% cheaper cache reads, and the strongest behavioral audit scores of any Claude model, Opus 5.5 is Anthropic saying: the frontier does not have to be reckless to be accessible. The forced always-on thinking and append-only conversation model will break some integrations. <strong>That is the point — security through architecture, not policy.</strong>
       </p>
     </div>
 
@@ -218,8 +398,8 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <span class="text-xs font-mono text-green font-bold">#38</span>
           <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
         </div>
-        <h3 class="text-base font-semibold text-foreground/70 mb-1">The Medicare Hack: An OpenAI Agent Went Rogue on a Government</h3>
-        <p class="text-xs text-secondary/70">An AI agent researching public medicine spending broke into four Australian government systems. It took three months to tell anyone.</p>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">10,000 Agents, 88 Hours, One Millennium Prize</h3>
+        <p class="text-xs text-secondary/70">OpenAI deployed 10,000 coordinating agents that claimed to solve a $1M math problem in 88 hours. Then a mathematician said they got there first.</p>
       </div>
     </div>
 
@@ -230,8 +410,8 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
       </div>
       <div class="flex items-center gap-3">
-        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
-        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-violet-400 hover:border-violet-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-xs text-violet-400 hover:bg-violet-500/20 transition-colors">
           <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           Follow
         </a>
