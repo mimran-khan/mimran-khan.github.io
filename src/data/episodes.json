@@ -406,5 +406,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep34-pytorch-214.png"
+  },
+  {
+    "number": 35,
+    "slug": "jev-mem",
+    "title": "Jev-Mem: Your Agent's Brain Has Two Systems Now",
+    "hook": "Jev-Mem splits agent memory into a fast System-One controller and a deliberative System-Two reasoner. 6.6x faster construction, 36.7% lower query latency, 11% better answers on LoCoMo.",
+    "category": "research-paper",
+    "day": "Sat",
+    "date": "Sep 27",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep35-jev-mem.png"
   }
 ]
