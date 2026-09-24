@@ -176,9 +176,53 @@ import ShareButtons from '../../../components/ShareButtons.astro';
       </div>
     </div>
 
-    <p class="text-sm text-foreground/80 leading-relaxed mb-10 max-w-3xl">
+    <p class="text-sm text-foreground/80 leading-relaxed mb-6 max-w-3xl">
       Luna is the sleeper here. At max effort, it scores <strong>66.6% on DeepSWE</strong>, matching Claude Opus 5 and Fable 5 at medium effort, while slashing task costs by <strong>93-96%</strong>. For background agent workflows that run thousands of tasks, Luna changes the math entirely.
     </p>
+
+    <div class="overflow-x-auto mb-10 max-w-3xl">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="border-b border-border">
+            <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Benchmark</th>
+            <th class="text-center py-3 px-3 text-cyan font-mono font-bold">Sol</th>
+            <th class="text-center py-3 px-3 text-cyan font-mono font-bold">Luna</th>
+            <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Opus 5.5</th>
+            <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Fable 5.1</th>
+          </tr>
+        </thead>
+        <tbody class="text-foreground/80">
+          <tr class="border-b border-border/50">
+            <td class="py-2.5 px-3">DeepSWE v1.1</td>
+            <td class="py-2.5 px-3 text-center text-cyan font-bold">68.8%</td>
+            <td class="py-2.5 px-3 text-center text-cyan">66.6%</td>
+            <td class="py-2.5 px-3 text-center">64.1%</td>
+            <td class="py-2.5 px-3 text-center">69.9%</td>
+          </tr>
+          <tr class="border-b border-border/50">
+            <td class="py-2.5 px-3">FrontierCode</td>
+            <td class="py-2.5 px-3 text-center text-cyan font-bold">33.2%</td>
+            <td class="py-2.5 px-3 text-center text-cyan">28.1%</td>
+            <td class="py-2.5 px-3 text-center">26.9%</td>
+            <td class="py-2.5 px-3 text-center">31.5%</td>
+          </tr>
+          <tr class="border-b border-border/50">
+            <td class="py-2.5 px-3">GPQA Diamond</td>
+            <td class="py-2.5 px-3 text-center text-cyan font-bold">79.3%</td>
+            <td class="py-2.5 px-3 text-center text-cyan">71.2%</td>
+            <td class="py-2.5 px-3 text-center">74.6%</td>
+            <td class="py-2.5 px-3 text-center">77.8%</td>
+          </tr>
+          <tr>
+            <td class="py-2.5 px-3">Cost/task (DeepSWE)</td>
+            <td class="py-2.5 px-3 text-center text-cyan font-bold">$0.27</td>
+            <td class="py-2.5 px-3 text-center text-cyan">$0.03</td>
+            <td class="py-2.5 px-3 text-center">$1.04</td>
+            <td class="py-2.5 px-3 text-center">$2.41</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Section 3: Honesty -->
     <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
@@ -287,6 +331,57 @@ import ShareButtons from '../../../components/ShareButtons.astro';
           <li>&#x2022; Better warning compliance (42.4%)</li>
         </ul>
       </div>
+    </div>
+
+    <!-- Quick Start -->
+    <h2 class="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
+      <span class="text-cyan font-mono text-sm">#</span> Quick Start
+    </h2>
+
+    <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6 max-w-3xl">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-[10px] font-mono text-cyan font-bold">MIGRATE FROM GPT-5.6 TO SOL / LUNA</span>
+      </div>
+      <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">from openai import OpenAI</span>
+<span class="text-secondary">client = OpenAI()</span>
+
+<span class="text-green font-bold"># Before: GPT-5.6 Sol ($4/$20)</span>
+<span class="text-secondary"># model="gpt-5.6-sol-20260601"</span>
+
+<span class="text-cyan font-bold"># After: GPT-6 Sol ($2/$10) — drop-in replacement</span>
+<span class="text-secondary">response = client.chat.completions.create(</span>
+<span class="text-secondary">    model="gpt-6-sol-20260922",</span>
+<span class="text-secondary">    messages=[&#123;"role": "user", "content": prompt&#125;],</span>
+<span class="text-secondary">    reasoning_effort="high"  # new: low|medium|high</span>
+<span class="text-secondary">)</span>
+
+<span class="text-cyan font-bold"># Luna for high-volume background tasks</span>
+<span class="text-secondary">batch_response = client.chat.completions.create(</span>
+<span class="text-secondary">    model="gpt-6-luna-20260922",</span>
+<span class="text-secondary">    messages=[&#123;"role": "user", "content": classify_prompt&#125;],</span>
+<span class="text-secondary">    reasoning_effort="medium"  # save tokens on simple tasks</span>
+<span class="text-secondary">)</span></pre>
+    </div>
+
+    <!-- Limitations -->
+    <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 max-w-3xl mb-10">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-[10px] font-mono text-yellow-400 font-bold">LIMITATIONS</span>
+      </div>
+      <ul class="space-y-1.5 mb-0">
+        <li class="flex items-start gap-2">
+          <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+          <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Warning circumvention is still high.</strong> Sol: 64.4%, barely improved from 68.2%. If you deploy Sol in autonomous agent loops, external guardrails are mandatory.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+          <span class="text-[11px] text-secondary"><strong class="text-yellow-400">No structured output improvements.</strong> JSON mode and function calling are unchanged from GPT-5.6. Hallucinated schema fields remain a known issue at scale.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+          <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Context window unchanged at 1.05M.</strong> The same as GPT-5.6. Effective attention over very long context has not been independently validated beyond OpenAI's claims.</span>
+        </li>
+      </ul>
     </div>
 
     <!-- Bottom Line -->
