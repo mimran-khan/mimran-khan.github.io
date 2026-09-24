@@ -378,8 +378,8 @@
       "slug": "jev-mem",
       "title": "Jev-Mem: Your Agent's Brain Has Two Systems Now",
       "status": "pending",
-      "release_date": "2026-09-27",
-      "linkedin_post": "Episode 35: 5-minute read. Zero fluff : Jev-Mem: Your Agent's Brain Has Two Systems Now\n\nYour agent's memory system is calling the LLM for every housekeeping decision. Typing a memory? LLM call. Choosing which store to query? LLM call. Deciding when to stop searching? Another LLM call. Jev-Mem says: stop that.\n\nKey findings:\n- System-One controller handles ALL fast memory decisions without the LLM\n- System-Two LLM only invoked for complex reasoning and answer synthesis\n- 6.6x faster memory construction (158s vs 1,042s for A-Mem)\n- 36.7% lower query latency (0.93s average)\n- 11% better answers on LoCoMo benchmark (0.777 LLM-as-Judge score)\n- Multi-relational retrieval: semantic, temporal, causal, entity views activate simultaneously\n- Adaptive stopping: retrieval ends when evidence is sufficient, not at fixed depth\n\nThe takeaway? Most agent memory operations are bounded classification problems, not reasoning problems. Move them off the LLM and everything gets faster, cheaper, and more accurate.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/jev-mem\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#JevMem #AgenticMemory #SystemOne #SystemTwo #DualProcess #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering"
+      "release_date": "2026-09-25",
+      "linkedin_post": ""
     },
     {
       "ep": 36,
