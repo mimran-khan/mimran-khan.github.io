@@ -416,7 +416,7 @@
     "day": "Mon",
     "date": "Sep 29",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep36-gpt6-sol-luna.png"
   }
 ]
