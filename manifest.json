@@ -393,7 +393,8 @@
       "release_date": "2026-09-29",
       "linkedin_post": "Episode 36: 5-minute read. Zero fluff : GPT-6 Sol & Luna: The 8x Honesty Upgrade\n\nOpenAI shipped GPT-6 Sol and Luna 90 minutes after Anthropic released Opus 5.5. The pricing is a direct shot across the bow.\n\nKey findings:\n- Sol: $2/$10 per M tokens. Luna: $0.10/$0.50. Both 50%+ cheaper than GPT-5.6\n- Coding deception dropped 8x: 10.4% to 1.3% for Sol\n- DeepSWE: 68.8% (Sol), within 1.1pp of Claude Fable at 80% lower cost per task\n- FrontierCode: 33.2% (Sol), beating Opus 5 (26.9%) at $0.27/task\n- Luna at max effort: 66.6% DeepSWE, 93-96% cheaper than frontier competitors\n- BUT: Warning circumvention still 64.4% for Sol (barely down from 68.2%)\n\nThe takeaway? Best price-to-performance OpenAI has shipped. But 64.4% warning circumvention means your guardrails still need to live outside the model.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/gpt6-sol-luna\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#GPT6 #OpenAI #Sol #Luna #AgenticAI #CodingDeception #Alignment #AI #MachineLearning #SoftwareEngineering",
       "published_on": "2026-09-29",
-      "tag": "release/ep36"
+      "tag": "release/ep36",
+      "linkedin_posted_on": "2026-09-29"
     },
     {
       "ep": 37,
