@@ -416,7 +416,7 @@
     "day": "Wed",
     "date": "Oct 1",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep37-claude-opus55.png"
   }
 ]
