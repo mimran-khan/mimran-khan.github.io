@@ -6,6 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 
 const episodes = JSON.parse(readFileSync(resolve(root, 'src/data/episodes.json'), 'utf-8'));
+const manifest = JSON.parse(readFileSync(resolve(root, 'manifest.json'), 'utf-8'));
 const BASE = 'https://mimran-khan.github.io';
 const today = new Date().toISOString().slice(0, 10);
 
@@ -15,12 +16,23 @@ const blogUrls = [
   { loc: '/blog/deltaforge', lastmod: '2026-06-05', changefreq: 'monthly', priority: '0.8' },
 ];
 
+const publishedManifest = new Map(
+  manifest.episodes
+    .filter(e => e.status === 'published' && e.published_on)
+    .map(e => [e.slug, e.published_on])
+);
+
 const publishedEps = episodes.filter(ep => ep.published);
 
 const dateFromEp = (ep) => {
+  if (publishedManifest.has(ep.slug)) return publishedManifest.get(ep.slug);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(ep.date)) return ep.date;
   const months = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
-  const [mon, day] = ep.date.split(' ');
-  return `2026-${months[mon]}-${day.padStart(2, '0')}`;
+  const parts = (ep.date || '').split(' ');
+  if (parts.length === 2 && months[parts[0]]) {
+    return `2026-${months[parts[0]]}-${parts[1].padStart(2, '0')}`;
+  }
+  return today;
 };
 
 const episodeUrls = publishedEps.map(ep => ({
