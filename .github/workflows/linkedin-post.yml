@@ -53,8 +53,20 @@ jobs:
             manifest.json)
 
           if [ "$PUBLISHED_TODAY" = "0" ]; then
-            echo "No episode published today. Release has not run yet or did not succeed."
-            echo "pass=false" >> "$GITHUB_OUTPUT"
+            echo "No episode published today (IST $TODAY_IST). Nothing to post. Exiting cleanly."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Check dedup EARLY — avoid unnecessary site checks
+          EP=$(jq -r --arg t "$TODAY_IST" \
+            '.episodes[] | select(.status == "published" and .published_on == $t) | .ep' \
+            manifest.json | tail -1)
+          ALREADY_POSTED=$(jq -r --argjson n "$EP" --arg t "$TODAY_IST" \
+            '.episodes[] | select(.ep == $n) | .linkedin_posted_on // empty' manifest.json)
+          if [ "$ALREADY_POSTED" = "$TODAY_IST" ]; then
+            echo "EP$EP already posted to LinkedIn on $TODAY_IST. Exiting cleanly (dedup)."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -67,15 +79,15 @@ jobs:
 
           if [ "$STATUS" != "200" ]; then
             echo "Article $URL is not live yet (HTTP $STATUS). Release deploy may still be in progress."
-            echo "pass=false" >> "$GITHUB_OUTPUT"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          echo "Gate passed: EP published today, article live (HTTP 200)"
-          echo "pass=true" >> "$GITHUB_OUTPUT"
+          echo "Gate passed: EP$EP published today, article live (HTTP 200), not yet posted"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
 
       - name: Find today's published episode
-        if: steps.gate.outputs.pass == 'true'
+        if: steps.gate.outputs.skip != 'true'
         id: find
         run: |
           TODAY_IST=$(TZ=Asia/Kolkata date +'%Y-%m-%d')
@@ -257,13 +269,59 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: Create GitHub issue on LinkedIn failure
+      - name: Checkout (for manifest check)
+        uses: actions/checkout@v4
+
+      - name: Create GitHub issue on LinkedIn failure (only if a real failure)
         uses: actions/github-script@v7
         with:
           script: |
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const fs = require('fs');
             const todayIst = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+
+            // Don't create issues for non-release days or already-posted episodes
+            try {
+              const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf-8'));
+              const publishedToday = manifest.episodes.filter(
+                e => e.status === 'published' && e.published_on === todayIst
+              );
+              if (publishedToday.length === 0) {
+                console.log('No episode published today — skipping issue creation');
+                return;
+              }
+              const alreadyPosted = publishedToday.every(
+                e => e.linkedin_posted_on === todayIst
+              );
+              if (alreadyPosted) {
+                console.log('All episodes already posted — skipping issue creation');
+                return;
+              }
+            } catch (e) {
+              console.log('Could not read manifest, creating issue anyway');
+            }
+
+            // Deduplicate: check for existing open issue with same title
             const title = `🚨 LinkedIn Post failed — IST ${todayIst}`;
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'linkedin-failure',
+              per_page: 10,
+            });
+            const duplicate = existing.data.find(i => i.title === title);
+            if (duplicate) {
+              const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: duplicate.number,
+                body: `Retry also failed: ${runUrl}`,
+              });
+              return;
+            }
+
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const body = [
               '## LinkedIn Post pipeline failure',
               '',

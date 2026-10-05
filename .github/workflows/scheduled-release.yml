@@ -243,7 +243,9 @@ jobs:
           git checkout "$BRANCH"
           git rebase origin/main || {
             echo "Rebase had conflicts, resolving episodes.json with main's version..."
-            git checkout --theirs src/data/episodes.json 2>/dev/null || true
+            # In rebase context: --ours = new base (main), --theirs = commit being replayed (branch)
+            # We want main's episodes.json as the base, then the reconciliation step adds the new episode
+            git checkout --ours src/data/episodes.json 2>/dev/null || true
             git add src/data/episodes.json
             GIT_EDITOR=true git rebase --continue || true
           }
@@ -254,9 +256,11 @@ jobs:
         run: |
           BRANCH="${{ steps.find.outputs.branch }}"
           git merge "$BRANCH" --no-edit -m "release: Episode ${{ steps.find.outputs.ep }} - ${{ steps.find.outputs.title }}" || {
-            echo "Merge conflict detected. Auto-resolving episodes.json..."
+            echo "Merge conflict detected. Auto-resolving episodes.json with main's version..."
+            # In merge context: --ours = current branch (main), --theirs = branch being merged (episode)
+            # We want main's episodes.json as base, then reconciliation step adds the new episode
             if git diff --name-only --diff-filter=U | grep -q 'src/data/episodes.json'; then
-              git checkout --theirs src/data/episodes.json
+              git checkout --ours src/data/episodes.json
               git add src/data/episodes.json
             fi
             git -c core.editor=true merge --continue
@@ -330,25 +334,55 @@ jobs:
         if: steps.find.outputs.skip != 'true'
         run: |
           EP_NUM=${{ steps.find.outputs.ep }}
+          SLUG="${{ steps.find.outputs.slug }}"
           node -e "
             const fs = require('fs');
             const eps = JSON.parse(fs.readFileSync('src/data/episodes.json', 'utf-8'));
-
             const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf-8'));
+            const existingNums = new Set(eps.map(e => e.number));
+
+            // Mark all published episodes
             const publishedEps = new Set(
               manifest.episodes
                 .filter(e => e.status === 'published')
                 .map(e => e.ep)
             );
-
             eps.forEach(e => {
               if (publishedEps.has(e.number) || e.number === ${EP_NUM}) {
                 e.published = true;
               }
             });
 
+            // ADD any missing published episodes from manifest that aren't in episodes.json
+            const months = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'};
+            manifest.episodes
+              .filter(e => (e.status === 'published' || e.ep === ${EP_NUM}) && !existingNums.has(e.ep))
+              .forEach(me => {
+                const d = me.published_on || me.release_date || '';
+                const parts = d.split('-');
+                const dateStr = parts.length === 3 ? months[parseInt(parts[1])] + ' ' + parseInt(parts[2]) : d;
+                const dayNames = {0:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};
+                const dayStr = d ? dayNames[new Date(d + 'T12:00:00').getDay()] : 'Mon';
+                eps.push({
+                  number: me.ep,
+                  slug: me.slug,
+                  title: me.title,
+                  hook: me.title,
+                  category: 'hot-topic',
+                  day: dayStr,
+                  date: dateStr,
+                  readTime: '5 min',
+                  published: true,
+                  image: '/series/ep' + String(me.ep).padStart(2,'0') + '-' + me.slug + '.png'
+                });
+                console.log('Added missing EP' + me.ep + ' (' + me.slug + ') to episodes.json');
+              });
+
+            // Sort by episode number
+            eps.sort((a, b) => a.number - b.number);
+
             fs.writeFileSync('src/data/episodes.json', JSON.stringify(eps, null, 2) + '\n');
-            console.log('Reconciled episodes.json - all published episodes preserved');
+            console.log('Reconciled episodes.json — ' + eps.length + ' episodes, all published preserved');
           "
           git add src/data/episodes.json
 
