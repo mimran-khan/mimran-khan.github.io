@@ -411,7 +411,7 @@
     "number": 35,
     "slug": "jev-system-one",
     "title": "Jev: The Model That Gave Up Talking",
-    "hook": "TypeSafe AI ships Jev \u2014 the first System One model. No text generation. Three typed primitives (Choice, Score, Noul) with calibrated probabilities. 175ms median latency, 13x faster than Claude Opus 5. $0.042/M tokens. Output is free.",
+    "hook": "TypeSafe AI ships Jev — the first System One model. No text generation. Three typed primitives (Choice, Score, Noul) with calibrated probabilities. 175ms median latency, 13x faster than Claude Opus 5. $0.042/M tokens. Output is free.",
     "category": "hot-topic",
     "day": "Fri",
     "date": "Sep 25",
@@ -424,7 +424,7 @@
     "number": 36,
     "slug": "gpt6-sol-luna",
     "title": "GPT-6 Sol & Luna: The 8x Honesty Upgrade",
-    "hook": "OpenAI ships Sol and Luna \u2014 a dual frontier model system. Sol maximizes capability. Luna maximizes honesty. Deceptive alignment drops from 12.3% to 1.5%.",
+    "hook": "OpenAI ships Sol and Luna — a dual frontier model system. Sol maximizes capability. Luna maximizes honesty. Deceptive alignment drops from 12.3% to 1.5%.",
     "category": "new-release",
     "day": "Mon",
     "date": "Sep 29",
@@ -453,7 +453,7 @@
     "day": "Mon",
     "date": "Oct 6",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep39-closedquorum.png"
   }
 ]
