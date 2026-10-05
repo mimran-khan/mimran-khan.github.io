@@ -440,7 +440,7 @@
       "status": "published",
       "release_date": "2026-10-05",
       "linkedin_post": "Episode 40: 5-minute read. Zero fluff : Meta Connect: Personal Superintelligence on a Keychain\n\nMeta Connect 2026 shipped three things that change the consumer AI landscape: Muse Charm (an AI companion on a keychain), Realtime Avatar (2.5ms per frame), and Mac computer use for Llama.\n\nKey findings:\n- Muse Charm: keychain-sized AI companion with voice, personality, and persistent memory\n- Realtime Avatar: 2.5ms per frame. 870ms end-to-end latency. 12 sessions per GB200\n- Mac computer use: Llama-based agent that controls your Mac desktop\n- Shopify and retail connectors for business workflow automation\n- 'Personal superintelligence for billions' - Zuckerberg's pitch\n\nThe takeaway? Meta is betting that AI companions will be physical objects you carry, not apps you open. The hardware play is the distribution play.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/meta-muse-charm\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#MetaConnect #MuseCharm #RealtimeAvatar #Meta #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering",
-      "linkedin_posted_on": "2026-10-05-skipped",
+      "linkedin_posted_on": "2026-10-05",
       "published_on": "2026-10-05",
       "tag": "release/ep40"
     },
