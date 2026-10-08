@@ -478,5 +478,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep40-meta-muse-charm.png"
+  },
+  {
+    "number": 41,
+    "slug": "atria-dawn",
+    "title": "Atria Dawn: 744B Open-Weight Agentic Superintelligence",
+    "hook": "Atria Dawn: 744B Open-Weight Agentic Superintelligence",
+    "category": "hot-topic",
+    "day": "Wed",
+    "date": "Oct 7",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep41-atria-dawn.png"
   }
 ]

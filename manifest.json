@@ -379,7 +379,7 @@
       "title": "Jev: The Model That Gave Up Talking",
       "status": "published",
       "release_date": "2026-09-23",
-      "linkedin_post": "Episode 35: 5-minute read. Zero fluff : Jev: The Model That Gave Up Talking\n\nTypeSafe AI just shipped Jev \u2014 the first \"System One\" model. It doesn't generate text. It makes typed decisions with calibrated probabilities. And it can't hallucinate by design.\n\nKey facts:\n- Built by Diogo Almeida (ex-OpenAI, co-inventor of RLHF behind ChatGPT)\n- $40M seed from DCVC after 2 years in stealth\n- Three primitives: Choice (pick from options), Score (ordered scale), Noul (yes/no probability)\n- 175ms median latency \u2014 13x faster than Claude Opus 5 on classification\n- $0.042 per million input tokens. Output is FREE\n- 81% accuracy on Banking77 (77-way intent) vs Opus 5's 84.4%\n- Already on Vercel AI Gateway, OpenRouter, and Cloudflare\n- TypeScript SDK with full type inference \u2014 no JSON.parse, no retry loops\n\nThe insight: most decisions in software don't need text generation. They need a typed answer and a confidence score. If your agent calls an LLM just to classify, route, gate, or filter \u2014 Jev does it in 175ms for almost nothing.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/jev-system-one\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Jev #TypeSafeAI #SystemOne #DecisionModel #AI #MachineLearning #AgenticAI #SoftwareEngineering #RLCD #Kahneman",
+      "linkedin_post": "Episode 35: 5-minute read. Zero fluff : Jev: The Model That Gave Up Talking\n\nTypeSafe AI just shipped Jev — the first \"System One\" model. It doesn't generate text. It makes typed decisions with calibrated probabilities. And it can't hallucinate by design.\n\nKey facts:\n- Built by Diogo Almeida (ex-OpenAI, co-inventor of RLHF behind ChatGPT)\n- $40M seed from DCVC after 2 years in stealth\n- Three primitives: Choice (pick from options), Score (ordered scale), Noul (yes/no probability)\n- 175ms median latency — 13x faster than Claude Opus 5 on classification\n- $0.042 per million input tokens. Output is FREE\n- 81% accuracy on Banking77 (77-way intent) vs Opus 5's 84.4%\n- Already on Vercel AI Gateway, OpenRouter, and Cloudflare\n- TypeScript SDK with full type inference — no JSON.parse, no retry loops\n\nThe insight: most decisions in software don't need text generation. They need a typed answer and a confidence score. If your agent calls an LLM just to classify, route, gate, or filter — Jev does it in 175ms for almost nothing.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/jev-system-one\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Jev #TypeSafeAI #SystemOne #DecisionModel #AI #MachineLearning #AgenticAI #SoftwareEngineering #RLCD #Kahneman",
       "published_on": "2026-09-25",
       "tag": "release/ep35",
       "linkedin_posted_on": "2026-09-25"
@@ -415,7 +415,7 @@
       "title": "10,000 Agents, 88 Hours, One Millennium Prize",
       "status": "published",
       "release_date": "2026-09-30",
-      "linkedin_post": "\ud83e\uddee 10,000 AI agents. 88 hours. One $1M math problem.\n\nOpenAI deployed ~10,000 coordinating agents that claimed to solve the Navier-Stokes Millennium Prize Problem \u2014 unsolved for 90 years.\n\nThe numbers:\n\u2192 130 billion output tokens\n\u2192 2.7 million messages\n\u2192 Lean-verified in 17 hours\n\u2192 Model: unreleased, 'significantly more capable than GPT-6 Astra'\n\nThen an NYU professor said OpenAI started AFTER hearing about his progress on the same problem \u2014 using OpenAI's own Codex tool.\n\nBroke it down in 5 minutes \u2193\n\n\ud83d\udd17 https://mimran-khan.github.io/series/demystifying-ai/navier-stokes\n\n#AI #NavierStokes #MillenniumPrize #OpenAI #Mathematics #DemystifyingAI",
+      "linkedin_post": "🧮 10,000 AI agents. 88 hours. One $1M math problem.\n\nOpenAI deployed ~10,000 coordinating agents that claimed to solve the Navier-Stokes Millennium Prize Problem — unsolved for 90 years.\n\nThe numbers:\n→ 130 billion output tokens\n→ 2.7 million messages\n→ Lean-verified in 17 hours\n→ Model: unreleased, 'significantly more capable than GPT-6 Astra'\n\nThen an NYU professor said OpenAI started AFTER hearing about his progress on the same problem — using OpenAI's own Codex tool.\n\nBroke it down in 5 minutes ↓\n\n🔗 https://mimran-khan.github.io/series/demystifying-ai/navier-stokes\n\n#AI #NavierStokes #MillenniumPrize #OpenAI #Mathematics #DemystifyingAI",
       "published_on": "2026-10-05",
       "tag": "release/ep38",
       "linkedin_posted_on": "2026-10-05"
@@ -449,10 +449,12 @@
       "branch": "ep41",
       "slug": "atria-dawn",
       "title": "Atria Dawn: 744B Open-Weight Agentic Superintelligence",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-10-07",
       "linkedin_post": "Episode 41: 5-minute read. Zero fluff : Atria Dawn: 744B Open-Weight Agentic Superintelligence\n\nShanghai AI Lab quietly dropped a 744B MoE agentic model under MIT license with no blog post. Then 140 authors published the technical report.\n\nKey findings:\n- 744B MoE built on GLM-5.2 with 256K context window\n- MIT license - fully open weights on HuggingFace and ModelScope\n- #1 on 5 of 16 benchmarks across research, engineering, digital work\n- Verifiable Experience Pipeline: learns from actions that can be checked, not just text\n- 769 human-AI task records: 1/3 of tasks rated 'infeasible without AI'\n- Four capability areas: Discovery, Creation, Delivery, Cybersecurity\n- BF16 and FP8 releases. Serves on SGLang v0.5.13+ or vLLM v0.23.0+\n\nThe takeaway? An open-weight agent model at this scale under MIT is unprecedented. No permission needed. The agentic future just got a lot more accessible.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/atria-dawn\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AtriaDawn #OpenWeight #AgenticAI #ShanghaiAILab #MoE #AI #MachineLearning #LLMs #SoftwareEngineering",
-      "linkedin_posted_on": "2026-10-07"
+      "linkedin_posted_on": "2026-10-07",
+      "published_on": "2026-10-08",
+      "tag": "release/ep41"
     },
     {
       "ep": 42,
