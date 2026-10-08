@@ -1,0 +1,354 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Transformers + GGUF: Local Inference Goes Native | Demystifying AI in 5 Minutes"
+  description="HuggingFace Transformers now loads GGUF quantized models natively. No llama.cpp wrapper. Direct torch integration. One line from GGUF to transformers pipeline."
+  image="/og-series-ep44-transformers-gguf.png"
+  keywords="Transformers, GGUF, HuggingFace, local inference, quantization, llama.cpp, torch, edge AI, on-device"
+  publishedDate="2026-10-18"
+  articleSection="Demystifying AI"
+  articleTags={["Transformers", "GGUF", "HuggingFace", "Local Inference", "Quantization", "On-Device AI"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
+    .feat-card { transition: all 0.3s ease; }
+    .feat-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(6, 182, 212, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep44-transformers-gguf.png" alt="Transformers + GGUF: Local Inference Goes Native" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 44
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 18, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Transformers + GGUF: Local Inference Goes Native
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        HuggingFace Transformers now loads GGUF quantized models natively. No llama.cpp wrapper. No separate runtime. One line from a GGUF file to a full transformers pipeline with all the tooling you already know.
+      </p>
+
+      <ShareButtons title="Transformers + GGUF: Local Inference Goes Native" url="/series/demystifying-ai/transformers-gguf" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        HuggingFace <strong>Transformers v4.48</strong> adds native GGUF support. Pass a <code class="text-xs bg-background px-1 py-0.5 rounded">.gguf</code> file path to <code class="text-xs bg-background px-1 py-0.5 rounded">AutoModelForCausalLM.from_pretrained()</code> and get a quantized model loaded directly into PyTorch. <strong>No llama.cpp binary. No ctransformers. No GGML runtime.</strong> You get HuggingFace's full ecosystem: <code class="text-xs bg-background px-1 py-0.5 rounded">pipeline()</code>, <code class="text-xs bg-background px-1 py-0.5 rounded">generate()</code>, <code class="text-xs bg-background px-1 py-0.5 rounded">Trainer</code>, PEFT/LoRA, Flash Attention 2, and <strong>all existing integrations</strong>. GGUF just became a first-class citizen.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">1 line</div>
+        <div class="text-[10px] font-mono text-secondary">GGUF → Pipeline</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">Q2-Q8</div>
+        <div class="text-[10px] font-mono text-secondary">Quant Levels</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">70%</div>
+        <div class="text-[10px] font-mono text-secondary">Memory Savings</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">v4.48</div>
+        <div class="text-[10px] font-mono text-secondary">Transformers</div>
+      </div>
+    </div>
+
+    <!-- Before / After -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Before vs After
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        If you have ever tried to use a GGUF model in a Python project that already uses HuggingFace Transformers, you know the pain. Different APIs, different tokenizer handling, C++ compilation errors, and zero integration with the tools you rely on. That is over now.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 feat-card">
+          <span class="text-xs font-mono text-red-400 font-bold block mb-3">BEFORE: THE OLD GGUF WORKFLOW</span>
+          <div class="space-y-2 text-[11px] text-foreground/70 font-mono">
+            <p>1. Download GGUF from HuggingFace</p>
+            <p>2. pip install llama-cpp-python</p>
+            <p>3. Fix C++ build errors (cmake, gcc...)</p>
+            <p>4. Learn a completely different API</p>
+            <p>5. Lose generate(), Trainer, PEFT</p>
+            <p>6. Write custom glue code for pipelines</p>
+            <p>7. Debug two runtimes (Python + C++)</p>
+            <p>8. No Flash Attention support</p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-5 feat-card">
+          <span class="text-xs font-mono text-cyan font-bold block mb-3">AFTER: NATIVE GGUF (v4.48)</span>
+          <div class="space-y-2 text-[11px] text-foreground/70 font-mono">
+            <p>1. pip install transformers>=4.48</p>
+            <p class="text-cyan">2. model = AutoModelForCausalLM</p>
+            <p class="text-cyan">&nbsp;&nbsp;&nbsp;.from_pretrained("model.gguf")</p>
+            <p>3. That's it.</p>
+            <p class="text-foreground/40">→ Full generate() support</p>
+            <p class="text-foreground/40">→ Full pipeline() support</p>
+            <p class="text-foreground/40">→ Full PEFT / LoRA support</p>
+            <p class="text-foreground/40">→ Flash Attention 2 compatible</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Examples -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Quick Start
+      </h2>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">BASIC: LOAD AND GENERATE</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline</span>
+
+<span class="text-cyan font-bold"># Load a GGUF file directly — that's it</span>
+<span class="text-secondary">model = AutoModelForCausalLM.from_pretrained(</span>
+<span class="text-secondary">    "TheBloke/Llama-3-8B-GGUF",</span>
+<span class="text-secondary">    gguf_file="llama-3-8b.Q4_K_M.gguf",</span>
+<span class="text-secondary">    device_map="auto"</span>
+<span class="text-secondary">)</span>
+<span class="text-secondary">tokenizer = AutoTokenizer.from_pretrained(</span>
+<span class="text-secondary">    "TheBloke/Llama-3-8B-GGUF",</span>
+<span class="text-secondary">    gguf_file="llama-3-8b.Q4_K_M.gguf"</span>
+<span class="text-secondary">)</span>
+
+<span class="text-cyan font-bold"># Use the standard pipeline — nothing changes downstream</span>
+<span class="text-secondary">pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)</span>
+<span class="text-secondary">result = pipe("Explain quantum computing in one paragraph:")</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">ADVANCED: FINE-TUNE A QUANTIZED MODEL WITH LORA</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">from peft import LoraConfig, get_peft_model</span>
+<span class="text-secondary">from transformers import TrainingArguments, Trainer</span>
+
+<span class="text-cyan font-bold"># Load Q4 GGUF model (previously impossible without FP16 conversion)</span>
+<span class="text-secondary">model = AutoModelForCausalLM.from_pretrained(</span>
+<span class="text-secondary">    "model.Q4_K_M.gguf", device_map="auto"</span>
+<span class="text-secondary">)</span>
+
+<span class="text-cyan font-bold"># Attach LoRA adapter — works on quantized weights</span>
+<span class="text-secondary">lora_config = LoraConfig(r=16, lora_alpha=32,</span>
+<span class="text-secondary">    target_modules=["q_proj", "v_proj"])</span>
+<span class="text-secondary">model = get_peft_model(model, lora_config)</span>
+
+<span class="text-cyan font-bold"># Train with standard Trainer — your existing code works</span>
+<span class="text-secondary">trainer = Trainer(model=model, args=TrainingArguments(</span>
+<span class="text-secondary">    output_dir="./lora-output", num_train_epochs=3</span>
+<span class="text-secondary">), train_dataset=my_dataset)</span>
+<span class="text-secondary">trainer.train()</span></pre>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        The LoRA fine-tuning on quantized GGUF models is the killer feature. Previously, you had to convert GGUF back to FP16 (doubling memory), then quantize again after training. Now the entire workflow stays quantized. A 7B model fine-tunes in 6GB of VRAM.
+      </p>
+    </div>
+
+    <!-- Supported Formats -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> What's Supported
+      </h2>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">QUANTIZATION FORMAT SUPPORT</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+          <div class="rounded-lg border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+            <div class="text-xs font-bold text-cyan">Q2_K</div>
+            <div class="text-[10px] text-secondary mt-1">2-bit | Ultra compact</div>
+          </div>
+          <div class="rounded-lg border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+            <div class="text-xs font-bold text-cyan">Q4_K_M</div>
+            <div class="text-[10px] text-secondary mt-1">4-bit | Best balance</div>
+          </div>
+          <div class="rounded-lg border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+            <div class="text-xs font-bold text-cyan">Q5_K_M</div>
+            <div class="text-[10px] text-secondary mt-1">5-bit | Higher quality</div>
+          </div>
+          <div class="rounded-lg border border-cyan/20 bg-cyan/[0.03] p-3 text-center">
+            <div class="text-xs font-bold text-cyan">Q8_0</div>
+            <div class="text-[10px] text-secondary mt-1">8-bit | Near lossless</div>
+          </div>
+        </div>
+        <div class="space-y-1.5 text-[11px] text-foreground/60">
+          <p>&#x2713; <strong>Architectures:</strong> Llama, Mistral, Phi, Qwen, Gemma, StableLM, GPT-NeoX, Falcon</p>
+          <p>&#x2713; <strong>Features:</strong> generate(), pipeline(), PEFT/LoRA, Trainer, Flash Attention 2</p>
+          <p>&#x2713; <strong>Devices:</strong> CPU, CUDA, MPS (Apple Silicon), ROCm (AMD)</p>
+          <p>&#x2713; <strong>Inference:</strong> vLLM integration planned for v4.49</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Model (7B)</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">FP16</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Q8_0</th>
+              <th class="text-center py-3 px-3 text-cyan font-mono font-bold">Q4_K_M</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Q2_K</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Memory</td>
+              <td class="py-2.5 px-3 text-center">14.0 GB</td>
+              <td class="py-2.5 px-3 text-center">7.2 GB</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">4.1 GB</td>
+              <td class="py-2.5 px-3 text-center">2.8 GB</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Perplexity (wiki)</td>
+              <td class="py-2.5 px-3 text-center">5.42</td>
+              <td class="py-2.5 px-3 text-center">5.44</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">5.68</td>
+              <td class="py-2.5 px-3 text-center">6.91</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3">Runs on</td>
+              <td class="py-2.5 px-3 text-center">RTX 4090</td>
+              <td class="py-2.5 px-3 text-center">RTX 3060</td>
+              <td class="py-2.5 px-3 text-center text-cyan font-bold">M2 Air 8GB</td>
+              <td class="py-2.5 px-3 text-center">Raspberry Pi 5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Why it Matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Why This Changes Everything
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F50C;</span>
+            <span class="text-xs font-bold text-foreground">One ecosystem, one API</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">GGUF models were second-class citizens in the Python ML ecosystem. Now they're first-class. Same API, same tokenizer handling, same generation config. Your existing transformers code works with zero changes.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4BB;</span>
+            <span class="text-xs font-bold text-foreground">Fine-tune quantized models</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Load a Q4 GGUF, attach a LoRA adapter, fine-tune on your data, export. Previously required converting to FP16 first (2x memory). Now the workflow stays quantized end-to-end. A 7B model fine-tunes in 6GB VRAM.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F34E;</span>
+            <span class="text-xs font-bold text-foreground">Apple Silicon first-class</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">MPS backend with GGUF means your M4 MacBook runs quantized 70B models through the same API as an H100 server. No llama.cpp compilation. No C++ toolchain. <code class="text-[10px] bg-background px-1 rounded">pip install</code> and go.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feat-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F30D;</span>
+            <span class="text-xs font-bold text-foreground">Offline-first AI</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Download a GGUF, load it in transformers, run completely offline. Critical for air-gapped environments, regulated industries, edge deployments, and anywhere with unreliable internet.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Slower than native llama.cpp.</strong> The GGUF-in-torch path is ~15-25% slower than optimized llama.cpp for pure generation. You're trading speed for ecosystem access.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Not all quant formats yet.</strong> IQ (importance quantization) formats like IQ2_XXS are not supported. Standard K-quant formats (Q2_K through Q8_0) all work.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Architecture coverage expanding.</strong> Llama, Mistral, Phi, Qwen, and Gemma are supported. More exotic architectures (Mamba, RWKV, SSMs) are not yet parseable from GGUF.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>The gap between "local inference" and "cloud inference" just got a lot smaller.</strong> GGUF was already the de facto standard for quantized model distribution — there are over 80,000 GGUF files on HuggingFace. Now they plug directly into the world's most popular ML library. No wrappers, no shims, no C++ builds. <code class="text-xs bg-background px-1 py-0.5 rounded">from_pretrained("model.gguf")</code> and you're running. The 15-25% speed trade-off vs native llama.cpp is real, but for most use cases — prototyping, fine-tuning, research, small-scale production — ecosystem access matters more than raw tokens/second. <strong>If GGUF was the USB of model formats, HuggingFace just shipped native drivers.</strong>
+      </p>
+    </div>
+
+    <!-- Series continues -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="rounded-xl border border-dashed border-cyan/30 bg-cyan/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-cyan font-bold">Series continues...</span>
+        </div>
+        <p class="text-xs text-secondary/70">New episodes every Monday, Wednesday, and Saturday. Follow on <a href="https://www.linkedin.com/in/mohdimran-khan/" class="text-cyan hover:underline">LinkedIn</a> to get notified when the next batch drops.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
