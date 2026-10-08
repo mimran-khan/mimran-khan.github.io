@@ -1,0 +1,355 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Atria Dawn: 744B Open-Weight Agentic Superintelligence | Demystifying AI in 5 Minutes"
+  description="Mistral's largest model. 744B parameters. 256K context. SWE-bench Verified 62.1%. Apache 2.0. The open-weight frontier just moved."
+  image="/og-series-ep41-atria-dawn.png"
+  keywords="Atria Dawn, Mistral, open-weight, 744B, SWE-bench, agentic AI, Apache 2.0, superintelligence, frontier model"
+  publishedDate="2026-10-11"
+  articleSection="Demystifying AI"
+  articleTags={["Atria Dawn", "Mistral", "Open-Weight", "744B", "SWE-bench", "Agentic AI"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
+    .bench-card { transition: all 0.3s ease; }
+    .bench-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(6, 182, 212, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep41-atria-dawn.png" alt="Atria Dawn: 744B Open-Weight Agentic Superintelligence" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan font-mono bg-cyan/5 border border-cyan/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+          EP 41
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan/10 border border-cyan/20 text-cyan rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 11, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Atria Dawn: 744B Open-Weight Agentic Superintelligence
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Mistral just released its largest model ever. 744 billion parameters. 256K context. Apache 2.0. It outperforms GPT-6 Sol on SWE-bench and matches Claude Opus 5.5 on GPQA.
+      </p>
+
+      <ShareButtons title="Atria Dawn: 744B Open-Weight Agentic Superintelligence" url="/series/demystifying-ai/atria-dawn" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Mistral's <strong>Atria Dawn</strong> is a 744B parameter MoE model (192B active) with <strong>256K native context</strong>, released under <strong>Apache 2.0</strong>. It scores <strong>62.1% on SWE-bench Verified</strong> (vs GPT-6 Sol 58.4%), <strong>73.1% on GPQA Diamond</strong>, and has first-class tool use with parallel function calling. Available on La Plateforme, HuggingFace, and self-hostable via vLLM and TensorRT-LLM. <strong>The open-weight frontier just caught up.</strong>
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">744B</div>
+        <div class="text-[10px] font-mono text-secondary">Total Parameters</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">192B</div>
+        <div class="text-[10px] font-mono text-secondary">Active Parameters</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">256K</div>
+        <div class="text-[10px] font-mono text-secondary">Context Window</div>
+      </div>
+      <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan mb-1">62.1%</div>
+        <div class="text-[10px] font-mono text-secondary">SWE-bench Verified</div>
+      </div>
+    </div>
+
+    <!-- Benchmarks -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> How It Stacks Up
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Every frontier model this year has been proprietary. GPT-6, Claude Opus 5.5, Gemini Ultra 2.5 — all behind API walls. Atria Dawn is the first open-weight model to enter that tier. Here is how the numbers compare across the benchmarks that matter for agentic coding and reasoning.
+      </p>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Benchmark</th>
+              <th class="text-right py-3 px-3 text-cyan font-mono font-bold">Atria Dawn</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono">GPT-6 Sol</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono">Opus 5.5</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono">Llama-5 405B</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">SWE-bench Verified</td>
+              <td class="py-2.5 px-3 text-right text-cyan font-bold">62.1%</td>
+              <td class="py-2.5 px-3 text-right">58.4%</td>
+              <td class="py-2.5 px-3 text-right">64.0%</td>
+              <td class="py-2.5 px-3 text-right">49.2%</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">GPQA Diamond</td>
+              <td class="py-2.5 px-3 text-right text-cyan font-bold">73.1%</td>
+              <td class="py-2.5 px-3 text-right">71.8%</td>
+              <td class="py-2.5 px-3 text-right">74.2%</td>
+              <td class="py-2.5 px-3 text-right">62.0%</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">MMLU-Pro</td>
+              <td class="py-2.5 px-3 text-right text-cyan font-bold">84.7%</td>
+              <td class="py-2.5 px-3 text-right">83.9%</td>
+              <td class="py-2.5 px-3 text-right">85.1%</td>
+              <td class="py-2.5 px-3 text-right">78.4%</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">HumanEval+</td>
+              <td class="py-2.5 px-3 text-right text-cyan font-bold">92.4%</td>
+              <td class="py-2.5 px-3 text-right">91.1%</td>
+              <td class="py-2.5 px-3 text-right">93.2%</td>
+              <td class="py-2.5 px-3 text-right">85.6%</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-mono">Tool Use (BFCL v3)</td>
+              <td class="py-2.5 px-3 text-right text-cyan font-bold">91.8%</td>
+              <td class="py-2.5 px-3 text-right">89.4%</td>
+              <td class="py-2.5 px-3 text-right">90.6%</td>
+              <td class="py-2.5 px-3 text-right">84.2%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed">
+        The key takeaway: Atria Dawn is <strong>within 2 points of Opus 5.5 on every benchmark</strong> while beating GPT-6 Sol on coding and tool use. For an Apache 2.0 model you can self-host, this closes the gap that has defined the open vs closed debate for three years.
+      </p>
+    </div>
+
+    <!-- Architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Architecture Deep Dive
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Atria Dawn uses a Mixture-of-Experts architecture that has been refined over three generations of Mistral models. The key innovation is the <strong>shared expert layer</strong> that handles cross-domain knowledge transfer between specialized experts.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 bench-card">
+          <span class="text-xs font-bold text-foreground block mb-2">128 experts, 16 active per layer</span>
+          <p class="text-[11px] text-foreground/60">744B total parameters, but only 192B are active for any given token. A learned router selects 16 experts per layer from a pool of 128. Plus one shared expert that fires on every token, handling cross-domain knowledge (math concepts in code, legal terms in business text).</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 bench-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Native tool calling from pre-training</span>
+          <p class="text-[11px] text-foreground/60">Unlike models that bolt on function calling via fine-tuning, Atria Dawn was trained with tool use from the start. Parallel function calls, structured JSON output, and multi-step agentic workflows are part of the base capability — not a post-hoc layer.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 bench-card">
+          <span class="text-xs font-bold text-foreground block mb-2">256K context, 32K max output</span>
+          <p class="text-[11px] text-foreground/60">Full 256K input context with Mistral's NEFT (Noisy Embedding Fine-Tuning) ensuring reliable recall past 200K tokens. Max output of 32K tokens per turn. YaRN-based positional encoding allows extrapolation to 512K with ~3% quality drop.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 bench-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Sliding window + global attention</span>
+          <p class="text-[11px] text-foreground/60">Every fourth layer uses full global attention. The rest use a 32K sliding window. This hybrid approach keeps memory bounded while preserving long-range dependency tracking — the same strategy that made Mistral-7B punch above its weight.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Self-Hosting -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Self-Hosting Guide
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Atria Dawn is self-hostable today. Mistral published deployment recipes for three inference engines. Here are the hardware requirements by quantization level.
+      </p>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Quantization</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">GPU Memory</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Hardware</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Throughput</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">FP8</td>
+              <td class="py-2.5 px-3 text-center">~750 GB</td>
+              <td class="py-2.5 px-3 text-center">8x H100 80GB or 4x B200</td>
+              <td class="py-2.5 px-3 text-center">~45 tok/s</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">INT4 (AWQ)</td>
+              <td class="py-2.5 px-3 text-center">~380 GB</td>
+              <td class="py-2.5 px-3 text-center">4x H100 80GB or 2x B200</td>
+              <td class="py-2.5 px-3 text-center">~35 tok/s</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">GGUF Q4_K_M</td>
+              <td class="py-2.5 px-3 text-center">~280 GB</td>
+              <td class="py-2.5 px-3 text-center">4x A100 80GB</td>
+              <td class="py-2.5 px-3 text-center">~25 tok/s</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-mono">GGUF Q2_K</td>
+              <td class="py-2.5 px-3 text-center">~180 GB</td>
+              <td class="py-2.5 px-3 text-center">2x A100 80GB + CPU offload</td>
+              <td class="py-2.5 px-3 text-center">~12 tok/s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">DEPLOY WITH VLLM (FP8, 8xH100)</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-cyan font-bold">pip install</span> <span class="text-foreground">vllm>=0.6.4</span>
+
+<span class="text-cyan font-bold">vllm serve</span> <span class="text-foreground">mistralai/Atria-Dawn-FP8 \</span>
+<span class="text-foreground">  --tensor-parallel-size 8 \</span>
+<span class="text-foreground">  --max-model-len 262144 \</span>
+<span class="text-foreground">  --enable-auto-tool-choice \</span>
+<span class="text-foreground">  --tool-call-parser mistral \</span>
+<span class="text-foreground">  --port 8000</span>
+
+<span class="text-secondary"># API is OpenAI-compatible. Point your existing code at localhost:8000</span>
+<span class="text-secondary"># Supports: /v1/chat/completions, /v1/completions, /v1/models</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan font-bold">TEST TOOL CALLING</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-cyan font-bold">curl</span> <span class="text-foreground">http://localhost:8000/v1/chat/completions \</span>
+<span class="text-foreground">  -H "Content-Type: application/json" \</span>
+<span class="text-foreground">  -d '&#123;</span>
+<span class="text-foreground">    "model": "mistralai/Atria-Dawn-FP8",</span>
+<span class="text-foreground">    "messages": [&#123;"role": "user",</span>
+<span class="text-foreground">      "content": "What is the weather in Paris and Tokyo?"&#125;],</span>
+<span class="text-foreground">    "tools": [&#123;"type": "function",</span>
+<span class="text-foreground">      "function": &#123;"name": "get_weather",</span>
+<span class="text-foreground">        "parameters": &#123;"type":"object",</span>
+<span class="text-foreground">          "properties": &#123;"city": &#123;"type":"string"&#125;&#125;&#125;&#125;&#125;]</span>
+<span class="text-foreground">  &#125;'</span>
+
+<span class="text-secondary"># Returns TWO parallel tool calls — Paris and Tokyo simultaneously</span>
+<span class="text-secondary"># Native parallel function calling, not sequential</span></pre>
+      </div>
+    </div>
+
+    <!-- Why it matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan font-mono text-sm">#</span> Why This Matters
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Until now, <strong>the open-weight frontier was 12-18 months behind closed models</strong>. Llama-3.1 405B was competitive with GPT-4 Turbo, not GPT-5. Meta's Llama-5 closed the gap but stayed behind Opus 5.5 on agentic benchmarks. The argument was always: "open models are good enough for most things, but if you need frontier performance, you need an API."
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Atria Dawn changes the equation. It <strong>beats GPT-6 Sol on coding</strong>, <strong>matches Opus 5.5 on reasoning</strong>, and is the <strong>first open-weight model to score above 90% on BFCL v3 tool use</strong>. Under Apache 2.0, you can fine-tune it, deploy it on-prem, and never send a token to Mistral's servers. For regulated industries — healthcare, government, defense, finance — this is the model that eliminates the "we can't send data to a third-party API" objection.
+      </p>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">CURRENT LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Hardware barrier.</strong> FP8 requires 8x H100. Even Q4 needs 4x A100. This is not a laptop model. Budget $15-30K/mo in cloud GPU costs for a single instance.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Multilingual gap.</strong> English performance matches Opus 5.5. But on MGSM (multilingual math), Atria Dawn trails by 4-7 points in Chinese, Japanese, and Arabic.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Safety alignment gap.</strong> Mistral's alignment approach is lighter-touch than OpenAI's or Anthropic's. On TruthfulQA, Atria Dawn scores 61.2% vs Opus 5.5's 74.8%. Fine-tuning for enterprise safety is recommended.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">No vision.</strong> Text-only. Mistral says a multimodal variant is "in research" but gave no timeline.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Mistral just made the strongest argument yet that frontier AI does not require a closed API.</strong> 744B parameters, Apache 2.0, self-hostable on commodity hardware, with deployment recipes that work today. Atria Dawn is not "good for open-weight" — it is good, period. The limitations are real (hardware cost, safety alignment, English-centric), but so is the benchmark performance. If your org is still locked into a single API provider because "open models aren't competitive enough," <strong>that argument died today.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Monday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-cyan/30 bg-cyan/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-cyan font-bold">#42</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Google AX: Kubernetes for Agents</h3>
+        <p class="text-xs text-secondary/70">Google open-sourced AX, an agent orchestration framework that treats agent instances like Kubernetes pods. Auto-scaling, health checks, and rolling upgrades for LLM agents.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan hover:border-cyan/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-xs text-cyan hover:bg-cyan/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
