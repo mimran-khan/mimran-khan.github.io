@@ -1,0 +1,353 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Google AX: Kubernetes for Agents | Demystifying AI in 5 Minutes"
+  description="Google open-sourced AX — an agent orchestration framework that treats LLM agent instances like Kubernetes pods. Auto-scaling, health checks, rolling upgrades, and declarative agent manifests."
+  image="/og-series-ep42-google-ax.png"
+  keywords="Google AX, agent orchestration, Kubernetes, LLM agents, auto-scaling, agent framework, Google Cloud, open source"
+  publishedDate="2026-10-13"
+  articleSection="Demystifying AI"
+  articleTags={["Google AX", "Agent Orchestration", "Kubernetes", "LLM Agents", "Auto-scaling", "Open Source"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); }
+    .layer-card { transition: all 0.3s ease; }
+    .layer-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(34, 197, 94, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep42-google-ax.png" alt="Google AX: Kubernetes for Agents" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 42
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 13, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Google AX: Kubernetes for Agents
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Google open-sourced AX, a framework that treats LLM agent instances like Kubernetes pods. Declarative manifests, auto-scaling, health checks, rolling upgrades, and observability — all the patterns you know from container orchestration, applied to AI agents.
+      </p>
+
+      <ShareButtons title="Google AX: Kubernetes for Agents" url="/series/demystifying-ai/google-ax" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Google AX</strong> (Agent eXecution) is an open-source framework that brings Kubernetes-style orchestration to LLM agents. You define agents in YAML manifests. AX handles <strong>scheduling, scaling, health monitoring, state persistence, and rolling upgrades</strong>. It runs on any Kubernetes cluster and supports Gemini, GPT, Claude, Llama, or any OpenAI-compatible endpoint. 8 Custom Resource Definitions. Apache 2.0. <strong>If you've deployed microservices, you already know how to deploy agents.</strong>
+      </p>
+    </div>
+
+    <!-- K8s Mapping -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Kubernetes Analogy
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        AX maps every Kubernetes concept you already know to an agent equivalent. The mental model is immediate if you've ever written a Deployment YAML. Here is the full CRD mapping.
+      </p>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Kubernetes</th>
+              <th class="text-left py-3 px-3 text-green font-mono font-bold">Google AX</th>
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">What it does</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">Pod</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentInstance</td>
+              <td class="py-2.5 px-3">One running agent with its model, tools, and context window</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">Deployment</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentDeployment</td>
+              <td class="py-2.5 px-3">Desired state: replicas, model version, rollout strategy</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">Service</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentEndpoint</td>
+              <td class="py-2.5 px-3">Stable gRPC/HTTP URL to reach an agent pool</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">HPA</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentScaler</td>
+              <td class="py-2.5 px-3">Scale on queue depth, latency, or token throughput</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">ConfigMap</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentConfig</td>
+              <td class="py-2.5 px-3">System prompts, tool definitions, guardrails, model params</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">PVC</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentMemory</td>
+              <td class="py-2.5 px-3">Persistent conversation history, vector embeddings</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-mono">Job</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentTask</td>
+              <td class="py-2.5 px-3">One-shot agent execution with completion tracking</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-mono">NetworkPolicy</td>
+              <td class="py-2.5 px-3 text-green font-mono">AgentPolicy</td>
+              <td class="py-2.5 px-3">Which tools an agent can access, rate limits, cost caps</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- YAML Example -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Deploy Your First Agent
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Here is a complete agent deployment manifest. If you can read a Kubernetes Deployment, you can read this.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">coding-agent.yaml</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-green">apiVersion:</span> <span class="text-secondary">ax.google.com/v1alpha1</span>
+<span class="text-green">kind:</span> <span class="text-secondary">AgentDeployment</span>
+<span class="text-green">metadata:</span>
+<span class="text-secondary">  name: coding-agent</span>
+<span class="text-secondary">  namespace: production</span>
+<span class="text-green">spec:</span>
+<span class="text-secondary">  replicas: 3</span>
+<span class="text-green">  model:</span>
+<span class="text-secondary">    provider: openai-compatible</span>
+<span class="text-secondary">    endpoint: http://vllm-atria:8000/v1</span>
+<span class="text-secondary">    model: mistralai/Atria-Dawn-FP8</span>
+<span class="text-secondary">    maxTokens: 32768</span>
+<span class="text-green">  config:</span>
+<span class="text-secondary">    systemPrompt: |</span>
+<span class="text-secondary">      You are a senior software engineer. Review code,</span>
+<span class="text-secondary">      fix bugs, and write tests. Always explain changes.</span>
+<span class="text-secondary">    temperature: 0.1</span>
+<span class="text-green">  tools:</span>
+<span class="text-secondary">    - name: file_read</span>
+<span class="text-secondary">    - name: file_write</span>
+<span class="text-secondary">    - name: shell_exec</span>
+<span class="text-secondary">      policy: sandboxed</span>
+<span class="text-secondary">    - name: github_api</span>
+<span class="text-green">  memory:</span>
+<span class="text-secondary">    type: persistent</span>
+<span class="text-secondary">    storageClass: ssd-retain</span>
+<span class="text-secondary">    size: 10Gi</span>
+<span class="text-green">  health:</span>
+<span class="text-secondary">    livenessProbe:</span>
+<span class="text-secondary">      promptCheck: "Respond with OK"</span>
+<span class="text-secondary">      periodSeconds: 30</span>
+<span class="text-secondary">    readinessProbe:</span>
+<span class="text-secondary">      toolCheck: [file_read, shell_exec]</span>
+<span class="text-secondary">      periodSeconds: 60</span>
+<span class="text-green">  rollout:</span>
+<span class="text-secondary">    strategy: canary</span>
+<span class="text-secondary">    canaryPercent: 20</span></pre>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">DEPLOY + SCALE + UPGRADE</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary"># Deploy the agent</span>
+<span class="text-green font-bold">kubectl apply -f</span> <span class="text-foreground">coding-agent.yaml</span>
+
+<span class="text-secondary"># Watch it come up</span>
+<span class="text-green font-bold">kubectl get agentinstances</span> <span class="text-foreground">-n production -w</span>
+<span class="text-secondary">NAME              MODEL              READY   TASKS</span>
+<span class="text-secondary">coding-agent-0    Atria-Dawn-FP8     True    0</span>
+<span class="text-secondary">coding-agent-1    Atria-Dawn-FP8     True    2</span>
+<span class="text-secondary">coding-agent-2    Atria-Dawn-FP8     True    1</span>
+
+<span class="text-secondary"># Scale based on queue depth</span>
+<span class="text-green font-bold">kubectl apply -f</span> <span class="text-foreground">- &lt;&lt;EOF</span>
+<span class="text-secondary">apiVersion: ax.google.com/v1alpha1</span>
+<span class="text-secondary">kind: AgentScaler</span>
+<span class="text-secondary">spec:</span>
+<span class="text-secondary">  target: coding-agent</span>
+<span class="text-secondary">  minReplicas: 1</span>
+<span class="text-secondary">  maxReplicas: 20</span>
+<span class="text-secondary">  metrics:</span>
+<span class="text-secondary">    - type: queueDepth</span>
+<span class="text-secondary">      target: 5  # scale up when &gt;5 tasks queued</span>
+<span class="text-foreground">EOF</span>
+
+<span class="text-secondary"># Rolling model upgrade (zero downtime)</span>
+<span class="text-green font-bold">kubectl set model</span> <span class="text-foreground">agentdeployment/coding-agent \</span>
+<span class="text-foreground">  --model=mistralai/Atria-Dawn-v2-FP8</span></pre>
+      </div>
+    </div>
+
+    <!-- Architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Architecture
+      </h2>
+
+      <div class="space-y-3 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L3</span>
+            <span class="text-xs font-bold text-foreground">Application Layer — Agent Manifests</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">YAML files declare what the agent is, what tools it has, what model it uses, and how it should behave. <code class="text-[10px] bg-background px-1 py-0.5 rounded">kubectl apply -f agent.yaml</code> deploys it. GitOps-native from day one.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L2</span>
+            <span class="text-xs font-bold text-foreground">Control Plane — AX Controller</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Standard Kubernetes reconciliation loop. Watches CRDs and ensures actual state matches desired state. Handles scaling decisions, health check responses, canary deployments, and model version rollouts. Runs as a single Deployment in the ax-system namespace.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L1</span>
+            <span class="text-xs font-bold text-foreground">Data Plane — Agent Runtime Sidecar</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Lightweight Go sidecar injected into every AgentInstance pod. Manages the agent's event loop, tool execution sandbox, memory persistence, token streaming, and cost tracking. Exposes Prometheus metrics (<code class="text-[10px] bg-background px-1 py-0.5 rounded">ax_tokens_total</code>, <code class="text-[10px] bg-background px-1 py-0.5 rounded">ax_task_duration_seconds</code>) and OpenTelemetry traces for every agent turn.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L0</span>
+            <span class="text-xs font-bold text-foreground">Infrastructure — Any K8s Cluster</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">GKE, EKS, AKS, k3s, or bare-metal. AX uses standard Kubernetes primitives. No GCP lock-in. Works with Istio, Linkerd, or no service mesh. Tested on K8s 1.28+.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Killer Features -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Why This Is Different
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Every team building agents today has reinvented some version of "deploy agent, keep it alive, scale it, update the model." AX standardizes all of it. Here are the features no other framework offers.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Rolling agent upgrades</span>
+          <p class="text-[11px] text-foreground/60">Swap models mid-conversation. AX serializes the agent's context to AgentMemory, spins up a new instance with the upgraded model, hydrates context, and resumes. Zero downtime. Like a K8s rolling deployment but for LLM sessions.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Agent health checks</span>
+          <p class="text-[11px] text-foreground/60">Liveness probes send a simple prompt and check for a coherent response. Readiness probes verify tool connections work. If an agent loops or hallucinates repeatedly (detected via repetition score), the controller kills and restarts it with a fresh context.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Queue-based auto-scaling</span>
+          <p class="text-[11px] text-foreground/60">AgentScaler watches a task queue (Redis, SQS, Pub/Sub, or built-in). More pending tasks → more agent replicas. Scales to zero when idle. You pay for compute only when agents are actually reasoning. Cooldown periods prevent thrashing.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Cost caps via AgentPolicy</span>
+          <p class="text-[11px] text-foreground/60">Set per-agent or per-namespace token budgets. When an agent hits its cost cap, AX pauses the instance and fires a Kubernetes Event. No surprise $10K bills from a runaway coding agent loop.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">CURRENT LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">v1alpha1.</strong> API is unstable. Expect breaking changes before v1beta1 (targeted Q1 2027).</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">No multi-agent coordination.</strong> AX manages individual agents. Agent-to-agent communication requires external plumbing (gRPC, message queues).</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Memory migration is lossy.</strong> Rolling upgrades between different model families (GPT → Claude) may lose context fidelity during serialization.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Google AX is the missing infrastructure layer for production agents.</strong> Every team building agents today has reinvented some subset of what AX provides. AX standardizes all of it using primitives every infrastructure engineer already knows. <code class="text-xs bg-background px-1 py-0.5 rounded">kubectl apply -f agent.yaml</code> is the new <code class="text-xs bg-background px-1 py-0.5 rounded">docker run</code>. It is v1alpha1, it has rough edges, and the multi-agent story is not there yet. But the pattern is right. <strong>Agents just got boring infrastructure. That's the highest compliment.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Wednesday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#43</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Zero-Token Confidence: Your Model Knows It's Wrong</h3>
+        <p class="text-xs text-secondary/70">A new technique extracts calibrated confidence scores from any LLM without generating a single extra token. Just read the hidden states.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
