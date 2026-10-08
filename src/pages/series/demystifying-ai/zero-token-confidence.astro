@@ -1,0 +1,322 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Zero-Token Confidence: Your Model Knows It's Wrong | Demystifying AI in 5 Minutes"
+  description="Extract calibrated confidence scores from any LLM without generating extra tokens. Just read the hidden states. ECE drops from 19.2% to 3.1%. Works with Llama, Mistral, Gemma out of the box."
+  image="/og-series-ep43-zero-token-confidence.png"
+  keywords="zero-token confidence, LLM calibration, hidden states, confidence estimation, hallucination detection, uncertainty quantification, ECE"
+  publishedDate="2026-10-15"
+  articleSection="Demystifying AI"
+  articleTags={["Zero-Token Confidence", "LLM Calibration", "Hidden States", "Uncertainty", "Hallucination Detection"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(139, 92, 246, 0.1); }
+    .method-card { transition: all 0.3s ease; }
+    .method-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(139, 92, 246, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-violet transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep43-zero-token-confidence.png" alt="Zero-Token Confidence: Your Model Knows It's Wrong" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet font-mono bg-violet/5 border border-violet/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet animate-pulse"></span>
+          EP 43
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-violet/10 border border-violet/20 text-violet rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          RESEARCH PAPER
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 15, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Zero-Token Confidence: Your Model Knows It's Wrong
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        A new technique extracts calibrated confidence scores from any LLM without generating a single extra token. Just read the hidden states at the last layer. The model already knows when it's guessing.
+      </p>
+
+      <ShareButtons title="Zero-Token Confidence: Your Model Knows It's Wrong" url="/series/demystifying-ai/zero-token-confidence" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Researchers at ETH Zürich found that a <strong>lightweight linear probe</strong> trained on the final hidden states of an LLM can predict whether the model's answer is correct — <strong>before the answer is even generated</strong>. ECE (Expected Calibration Error) drops from <strong>19.2% to 3.1%</strong> on TriviaQA. Works with Llama-3, Mistral, and Gemma. No fine-tuning. No extra inference cost. <strong>The model literally knows when it's about to hallucinate.</strong>
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet mb-1">3.1%</div>
+        <div class="text-[10px] font-mono text-secondary">ECE (from 19.2%)</div>
+      </div>
+      <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet mb-1">0</div>
+        <div class="text-[10px] font-mono text-secondary">Extra Tokens</div>
+      </div>
+      <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet mb-1">0.4ms</div>
+        <div class="text-[10px] font-mono text-secondary">Probe Latency</div>
+      </div>
+      <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet mb-1">87.3%</div>
+        <div class="text-[10px] font-mono text-secondary">AUROC</div>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> The Confidence Problem
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        LLMs do not come with confidence scores. When a model says "Paris is the capital of France," it sounds just as confident as when it says "The Treaty of Westphalia was signed in 1645" (it was 1648). You get tokens, not uncertainty. In production, this is a critical gap. You cannot build reliable systems on outputs you cannot trust-score.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Current approaches to estimate confidence are expensive or unreliable. <strong>Self-consistency sampling</strong> generates N answers and checks agreement — costing N× inference. <strong>Verbalized confidence</strong> ("How sure are you?") is cheap but models systematically overestimate — they say "95% confident" when they're right only 60% of the time. <strong>Token probabilities</strong> from the softmax layer work for multiple-choice but fail for open-ended generation. All add latency, cost, or both.
+      </p>
+    </div>
+
+    <!-- How it works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> How Zero-Token Confidence Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The core insight is almost embarrassingly simple: <strong>the model's hidden states already encode whether it knows the answer.</strong> Before generating a single output token, the last-layer hidden state at the final position contains a rich representation of the model's internal "certainty." A single linear probe can read this signal.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">THE METHOD — 4 STEPS</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet/20 flex items-center justify-center text-[10px] font-mono text-violet font-bold">1</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Feed the prompt through the model</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Standard forward pass. The model processes your question and prepares to generate. This happens anyway — no additional compute.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet/20 flex items-center justify-center text-[10px] font-mono text-violet font-bold">2</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Extract the final hidden state</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Before the model generates any tokens, grab the hidden-state vector at the last position. This is the model's internal representation of "what I'm about to say." Dimensions: 4096 for Llama-3 8B, 5120 for Llama-3 70B.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet/20 flex items-center justify-center text-[10px] font-mono text-violet font-bold">3</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Run a trained linear probe</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">A single linear layer (<code class="text-[10px] bg-background px-1 rounded">hidden_dim → 1, sigmoid</code>) takes the hidden state and outputs a confidence score between 0 and 1. The probe is ~16KB for a 4096-dim model. Training requires ~5,000 labeled examples and takes under 2 minutes on a single GPU.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet/20 flex items-center justify-center text-[10px] font-mono text-violet font-bold">4</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Use the score to route</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Score &gt; 0.8? Serve the answer. Score &lt; 0.3? Route to retrieval, escalate to human, or abstain. In between? Add a disclaimer. The score is available <strong>before generation begins</strong>, so you can abort early.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet font-bold">IMPLEMENTATION (PyTorch, ~20 LINES)</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">import torch</span>
+<span class="text-secondary">from transformers import AutoModelForCausalLM, AutoTokenizer</span>
+
+<span class="text-secondary">model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3-8B")</span>
+<span class="text-secondary">tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3-8B")</span>
+
+<span class="text-violet font-bold"># The probe: one linear layer, ~16KB</span>
+<span class="text-secondary">probe = torch.nn.Linear(4096, 1)  # hidden_dim → 1</span>
+<span class="text-secondary">probe.load_state_dict(torch.load("confidence_probe.pt"))</span>
+
+<span class="text-secondary">def get_confidence(prompt: str) -> float:</span>
+<span class="text-secondary">    inputs = tokenizer(prompt, return_tensors="pt")</span>
+<span class="text-secondary">    with torch.no_grad():</span>
+<span class="text-secondary">        outputs = model(**inputs, output_hidden_states=True)</span>
+<span class="text-violet font-bold">        # Grab last hidden state at final position</span>
+<span class="text-secondary">        hidden = outputs.hidden_states[-1][:, -1, :]</span>
+<span class="text-violet font-bold">        # Run probe → confidence score</span>
+<span class="text-secondary">        confidence = torch.sigmoid(probe(hidden)).item()</span>
+<span class="text-secondary">    return confidence  # 0.0 = "I'm guessing", 1.0 = "I know this"</span>
+
+<span class="text-secondary">score = get_confidence("What year was the Treaty of Westphalia?")</span>
+<span class="text-secondary"># score ≈ 0.34 → model is uncertain → trigger RAG or abstain</span></pre>
+      </div>
+    </div>
+
+    <!-- Comparison -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> Compared to Other Methods
+      </h2>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Method</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono font-normal">ECE ↓</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono font-normal">Extra Cost</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono font-normal">Latency</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono font-normal">Needs Logprobs</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Raw token logprobs</td>
+              <td class="py-2.5 px-3 text-right">19.2%</td>
+              <td class="py-2.5 px-3 text-right">0×</td>
+              <td class="py-2.5 px-3 text-right">0ms</td>
+              <td class="py-2.5 px-3 text-right">Yes</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Verbalized ("How sure?")</td>
+              <td class="py-2.5 px-3 text-right">14.8%</td>
+              <td class="py-2.5 px-3 text-right">~1.2×</td>
+              <td class="py-2.5 px-3 text-right">+200ms</td>
+              <td class="py-2.5 px-3 text-right">No</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Self-consistency (N=5)</td>
+              <td class="py-2.5 px-3 text-right">8.1%</td>
+              <td class="py-2.5 px-3 text-right">5×</td>
+              <td class="py-2.5 px-3 text-right">+1500ms</td>
+              <td class="py-2.5 px-3 text-right">No</td>
+            </tr>
+            <tr class="border-b border-border/50 bg-violet/[0.03]">
+              <td class="py-2.5 px-3 text-violet font-bold">Zero-Token Confidence</td>
+              <td class="py-2.5 px-3 text-right text-violet font-bold">3.1%</td>
+              <td class="py-2.5 px-3 text-right text-violet font-bold">~0×</td>
+              <td class="py-2.5 px-3 text-right text-violet font-bold">+0.4ms</td>
+              <td class="py-2.5 px-3 text-right text-violet font-bold">No*</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-[11px] text-secondary leading-relaxed">
+        * Requires access to hidden states, which means self-hosted models (vLLM, TGI, transformers) or API providers that expose hidden states. Does not work with OpenAI's API or Anthropic's API directly. Works with any model you host yourself.
+      </p>
+    </div>
+
+    <!-- What You Can Build -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet font-mono text-sm">#</span> What You Can Build With This
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 method-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Hallucination firewall</span>
+          <p class="text-[11px] text-foreground/60">Gate every LLM response with a confidence check. Low confidence → don't serve it. Zero additional latency to your users. In the paper's medical QA experiment, this filter <strong>eliminated 91% of incorrect answers</strong> while only blocking 12% of correct ones.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 method-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Adaptive RAG triggering</span>
+          <p class="text-[11px] text-foreground/60">Only invoke retrieval when the model is uncertain. High confidence questions skip the vector DB entirely, saving 200-500ms latency and retrieval API costs. The paper shows this reduces RAG calls by <strong>63% with no accuracy drop</strong>.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 method-card">
+          <span class="text-xs font-bold text-foreground block mb-2">Confidence-weighted routing</span>
+          <p class="text-[11px] text-foreground/60">Small model unsure? Route to a larger model. Large model sure? Ship it. Build a cost-optimized cascade without manual threshold tuning. Use the probe on your 8B model to decide when to escalate to the 70B — saving 80% of inference cost.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 method-card">
+          <span class="text-xs font-bold text-foreground block mb-2">User-facing uncertainty</span>
+          <p class="text-[11px] text-foreground/60">Show users a confidence bar next to every answer. "I'm 92% sure" vs "I'm 34% sure — you might want to verify this." Honest AI by default. The probe's calibration means the displayed percentage is actually meaningful.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">LIMITATIONS</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Self-hosted only.</strong> Requires hidden state access. Won't work with OpenAI, Anthropic, or Google APIs (they don't expose hidden states).</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Domain-specific training.</strong> A probe trained on TriviaQA won't calibrate well on medical questions. You need ~5K labeled examples per domain.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Pre-generation only.</strong> The probe fires before generation. If the model starts confidently but goes off the rails mid-answer, the probe won't catch it.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>The model already knows when it's about to hallucinate. We just weren't listening.</strong> Zero-Token Confidence proves that the information is there, in the hidden states, before generation begins. A single linear probe — trainable in minutes on consumer hardware — unlocks it. <strong>No extra tokens. No extra cost. ECE from 19.2% to 3.1%.</strong> The limitation to self-hosted models is real, but if you're running Llama, Mistral, or Gemma on your own infra, there is no reason this shouldn't be in your inference pipeline by next quarter.
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-violet/30 bg-violet/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-violet font-bold">#44</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Transformers + GGUF: Local Inference Goes Native</h3>
+        <p class="text-xs text-secondary/70">HuggingFace Transformers now loads GGUF files natively. No llama.cpp wrapper. Direct torch integration.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-violet hover:border-violet/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-violet/10 border border-violet/20 text-xs text-violet hover:bg-violet/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
