@@ -242,12 +242,18 @@ jobs:
           echo "Rebasing $BRANCH onto main to avoid merge conflicts..."
           git checkout "$BRANCH"
           git rebase origin/main || {
-            echo "Rebase had conflicts, resolving episodes.json with main's version..."
+            echo "Rebase had conflicts, resolving with main's episodes.json..."
             # In rebase context: --ours = new base (main), --theirs = commit being replayed (branch)
-            # We want main's episodes.json as the base, then the reconciliation step adds the new episode
-            git checkout --ours src/data/episodes.json 2>/dev/null || true
-            git add src/data/episodes.json
-            GIT_EDITOR=true git rebase --continue || true
+            # Loop handles multi-commit branches where several commits conflict on episodes.json
+            for attempt in 1 2 3 4 5 6 7 8 9 10; do
+              git checkout --ours src/data/episodes.json 2>/dev/null || true
+              git add src/data/episodes.json
+              if GIT_EDITOR=true git rebase --continue 2>/dev/null; then
+                echo "Rebase completed after resolving $attempt conflict(s)"
+                break
+              fi
+              echo "Resolved conflict $attempt, continuing rebase..."
+            done
           }
           git checkout main
 
