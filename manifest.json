@@ -452,7 +452,7 @@
       "status": "published",
       "release_date": "2026-10-07",
       "linkedin_post": "Episode 41: 5-minute read. Zero fluff : Atria Dawn: 744B Open-Weight Agentic Superintelligence\n\nShanghai AI Lab quietly dropped a 744B MoE agentic model under MIT license with no blog post. Then 140 authors published the technical report.\n\nKey findings:\n- 744B MoE built on GLM-5.2 with 256K context window\n- MIT license - fully open weights on HuggingFace and ModelScope\n- #1 on 5 of 16 benchmarks across research, engineering, digital work\n- Verifiable Experience Pipeline: learns from actions that can be checked, not just text\n- 769 human-AI task records: 1/3 of tasks rated 'infeasible without AI'\n- Four capability areas: Discovery, Creation, Delivery, Cybersecurity\n- BF16 and FP8 releases. Serves on SGLang v0.5.13+ or vLLM v0.23.0+\n\nThe takeaway? An open-weight agent model at this scale under MIT is unprecedented. No permission needed. The agentic future just got a lot more accessible.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/atria-dawn\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AtriaDawn #OpenWeight #AgenticAI #ShanghaiAILab #MoE #AI #MachineLearning #LLMs #SoftwareEngineering",
-      "linkedin_posted_on": "2026-10-07",
+      "linkedin_posted_on": "2026-10-08",
       "published_on": "2026-10-08",
       "tag": "release/ep41"
     },
