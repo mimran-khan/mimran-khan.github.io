@@ -490,5 +490,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep41-atria-dawn.png"
+  },
+  {
+    "number": 42,
+    "slug": "google-ax",
+    "title": "Google AX: Kubernetes for Agents",
+    "hook": "Google AX: Kubernetes for Agents",
+    "category": "hot-topic",
+    "day": "Sat",
+    "date": "Oct 10",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep42-google-ax.png"
   }
 ]

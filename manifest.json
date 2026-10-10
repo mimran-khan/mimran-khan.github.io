@@ -461,9 +461,11 @@
       "branch": "ep42",
       "slug": "google-ax",
       "title": "Google AX: Kubernetes for Agents",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-10-10",
-      "linkedin_post": "Episode 42: 5-minute read. Zero fluff : Google AX: Kubernetes for Agents\n\nGoogle shipped AX, a declarative orchestrator for AI agents that runs billions of tasks. Think Kubernetes, but for agents.\n\nKey findings:\n- Declarative primitives: Task, Workspace, Gateway, Model\n- Sub-second suspend/resume for agent sessions\n- Apache 2.0 license\n- Designed for billions of concurrent agent tasks\n- Built-in observability and cost tracking\n\nThe takeaway? If you are building agent infrastructure, AX is the reference architecture. Declarative, scalable, open.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/google-ax\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#GoogleAX #AgentOrchestration #Kubernetes #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering"
+      "linkedin_post": "Episode 42: 5-minute read. Zero fluff : Google AX: Kubernetes for Agents\n\nGoogle shipped AX, a declarative orchestrator for AI agents that runs billions of tasks. Think Kubernetes, but for agents.\n\nKey findings:\n- Declarative primitives: Task, Workspace, Gateway, Model\n- Sub-second suspend/resume for agent sessions\n- Apache 2.0 license\n- Designed for billions of concurrent agent tasks\n- Built-in observability and cost tracking\n\nThe takeaway? If you are building agent infrastructure, AX is the reference architecture. Declarative, scalable, open.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/google-ax\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#GoogleAX #AgentOrchestration #Kubernetes #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering",
+      "published_on": "2026-10-10",
+      "tag": "release/ep42"
     },
     {
       "ep": 43,
