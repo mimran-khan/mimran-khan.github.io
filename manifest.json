@@ -477,7 +477,8 @@
       "release_date": "2026-10-12",
       "linkedin_post": "Episode 43: 5-minute read. Zero fluff : Zero-Token Confidence: Your Model Knows It's Wrong\n\nAsk a language model how confident it is and you get 0.50 - a coin flip. Read its internal state instead and you get 0.88. Zero tokens generated. 0.06 seconds.\n\nKey findings:\n- ZTC reads the model's hidden state in one forward pass, zero generated tokens\n- Self-reported confidence: 0.50 AUC. ZTC readout: 0.88 AUC. Gap: +0.22\n- Darwin-397B-ZTC: 0.7272 leaderboard AUC\n- 26x cheaper than the work it guards (0.06s gate vs 1.63s generation)\n- Ships as a 45KB .npz file. Four lines of code to integrate.\n- Gating lifts executed accuracy from 49% to 65% in agent workflows\n- Open-weight under Apache 2.0\n\nThe takeaway? Your model already knows when it is wrong. You just need to read the signal instead of asking for it.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/zero-token-confidence\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#ZeroTokenConfidence #ZTC #ModelCalibration #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering",
       "published_on": "2026-10-12",
-      "tag": "release/ep43"
+      "tag": "release/ep43",
+      "linkedin_posted_on": "2026-10-12"
     },
     {
       "ep": 44,
