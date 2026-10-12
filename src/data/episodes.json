@@ -502,5 +502,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep42-google-ax.png"
+  },
+  {
+    "number": 43,
+    "slug": "zero-token-confidence",
+    "title": "Zero-Token Confidence: Your Model Knows It's Wrong",
+    "hook": "Zero-Token Confidence: Your Model Knows It's Wrong",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Oct 12",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep43-zero-token-confidence.png"
   }
 ]
