@@ -489,7 +489,8 @@
       "release_date": "2026-10-14",
       "linkedin_post": "Episode 44: 5-minute read. Zero fluff : Transformers + GGUF: Local Inference Goes Native\n\nHugging Face Transformers now runs llama.cpp quants natively. Pick a GGUF from the Hub, load it with from_pretrained, and start generating on your laptop.\n\nKey findings:\n- Load any GGUF model with from_pretrained(model_id, gguf_file=filename)\n- Native Metal kernels for Apple Silicon via the kernels library\n- Initial focus: Qwen3.5 architecture on Apple Silicon\n- llama.cpp parity on M3 Max: 103.6 tok/s with torch.compile\n- transformers serve: OpenAI-compatible local endpoint at localhost:8000\n- Memory: 8.8GB resident for Q4_K_M vs 28.6GB for BF16 (3.3x reduction)\n- GGML and llama.cpp joined Hugging Face earlier this year\n\nThe takeaway? The gap between 'I use llama.cpp locally' and 'I use Transformers for everything else' just disappeared.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/transformers-gguf\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Transformers #GGUF #LlamaCpp #LocalInference #HuggingFace #AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering",
       "published_on": "2026-10-14",
-      "tag": "release/ep44"
+      "tag": "release/ep44",
+      "linkedin_posted_on": "2026-10-14"
     }
   ]
 }
