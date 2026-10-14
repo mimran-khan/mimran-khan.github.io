@@ -514,5 +514,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep43-zero-token-confidence.png"
+  },
+  {
+    "number": 44,
+    "slug": "transformers-gguf",
+    "title": "Transformers + GGUF: Local Inference Goes Native",
+    "hook": "Transformers + GGUF: Local Inference Goes Native",
+    "category": "hot-topic",
+    "day": "Wed",
+    "date": "Oct 14",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep44-transformers-gguf.png"
   }
 ]
