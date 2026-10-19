@@ -1,0 +1,426 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="The Agent Infrastructure Boom: Memory, Harnesses, and the New Stack | Demystifying AI in 5 Minutes"
+  description="GitHub Trending exploded with agent tooling in October 2026. The middleware layer nobody planned for is now the hottest layer in the AI stack."
+  image="/og-series-ep53-agent-infra-boom.png"
+  keywords="agent infrastructure, AI agents, coding agents, agent harness, ai-memory, ruflo, orca, opencode, middleware, developer tools"
+  publishedDate="2026-11-04"
+  articleSection="Demystifying AI"
+  articleTags=&#123;["Agent Infrastructure", "AI Agents", "Coding Agents", "Developer Tools", "Open Source", "GitHub Trending"]&#125;
+>
+
+  <style>
+    .tool-card &#123; transition: all 0.3s ease; &#125;
+    .tool-card:hover &#123; transform: translateY(-2px); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); &#125;
+    .stat-card &#123; transition: all 0.3s ease; &#125;
+    .stat-card:hover &#123; transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); &#125;
+    .layer-card &#123; transition: all 0.3s ease; &#125;
+    .layer-card:hover &#123; transform: translateX(4px); box-shadow: 0 0 15px rgba(34, 197, 94, 0.08); &#125;
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep53-agent-infra-boom.png" alt="The Agent Infrastructure Boom: Memory, Harnesses, and the New Stack" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 53
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Nov 4, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        The Agent Infrastructure Boom: Memory, Harnesses, and the New Stack
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        GitHub Trending in October 2026 told one story: the middleware layer nobody planned for is now the hottest layer in the entire AI stack.
+      </p>
+
+      <ShareButtons title="The Agent Infrastructure Boom: Memory, Harnesses, and the New Stack" url="/series/demystifying-ai/agent-infra-boom" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        October 2026 GitHub Trending was dominated by agent infrastructure tools. <strong>opencode hit 217k stars. ruflo hit 77k. orca hit 98k.</strong> These are not AI models. They are the plumbing that makes AI agents actually work: memory layers, harness frameworks, context compressors, and multi-agent orchestrators. The middleware layer nobody planned for is now the hottest layer in the stack.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">217k</div>
+        <div class="text-[10px] font-mono text-secondary">opencode stars</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">98k</div>
+        <div class="text-[10px] font-mono text-secondary">orca stars</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">77k</div>
+        <div class="text-[10px] font-mono text-secondary">ruflo stars</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">8</div>
+        <div class="text-[10px] font-mono text-secondary">trending tools</div>
+      </div>
+    </div>
+
+    <!-- Section 1: The Stack Nobody Planned -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Stack Nobody Planned
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Six months ago, the AI stack was simple: model providers on top, your application on bottom. Now there is an entire layer in between, and it is growing faster than either end.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        "Agent harness engineering" trended on Hacker News with 126 points. The term did not exist a year ago. Today it describes a new discipline: <strong>building the infrastructure that connects AI agents to the real world</strong>. Memory systems, context compressors, subscription routers, multi-agent mesh networks. None of this shipped with any foundation model. Developers built it from scratch.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">THE NEW AGENT STACK</div>
+        <div class="space-y-2">
+          <div class="rounded-lg border border-green/30 bg-green/[0.05] p-3 layer-card">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-green">Layer 4: Agents</span>
+              <span class="text-[10px] font-mono text-secondary">Your coding agent, CI bot, etc.</span>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <svg class="w-4 h-4 text-green/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+          <div class="rounded-lg border border-green/50 bg-green/[0.08] p-3 layer-card ring-1 ring-green/20">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-green">Layer 3: Agent Harnesses</span>
+              <span class="text-[10px] font-mono text-green">&#x2190; THE HOT LAYER</span>
+            </div>
+            <p class="text-[10px] text-secondary mt-1">Memory, context compression, model routing, multi-agent orchestration, git wrappers</p>
+          </div>
+          <div class="flex justify-center">
+            <svg class="w-4 h-4 text-green/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+          <div class="rounded-lg border border-border bg-elevated/50 p-3 layer-card">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-foreground/70">Layer 2: APIs &amp; Protocols</span>
+              <span class="text-[10px] font-mono text-secondary">MCP, tool-use, function calling</span>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <svg class="w-4 h-4 text-green/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </div>
+          <div class="rounded-lg border border-border bg-elevated/50 p-3 layer-card">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-foreground/70">Layer 1: Foundation Models</span>
+              <span class="text-[10px] font-mono text-secondary">GPT, Claude, Gemini, Llama, etc.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: The Tools -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The October Trending Lineup
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Eight tools on GitHub Trending in October all solving the same fundamental problem: <strong>agents are only as good as their infrastructure</strong>. Here is what blew up and why.
+      </p>
+
+      <!-- Tier 1: Mega projects -->
+      <div class="space-y-4 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-sm font-bold text-foreground">opencode</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">217k stars</span>
+            <span class="text-[10px] font-mono text-secondary bg-secondary/10 px-2 py-0.5 rounded">Open-source coding agent</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed mb-0">
+            The biggest project on the list. A fully open-source coding agent that rivals commercial offerings. <strong>217k stars makes it one of the most-starred AI repos of all time.</strong> It proves the thesis: the coding agent itself is becoming a commodity. The value is moving to what wraps it.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-sm font-bold text-foreground">orca</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">98k stars</span>
+            <span class="text-[10px] font-mono text-secondary bg-secondary/10 px-2 py-0.5 rounded">Subscription router</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed mb-0">
+            Run any coding agent with your existing API subscription. One key, any agent. <strong>Orca decouples the agent from the model provider</strong>, letting you swap between Claude, GPT, Gemini, or local models without reconfiguring anything. The "bring your own key" layer that every agent needed.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-sm font-bold text-foreground">ruflo</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">77k stars</span>
+            <span class="text-[10px] font-mono text-secondary bg-secondary/10 px-2 py-0.5 rounded">Multi-agent swarms</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed mb-0">
+            Multi-agent swarms with adaptive memory, federation, and vector RAG built in. <strong>ruflo treats agent coordination as a first-class problem.</strong> Agents share context through a federated memory layer, form dynamic swarms for complex tasks, and use vector retrieval to recall past decisions.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-sm font-bold text-foreground">headroom</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">76k stars</span>
+            <span class="text-[10px] font-mono text-secondary bg-secondary/10 px-2 py-0.5 rounded">Context compressor</span>
+          </div>
+          <p class="text-xs text-secondary leading-relaxed mb-0">
+            Compress tool outputs 60-95% before sending them to the LLM. Context windows are large but not free. <strong>headroom shrinks tool output so your agent can do more in fewer tokens.</strong> At 76k stars, context compression is clearly a pain point everyone was feeling.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tier 2: Smaller but critical -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-border bg-elevated p-4 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs font-bold text-foreground">magpie</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">15k stars</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Switch models per agent from your menu bar. Hot-swap between providers mid-task without restarting the agent session.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs font-bold text-foreground">ai-memory</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">11k stars</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Long-term memory for coding agents, written in Rust. Persistent context that survives across sessions, projects, and machines.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs font-bold text-foreground">git-ai</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">1.5k stars</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Git redesigned for AI agents. Structured diffs, semantic commits, and agent-readable history. The version control layer agents actually need.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 tool-card">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs font-bold text-foreground">reason-network</span>
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-0.5 rounded">393 stars</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">P2P mesh between coding agents. Agents discover, negotiate with, and delegate tasks to each other across machines without a central server.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Why Now -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Why the Middleware Exploded Now
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Three forces converged in Q3 2026 to create the infrastructure boom.
+      </p>
+
+      <div class="space-y-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 layer-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4A5;</span>
+            <span class="text-xs font-bold text-foreground">Models commoditized</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">
+            GPT, Claude, Gemini, Llama are all "good enough" for coding. When every model can write code, the differentiator is not the model. It is the harness. opencode's 217k stars prove it: <strong>people want the best agent experience, not the best raw model.</strong>
+          </p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 layer-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F9F1;</span>
+            <span class="text-xs font-bold text-foreground">Context windows hit diminishing returns</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">
+            Bigger context windows did not solve the problem. They just made it more expensive. headroom's 76k stars are the developer community screaming: <strong>"We need smarter context, not more context."</strong> Compressing tool outputs 60-95% is not a nice-to-have. It is survival.
+          </p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 layer-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F310;</span>
+            <span class="text-xs font-bold text-foreground">Agents went multi-agent</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">
+            Single agents hit ceilings. ruflo's 77k stars and reason-network's P2P mesh show the industry moving to <strong>swarms, federations, and agent-to-agent collaboration</strong>. Once agents talk to each other, you need memory systems, coordination protocols, and shared context layers. The infrastructure demand compounds.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: What This Means -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Emerging Pattern
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Look at these eight tools together and a pattern emerges. The agent infrastructure stack is splitting into five clear categories.
+      </p>
+
+      <!-- Desktop: table -->
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="bg-elevated">
+              <th class="text-left py-3 px-4 text-secondary font-mono font-normal">Category</th>
+              <th class="text-left py-3 px-4 text-secondary font-mono font-normal">Tool</th>
+              <th class="text-left py-3 px-4 text-secondary font-mono font-normal">Problem Solved</th>
+              <th class="text-right py-3 px-4 text-secondary font-mono font-normal">Stars</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-t border-border/50">
+              <td class="py-2.5 px-4 text-green font-bold">Memory</td>
+              <td class="py-2.5 px-4">ai-memory, ruflo</td>
+              <td class="py-2.5 px-4">Persistent and shared context</td>
+              <td class="py-2.5 px-4 text-right">88k</td>
+            </tr>
+            <tr class="border-t border-border/50">
+              <td class="py-2.5 px-4 text-green font-bold">Compression</td>
+              <td class="py-2.5 px-4">headroom</td>
+              <td class="py-2.5 px-4">Token cost and context limits</td>
+              <td class="py-2.5 px-4 text-right">76k</td>
+            </tr>
+            <tr class="border-t border-border/50">
+              <td class="py-2.5 px-4 text-green font-bold">Routing</td>
+              <td class="py-2.5 px-4">orca, magpie</td>
+              <td class="py-2.5 px-4">Model provider lock-in</td>
+              <td class="py-2.5 px-4 text-right">113k</td>
+            </tr>
+            <tr class="border-t border-border/50">
+              <td class="py-2.5 px-4 text-green font-bold">Coordination</td>
+              <td class="py-2.5 px-4">reason-network</td>
+              <td class="py-2.5 px-4">Multi-agent communication</td>
+              <td class="py-2.5 px-4 text-right">393</td>
+            </tr>
+            <tr class="border-t border-border/50">
+              <td class="py-2.5 px-4 text-green font-bold">Tooling</td>
+              <td class="py-2.5 px-4">git-ai</td>
+              <td class="py-2.5 px-4">Agent-native dev workflows</td>
+              <td class="py-2.5 px-4 text-right">1.5k</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile: cards -->
+      <div class="md:hidden space-y-3 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-green">Memory</span>
+            <span class="text-[10px] font-mono text-secondary">88k stars</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-1">ai-memory, ruflo</p>
+          <p class="text-[11px] text-foreground/60">Persistent and shared context</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-green">Compression</span>
+            <span class="text-[10px] font-mono text-secondary">76k stars</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-1">headroom</p>
+          <p class="text-[11px] text-foreground/60">Token cost and context limits</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-green">Routing</span>
+            <span class="text-[10px] font-mono text-secondary">113k stars</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-1">orca, magpie</p>
+          <p class="text-[11px] text-foreground/60">Model provider lock-in</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-green">Coordination</span>
+            <span class="text-[10px] font-mono text-secondary">393 stars</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-1">reason-network</p>
+          <p class="text-[11px] text-foreground/60">Multi-agent communication</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-green">Tooling</span>
+            <span class="text-[10px] font-mono text-secondary">1.5k stars</span>
+          </div>
+          <p class="text-[10px] text-secondary mb-1">git-ai</p>
+          <p class="text-[11px] text-foreground/60">Agent-native dev workflows</p>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Every major infrastructure era follows this pattern. Containers needed Kubernetes. Microservices needed service meshes. <strong>AI agents need agent harnesses.</strong> The middleware always wins because it owns the integration surface. And right now, the agent middleware surface is wide open.
+      </p>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>The AI agent war is not about who builds the best model. It is about who builds the best infrastructure around it.</strong> October 2026 proved that with 500k+ combined stars across eight agent infrastructure tools. Memory, compression, routing, coordination, and agent-native tooling are the new battleground. <strong>If you are building agents without thinking about the harness layer, you are building on sand.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#54</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">World Action Models: Robotics Just Had Its GPT-2 Moment</h3>
+        <p class="text-xs text-secondary/70">Robots that learn physics from video data are outperforming years of hand-coded VLAs. The pre-training paradigm just hit robotics.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

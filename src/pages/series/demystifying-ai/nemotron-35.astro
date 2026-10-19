@@ -1,0 +1,350 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Nemotron 3.5: NVIDIA's Mamba-Transformer Hybrid Eats SWE-bench | Demystifying AI in 5 Minutes"
+  description="120B MoE hybrid Mamba-Transformer with only 12B active params hits 51.78% on SWE-bench Pro. 4,856 output tok/s/GPU on GB200. NVFP4 quantization recovers 99.62% accuracy at 2.43x throughput."
+  image="/og-series-ep50-nemotron-35.png"
+  keywords="Nemotron 3.5, NVIDIA, Mamba, Transformer, MoE, SWE-bench, hybrid architecture, NVFP4, GB200, speculative decoding"
+  publishedDate="2026-10-28"
+  articleSection="Demystifying AI"
+  articleTags={["Nemotron 3.5", "NVIDIA", "Mamba-Transformer", "MoE", "SWE-bench", "NVFP4", "GB200"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
+    .arch-card { transition: all 0.3s ease; }
+    .arch-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(6, 182, 212, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep50-nemotron-35.png" alt="Nemotron 3.5: NVIDIA's Mamba-Transformer Hybrid Eats SWE-bench" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan-400 font-mono bg-cyan-500/5 border border-cyan-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          EP 50
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 28, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Nemotron 3.5: NVIDIA's Mamba-Transformer Hybrid Eats SWE-bench
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        120B parameters, 12B active. A hybrid Mamba-Transformer MoE that hits 51.78% on SWE-bench Pro while running at 4,856 output tokens per second per GPU on GB200.
+      </p>
+
+      <ShareButtons title="Nemotron 3.5: NVIDIA's Mamba-Transformer Hybrid Eats SWE-bench" url="/series/demystifying-ai/nemotron-35" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        NVIDIA Research dropped Nemotron 3.5 on October 14 - a family of hybrid Mamba-Transformer models that <strong>surpasses Nemotron 3 Ultra on SWE-bench Pro with 4.6x fewer active parameters</strong>. The Super variant packs 120B total params into 12B active via MoE, hits 51.78% on SWE-bench Pro, and runs at <strong>4,856 output tokens/s/GPU on GB200</strong>. NVFP4 quantization recovers 99.62% of accuracy while delivering 2.43x throughput over BF16.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">120B</div>
+        <div class="text-[10px] font-mono text-secondary">Total Params (Super)</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">12B</div>
+        <div class="text-[10px] font-mono text-secondary">Active Params</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">51.78%</div>
+        <div class="text-[10px] font-mono text-secondary">SWE-bench Pro</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">4,856</div>
+        <div class="text-[10px] font-mono text-secondary">Tok/s/GPU (GB200)</div>
+      </div>
+    </div>
+
+    <!-- The Model Family -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Two Models, One Hybrid Architecture
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Nemotron 3.5 is not one model. It is a family of two, both built on the same hybrid Mamba-Transformer backbone - combining structured state space models (Mamba) for efficient long-sequence processing with attention layers for precise in-context reasoning.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-5 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-cyan-400 font-bold">SUPER</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded">FLAGSHIP</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Total params</span>
+              <span class="text-foreground font-bold">120B</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Active params</span>
+              <span class="text-cyan-400 font-bold">12B</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Architecture</span>
+              <span class="text-foreground">MoE Hybrid Mamba-Transformer</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">SWE-bench Pro</span>
+              <span class="text-cyan-400 font-bold">51.78%</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Modality</span>
+              <span class="text-foreground">Text, image, video, tools</span>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-cyan-400 font-bold">LIGHTNING</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-border text-secondary rounded">EFFICIENT</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Total params</span>
+              <span class="text-foreground font-bold">30B</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Active params</span>
+              <span class="text-foreground font-bold">3B</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Architecture</span>
+              <span class="text-foreground">Hybrid Mamba-Transformer</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Target</span>
+              <span class="text-foreground">Edge/on-device</span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Modality</span>
+              <span class="text-foreground">Text, image, video, tools</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Both models support text, images, video, and tool-use environments. The Super variant is the headline act, but Lightning at 3B active params is designed to run on edge hardware - a 40x parameter efficiency ratio that makes on-device agentic AI practical.
+      </p>
+    </div>
+
+    <!-- SWE-bench -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> SWE-bench Domination
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The headline number is 51.78% on SWE-bench Pro - surpassing Nemotron 3 Ultra while using <strong>4.6x fewer active parameters</strong>. But the story behind that number is more interesting than the number itself.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">AGENTIC TRAINING PIPELINE</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[10px] font-mono text-cyan-400 font-bold">1</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Agentic Mid-Training</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">NVIDIA introduced agentic tasks directly into mid-training. DeepSWE scores jumped from <strong>6.4% to 10.4%</strong> - a 62% relative improvement just from exposing the model to tool-use trajectories during pre-training, not post-training RLHF.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[10px] font-mono text-cyan-400 font-bold">2</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Parallel Agent + Self-Verification</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">At inference time, multiple agent instances run in parallel and cross-verify results. This pushed Terminal-Bench from <strong>62.7% to 71.9%</strong> - a 14.7% relative gain from the inference strategy alone, no model changes needed.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[10px] font-mono text-cyan-400 font-bold">3</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">MTP Boosting</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Multi-Token Prediction heads are trained alongside the base model and used at inference to improve speculative decoding acceptance rates. More tokens accepted per step means fewer forward passes needed per response.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-cyan-400 font-bold">KEY INSIGHT</span>
+        </div>
+        <p class="text-xs text-foreground/80">
+          The agentic mid-training result is the real breakthrough. Most labs bolt agentic capability onto models after pre-training through RLHF or tool-use fine-tuning. NVIDIA baked it into the pre-training data mix itself. The model learns to use tools as naturally as it learns to complete sentences.
+        </p>
+      </div>
+    </div>
+
+    <!-- Speed -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Inference Speed That Changes the Math
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Raw intelligence means nothing if you cannot serve it. Nemotron 3.5 Super outputs <strong>4,856 tokens per second per GPU</strong> on the GB200, a number that makes real-time agentic workloads economically viable at scale.
+      </p>
+
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Metric</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono">BF16 Baseline</th>
+              <th class="text-right py-3 px-3 text-cyan-400 font-mono font-bold">NVFP4</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Throughput</td>
+              <td class="py-2.5 px-3 text-right">1x</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">2.43x</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Accuracy recovery</td>
+              <td class="py-2.5 px-3 text-right">100%</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">99.62%</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Memory footprint</td>
+              <td class="py-2.5 px-3 text-right">~240 GB</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">~100 GB</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3">Bits per weight</td>
+              <td class="py-2.5 px-3 text-right">16</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x26A1;</span>
+            <span class="text-xs font-bold text-foreground">NVFP4 quantization</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">NVIDIA's custom 4-bit floating point format loses only 0.38% accuracy while more than doubling throughput. This is not generic GPTQ or AWQ - it is hardware-native quantization designed for the GB200's tensor cores, with per-channel scaling that preserves outlier weights.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F680;</span>
+            <span class="text-xs font-bold text-foreground">MTP speculative decoding</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Multi-Token Prediction heads are not just a training trick. At inference, they act as draft models for speculative decoding - but because they share the backbone, the overhead is near zero. Higher acceptance rates mean fewer wasted compute cycles per generated token.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- What you can build -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Why This Matters for Builders
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Nemotron 3.5 is not just a benchmark model. It is a multimodal, tool-using, agentic system that processes text, images, and video while interacting with tool environments. The hybrid architecture is the key unlock.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">WHY HYBRID MAMBA-TRANSFORMER WINS</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">01</span>
+            <p class="text-xs text-foreground/80"><strong>Mamba layers handle long sequences in linear time.</strong> Transformers scale quadratically with sequence length. Mamba's state-space approach processes 128K+ context windows without the memory explosion. This is why the hybrid costs 4.6x fewer active params than a pure transformer of equivalent quality.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">02</span>
+            <p class="text-xs text-foreground/80"><strong>Transformer layers preserve in-context learning.</strong> Pure Mamba models struggle with tasks requiring precise retrieval from context. The attention layers in the hybrid handle exactly these cases - copy tasks, few-shot learning, and exact recall.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">03</span>
+            <p class="text-xs text-foreground/80"><strong>MoE keeps compute constant.</strong> Only 12B of 120B params activate per token. The routing network selects the right experts for each input, so the model has the knowledge of 120B params at the inference cost of 12B. Combined with Mamba's linear scaling, this is a double efficiency win.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The practical result: you can run a model that beats much larger pure transformers on coding benchmarks, at a fraction of the compute cost, while also processing images, video, and tool-use trajectories. That is the pitch for the post-transformer era - and NVIDIA just made its strongest case yet.
+      </p>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Nemotron 3.5 Super is the strongest evidence yet that hybrid architectures are the future of foundation models.</strong> 120B total, 12B active, 51.78% SWE-bench Pro, 4,856 tok/s/GPU on GB200, and 99.62% accuracy recovery under NVFP4 quantization. The Mamba-Transformer hybrid is not a research curiosity anymore. <strong>It is a production architecture that beats pure transformers on quality, speed, and cost simultaneously.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-cyan-500/30 bg-cyan-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-cyan-400 font-bold">#51</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Timestral: Mistral Conquers Time-Series with 209M Parameters</h3>
+        <p class="text-xs text-secondary/70">Mistral's first non-language model ranks #1 on every major time-series benchmark while running on CPU.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan-400 hover:border-cyan-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-400 hover:bg-cyan-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

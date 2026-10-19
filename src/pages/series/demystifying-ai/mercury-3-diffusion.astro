@@ -1,0 +1,399 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Mercury 3: The Diffusion LLM at 1,000 Tokens Per Second | Demystifying AI in 5 Minutes"
+  description="Inception Labs ships Mercury 3, the first diffusion language model that competes with autoregressive giants. 1,068 tok/s, 1M context, GPT-6 Luna quality, at a fraction of the price."
+  image="/og-series-ep46-mercury-3-diffusion.png"
+  keywords="Mercury 3, Inception Labs, diffusion LLM, fast inference, tokens per second, Mercury Voice, Mercury Decide, Stefano Ermon, OpenRouter, Baseten"
+  publishedDate="2026-10-19"
+  articleSection="Demystifying AI"
+  articleTags={["Mercury 3", "Inception Labs", "Diffusion LLM", "Fast Inference", "Mercury Voice", "Mercury Decide"]}
+>
+
+  <style>
+    .stat-card &#123; transition: all 0.3s ease; &#125;
+    .stat-card:hover &#123; transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 211, 238, 0.1); &#125;
+    .feature-card &#123; transition: all 0.3s ease; &#125;
+    .feature-card:hover &#123; transform: translateY(-2px); box-shadow: 0 0 15px rgba(34, 211, 238, 0.08); &#125;
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep46-mercury-3-diffusion.png" alt="Mercury 3: The Diffusion LLM at 1,000 Tokens Per Second" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 46
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 19, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Mercury 3: The Diffusion LLM at 1,000 Tokens Per Second
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Inception Labs just proved that diffusion language models can compete with autoregressive giants. Mercury 3 generates 1,068 tokens per second, matches GPT-6 Luna quality, and costs a tenth of the price.
+      </p>
+
+      <ShareButtons title="Mercury 3: The Diffusion LLM at 1,000 Tokens Per Second" url="/series/demystifying-ai/mercury-3-diffusion" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Inception Labs launched <strong>Mercury 3</strong>, a diffusion language model that generates <strong>1,068 tokens per second</strong> - 4-8x faster than GPT-6 Luna - while matching its quality. It has a 1M token context window, costs $0.10/M input tokens, and ships with specialized voice and structured-decision models. This is the first proof that <strong>diffusion LLMs scale to compete with autoregressive models</strong> on both speed and quality.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">1,068</div>
+        <div class="text-[10px] font-mono text-secondary">Tokens/Second</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">1M</div>
+        <div class="text-[10px] font-mono text-secondary">Context Window</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">$0.10</div>
+        <div class="text-[10px] font-mono text-secondary">Per 1M Input Tokens</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">4-8x</div>
+        <div class="text-[10px] font-mono text-secondary">Faster Than GPT-6 Luna</div>
+      </div>
+    </div>
+
+    <!-- Section 1: What Makes Diffusion LLMs Different -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Why Diffusion Changes Everything
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Every LLM you use today is autoregressive. GPT-6, Claude, Gemini, Llama - they all generate tokens <strong>one at a time</strong>, left to right. Each token waits for the previous one. That sequential bottleneck is why inference is slow and expensive, no matter how much hardware you throw at it.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Mercury 3 is a <strong>diffusion language model</strong>. Instead of predicting one token at a time, it starts with noise across the entire output and iteratively refines all tokens in parallel. Think of it like a sculptor revealing a statue from a block of marble rather than building it brick by brick. The result: massive parallelism that scales with GPU cores rather than sequence length.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 feature-card">
+          <div class="text-xs font-mono text-secondary mb-3">AUTOREGRESSIVE (GPT-6, Claude)</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <div class="flex gap-1">
+                <span class="w-6 h-6 rounded bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-[9px] font-mono text-violet-400">T1</span>
+                <span class="text-secondary text-[10px] self-center">&#8594;</span>
+                <span class="w-6 h-6 rounded bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-[9px] font-mono text-violet-400">T2</span>
+                <span class="text-secondary text-[10px] self-center">&#8594;</span>
+                <span class="w-6 h-6 rounded bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-[9px] font-mono text-violet-400">T3</span>
+                <span class="text-secondary text-[10px] self-center">&#8594;</span>
+                <span class="w-6 h-6 rounded bg-border flex items-center justify-center text-[9px] font-mono text-secondary">...</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-foreground/60 mt-2">One token at a time, sequential. Speed limited by depth, not width.</p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 feature-card">
+          <div class="text-xs font-mono text-cyan-400 mb-3">DIFFUSION (Mercury 3)</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <div class="flex gap-1">
+                <span class="w-6 h-6 rounded bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-[9px] font-mono text-cyan-400">T1</span>
+                <span class="w-6 h-6 rounded bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-[9px] font-mono text-cyan-400">T2</span>
+                <span class="w-6 h-6 rounded bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-[9px] font-mono text-cyan-400">T3</span>
+                <span class="w-6 h-6 rounded bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-[9px] font-mono text-cyan-400">T4</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-foreground/60 mt-2">All tokens refined in parallel. Speed scales with GPU width.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Mercury 3 is <strong>40x larger</strong> than Mercury 1 (their first diffusion model) yet achieves comparable speed. That scaling trajectory is the real story. If diffusion models maintain speed as they grow, the autoregressive bottleneck becomes a competitive disadvantage.
+      </p>
+    </div>
+
+    <!-- Section 2: The Benchmarks -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> How It Stacks Up
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Inception claims quality on par with GPT-6 Luna and Claude Haiku 5.5. Here is what the numbers look like side by side.
+      </p>
+
+      <!-- Desktop table -->
+      <div class="hidden md:block overflow-x-auto mb-6">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Metric</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono">GPT-6 Luna</th>
+              <th class="text-right py-3 px-3 text-secondary font-mono">Claude Haiku 5.5</th>
+              <th class="text-right py-3 px-3 text-cyan-400 font-mono font-bold">Mercury 3</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Speed (tok/s)</td>
+              <td class="py-2.5 px-3 text-right">~150-250</td>
+              <td class="py-2.5 px-3 text-right">~180-280</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">1,068</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Context window</td>
+              <td class="py-2.5 px-3 text-right">256K</td>
+              <td class="py-2.5 px-3 text-right">200K</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">1M</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Input price (per 1M)</td>
+              <td class="py-2.5 px-3 text-right">$1.25</td>
+              <td class="py-2.5 px-3 text-right">$0.80</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">$0.10</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3">Output price (per 1M)</td>
+              <td class="py-2.5 px-3 text-right">$5.00</td>
+              <td class="py-2.5 px-3 text-right">$4.00</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">$0.35</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3">Generation approach</td>
+              <td class="py-2.5 px-3 text-right">Autoregressive</td>
+              <td class="py-2.5 px-3 text-right">Autoregressive</td>
+              <td class="py-2.5 px-3 text-right text-cyan-400 font-bold">Diffusion</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile cards -->
+      <div class="md:hidden space-y-3 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="text-[10px] font-mono text-secondary mb-2">SPEED (TOKENS/SECOND)</div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center"><span class="text-xs text-secondary">GPT-6 Luna</span><span class="text-xs text-foreground/80">~150-250</span></div>
+            <div class="flex justify-between items-center"><span class="text-xs text-secondary">Claude Haiku 5.5</span><span class="text-xs text-foreground/80">~180-280</span></div>
+            <div class="flex justify-between items-center"><span class="text-xs text-cyan-400 font-bold">Mercury 3</span><span class="text-xs text-cyan-400 font-bold">1,068</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="text-[10px] font-mono text-secondary mb-2">INPUT PRICE (PER 1M TOKENS)</div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center"><span class="text-xs text-secondary">GPT-6 Luna</span><span class="text-xs text-foreground/80">$1.25</span></div>
+            <div class="flex justify-between items-center"><span class="text-xs text-secondary">Claude Haiku 5.5</span><span class="text-xs text-foreground/80">$0.80</span></div>
+            <div class="flex justify-between items-center"><span class="text-xs text-cyan-400 font-bold">Mercury 3</span><span class="text-xs text-cyan-400 font-bold">$0.10</span></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4">
+          <div class="text-[10px] font-mono text-secondary mb-2">CONTEXT WINDOW</div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center"><span class="text-xs text-secondary">GPT-6 Luna</span><span class="text-xs text-foreground/80">256K</span></div>
+            <div class="flex justify-between items-center"><span class="text-xs text-secondary">Claude Haiku 5.5</span><span class="text-xs text-foreground/80">200K</span></div>
+            <div class="flex justify-between items-center"><span class="text-xs text-cyan-400 font-bold">Mercury 3</span><span class="text-xs text-cyan-400 font-bold">1M</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The context window jumped from 260K (Mercury 2.5) to <strong>1M tokens</strong>. The pricing includes a launch 50% discount, but even at full price ($0.20 input / $0.70 output) it undercuts every comparable model by 4-10x. These are the numbers that make platform teams rewrite their cost projections.
+      </p>
+    </div>
+
+    <!-- Section 3: The Product Suite -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Beyond the Base Model
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Inception did not just ship a faster model. They shipped a product suite targeting the two use cases where speed matters most: voice and structured decisions. CEO Stefano Ermon (Stanford professor, diffusion model pioneer) is betting that speed-sensitive applications are where diffusion wins first.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-5 feature-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">&#x1F399;&#xFE0F;</span>
+            <span class="text-xs font-bold text-foreground">Mercury Voice</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-2">Purpose-built for real-time voice agents. <strong>Time-to-first-token under 170ms</strong> - fast enough that voice conversations feel natural with no perceptible delay. At 1,068 tok/s, the model finishes generating before the TTS engine needs the next chunk.</p>
+          <div class="flex items-center gap-2 mt-3">
+            <span class="text-[9px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">TTFT &lt; 170ms</span>
+            <span class="text-[9px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">Real-time</span>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-5 feature-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">&#x1F3AF;</span>
+            <span class="text-xs font-bold text-foreground">Mercury Decide</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-2">A structured decision model that outputs <strong>calibrated probabilities</strong> instead of free-form text. Feed it a decision with options, get back ranked choices with confidence scores. Designed for routing, classification, and agentic tool selection where you need reliable structured output at extreme speed.</p>
+          <div class="flex items-center gap-2 mt-3">
+            <span class="text-[9px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">Structured output</span>
+            <span class="text-[9px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">Calibrated</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-3">AVAILABILITY</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span class="text-xs text-foreground/80">Inception API</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span class="text-xs text-foreground/80">OpenRouter</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span class="text-xs text-foreground/80">Baseten</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span class="text-xs text-foreground/80">Vercel</span>
+          </div>
+        </div>
+        <p class="text-[11px] text-foreground/60 mt-3 mb-0"><strong>OpenAI API compatible.</strong> Drop-in replacement - swap the base URL and API key, keep your existing code. No SDK changes, no prompt rewrites.</p>
+      </div>
+
+      <div class="rounded-xl border border-cyan-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan-400 font-bold">DROP-IN REPLACEMENT</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary"># Before (OpenAI)</span>
+<span class="text-foreground/80">client = OpenAI(</span>
+<span class="text-foreground/80">    api_key="sk-...",</span>
+<span class="text-secondary">    # base_url defaults to api.openai.com</span>
+<span class="text-foreground/80">)</span>
+<span class="text-secondary"></span>
+<span class="text-cyan-400 font-bold"># After (Mercury 3) - change two lines</span>
+<span class="text-foreground/80">client = OpenAI(</span>
+<span class="text-cyan-400 font-bold">    api_key="mercury-...",</span>
+<span class="text-cyan-400 font-bold">    base_url="https://api.inceptionlabs.ai/v1",</span>
+<span class="text-foreground/80">)</span>
+<span class="text-secondary"></span>
+<span class="text-secondary"># Everything else stays the same</span>
+<span class="text-foreground/80">response = client.chat.completions.create(</span>
+<span class="text-cyan-400 font-bold">    model="mercury-3",</span>
+<span class="text-foreground/80">    messages=[&#123;"role": "user", "content": "..."&#125;],</span>
+<span class="text-foreground/80">)</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 4: Why This Matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Why This Matters Right Now
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Mercury 3 is not just a faster model. It is the first credible proof that the <strong>autoregressive paradigm has a real competitor</strong>. Here is what engineers should pay attention to.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-border bg-elevated p-4 feature-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x26A1;</span>
+            <span class="text-xs font-bold text-foreground">Speed unlocks new use cases</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">At 1,068 tok/s, you can run inference in real-time loops: voice agents, live coding assistants, game NPCs, and interactive tutors that respond faster than human perception. These applications were cost-prohibitive with autoregressive models.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feature-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4B0;</span>
+            <span class="text-xs font-bold text-foreground">Economics flip the math</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">At $0.10/M input and $0.35/M output, you can process 10x more tokens for the same budget. Batch jobs that cost $500/day on GPT-6 Luna could drop to $40. That is the difference between "prototype only" and "ship to production."</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feature-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4C8;</span>
+            <span class="text-xs font-bold text-foreground">Scaling trajectory matters</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Mercury 3 is 40x larger than Mercury 1 with comparable speed. Autoregressive models get slower as they scale. Diffusion models get smarter at the same speed. If this trajectory holds, the next generation could match GPT-6 Pro quality at Mercury 3 prices.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 feature-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F527;</span>
+            <span class="text-xs font-bold text-foreground">Zero migration cost</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">OpenAI API compatibility means you can test Mercury 3 in your existing stack without changing a single line of application code. Swap the base URL, run your eval suite, and compare. The switching cost is effectively zero.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Mercury 3 is the moment diffusion LLMs stopped being a research curiosity.</strong> 1,068 tokens per second, 1M context, GPT-6 Luna quality, and pricing that makes autoregressive models look like luxury goods. Inception Labs, led by Stanford's Stefano Ermon, just gave every team building speed-sensitive AI applications a reason to run benchmarks this week. <strong>The question is no longer "will diffusion LLMs work?" - it is "how fast will they improve?"</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Wednesday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-violet-400 font-bold">#47</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Neural Networks Are Already Clean</h3>
+        <p class="text-xs text-secondary/70">New research suggests neural networks converge to surprisingly clean internal representations - and we have been overcomplicating interpretability.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

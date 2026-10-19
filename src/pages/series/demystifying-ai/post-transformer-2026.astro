@@ -1,0 +1,319 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars | Demystifying AI in 5 Minutes"
+  description="The transformer monopoly is cracking. SSMs, diffusion LLMs, hybrid Mamba-Transformers, and linear attention models are battling for what comes next. A map of the post-transformer landscape."
+  image="/og-series-ep52-post-transformer-2026.png"
+  keywords="post-transformer, Mamba, SSM, diffusion LLM, Mercury 3, Nemotron, Jamba, RWKV, linear attention, TransNormerLLM, hybrid architecture"
+  publishedDate="2026-11-02"
+  articleSection="Demystifying AI"
+  articleTags={["Post-Transformer", "Mamba", "SSM", "Diffusion LLM", "Hybrid Architecture", "RWKV", "Linear Attention"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); }
+    .arch-card { transition: all 0.3s ease; }
+    .arch-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(34, 197, 94, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep52-post-transformer-2026.png" alt="Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 52
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Nov 2, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        A Reddit post mapping the post-transformer landscape hit 99 points on r/ML. The transformer monopoly is cracking, and four competing paradigms are fighting for what comes next.
+      </p>
+
+      <ShareButtons title="Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars" url="/series/demystifying-ai/post-transformer-2026" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        A viral r/MachineLearning post titled "Mapping Post-Transformer Architecture Landscape in 2026" sparked the debate that has been building all year. <strong>Four architecture families are now challenging the transformer:</strong> SSMs (Mamba, RWKV) with linear-time sequence processing, diffusion LLMs (Mercury 3) with parallel token generation, hybrid Mamba-Transformers (Nemotron 3.5, Jamba) that combine both paradigms, and linear attention models (TransNormerLLM). The current winner? <strong>Hybrids are dominating production benchmarks.</strong>
+      </p>
+    </div>
+
+    <!-- Architecture landscape cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">4</div>
+        <div class="text-[10px] font-mono text-secondary">Competing Paradigms</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">O(n)</div>
+        <div class="text-[10px] font-mono text-secondary">SSM Scaling</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">O(n&#178;)</div>
+        <div class="text-[10px] font-mono text-secondary">Attention Scaling</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">99</div>
+        <div class="text-[10px] font-mono text-secondary">r/ML Upvotes</div>
+      </div>
+    </div>
+
+    <!-- The Transformer Monopoly -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Transformer Monopoly Is Cracking
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Since 2017, transformers have been the only architecture that matters. GPT, Claude, Gemini, Llama - all transformers. Every scaling law, every training recipe, every inference optimization has been built around self-attention.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        But 2026 cracked that monopoly open. The evidence is now too strong to ignore: <strong>pure transformers are not the only path to state-of-the-art performance</strong>. Multiple production-grade models have shipped this year using fundamentally different architectures - and some of them are winning.
+      </p>
+
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-green font-bold">THE CORE PROBLEM WITH TRANSFORMERS</span>
+        </div>
+        <p class="text-xs text-foreground/80">
+          Self-attention computes relationships between <strong>every pair of tokens</strong> in the sequence. That means O(n&#178;) compute and memory. Double the context length, quadruple the cost. At 128K tokens, you are spending most of your FLOPS on attention - not on actually understanding content. Every challenger architecture shares one goal: <strong>break the quadratic wall</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- The Contenders -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Four Contenders
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The r/ML post mapped four distinct architecture families that have shipped production models in 2026. Each attacks the transformer's weaknesses from a different angle.
+      </p>
+
+      <div class="space-y-4 mb-6">
+        <!-- SSMs -->
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-green font-bold">1. STATE SPACE MODELS (SSMs)</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">Mamba / RWKV</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-2">Process sequences in <strong>linear time O(n)</strong> using a fixed-size hidden state instead of computing all-pairs attention. Mamba introduced selective state spaces - the model dynamically chooses what to remember and what to forget, like a learned compression algorithm running over the sequence.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Linear-time scaling</span>
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Constant memory per step</span>
+            <span class="text-[10px] text-red-400 bg-red-500/10 px-2 py-0.5 rounded">&#x2717; Weaker in-context learning</span>
+          </div>
+        </div>
+
+        <!-- Diffusion LLMs -->
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-green font-bold">2. DIFFUSION LLMs</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">Mercury 3</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-2">Generate all tokens <strong>in parallel</strong> through iterative denoising, like how image diffusion models work but applied to text. Mercury 3 (<a href="/series/demystifying-ai/mercury-3" class="text-green hover:underline">EP46</a>) showed this can match autoregressive quality at 10x the throughput because you are not waiting for each token before generating the next one.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Parallel generation</span>
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Massive throughput</span>
+            <span class="text-[10px] text-red-400 bg-red-500/10 px-2 py-0.5 rounded">&#x2717; Harder to control output</span>
+          </div>
+        </div>
+
+        <!-- Hybrids -->
+        <div class="rounded-xl border border-green/30 bg-green/[0.05] p-4 md:p-5 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-green font-bold">3. HYBRID MAMBA-TRANSFORMERS</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">Nemotron 3.5 / Jamba</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-green/20 border border-green/30 text-green rounded font-bold">WINNING</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-2">Stack Mamba layers for cheap long-range processing and sprinkle in attention layers where precise retrieval matters. Nemotron 3.5 (<a href="/series/demystifying-ai/nemotron-35" class="text-green hover:underline">EP50</a>) hit 51.78% on SWE-bench Pro with this recipe. AI21's Jamba uses the same hybrid approach. The key insight: <strong>you do not need attention everywhere, just where it counts</strong>.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Best of both worlds</span>
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Production-proven</span>
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Top benchmarks</span>
+          </div>
+        </div>
+
+        <!-- Linear Attention -->
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-5 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-green font-bold">4. LINEAR ATTENTION</span>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono bg-green/10 border border-green/20 text-green rounded">TransNormerLLM</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-2">Keep the attention mechanism but replace the softmax kernel with a linear approximation, reducing O(n&#178;) to O(n). TransNormerLLM rewrites the attention equation so it can be computed as a running sum rather than a full matrix multiply. You keep attention's expressivity while getting SSM-like scaling.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Familiar training recipes</span>
+            <span class="text-[10px] text-green bg-green/10 px-2 py-0.5 rounded">&#x2713; Linear scaling</span>
+            <span class="text-[10px] text-red-400 bg-red-500/10 px-2 py-0.5 rounded">&#x2717; Quality gap remains</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why hybrids are winning -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Why Hybrids Are Winning
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The r/ML thread reached a rough consensus: <strong>pure alternatives are not ready to replace transformers, but hybrids already have</strong>. The reasoning comes down to two complementary strengths.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F40D;</span>
+            <span class="text-xs font-bold text-foreground">Mamba excels at long context</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">SSM layers compress long sequences into a fixed-size state efficiently. For tasks where you need to process 100K+ tokens of context - codebases, documents, agent trajectories - Mamba layers handle the bulk of the work at O(n) cost. This is where transformers bleed compute.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F3AF;</span>
+            <span class="text-xs font-bold text-foreground">Transformers excel at retrieval</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Attention layers are unbeatable at precise in-context learning: copy tasks, few-shot examples, exact recall from earlier in the conversation. Pure Mamba models fail at these tasks because their fixed-size state cannot perfectly preserve arbitrary tokens. A few attention layers solve this.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">THE HYBRID PATTERN</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-green"># Simplified hybrid Mamba-Transformer block pattern</span>
+<span class="text-secondary"># (conceptual, not exact implementation)</span>
+
+<span class="text-secondary">layers = [</span>
+<span class="text-secondary">    MambaBlock(),       </span><span class="text-green"># Long-range, O(n)</span>
+<span class="text-secondary">    MambaBlock(),       </span><span class="text-green"># Long-range, O(n)</span>
+<span class="text-secondary">    MambaBlock(),       </span><span class="text-green"># Long-range, O(n)</span>
+<span class="text-secondary">    AttentionBlock(),   </span><span class="text-green"># Precise retrieval, O(n&#178;) but sparse</span>
+<span class="text-secondary">    MambaBlock(),       </span><span class="text-green"># Long-range, O(n)</span>
+<span class="text-secondary">    MambaBlock(),       </span><span class="text-green"># Long-range, O(n)</span>
+<span class="text-secondary">    MambaBlock(),       </span><span class="text-green"># Long-range, O(n)</span>
+<span class="text-secondary">    AttentionBlock(),   </span><span class="text-green"># Precise retrieval</span>
+<span class="text-secondary">]</span>
+<span class="text-secondary"></span>
+<span class="text-green"># Result: ~75% of layers are O(n), ~25% are O(n&#178;)</span>
+<span class="text-green"># Effective cost: much cheaper than full transformer</span>
+<span class="text-green"># Quality: matches or beats pure transformer</span></pre>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The ratio matters. Nemotron 3.5 and Jamba both use roughly 3:1 or 4:1 Mamba-to-attention ratios. That means 75-80% of layers run at linear cost. The attention layers handle the 20% of computation where precise token-level retrieval is critical. The result: transformer-quality outputs at a fraction of the compute. GGUF quantization (<a href="/series/demystifying-ai/gguf-format" class="text-green hover:underline">EP44</a>) makes these hybrids even more deployable on consumer hardware.
+      </p>
+    </div>
+
+    <!-- Where this is going -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Where This Is Going
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The r/ML discussion converged on one prediction: <strong>the future is mixture-of-architectures</strong>. Not one winner, but a toolbox.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">THE EMERGING STACK</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">01</span>
+            <p class="text-xs text-foreground/80"><strong>Routing layers that choose the right architecture per token.</strong> Not just MoE (which selects experts within a transformer), but MoA - Mixture of Architectures. Some tokens route through Mamba for efficiency, others through attention for precision. The router learns which architecture each input needs.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">02</span>
+            <p class="text-xs text-foreground/80"><strong>Diffusion for batch generation, autoregressive for interactive.</strong> Mercury 3 showed that diffusion LLMs can generate entire responses in parallel at 10x throughput. The trade-off is latency control. Expect production systems that use diffusion for offline batch tasks and autoregressive models for real-time chat.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">03</span>
+            <p class="text-xs text-foreground/80"><strong>Hardware-specific architecture selection.</strong> Mamba's recurrent structure maps naturally to sequential processors and edge devices. Attention parallelizes across GPUs. Diffusion needs massive batch parallelism. The winning architecture may depend on where you are running it, not which benchmark you care about.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">04</span>
+            <p class="text-xs text-foreground/80"><strong>Training recipe convergence.</strong> The biggest barrier to non-transformer architectures was the lack of proven training recipes. Nemotron 3.5 and Jamba have now published reproducible hybrid training pipelines. Expect the ecosystem of tools, libraries, and best practices to follow rapidly in 2027.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The question "what replaces the transformer?" is the wrong question. The right question is: <strong>which combination of architectures gives you the best quality-per-FLOP for your specific workload?</strong> And 2026 finally gave us enough production evidence to start answering it.
+      </p>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>The transformer is not dead, but its monopoly is.</strong> Mamba handles long context in linear time but struggles with retrieval. Attention is precise but quadratically expensive. Diffusion generates in parallel but sacrifices control. Hybrids like Nemotron 3.5 and Jamba combine Mamba and attention to beat pure transformers on quality, speed, and cost simultaneously. <strong>The post-transformer era is not about replacing attention - it is about using it only where it matters.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Wednesday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#53</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Agent Infra Boom: The Picks-and-Shovels Play of 2026</h3>
+        <p class="text-xs text-secondary/70">Everyone is building agents. The real money is in the infrastructure that makes them reliable.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

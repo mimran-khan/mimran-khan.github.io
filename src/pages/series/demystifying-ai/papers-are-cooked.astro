@@ -1,0 +1,326 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Conference Papers Are Cooked: The AI Writing Crisis in Research | Demystifying AI in 5 Minutes"
+  description="34% of ICML 2026 submissions flagged for AI-generated content. 23% of reviews show LLM patterns. The peer review system is eating itself."
+  image="/og-series-ep56-papers-are-cooked.png"
+  keywords="AI-generated papers, ICML 2026, NeurIPS, peer review crisis, GPT-4o, LLM detection, academic integrity, research papers, conference submissions"
+  publishedDate="2026-11-11"
+>
+
+  <style>
+    .stat-card &#123; transition: all 0.3s ease; &#125;
+    .stat-card:hover &#123; transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); &#125;
+    .signal-card &#123; transition: all 0.3s ease; &#125;
+    .signal-card:hover &#123; transform: translateY(-2px); box-shadow: 0 0 15px rgba(34, 197, 94, 0.08); &#125;
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep56-papers-are-cooked.png" alt="Conference Papers Are Cooked: The AI Writing Crisis in Research" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 56
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Nov 11, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Conference Papers Are Cooked: The AI Writing Crisis in Research
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        LLMs can generate plausible-looking papers faster than reviewers can catch them. And the reviewers are using LLMs too. The peer review system is contaminated on both sides.
+      </p>
+
+      <ShareButtons title="Conference Papers Are Cooked: The AI Writing Crisis in Research" url="/series/demystifying-ai/papers-are-cooked" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>34% of ICML 2026 submissions were flagged for AI-generated content.</strong> A NeurIPS reviewer audit found GPT-4o was co-author on roughly 17% of submissions. Meanwhile, 23% of ICML reviews themselves showed LLM patterns. The result is <strong>double contamination</strong>: AI writes the papers, AI reviews them, and the entire peer review pipeline is collapsing under the weight of synthetic text.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">34%</div>
+        <div class="text-[10px] font-mono text-secondary">ICML Submissions Flagged</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">~17%</div>
+        <div class="text-[10px] font-mono text-secondary">GPT-4o Co-Authored</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">23%</div>
+        <div class="text-[10px] font-mono text-secondary">Reviews Show LLM Patterns</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-green mb-1">167</div>
+        <div class="text-[10px] font-mono text-secondary">Reddit r/ML Upvotes</div>
+      </div>
+    </div>
+
+    <!-- Section 1: The Scale -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Numbers Are Brutal
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        A Reddit post on r/MachineLearning titled "Are We Still Pretending Conference Papers Are Legit?" hit 167 points on October 11 and blew the lid off something everyone already suspected. The top-level conferences are drowning in AI-generated submissions.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        But it is not just vibes. The data backs it up.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">CONFERENCE CONTAMINATION TIMELINE</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">1</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">ICML 2026 - 34% flagged</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Internal review tools flagged over a third of all submissions for containing AI-generated content. The flagging criteria included stylometric analysis, perplexity scoring, and cross-reference to known LLM output patterns. Program chairs scrambled to decide which flags warranted desk rejections.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">2</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">NeurIPS Reviewer Audit - ~17% GPT-4o co-authored</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">A dedicated audit team analyzed submission metadata, writing patterns, and API timing correlations. Roughly 17% of submissions showed strong evidence that GPT-4o was used not just for editing, but for generating substantial portions of methodology and results sections.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-green/20 flex items-center justify-center text-[10px] font-mono text-green font-bold">3</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">ICLR 2027 CFP - Methodology declarations required</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">The ICLR 2027 Call for Papers now requires authors to submit "methodology declarations" detailing exactly which AI tools were used and for what purpose. A first for a top-tier venue. Enforcement details remain unclear.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The problem is not that researchers use LLMs for grammar or polishing. The problem is that <strong>entire papers are being generated end-to-end</strong>, and the output is good enough to pass initial screening.
+      </p>
+    </div>
+
+    <!-- Section 2: The Tell-Tale Signs -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Signature Phrases
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        LLM-generated academic text has a fingerprint. Reviewers and detection tools have identified a set of phrases that appear at statistically impossible rates in flagged submissions. If you have read enough ML papers this year, you have seen all of these.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center signal-card">
+          <div class="text-lg font-bold text-green mb-2">"delve"</div>
+          <div class="text-[10px] font-mono text-secondary">Usage up 340% in flagged papers vs. human baseline</div>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center signal-card">
+          <div class="text-lg font-bold text-green mb-2">"notably"</div>
+          <div class="text-[10px] font-mono text-secondary">Appears 4.7x more in AI-generated methodology sections</div>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center signal-card">
+          <div class="text-lg font-bold text-green mb-2">"it is worth noting"</div>
+          <div class="text-[10px] font-mono text-secondary">Near-zero in pre-2023 papers, now in 28% of submissions</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-green/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-green font-bold">MORE RED FLAGS FROM DETECTION TOOLS</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-green">HIGH CONFIDENCE INDICATORS:</span>
+<span class="text-secondary">  "In this paper, we delve into..."           </span><span class="text-green">&#x2502; 89% AI probability</span>
+<span class="text-secondary">  "It is worth noting that..."                </span><span class="text-green">&#x2502; 84% AI probability</span>
+<span class="text-secondary">  "This approach notably outperforms..."       </span><span class="text-green">&#x2502; 81% AI probability</span>
+<span class="text-secondary">  "A comprehensive analysis reveals..."        </span><span class="text-green">&#x2502; 78% AI probability</span>
+
+<span class="text-green">STRUCTURAL INDICATORS:</span>
+<span class="text-secondary">  Perfectly parallel sentence structures       </span><span class="text-green">&#x2502; Section-level flag</span>
+<span class="text-secondary">  Uniform paragraph length (4-5 sentences)     </span><span class="text-green">&#x2502; Document-level flag</span>
+<span class="text-secondary">  Hedging phrases exactly every 3rd claim      </span><span class="text-green">&#x2502; Statistical anomaly</span>
+<span class="text-secondary">  Zero contractions in informal venues         </span><span class="text-green">&#x2502; Style mismatch</span></pre>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The irony: as detection improves, authors learn to prompt LLMs to avoid these phrases. The arms race between generation and detection is already underway, and <strong>detection is losing</strong>.
+      </p>
+    </div>
+
+    <!-- Section 3: Double Contamination -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Double Contamination: AI Reviews AI
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Here is where it gets truly dystopian. It is not just the papers. <strong>23% of ICML 2026 reviews showed LLM patterns.</strong> Reviewers are using the same models to write reviews that authors use to write papers.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The peer review system now has contamination on both ends of the pipeline. AI writes the paper. AI reviews the paper. A human clicks "submit" and another human clicks "accept." The intellectual labor in between is increasingly synthetic.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 signal-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4DD;</span>
+            <span class="text-xs font-bold text-foreground">Submission Side</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Authors paste their rough ideas into GPT-4o or Claude, get a polished draft, run it through a paraphraser, and submit. The output reads like a real paper because <strong>it is trained on real papers</strong>. Methodology sections are particularly vulnerable because the formulaic structure maps perfectly to LLM strengths.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 signal-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F50D;</span>
+            <span class="text-xs font-bold text-foreground">Review Side</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Overworked reviewers paste the paper into an LLM, ask for a summary and critique, then lightly edit the output. The reviews sound thorough but miss subtle methodological flaws that a domain expert would catch. <strong>23% of ICML reviews</strong> showed these patterns - identical hedging structures, suspiciously balanced praise-and-critique ratios.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-yellow-400 font-bold">THE FEEDBACK LOOP</span>
+        </div>
+        <ul class="space-y-1.5 mb-0">
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary">AI-generated papers get accepted because AI-generated reviews miss the tells</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary">Accepted AI papers become training data for future LLMs</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary">Future LLMs generate even more convincing papers from that training data</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary">Reviewers use those same future LLMs to evaluate submissions</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">This is reproducibility crisis 2.0</strong> - you cannot trust the paper or the review</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 4: What's Being Done -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Response So Far
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Conferences and labs are scrambling to catch up. The interventions range from bureaucratic to radical, and none of them fully solve the problem.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-3">CURRENT COUNTERMEASURES</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">01</span>
+            <p class="text-xs text-foreground/80"><strong>ICLR 2027 methodology declarations.</strong> Authors must disclose which AI tools were used and for what purpose. A step forward, but self-reported and unverifiable. Compliance is honor-system only.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">02</span>
+            <p class="text-xs text-foreground/80"><strong>Human attestation certificates.</strong> Some labs now require authors to sign statements affirming that core intellectual contributions are human-originated. Similar to the approach used in legal filings and patent applications. Enforcement remains the open question.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">03</span>
+            <p class="text-xs text-foreground/80"><strong>Stylometric detection at scale.</strong> ICML deployed automated screening tools for the first time in 2026, catching the 34% flag rate. False positives are a known issue - legitimate non-native English authors get flagged at higher rates, which raises fairness concerns.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">04</span>
+            <p class="text-xs text-foreground/80"><strong>Reviewer identity verification.</strong> NeurIPS is piloting mandatory reviewer check-ins where reviewers must demonstrate domain knowledge in a live session before their reviews are accepted. Time-intensive but potentially effective.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold flex-shrink-0">05</span>
+            <p class="text-xs text-foreground/80"><strong>Reproducibility as gatekeeper.</strong> The strongest defense: require working code, data, and reproducible results before acceptance. AI can generate text, but it cannot yet fake reproducible experiments at scale. This is where the verification bottleneck naturally filters synthetic papers.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The uncomfortable truth: <strong>there is no reliable way to distinguish a well-prompted LLM paper from a human-written one</strong>. Detection accuracy drops below 60% on carefully prompted outputs. The countermeasures are about raising the cost of cheating, not eliminating it.
+      </p>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>The conference paper pipeline is contaminated on both sides.</strong> 34% of submissions flagged, 17% with GPT-4o as co-author, 23% of reviews generated by LLMs. AI writes the papers. AI reviews them. The humans in the loop are increasingly just clicking buttons. ICLR 2027 is the first major venue to mandate AI-use declarations, but enforcement is honor-system. <strong>The real fix is reproducibility - demand working code and data, because LLMs can fake prose but they cannot fake experiments.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Saturday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-violet-400 font-bold">#57</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">ORL: 2,788 Tokens Per Second From a Single RTX 5090</h3>
+        <p class="text-xs text-secondary/70">Latent diffusion for text generation. All tokens generated simultaneously, then refined iteratively. 46x faster than autoregressive at the same quality.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

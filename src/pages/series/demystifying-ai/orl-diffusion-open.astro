@@ -1,0 +1,385 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="ORL: 2,788 Tokens Per Second From a Single RTX 5090 | Demystifying AI in 5 Minutes"
+  description="Open Reasoning via Latent diffusion generates all tokens simultaneously then refines iteratively. 46x faster than autoregressive models at the same quality. 3B and 8B checkpoints open-sourced."
+  image="/og-series-ep57-orl-diffusion-open.png"
+  keywords="ORL, Open Reasoning via Latent diffusion, latent diffusion, text generation, RTX 5090, autoregressive, parallel decoding, Cambridge, EPFL, Anthropic, Mistral, arXiv"
+  publishedDate="2026-11-14"
+>
+
+  <style>
+    .stat-card &#123; transition: all 0.3s ease; &#125;
+    .stat-card:hover &#123; transform: scale(1.02); box-shadow: 0 0 20px rgba(139, 92, 246, 0.15); &#125;
+    .arch-card &#123; transition: all 0.3s ease; &#125;
+    .arch-card:hover &#123; transform: translateY(-2px); box-shadow: 0 0 15px rgba(139, 92, 246, 0.1); &#125;
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-violet-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep57-orl-diffusion-open.png" alt="ORL: 2,788 Tokens Per Second From a Single RTX 5090" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet-400 font-mono bg-violet-500/5 border border-violet-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          EP 57
+        </span>
+        <a href="https://arxiv.org/abs/2610.17894" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 7l3 5-3 5M15 7l-3 5 3 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          arXiv: 2610.17894
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Nov 14, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        ORL: 2,788 Tokens Per Second From a Single RTX 5090
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Open Reasoning via Latent diffusion. Generate all tokens at once, refine iteratively - like an image diffusion model, but for text. 46x faster than autoregressive at the same quality. 3B and 8B checkpoints open-sourced.
+      </p>
+
+      <ShareButtons title="ORL: 2,788 Tokens Per Second From a Single RTX 5090" url="/series/demystifying-ai/orl-diffusion-open" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Researchers from Cambridge, EPFL, Anthropic, and Mistral introduce <strong>ORL (Open Reasoning via Latent diffusion)</strong>, a model that generates text the way Stable Diffusion generates images: all tokens at once, then refined through iterative denoising. On a single RTX 5090, ORL hits <strong>2,788 tokens per second</strong> - compared to roughly 60 tok/s for GPT-6 Comet's autoregressive decoding. It matches GPT-6 Luna quality on GPQA Diamond, MATH-500, and LiveCodeBench. The 3B and 8B checkpoints are fully open-sourced.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">2,788</div>
+        <div class="text-[10px] font-mono text-secondary">Tokens/Second</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">46x</div>
+        <div class="text-[10px] font-mono text-secondary">Faster Than AR</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">3B / 8B</div>
+        <div class="text-[10px] font-mono text-secondary">Open Checkpoints</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-violet-400 mb-1">~60</div>
+        <div class="text-[10px] font-mono text-secondary">GPT-6 tok/s (AR)</div>
+      </div>
+    </div>
+
+    <!-- Section 1: What Is ORL -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> What Is ORL?
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Every LLM you use today - GPT-6, Claude, Gemini, Llama - generates text one token at a time, left to right. Each token depends on the previous one. This is called <strong>autoregressive (AR) decoding</strong>, and it is inherently sequential. You cannot parallelize it.
+      </p>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        ORL flips this entirely. Instead of predicting one token at a time, it <strong>generates all tokens simultaneously</strong> as a noisy initial draft in a continuous latent space, then refines the entire sequence through iterative denoising steps - exactly how Stable Diffusion generates images from noise.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-[10px] font-mono text-secondary bg-secondary/10 px-2 py-1 rounded font-bold">AUTOREGRESSIVE</span>
+          </div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3 overflow-x-auto">
+            <pre class="text-[10px] font-mono leading-relaxed"><span class="text-secondary">Step 1:</span> <span class="text-violet-400">The</span> <span class="text-secondary/40">_ _ _ _ _ _ _</span>
+<span class="text-secondary">Step 2:</span> <span class="text-violet-400">The cat</span> <span class="text-secondary/40">_ _ _ _ _ _</span>
+<span class="text-secondary">Step 3:</span> <span class="text-violet-400">The cat sat</span> <span class="text-secondary/40">_ _ _ _ _</span>
+<span class="text-secondary">Step 4:</span> <span class="text-violet-400">The cat sat on</span> <span class="text-secondary/40">_ _ _ _</span>
+<span class="text-secondary">  ...</span>
+<span class="text-secondary">Step 8:</span> <span class="text-violet-400">The cat sat on the warm mat .</span>
+
+<span class="text-secondary">Speed: ~60 tok/s (sequential)</span></pre>
+          </div>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.02] p-4 arch-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-[10px] font-mono text-violet-400 bg-violet-500/10 px-2 py-1 rounded font-bold">ORL (DIFFUSION)</span>
+          </div>
+          <div class="rounded-lg border border-violet-500/20 bg-[#161b22] p-3 overflow-x-auto">
+            <pre class="text-[10px] font-mono leading-relaxed"><span class="text-secondary">Step 1:</span> <span class="text-secondary/40">&#x2588;&#x2588; &#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588; &#x2588;&#x2588; &#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588; &#x2588;</span>
+<span class="text-secondary">Step 2:</span> <span class="text-violet-400/50">Tha cet sot en tha werm met .</span>
+<span class="text-secondary">Step 3:</span> <span class="text-violet-400/70">The cat sat on the warm mat .</span>
+<span class="text-secondary">Step 4:</span> <span class="text-violet-400">The cat sat on the warm mat .</span>
+
+
+
+<span class="text-violet-400">Speed: 2,788 tok/s (parallel)</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        The key insight: reasoning happens in a <strong>continuous latent space</strong>, not in discrete token space. The model thinks in vectors, not words. Only at the final step does it decode the latent representation back into text tokens. This means the entire "thinking" process is trivially parallelizable across GPUs.
+      </p>
+    </div>
+
+    <!-- Section 2: The Benchmarks -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Benchmarks
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Speed is meaningless if quality drops. ORL does not drop quality. The 8B checkpoint matches GPT-6 Luna (the smaller, faster GPT-6 variant) across three of the hardest reasoning benchmarks.
+      </p>
+
+      <div class="overflow-x-auto mb-6 hidden md:block">
+        <div class="overflow-hidden rounded-xl border border-border">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="bg-elevated">
+                <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Benchmark</th>
+                <th class="text-right py-3 px-3 text-secondary font-mono">GPT-6 Comet (AR)</th>
+                <th class="text-right py-3 px-3 text-secondary font-mono">GPT-6 Luna (AR)</th>
+                <th class="text-right py-3 px-3 text-violet-400 font-mono font-bold">ORL-8B (Diffusion)</th>
+              </tr>
+            </thead>
+            <tbody class="text-foreground/80">
+              <tr class="border-b border-border/50">
+                <td class="py-2.5 px-3">GPQA Diamond</td>
+                <td class="py-2.5 px-3 text-right">71.2%</td>
+                <td class="py-2.5 px-3 text-right">64.8%</td>
+                <td class="py-2.5 px-3 text-right text-violet-400 font-bold">65.1%</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2.5 px-3">MATH-500</td>
+                <td class="py-2.5 px-3 text-right">89.4%</td>
+                <td class="py-2.5 px-3 text-right">83.7%</td>
+                <td class="py-2.5 px-3 text-right text-violet-400 font-bold">84.2%</td>
+              </tr>
+              <tr class="border-b border-border/50">
+                <td class="py-2.5 px-3">LiveCodeBench</td>
+                <td class="py-2.5 px-3 text-right">62.1%</td>
+                <td class="py-2.5 px-3 text-right">54.3%</td>
+                <td class="py-2.5 px-3 text-right text-violet-400 font-bold">53.9%</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-bold">Throughput (1x RTX 5090)</td>
+                <td class="py-2.5 px-3 text-right">~60 tok/s</td>
+                <td class="py-2.5 px-3 text-right">~110 tok/s</td>
+                <td class="py-2.5 px-3 text-right text-violet-400 font-bold">2,788 tok/s</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Mobile version -->
+      <div class="space-y-3 mb-6 md:hidden">
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">GPQA DIAMOND</div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Comet</span><span class="text-foreground/80">71.2%</span></div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Luna</span><span class="text-foreground/80">64.8%</span></div>
+          <div class="flex justify-between text-xs"><span class="text-violet-400 font-bold">ORL-8B</span><span class="text-violet-400 font-bold">65.1%</span></div>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">MATH-500</div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Comet</span><span class="text-foreground/80">89.4%</span></div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Luna</span><span class="text-foreground/80">83.7%</span></div>
+          <div class="flex justify-between text-xs"><span class="text-violet-400 font-bold">ORL-8B</span><span class="text-violet-400 font-bold">84.2%</span></div>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">LIVECODEBENCH</div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Comet</span><span class="text-foreground/80">62.1%</span></div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Luna</span><span class="text-foreground/80">54.3%</span></div>
+          <div class="flex justify-between text-xs"><span class="text-violet-400 font-bold">ORL-8B</span><span class="text-violet-400 font-bold">53.9%</span></div>
+        </div>
+        <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">THROUGHPUT (1x RTX 5090)</div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Comet</span><span class="text-foreground/80">~60 tok/s</span></div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-secondary">GPT-6 Luna</span><span class="text-foreground/80">~110 tok/s</span></div>
+          <div class="flex justify-between text-xs"><span class="text-violet-400 font-bold">ORL-8B</span><span class="text-violet-400 font-bold">2,788 tok/s</span></div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Read those throughput numbers again. <strong>2,788 vs ~60 tokens per second.</strong> That is not a marginal improvement. That is a paradigm shift. ORL-8B is slightly below GPT-6 Luna on LiveCodeBench (53.9% vs 54.3%) but matches or exceeds on the other two benchmarks - while being <strong>25x faster than Luna and 46x faster than Comet</strong>.
+      </p>
+    </div>
+
+    <!-- Section 3: How It Works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> How It Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        ORL has three core innovations that make diffusion-based text generation competitive with autoregressive models for the first time.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">THREE KEY INNOVATIONS</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-[10px] font-mono text-violet-400 font-bold">1</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Continuous Latent Reasoning</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Instead of operating on discrete tokens (vocabulary IDs), ORL maps the input into a continuous latent space using a learned encoder. All "reasoning" - the actual computation that transforms a question into an answer - happens in this continuous space. Discrete tokens are only produced at the final decoding step. This avoids the sequential bottleneck because continuous vectors can be processed in parallel.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-[10px] font-mono text-violet-400 font-bold">2</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Adaptive Denoising Schedule</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Not all problems need the same number of refinement steps. ORL uses a learned difficulty estimator that predicts how many denoising iterations a given input requires. Simple questions (factual recall, short answers) may need only 4-8 steps. Complex multi-step reasoning (MATH-500 level) may use 32-64 steps. This dynamic scheduling is why ORL stays fast on easy queries without sacrificing accuracy on hard ones.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-[10px] font-mono text-violet-400 font-bold">3</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Trivial GPU Parallelism</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Because every token position is processed simultaneously, ORL scales linearly with GPU count. Two RTX 5090s give you roughly 5,500 tok/s. Four give you roughly 11,000. Autoregressive models hit diminishing returns with multi-GPU setups because of the sequential token dependency. ORL has no such constraint - each denoising step is a single forward pass over all positions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400 font-bold">ORL INFERENCE PIPELINE (SIMPLIFIED)</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-violet-400">Input:</span>  <span class="text-secondary">"What is the derivative of x^3 * sin(x)?"</span>
+
+<span class="text-violet-400">Step 1 - Encode:</span>
+<span class="text-secondary">  tokens  -->  encoder  -->  latent vectors (continuous)</span>
+
+<span class="text-violet-400">Step 2 - Initialize:</span>
+<span class="text-secondary">  z_T = gaussian_noise(shape=[max_output_len, latent_dim])</span>
+
+<span class="text-violet-400">Step 3 - Denoise (N steps, all positions in parallel):</span>
+<span class="text-secondary">  for t in range(T, 0, -1):</span>
+<span class="text-secondary">      z_t-1 = denoise_step(z_t, input_latents, t)</span>
+<span class="text-secondary">      </span><span class="text-violet-400"># N = 4-64 steps (adaptive to difficulty)</span>
+
+<span class="text-violet-400">Step 4 - Decode:</span>
+<span class="text-secondary">  z_0  -->  decoder  -->  output tokens</span>
+
+<span class="text-violet-400">Output:</span> <span class="text-secondary">"3x^2 * sin(x) + x^3 * cos(x)"</span></pre>
+      </div>
+    </div>
+
+    <!-- Section 4: Why This Matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Why This Changes Everything
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        ORL is not just a faster model. It is a fundamentally different architecture that breaks assumptions the entire LLM industry is built on.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x26A1;</span>
+            <span class="text-xs font-bold text-foreground">Real-time inference on consumer hardware</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">2,788 tok/s on a single RTX 5090 means high-quality reasoning at speeds that feel instant. No data center required. The 3B checkpoint runs on a laptop GPU. This democratizes access to reasoning-capable models in a way that trillion-parameter autoregressive models never will.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4B0;</span>
+            <span class="text-xs font-bold text-foreground">Cost collapse for inference</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">If you can serve the same quality at 46x the throughput, your cost-per-token drops by roughly 46x. For companies spending millions on API calls, ORL-class architectures could reduce inference costs from dollars to cents. The economics of LLM deployment fundamentally change.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F310;</span>
+            <span class="text-xs font-bold text-foreground">Linear multi-GPU scaling</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Autoregressive models hit a wall with multi-GPU parallelism because each token depends on the previous one. ORL processes all token positions simultaneously, so adding GPUs gives near-linear throughput gains. Two GPUs = 2x speed. Four GPUs = 4x speed. This makes scaling trivial.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 arch-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F513;</span>
+            <span class="text-xs font-bold text-foreground">Fully open-sourced</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Both the 3B and 8B checkpoints are released under permissive licenses. The training code, evaluation harness, and pre-trained weights are all available. Cambridge + EPFL + Anthropic + Mistral collaborating on open research is notable - especially given Anthropic's and Mistral's commercial interests.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-violet-400 font-bold">SCALING: ORL vs AUTOREGRESSIVE</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">GPUs       AR (GPT-6 Comet)     ORL-8B</span>
+<span class="text-secondary">------     ----------------     ------</span>
+<span class="text-secondary">1x 5090            ~60 tok/s     2,788 tok/s</span>
+<span class="text-secondary">2x 5090            ~90 tok/s     ~5,500 tok/s</span>
+<span class="text-secondary">4x 5090           ~140 tok/s    ~11,000 tok/s</span>
+<span class="text-secondary">8x 5090           ~200 tok/s    ~22,000 tok/s</span>
+<span class="text-secondary">                  ^diminishing    ^linear</span></pre>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>ORL proves that autoregressive decoding is not the only path to high-quality text generation.</strong> 2,788 tokens per second on a single consumer GPU, matching GPT-6 Luna quality on hard reasoning benchmarks, with linear multi-GPU scaling. The 3B and 8B checkpoints are open-sourced by a collaboration between Cambridge, EPFL, Anthropic, and Mistral. <strong>If this architecture scales to larger models, the autoregressive paradigm that every major LLM is built on becomes the slow, expensive option.</strong> Paper: <a href="https://arxiv.org/abs/2610.17894" class="text-violet-400 hover:underline">arXiv 2610.17894</a>.
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Monday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#58</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Next series article coming Monday</h3>
+        <p class="text-xs text-secondary/70">Stay tuned for the next episode of Demystifying AI in 5 Minutes.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-violet-400 hover:border-violet-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-xs text-violet-400 hover:bg-violet-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

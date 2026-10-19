@@ -1,0 +1,336 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Muse Spark Open: 816 Billion Parameters on Your Desktop | Demystifying AI in 5 Minutes"
+  description="Meta's 816B MoE model with 42B active parameters, 1M token context, natively multimodal, runs on two Apple M5 Ultra Mac Studios via MLX. The best US open-weight model just landed."
+  image="/og-series-ep48-muse-spark-open.png"
+  keywords="Muse Spark Open, Meta AI, MoE, open-weight, 816B parameters, Apple M5, MLX, multimodal, agentic AI, llama.cpp, vLLM"
+  publishedDate="2026-10-24"
+  articleSection="Demystifying AI"
+  articleTags={["Muse Spark Open", "Meta AI", "Open-Weight", "MoE", "Apple M5", "MLX", "Multimodal"]}
+>
+
+  <style>
+    .stat-card &#123; transition: all 0.3s ease; &#125;
+    .stat-card:hover &#123; transform: scale(1.02); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); &#125;
+    .platform-card &#123; transition: all 0.3s ease; &#125;
+    .platform-card:hover &#123; transform: translateY(-2px); box-shadow: 0 0 15px rgba(6, 182, 212, 0.08); &#125;
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep48-muse-spark-open.png" alt="Muse Spark Open: 816 Billion Parameters on Your Desktop" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 48
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 24, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Muse Spark Open: 816 Billion Parameters on Your Desktop
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Meta AI Research drops the best US open-weight model. 816B total parameters with 42B active via MoE, 1M token context, natively multimodal, and it runs on two Apple M5 Ultra Mac Studios through MLX.
+      </p>
+
+      <ShareButtons title="Muse Spark Open: 816 Billion Parameters on Your Desktop" url="/series/demystifying-ai/muse-spark-open" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Meta AI Research released Muse Spark Open on October 15. It is an <strong>816 billion parameter mixture-of-experts model with 42B active parameters</strong>, a 1 million token context window, and native multimodal capabilities. The headline number: it runs locally on <strong>two Apple M5 Ultra Mac Studios</strong> via MLX. Available on HuggingFace, SageMaker, Google Cloud, and Foundry. Works with SGLang, vLLM, TensorRT-LLM, llama.cpp, and Unsloth. Built for coding and agentic work.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">816B</div>
+        <div class="text-[10px] font-mono text-secondary">Total Parameters</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">42B</div>
+        <div class="text-[10px] font-mono text-secondary">Active (MoE)</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">1M</div>
+        <div class="text-[10px] font-mono text-secondary">Token Context</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">2x</div>
+        <div class="text-[10px] font-mono text-secondary">M5 Ultra Studios</div>
+      </div>
+    </div>
+
+    <!-- What You Get -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> What You Actually Get
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Muse Spark Open is Meta's biggest open-weight release to date. The mixture-of-experts architecture means only 42B parameters are active per token, keeping inference costs manageable despite the massive total parameter count. Here is the spec sheet.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">ARCHITECTURE BREAKDOWN</div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[10px] font-mono text-cyan-400 font-bold">1</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">816B total, 42B active (MoE)</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">The model uses a mixture-of-experts design with sparse routing. Each token activates roughly 42B parameters out of the full 816B. This means frontier-class knowledge with mid-size inference costs.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[10px] font-mono text-cyan-400 font-bold">2</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">1 million token context window</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Entire codebases, full legal documents, multi-hour transcripts - all in a single context. No chunking hacks. No retrieval workarounds. Just drop the whole thing in.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[10px] font-mono text-cyan-400 font-bold">3</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Natively multimodal</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Text, images, and audio are first-class input types. No adapter layers or bolt-on vision encoders. The model was trained end-to-end on multimodal data from the start.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-[10px] font-mono text-cyan-400 font-bold">4</span>
+            <div>
+              <span class="text-xs font-bold text-foreground">Built for coding and agentic work</span>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Optimized for long-horizon tasks: multi-file code generation, multi-step tool use, extended reasoning chains. This is not a chatbot model. It is an agent backbone.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Running It -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> How to Run It
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The headline demo: <strong>two Apple M5 Ultra Mac Studios running Muse Spark Open locally via MLX.</strong> No cloud needed. No API keys. No GPU cluster. Just two desktops connected over Thunderbolt.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 platform-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4E6;</span>
+            <span class="text-xs font-bold text-foreground">Model Hosting</span>
+          </div>
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">HuggingFace (weights + quantized)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">Amazon SageMaker</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">Google Cloud Vertex AI</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">Foundry</span>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 platform-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x2699;&#xFE0F;</span>
+            <span class="text-xs font-bold text-foreground">Inference Frameworks</span>
+          </div>
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">SGLang (recommended for serving)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">vLLM</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">TensorRT-LLM (NVIDIA optimized)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">llama.cpp (CPU/Metal)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              <span class="text-[11px] text-foreground/60">Unsloth (fine-tuning)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-cyan-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-[10px] font-mono text-cyan-400 font-bold">LOCAL SETUP (2x M5 ULTRA MAC STUDIO VIA MLX)</span>
+        </div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-cyan-400"># Install MLX and download weights</span>
+<span class="text-secondary">pip install mlx-lm</span>
+<span class="text-secondary">huggingface-cli download meta-ai/muse-spark-open-816b-mlx</span>
+<span class="text-secondary"></span>
+<span class="text-cyan-400"># Launch distributed inference across two M5 Ultras</span>
+<span class="text-secondary">mlx_lm.server \</span>
+<span class="text-secondary">  --model meta-ai/muse-spark-open-816b-mlx \</span>
+<span class="text-secondary">  --pipeline-parallel 2 \</span>
+<span class="text-secondary">  --max-tokens 1000000 \</span>
+<span class="text-secondary">  --port 8080</span>
+<span class="text-secondary"></span>
+<span class="text-cyan-400"># The model shards across both machines automatically.</span>
+<span class="text-cyan-400"># Each M5 Ultra provides 512 GB unified memory.</span>
+<span class="text-cyan-400"># Total: 1 TB for the full 816B model in FP16.</span></pre>
+      </div>
+    </div>
+
+    <!-- Why It Matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Why This Matters
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Muse Spark Open is not just another model release. It marks a shift in what "local AI" means for professional developers and enterprises.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 platform-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F310;</span>
+            <span class="text-xs font-bold text-foreground">Best US open-weight model</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Until now, the top open-weight models were either smaller (Llama 3.1 405B) or restricted. Muse Spark Open is 816B with full open weights. No usage restrictions. No phone-home telemetry.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 platform-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F4BB;</span>
+            <span class="text-xs font-bold text-foreground">Desktop-class hardware</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Running an 816B model on two consumer Mac Studios (not a datacenter, not an H100 cluster) breaks the "frontier models need cloud" assumption. Apple's unified memory architecture and MLX made this possible.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 platform-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F916;</span>
+            <span class="text-xs font-bold text-foreground">Agent-first design</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">The 1M context window plus native tool-use training means Muse Spark Open can handle long-horizon agentic tasks: multi-file refactors, multi-step research workflows, extended code generation with self-correction.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 platform-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">&#x1F527;</span>
+            <span class="text-xs font-bold text-foreground">Framework ecosystem</span>
+          </div>
+          <p class="text-[11px] text-foreground/60">Day-one support across SGLang, vLLM, TensorRT-LLM, llama.cpp, and Unsloth means every deployment scenario is covered: cloud serving, local inference, NVIDIA-optimized, and fine-tuning out of the box.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Who This Is For -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Who Should Care
+      </h2>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-3">TARGET USERS</div>
+        <div class="space-y-2">
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">01</span>
+            <p class="text-xs text-foreground/80"><strong>AI engineers building agents.</strong> The 1M context window and agentic training make this the best open-weight backbone for long-horizon tool-use agents. Pair it with your own tool APIs and skip the closed-model API costs.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">02</span>
+            <p class="text-xs text-foreground/80"><strong>Enterprises with data sovereignty needs.</strong> Run a frontier-class model entirely on-premises. No data leaves your network. Two Mac Studios cost less than one month of cloud GPU rental for comparable throughput.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">03</span>
+            <p class="text-xs text-foreground/80"><strong>Researchers who fine-tune.</strong> Unsloth support on day one means LoRA and QLoRA fine-tuning is immediately available. Train domain-specific experts on top of the 816B base without needing a full training cluster.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">04</span>
+            <p class="text-xs text-foreground/80"><strong>Code-heavy teams.</strong> Muse Spark Open excels at multi-file code generation, debugging across large repos, and sustained coding sessions that would exhaust smaller models' context windows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>816B parameters. Open weights. Runs on two Mac Studios.</strong> Muse Spark Open is the moment "local AI" stopped meaning "a small model that kind of works" and started meaning "a frontier model on your desk." The 42B active MoE keeps inference practical, the 1M context handles real workloads, and the framework ecosystem means you can deploy it however you want. <strong>The gap between closed and open-weight models just collapsed.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Monday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-violet-400 font-bold">#49</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Hybrid Reasoning: When Agents Think Without Words</h3>
+        <p class="text-xs text-secondary/70">A new architecture lets agents switch between latent-space reasoning and text-based tool calls. 54.7% fewer tokens, 2.6x faster.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>

@@ -1,0 +1,351 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+---
+
+<BaseLayout
+  title="Timestral: Mistral Conquers Time-Series with 209M Parameters | Demystifying AI in 5 Minutes"
+  description="Mistral's first non-language model. 209M parameters ranks #1 on GIFT-Eval, TIME, and fev-bench. Zero-shot probabilistic forecasts. Runs on CPU. Beats models 4x its size."
+  image="/og-series-ep51-timestral.png"
+  keywords="Timestral, Mistral, time-series, forecasting, GIFT-Eval, TIME benchmark, fev-bench, probabilistic forecasting, multivariate, quantile regression"
+  publishedDate="2026-10-31"
+  articleSection="Demystifying AI"
+  articleTags={["Timestral", "Mistral", "Time-Series", "Forecasting", "GIFT-Eval", "HuggingFace", "Mistral Forge"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
+    .model-card { transition: all 0.3s ease; }
+    .model-card:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(6, 182, 212, 0.08); }
+  </style>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep51-timestral.png" alt="Timestral: Mistral Conquers Time-Series with 209M Parameters" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan-400 font-mono bg-cyan-500/5 border border-cyan-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          EP 51
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <span class="text-[10px] text-secondary font-mono">Oct 31, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Timestral: Mistral Conquers Time-Series with 209M Parameters
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Mistral's first non-language model. A family of four time-series forecasting models where the largest, at just 209M parameters, ranks #1 on every major benchmark while running on a CPU.
+      </p>
+
+      <ShareButtons title="Timestral: Mistral Conquers Time-Series with 209M Parameters" url="/series/demystifying-ai/timestral" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        On October 15, Mistral released Timestral - their <strong>first non-language model</strong>. The 209M-parameter flagship ranks <strong>#1 on all three major time-series benchmarks</strong> (GIFT-Eval, TIME, fev-bench), produces zero-shot probabilistic multivariate forecasts with 21 quantiles, handles up to 32,768 historical steps, and runs entirely on CPU. It beats models 4x its size. Open weights on HuggingFace, fine-tuning via Mistral Forge.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">209M</div>
+        <div class="text-[10px] font-mono text-secondary">Parameters (Max)</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">#1</div>
+        <div class="text-[10px] font-mono text-secondary">On All 3 Benchmarks</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">32K</div>
+        <div class="text-[10px] font-mono text-secondary">Max History Steps</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl font-bold text-cyan-400 mb-1">CPU</div>
+        <div class="text-[10px] font-mono text-secondary">No GPU Required</div>
+      </div>
+    </div>
+
+    <!-- Mistral goes beyond language -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Mistral Goes Beyond Language
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Until now, Mistral shipped language models. Mixtral, Mistral Large, Codestral - all text in, text out. Timestral is a different kind of bet entirely: a purpose-built time-series forecasting architecture that has nothing to do with next-token prediction on natural language.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The move signals something bigger. Mistral is no longer just an LLM company. They are building a portfolio of specialized AI models - and starting with the domain where enterprise demand is highest: forecasting.
+      </p>
+
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-5 mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-mono text-cyan-400 font-bold">WHY TIME-SERIES MATTERS</span>
+        </div>
+        <p class="text-xs text-foreground/80">
+          Every production ML system you have never heard of is probably a time-series model. Demand forecasting, capacity planning, anomaly detection, financial modeling, infrastructure scaling - these are the workloads that keep businesses running. A general-purpose, zero-shot forecasting model that runs on CPU removes the biggest deployment barrier: GPU cost.
+        </p>
+      </div>
+    </div>
+
+    <!-- The Model Family -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> The Model Family
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Timestral ships as a family of four models, scaling from 5M to 209M parameters. Each size point hits a different deployment target - from microcontrollers to server-side batch forecasting.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center model-card">
+          <div class="text-lg font-bold text-secondary mb-1">5M</div>
+          <div class="text-[10px] font-mono text-secondary mb-2">TINY</div>
+          <div class="w-full bg-border rounded-full h-1.5">
+            <div class="bg-cyan-400/40 h-1.5 rounded-full" style="width: 2.4%"></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center model-card">
+          <div class="text-lg font-bold text-secondary mb-1">28M</div>
+          <div class="text-[10px] font-mono text-secondary mb-2">SMALL</div>
+          <div class="w-full bg-border rounded-full h-1.5">
+            <div class="bg-cyan-400/60 h-1.5 rounded-full" style="width: 13.4%"></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center model-card">
+          <div class="text-lg font-bold text-secondary mb-1">123M</div>
+          <div class="text-[10px] font-mono text-secondary mb-2">MEDIUM</div>
+          <div class="w-full bg-border rounded-full h-1.5">
+            <div class="bg-cyan-400/80 h-1.5 rounded-full" style="width: 58.9%"></div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center model-card">
+          <div class="text-lg font-bold text-cyan-400 mb-1">209M</div>
+          <div class="text-[10px] font-mono text-cyan-400 mb-2">LARGE</div>
+          <div class="w-full bg-border rounded-full h-1.5">
+            <div class="bg-cyan-400 h-1.5 rounded-full" style="width: 100%"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        All four models share the same architecture and training recipe. The 209M model is the one that matters for benchmarks, but the 5M variant is intriguing - small enough to run on edge hardware for real-time sensor forecasting without a network call.
+      </p>
+    </div>
+
+    <!-- Benchmark domination -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> #1 on Everything
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        The 209M model does not just compete. It <strong>tops all three major time-series benchmarks</strong> - GIFT-Eval, TIME, and fev-bench. No other model has held #1 across all three simultaneously. And it does this while being smaller than most competitors.
+      </p>
+
+      <div class="overflow-x-auto mb-6 hidden md:block">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">Benchmark</th>
+              <th class="text-left py-3 px-3 text-secondary font-mono font-normal">What It Tests</th>
+              <th class="text-center py-3 px-3 text-secondary font-mono font-normal">Previous #1</th>
+              <th class="text-center py-3 px-3 text-cyan-400 font-mono font-bold">Timestral 209M</th>
+            </tr>
+          </thead>
+          <tbody class="text-foreground/80">
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-bold">GIFT-Eval</td>
+              <td class="py-2.5 px-3">Zero-shot generalization across domains</td>
+              <td class="py-2.5 px-3 text-center">TimesFM (200M)</td>
+              <td class="py-2.5 px-3 text-center text-cyan-400 font-bold">&#x1F451; #1</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="py-2.5 px-3 font-bold">TIME</td>
+              <td class="py-2.5 px-3">Long-horizon multivariate forecasting</td>
+              <td class="py-2.5 px-3 text-center">Moirai (311M)</td>
+              <td class="py-2.5 px-3 text-center text-cyan-400 font-bold">&#x1F451; #1</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-bold">fev-bench</td>
+              <td class="py-2.5 px-3">Few-shot evaluation with covariates</td>
+              <td class="py-2.5 px-3 text-center">Chronos (710M)</td>
+              <td class="py-2.5 px-3 text-center text-cyan-400 font-bold">&#x1F451; #1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile cards -->
+      <div class="space-y-3 mb-6 md:hidden">
+        <div class="rounded-xl border border-border bg-elevated p-4 model-card">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-foreground">GIFT-Eval</span>
+            <span class="text-cyan-400 text-xs font-bold">&#x1F451; #1</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-1">Zero-shot generalization across domains</p>
+          <p class="text-[10px] text-secondary">Previous #1: TimesFM (200M)</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 model-card">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-foreground">TIME</span>
+            <span class="text-cyan-400 text-xs font-bold">&#x1F451; #1</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-1">Long-horizon multivariate forecasting</p>
+          <p class="text-[10px] text-secondary">Previous #1: Moirai (311M)</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 model-card">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-foreground">fev-bench</span>
+            <span class="text-cyan-400 text-xs font-bold">&#x1F451; #1</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-1">Few-shot evaluation with covariates</p>
+          <p class="text-[10px] text-secondary">Previous #1: Chronos (710M)</p>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Notice the previous leaders: TimesFM at 200M, Moirai at 311M, Chronos at 710M. Timestral beats the 710M Chronos model with <strong>3.4x fewer parameters</strong>. Model size is not destiny - architecture and training data are.
+      </p>
+    </div>
+
+    <!-- How it works -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> How Timestral Works
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Two innovations drive Timestral's performance: <strong>synthetic pre-training</strong> for generalization and <strong>covariate-aware attention</strong> for real-world signal integration.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 model-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-cyan-400 font-bold">SYNTHETIC PRE-TRAINING</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-3">Instead of training only on real-world datasets (which are limited and domain-specific), Mistral generates massive synthetic time-series data with controlled properties - trends, seasonality, noise patterns, regime changes, missing values.</p>
+          <p class="text-[11px] text-foreground/60 mb-0">This gives the model exposure to distribution patterns it would never see in any single real-world dataset. The result: <strong>zero-shot generalization</strong> to entirely new domains without fine-tuning.</p>
+        </div>
+        <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 model-card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-cyan-400 font-bold">COVARIATE-AWARE ATTENTION</span>
+          </div>
+          <p class="text-[11px] text-foreground/60 mb-3">Real forecasting is never "predict from history alone." You have calendar features (day of week, holidays), known future events (promotions, weather), and external signals. Timestral's attention mechanism natively integrates both <strong>past-only</strong> and <strong>known-future covariates</strong>.</p>
+          <p class="text-[11px] text-foreground/60 mb-0">This is not a bolt-on feature. The attention layers are architecturally designed to distinguish between "things that happened" and "things we know will happen." Most foundation models for time-series ignore covariates entirely.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
+        <div class="text-xs font-mono text-secondary mb-4">OUTPUT SPECIFICATION</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <span class="text-xs font-bold text-foreground block mb-1">Probabilistic</span>
+            <p class="text-[11px] text-foreground/60">Outputs <strong>21 quantiles</strong> per forecast step, not just a point estimate. You get the full uncertainty distribution - crucial for risk-aware decision making.</p>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-foreground block mb-1">Multivariate</span>
+            <p class="text-[11px] text-foreground/60">Forecasts multiple correlated variables simultaneously. Cross-variable attention captures dependencies your univariate model misses.</p>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-foreground block mb-1">Long-Horizon</span>
+            <p class="text-[11px] text-foreground/60">Up to <strong>32,768 historical steps</strong> in, up to <strong>1,024 forecast steps</strong> out. That is 90 days of minute-level data predicting a full day ahead.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why it matters -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> The Deployment Story
+      </h2>
+
+      <p class="text-sm text-secondary leading-relaxed mb-6">
+        Three things make Timestral immediately deployable in production environments where existing solutions struggle.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">01</span>
+          <p class="text-xs text-foreground/80"><strong>Runs on CPU.</strong> No GPU allocation, no CUDA dependencies, no cloud GPU bidding wars. Deploy it alongside your existing data pipelines on the same compute you already pay for. This alone eliminates the biggest adoption barrier for enterprise time-series forecasting.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">02</span>
+          <p class="text-xs text-foreground/80"><strong>Open weights on HuggingFace.</strong> Download, run, inspect. No API dependency, no usage caps, no vendor lock-in. Full control over your forecasting pipeline. This is Mistral's open-weight playbook applied to a new domain.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded font-bold flex-shrink-0">03</span>
+          <p class="text-xs text-foreground/80"><strong>Fine-tuning via Mistral Forge.</strong> Zero-shot performance is the floor, not the ceiling. Fine-tune on your domain data through Mistral Forge to push accuracy further. The small parameter count means fine-tuning is fast and cheap - even the 209M model fine-tunes in hours, not days.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Timestral proves that you do not need a billion parameters to dominate time-series forecasting.</strong> 209M params, #1 on all three major benchmarks, zero-shot probabilistic multivariate forecasts, 21 quantiles, 32K history window, runs on CPU. Mistral's first non-language model is not a side project - it is a statement. <strong>The foundation-model approach works for time-series, and it works at a fraction of the cost everyone assumed.</strong>
+      </p>
+    </div>
+
+    <!-- Next Episode -->
+    <div class="max-w-3xl border-t border-border pt-8 mt-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-[10px] font-mono text-secondary">Monday</span>
+      </div>
+      <div class="rounded-xl border border-dashed border-green/30 bg-green/[0.02] p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-mono text-green font-bold">#52</span>
+          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
+        </div>
+        <h3 class="text-base font-semibold text-foreground/70 mb-1">Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars</h3>
+        <p class="text-xs text-secondary/70">The transformer monopoly is cracking. SSMs, diffusion LLMs, and hybrids are battling for what comes next.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan-400 hover:border-cyan-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-400 hover:bg-cyan-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
