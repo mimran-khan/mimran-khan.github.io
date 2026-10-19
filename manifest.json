@@ -509,10 +509,12 @@
       "branch": "ep46",
       "slug": "mercury-3-diffusion",
       "title": "Mercury 3: The Diffusion LLM at 1,000 Tokens Per Second",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-10-19",
       "linkedin_post": "Episode 46: 5-minute read. Zero fluff : Mercury 3 Diffusion LLM\n\nInception Labs just proved diffusion LLMs scale. Mercury 3 generates 1,068 tokens per second - 4-8x faster than GPT-6 Luna - while matching its quality.\n\nKey findings:\n- 40x larger than Mercury 1, same speed\n- 1M token context window\n- $0.10/M input, $0.35/M output (launch pricing)\n- Already in production for voice agents, tutoring, browser automation\n\nThe takeaway? Autoregressive is no longer the only game in town.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/mercury-3-diffusion\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#DiffusionLLM #Mercury3 #InceptionLabs #AI #MachineLearning #LLMs #SoftwareEngineering #InferenceSpeed #AgenticAI",
-      "linkedin_posted_on": "2026-10-20"
+      "linkedin_posted_on": "2026-10-20",
+      "published_on": "2026-10-20",
+      "tag": "release/ep46"
     },
     {
       "ep": 47,
