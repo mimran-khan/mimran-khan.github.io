@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 ---
 
 <BaseLayout
@@ -363,21 +364,7 @@ import ShareButtons from '../../../components/ShareButtons.astro';
     </div>
 
     <!-- Next Episode -->
-    <div class="max-w-3xl border-t border-border pt-8 mt-8">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
-        <div class="flex-1 h-px bg-border"></div>
-        <span class="text-[10px] font-mono text-secondary">Wednesday</span>
-      </div>
-      <div class="rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.02] p-5">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-xs font-mono text-violet-400 font-bold">#47</span>
-          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
-        </div>
-        <h3 class="text-base font-semibold text-foreground/70 mb-1">Neural Networks Are Already Clean</h3>
-        <p class="text-xs text-secondary/70">New research suggests neural networks converge to surprisingly clean internal representations - and we have been overcomplicating interpretability.</p>
-      </div>
-    </div>
+    <NextEpisodeTeaser current={46} />
 
     <!-- CTA -->
     <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
