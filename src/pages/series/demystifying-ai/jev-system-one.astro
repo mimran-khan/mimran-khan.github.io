@@ -840,24 +840,6 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         Strip away the marketing and the HN drama and Jev is this: <strong>a fast, cheap, typed classifier with calibrated confidence scores and an API designed for software, not chat.</strong> That sounds boring until you count how many LLM calls in your codebase are doing exactly this job at 10-20x the cost and latency. Vega's SOC closed a third of its alerts with one Jev call each. Nym cut 36% of its generative-model spend. LangChain published the guardrail pattern that Cursor and Claude Code have kept proprietary. The 193x speed claim is marketing fiction — independent tests show 3-13x. The "can't hallucinate" framing is misleading — it can be confidently wrong. But if you build agents and your cost dashboard makes you flinch, the pattern is clear: <strong>let Jev triage, let the LLM reason, and put the confidence threshold in your code where it belongs.</strong>
       </p>
     </div>
-
-    <!-- Next Episode Teaser -->
-    <div class="max-w-3xl border-t border-border pt-8 mt-8">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-[10px] font-mono text-secondary">NEXT EPISODE</span>
-        <div class="flex-1 h-px bg-border"></div>
-        <span class="text-[10px] font-mono text-secondary">Monday</span>
-      </div>
-      <div class="rounded-xl border border-dashed border-cyan/30 bg-cyan/[0.02] p-5">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-xs font-mono text-cyan font-bold">#36</span>
-          <span class="px-2 py-0.5 text-[9px] font-mono bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 rounded">Upcoming</span>
-        </div>
-        <h3 class="text-base font-semibold text-foreground/70 mb-1">GPT-6 Sol & Luna: The 8x Honesty Upgrade</h3>
-        <p class="text-xs text-secondary/70">Half the price, 8x less deception. But warning circumvention barely moved.</p>
-      </div>
-    </div>
-
     <!-- Next Episode -->
     <NextEpisodeTeaser current={35} />
 
