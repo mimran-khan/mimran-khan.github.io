@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 ---
 
 <BaseLayout
@@ -856,6 +857,9 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <p class="text-xs text-secondary/70">Half the price, 8x less deception. But warning circumvention barely moved.</p>
       </div>
     </div>
+
+    <!-- Next Episode -->
+    <NextEpisodeTeaser current={35} />
 
     <!-- CTA -->
     <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">

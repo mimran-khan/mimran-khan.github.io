@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 ---
 
 <BaseLayout
@@ -408,6 +409,9 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <p class="text-xs text-secondary/70">Preserved thinking means the reasoning chain never leaves Anthropic's servers. What that means for distillation.</p>
       </div>
     </div>
+
+    <!-- Next Episode -->
+    <NextEpisodeTeaser current={36} />
 
     <!-- CTA -->
     <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 ---
 
 <BaseLayout
@@ -426,6 +427,9 @@ import ShareButtons from '../../../components/ShareButtons.astro';
         <p class="text-xs text-secondary/70">NVGEMM auto-tuned CUTLASS kernels. Fault-tolerant process groups. Apple Silicon native linalg. The infra release every ML engineer needs.</p>
       </div>
     </div>
+
+    <!-- Next Episode -->
+    <NextEpisodeTeaser current={33} />
 
     <!-- CTA -->
     <div class="max-w-3xl mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 md:p-5 rounded-xl border border-border bg-elevated">
