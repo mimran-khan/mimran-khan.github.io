@@ -15,6 +15,7 @@ import amrita from '../assets/images/education/amrita.png';
 
 const experiences = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
 const companyLogos: Record<string, { src: string; height: string; invert: boolean }> = {
+  'IBM': { src: '/logos/ibm.png', height: 'h-12', invert: true },
   'Red Hat': { src: '/logos/redhat.png', height: 'h-16', invert: false },
   'Mercedes-Benz R&D': { src: '/logos/mercedes-benz.png', height: 'h-20', invert: true },
   'Amayztech LLC': { src: '/logos/amayztech.png', height: 'h-8', invert: true },
@@ -100,7 +101,7 @@ const education = [
 
 <BaseLayout 
   title="Home" 
-  description="Imran Khan - Senior ML Engineer at Red Hat. Ex-Principal ML Engineer at Mercedes-Benz R&D. PhD Scholar, IIT Kanpur, BITS Pilani. Agentic AI, Multi-Agent Systems, RAG, LLMs."
+  description="Imran Khan - Senior ML Engineer at IBM CIO. Ex-Red Hat Data & AI. Ex-Principal ML Engineer at Mercedes-Benz R&D. PhD Scholar, IIT Kanpur, BITS Pilani. Agentic AI, Multi-Agent Systems, RAG, LLMs."
 >
   <Hero />
 
@@ -576,7 +577,7 @@ const education = [
           <div>
             <div class="flex items-center gap-2 mb-1">
               <h3 class="text-sm font-semibold text-foreground group-hover:text-cyan transition-colors">AI Agent Platform</h3>
-              <span class="text-[10px] text-cyan font-mono">@ Red Hat</span>
+              <span class="text-[10px] text-cyan font-mono">@ IBM</span>
             </div>
             <p class="text-xs text-secondary mb-2">MCP servers, A2A protocol, and multi-agent orchestration. Open source tooling for building production-grade AI agents.</p>
             <div class="flex flex-wrap gap-1.5">

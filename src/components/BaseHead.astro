@@ -12,11 +12,11 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = '/og-image.svg', keywords, publishedDate, modifiedDate, articleSection, articleTags } = Astro.props;
-const fullTitle = title === 'Home' ? 'Imran Khan | Senior ML Engineer | Agentic AI & LLMs' : `${title} | Imran Khan`;
+const fullTitle = title === 'Home' ? 'Imran Khan | Senior ML Engineer @ IBM | Agentic AI & LLMs' : `${title} | Imran Khan`;
 const isBlog = Astro.url.pathname.startsWith('/blog') || Astro.url.pathname.startsWith('/series/');
 const siteUrl = 'https://mimran-khan.github.io';
 
-const defaultKeywords = 'Imran Khan, Mohammed Imran Khan, ML Engineer, Senior ML Engineer, Red Hat, Mercedes-Benz, Agentic AI, Multi-Agent Systems, LLMs, RAG, LangGraph, IIT Kanpur, BITS Pilani, PhD, AI Engineer, Machine Learning, NLP, Deep Learning';
+const defaultKeywords = 'Imran Khan, Mohammed Imran Khan, ML Engineer, Senior ML Engineer, IBM, Red Hat, Mercedes-Benz, Agentic AI, Multi-Agent Systems, LLMs, RAG, LangGraph, IIT Kanpur, BITS Pilani, PhD, AI Engineer, Machine Learning, NLP, Deep Learning';
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -26,7 +26,7 @@ const personSchema = {
   "url": siteUrl,
   "image": `${siteUrl}/og-image.svg`,
   "jobTitle": "Senior ML Engineer",
-  "worksFor": { "@type": "Organization", "name": "Red Hat" },
+  "worksFor": { "@type": "Organization", "name": "IBM" },
   "alumniOf": [
     { "@type": "CollegeOrUniversity", "name": "IIT Kanpur" },
     { "@type": "CollegeOrUniversity", "name": "BITS Pilani" },
