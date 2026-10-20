@@ -13,6 +13,9 @@ import innovationPulsePanel from '../assets/images/speaking/innovation-pulse-pan
 import meetiaPosterTalk from '../assets/images/speaking/meetia-poster-talk.png';
 import meetiaPosterDemo from '../assets/images/speaking/meetia-poster-demo.png';
 import meetiaPosterCrowd from '../assets/images/speaking/meetia-poster-crowd.png';
+import dypatilAward from '../assets/images/speaking/dypatil-award.png';
+import dypatilSession from '../assets/images/speaking/dypatil-session.png';
+import dypatilGroup from '../assets/images/speaking/dypatil-group.png';
 
 // Work events
 import sgTranslations from '../assets/images/projects/servicegipfel-translations.png';
@@ -231,6 +234,26 @@ const workEvents: EventItem[] = [
 ];
 
 const publicEvents: EventItem[] = [
+  {
+    id: 'dypatil-fdp',
+    title: 'ATAL FDP on AI in Education — DY Patil University',
+    location: 'DY Patil University School of Management, Pune',
+    date: 'Oct 2026',
+    type: 'Speaker',
+    category: 'public',
+    cover: dypatilSession,
+    images: [dypatilSession, dypatilAward, dypatilGroup],
+    description: 'Conducted a full-day hands-on session with 40 professors and students at the ATAL Faculty Development Programme on AI in Education at DY Patil University. The session focused on Agentic AI in classrooms — engineering context over prompt tricks, building agents for course outcomes, CO-PO matrices, and question papers, and the critical skill of knowing where the human check belongs.',
+    highlights: [
+      'Full-day hands-on session on Agentic AI for education',
+      'Red-team exercise: participants hid adversarial instructions inside syllabi to hijack each other\'s agents',
+      'Core thesis: AI only knows what you put in front of it — context engineering is the real skill',
+      'Practical agent workflows for CO-PO matrices, question papers, and course outcome mapping',
+      'Audience of 40 management faculty and students',
+      'Organised by Kirti Kakde and DY Patil University School of Management'
+    ],
+    tags: ['Agentic AI', 'AI in Education', 'FDP', 'ATAL', 'Prompt Engineering', 'Context Engineering', 'Workshop', 'Speaker']
+  },
   {
     id: 'iitk-convocation',
     title: 'IIT Kanpur E-Masters Convocation 2026',
