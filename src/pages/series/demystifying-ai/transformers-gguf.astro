@@ -142,7 +142,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         </div>
         <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline</span>
 
-<span class="text-cyan font-bold"># Load a GGUF file directly — that's it</span>
+<span class="text-cyan font-bold"># Load a GGUF file directly - that's it</span>
 <span class="text-secondary">model = AutoModelForCausalLM.from_pretrained(</span>
 <span class="text-secondary">    "TheBloke/Llama-3-8B-GGUF",</span>
 <span class="text-secondary">    gguf_file="llama-3-8b.Q4_K_M.gguf",</span>
@@ -153,7 +153,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 <span class="text-secondary">    gguf_file="llama-3-8b.Q4_K_M.gguf"</span>
 <span class="text-secondary">)</span>
 
-<span class="text-cyan font-bold"># Use the standard pipeline — nothing changes downstream</span>
+<span class="text-cyan font-bold"># Use the standard pipeline - nothing changes downstream</span>
 <span class="text-secondary">pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)</span>
 <span class="text-secondary">result = pipe("Explain quantum computing in one paragraph:")</span></pre>
       </div>
@@ -170,12 +170,12 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 <span class="text-secondary">    "model.Q4_K_M.gguf", device_map="auto"</span>
 <span class="text-secondary">)</span>
 
-<span class="text-cyan font-bold"># Attach LoRA adapter — works on quantized weights</span>
+<span class="text-cyan font-bold"># Attach LoRA adapter - works on quantized weights</span>
 <span class="text-secondary">lora_config = LoraConfig(r=16, lora_alpha=32,</span>
 <span class="text-secondary">    target_modules=["q_proj", "v_proj"])</span>
 <span class="text-secondary">model = get_peft_model(model, lora_config)</span>
 
-<span class="text-cyan font-bold"># Train with standard Trainer — your existing code works</span>
+<span class="text-cyan font-bold"># Train with standard Trainer - your existing code works</span>
 <span class="text-secondary">trainer = Trainer(model=model, args=TrainingArguments(</span>
 <span class="text-secondary">    output_dir="./lora-output", num_train_epochs=3</span>
 <span class="text-secondary">), train_dataset=my_dataset)</span>
@@ -321,7 +321,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
     <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
       <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        <strong>The gap between "local inference" and "cloud inference" just got a lot smaller.</strong> GGUF was already the de facto standard for quantized model distribution — there are over 80,000 GGUF files on HuggingFace. Now they plug directly into the world's most popular ML library. No wrappers, no shims, no C++ builds. <code class="text-xs bg-background px-1 py-0.5 rounded">from_pretrained("model.gguf")</code> and you're running. The 15-25% speed trade-off vs native llama.cpp is real, but for most use cases — prototyping, fine-tuning, research, small-scale production — ecosystem access matters more than raw tokens/second. <strong>If GGUF was the USB of model formats, HuggingFace just shipped native drivers.</strong>
+        <strong>The gap between "local inference" and "cloud inference" just got a lot smaller.</strong> GGUF was already the de facto standard for quantized model distribution - there are over 80,000 GGUF files on HuggingFace. Now they plug directly into the world's most popular ML library. No wrappers, no shims, no C++ builds. <code class="text-xs bg-background px-1 py-0.5 rounded">from_pretrained("model.gguf")</code> and you're running. The 15-25% speed trade-off vs native llama.cpp is real, but for most use cases - prototyping, fine-tuning, research, small-scale production - ecosystem access matters more than raw tokens/second. <strong>If GGUF was the USB of model formats, HuggingFace just shipped native drivers.</strong>
       </p>
     </div>
 

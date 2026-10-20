@@ -6,7 +6,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 
 <BaseLayout
   title="Google AX: Kubernetes for Agents | Demystifying AI in 5 Minutes"
-  description="Google open-sourced AX — an agent orchestration framework that treats LLM agent instances like Kubernetes pods. Auto-scaling, health checks, rolling upgrades, and declarative agent manifests."
+  description="Google open-sourced AX - an agent orchestration framework that treats LLM agent instances like Kubernetes pods. Auto-scaling, health checks, rolling upgrades, and declarative agent manifests."
   image="/og-series-ep42-google-ax.png"
   keywords="Google AX, agent orchestration, Kubernetes, LLM agents, auto-scaling, agent framework, Google Cloud, open source"
   publishedDate="2026-10-13"
@@ -53,7 +53,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         Google AX: Kubernetes for Agents
       </h1>
       <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
-        Google open-sourced AX, a framework that treats LLM agent instances like Kubernetes pods. Declarative manifests, auto-scaling, health checks, rolling upgrades, and observability — all the patterns you know from container orchestration, applied to AI agents.
+        Google open-sourced AX, a framework that treats LLM agent instances like Kubernetes pods. Declarative manifests, auto-scaling, health checks, rolling upgrades, and observability - all the patterns you know from container orchestration, applied to AI agents.
       </p>
 
       <ShareButtons title="Google AX: Kubernetes for Agents" url="/series/demystifying-ai/google-ax" />
@@ -167,11 +167,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 <span class="text-secondary">      fix bugs, and write tests. Always explain changes.</span>
 <span class="text-secondary">    temperature: 0.1</span>
 <span class="text-green">  tools:</span>
-<span class="text-secondary">    - name: file_read</span>
-<span class="text-secondary">    - name: file_write</span>
-<span class="text-secondary">    - name: shell_exec</span>
+<span class="text-secondary">   - name: file_read</span>
+<span class="text-secondary">   - name: file_write</span>
+<span class="text-secondary">   - name: shell_exec</span>
 <span class="text-secondary">      policy: sandboxed</span>
-<span class="text-secondary">    - name: github_api</span>
+<span class="text-secondary">   - name: github_api</span>
 <span class="text-green">  memory:</span>
 <span class="text-secondary">    type: persistent</span>
 <span class="text-secondary">    storageClass: ssd-retain</span>
@@ -211,13 +211,13 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 <span class="text-secondary">  minReplicas: 1</span>
 <span class="text-secondary">  maxReplicas: 20</span>
 <span class="text-secondary">  metrics:</span>
-<span class="text-secondary">    - type: queueDepth</span>
+<span class="text-secondary">   - type: queueDepth</span>
 <span class="text-secondary">      target: 5  # scale up when &gt;5 tasks queued</span>
 <span class="text-foreground">EOF</span>
 
 <span class="text-secondary"># Rolling model upgrade (zero downtime)</span>
 <span class="text-green font-bold">kubectl set model</span> <span class="text-foreground">agentdeployment/coding-agent \</span>
-<span class="text-foreground">  --model=mistralai/Atria-Dawn-v2-FP8</span></pre>
+<span class="text-foreground"> --model=mistralai/Atria-Dawn-v2-FP8</span></pre>
       </div>
     </div>
 
@@ -231,28 +231,28 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
           <div class="flex items-center gap-2 mb-1">
             <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L3</span>
-            <span class="text-xs font-bold text-foreground">Application Layer — Agent Manifests</span>
+            <span class="text-xs font-bold text-foreground">Application Layer - Agent Manifests</span>
           </div>
           <p class="text-[11px] text-foreground/60">YAML files declare what the agent is, what tools it has, what model it uses, and how it should behave. <code class="text-[10px] bg-background px-1 py-0.5 rounded">kubectl apply -f agent.yaml</code> deploys it. GitOps-native from day one.</p>
         </div>
         <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
           <div class="flex items-center gap-2 mb-1">
             <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L2</span>
-            <span class="text-xs font-bold text-foreground">Control Plane — AX Controller</span>
+            <span class="text-xs font-bold text-foreground">Control Plane - AX Controller</span>
           </div>
           <p class="text-[11px] text-foreground/60">Standard Kubernetes reconciliation loop. Watches CRDs and ensures actual state matches desired state. Handles scaling decisions, health check responses, canary deployments, and model version rollouts. Runs as a single Deployment in the ax-system namespace.</p>
         </div>
         <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
           <div class="flex items-center gap-2 mb-1">
             <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L1</span>
-            <span class="text-xs font-bold text-foreground">Data Plane — Agent Runtime Sidecar</span>
+            <span class="text-xs font-bold text-foreground">Data Plane - Agent Runtime Sidecar</span>
           </div>
           <p class="text-[11px] text-foreground/60">Lightweight Go sidecar injected into every AgentInstance pod. Manages the agent's event loop, tool execution sandbox, memory persistence, token streaming, and cost tracking. Exposes Prometheus metrics (<code class="text-[10px] bg-background px-1 py-0.5 rounded">ax_tokens_total</code>, <code class="text-[10px] bg-background px-1 py-0.5 rounded">ax_task_duration_seconds</code>) and OpenTelemetry traces for every agent turn.</p>
         </div>
         <div class="rounded-xl border border-border bg-elevated p-4 layer-card">
           <div class="flex items-center gap-2 mb-1">
             <span class="text-[10px] font-mono text-green bg-green/10 px-2 py-1 rounded font-bold">L0</span>
-            <span class="text-xs font-bold text-foreground">Infrastructure — Any K8s Cluster</span>
+            <span class="text-xs font-bold text-foreground">Infrastructure - Any K8s Cluster</span>
           </div>
           <p class="text-[11px] text-foreground/60">GKE, EKS, AKS, k3s, or bare-metal. AX uses standard Kubernetes primitives. No GCP lock-in. Works with Istio, Linkerd, or no service mesh. Tested on K8s 1.28+.</p>
         </div>

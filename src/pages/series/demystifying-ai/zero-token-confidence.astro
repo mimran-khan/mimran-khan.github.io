@@ -66,7 +66,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
     <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
       <span class="text-xs font-mono text-violet font-bold">// TL;DR</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        Researchers at ETH Zürich found that a <strong>lightweight linear probe</strong> trained on the final hidden states of an LLM can predict whether the model's answer is correct — <strong>before the answer is even generated</strong>. ECE (Expected Calibration Error) drops from <strong>19.2% to 3.1%</strong> on TriviaQA. Works with Llama-3, Mistral, and Gemma. No fine-tuning. No extra inference cost. <strong>The model literally knows when it's about to hallucinate.</strong>
+        Researchers at ETH Zürich found that a <strong>lightweight linear probe</strong> trained on the final hidden states of an LLM can predict whether the model's answer is correct - <strong>before the answer is even generated</strong>. ECE (Expected Calibration Error) drops from <strong>19.2% to 3.1%</strong> on TriviaQA. Works with Llama-3, Mistral, and Gemma. No fine-tuning. No extra inference cost. <strong>The model literally knows when it's about to hallucinate.</strong>
       </p>
     </div>
 
@@ -100,7 +100,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         LLMs do not come with confidence scores. When a model says "Paris is the capital of France," it sounds just as confident as when it says "The Treaty of Westphalia was signed in 1645" (it was 1648). You get tokens, not uncertainty. In production, this is a critical gap. You cannot build reliable systems on outputs you cannot trust-score.
       </p>
       <p class="text-sm text-secondary leading-relaxed mb-6">
-        Current approaches to estimate confidence are expensive or unreliable. <strong>Self-consistency sampling</strong> generates N answers and checks agreement — costing N× inference. <strong>Verbalized confidence</strong> ("How sure are you?") is cheap but models systematically overestimate — they say "95% confident" when they're right only 60% of the time. <strong>Token probabilities</strong> from the softmax layer work for multiple-choice but fail for open-ended generation. All add latency, cost, or both.
+        Current approaches to estimate confidence are expensive or unreliable. <strong>Self-consistency sampling</strong> generates N answers and checks agreement - costing N× inference. <strong>Verbalized confidence</strong> ("How sure are you?") is cheap but models systematically overestimate - they say "95% confident" when they're right only 60% of the time. <strong>Token probabilities</strong> from the softmax layer work for multiple-choice but fail for open-ended generation. All add latency, cost, or both.
       </p>
     </div>
 
@@ -115,13 +115,13 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       </p>
 
       <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-6">
-        <div class="text-xs font-mono text-secondary mb-4">THE METHOD — 4 STEPS</div>
+        <div class="text-xs font-mono text-secondary mb-4">THE METHOD - 4 STEPS</div>
         <div class="space-y-3">
           <div class="flex items-start gap-3">
             <span class="flex-shrink-0 w-6 h-6 rounded-full bg-violet/20 flex items-center justify-center text-[10px] font-mono text-violet font-bold">1</span>
             <div>
               <span class="text-xs font-bold text-foreground">Feed the prompt through the model</span>
-              <p class="text-[11px] text-foreground/60 mt-0.5">Standard forward pass. The model processes your question and prepares to generate. This happens anyway — no additional compute.</p>
+              <p class="text-[11px] text-foreground/60 mt-0.5">Standard forward pass. The model processes your question and prepares to generate. This happens anyway - no additional compute.</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
@@ -249,11 +249,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         </div>
         <div class="rounded-xl border border-border bg-elevated p-4 method-card">
           <span class="text-xs font-bold text-foreground block mb-2">Confidence-weighted routing</span>
-          <p class="text-[11px] text-foreground/60">Small model unsure? Route to a larger model. Large model sure? Ship it. Build a cost-optimized cascade without manual threshold tuning. Use the probe on your 8B model to decide when to escalate to the 70B — saving 80% of inference cost.</p>
+          <p class="text-[11px] text-foreground/60">Small model unsure? Route to a larger model. Large model sure? Ship it. Build a cost-optimized cascade without manual threshold tuning. Use the probe on your 8B model to decide when to escalate to the 70B - saving 80% of inference cost.</p>
         </div>
         <div class="rounded-xl border border-border bg-elevated p-4 method-card">
           <span class="text-xs font-bold text-foreground block mb-2">User-facing uncertainty</span>
-          <p class="text-[11px] text-foreground/60">Show users a confidence bar next to every answer. "I'm 92% sure" vs "I'm 34% sure — you might want to verify this." Honest AI by default. The probe's calibration means the displayed percentage is actually meaningful.</p>
+          <p class="text-[11px] text-foreground/60">Show users a confidence bar next to every answer. "I'm 92% sure" vs "I'm 34% sure - you might want to verify this." Honest AI by default. The probe's calibration means the displayed percentage is actually meaningful.</p>
         </div>
       </div>
 
@@ -282,7 +282,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
     <div class="rounded-xl border border-violet/20 bg-violet/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
       <span class="text-xs font-mono text-violet font-bold">// Bottom Line</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        <strong>The model already knows when it's about to hallucinate. We just weren't listening.</strong> Zero-Token Confidence proves that the information is there, in the hidden states, before generation begins. A single linear probe — trainable in minutes on consumer hardware — unlocks it. <strong>No extra tokens. No extra cost. ECE from 19.2% to 3.1%.</strong> The limitation to self-hosted models is real, but if you're running Llama, Mistral, or Gemma on your own infra, there is no reason this shouldn't be in your inference pipeline by next quarter.
+        <strong>The model already knows when it's about to hallucinate. We just weren't listening.</strong> Zero-Token Confidence proves that the information is there, in the hidden states, before generation begins. A single linear probe - trainable in minutes on consumer hardware - unlocks it. <strong>No extra tokens. No extra cost. ECE from 19.2% to 3.1%.</strong> The limitation to self-hosted models is real, but if you're running Llama, Mistral, or Gemma on your own infra, there is no reason this shouldn't be in your inference pipeline by next quarter.
       </p>
     </div>
 

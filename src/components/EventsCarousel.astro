@@ -68,6 +68,7 @@ interface EventItem {
   category: string;
   cover: ImageMetadata;
   coverPosition?: string;
+  coverFit?: 'cover' | 'contain';
   images: ImageMetadata[];
   imagePositions?: string[];
   description: string;
@@ -78,17 +79,17 @@ interface EventItem {
 const workEvents: EventItem[] = [
   {
     id: 'rh-loop-engineering',
-    title: 'Loop Engineering Impact Award — Q3 2026',
+    title: 'Loop Engineering Impact Award - Q3 2026',
     location: 'Red Hat, Data and AI Team',
     date: 'Sep 2026',
     type: 'Award',
     category: 'work',
     cover: rhLoopEngineering,
     images: [rhLoopEngineering],
-    description: 'Received the Loop Engineering Impact Award for Q3 2026 under the Dataverse Impact category from Red Hat\'s Data and AI team. The Loop award is an org-level quarterly recognition given to engineers whose work creates measurable impact at a division-wide scale — spanning platform capabilities, tooling, and cross-team enablement.',
+    description: 'Received the Loop Engineering Impact Award for Q3 2026 under the Dataverse Impact category from Red Hat\'s Data and AI team. The Loop award is an org-level quarterly recognition given to engineers whose work creates measurable impact at a division-wide scale - spanning platform capabilities, tooling, and cross-team enablement.',
     highlights: [
       'Org-level award from Red Hat\'s Data and AI division',
-      'Dataverse Impact category — engineering contributions with measurable reach across the organization',
+      'Dataverse Impact category - engineering contributions with measurable reach across the organization',
       'Quarterly recognition for sustained delivery and technical impact throughout Q3 2026',
       'Part of the Loop Engineering program that highlights high-impact individual contributors',
       'Recognized within the broader Data and AI team spanning multiple product lines and initiatives'
@@ -97,21 +98,21 @@ const workEvents: EventItem[] = [
   },
   {
     id: 'rh-reward-zone',
-    title: 'Red Hat Reward Zone — 10 Recognitions in 3 Months',
+    title: 'Red Hat Reward Zone - 10 Recognitions in 3 Months',
     location: 'Red Hat',
     date: 'Sep 2026',
     type: 'Recognition',
     category: 'work',
     cover: rhCollaborateSep29,
     images: [rhCollaborateSep29, rhFocusTeamSep29, rhCustomerFocusSep28Resolve, rhCustomerFocusSep28Above, rhCollaborateSep, rhFocusTeamSep, rhCollaborateAug, rhCustomerFocusJul, rhCollaborateJul, rhEncourageJul],
-    description: 'Received ten peer-nominated awards through Red Hat\'s Reward Zone program between July and September 2026, spanning five distinct recognition categories. The nominations came from engineers, managers, and cross-functional partners across the AI Factory initiative — recognizing contributions in technical leadership, cross-team collaboration, mentorship, intern mentoring, debugging critical production issues, and delivery under pressure.',
+    description: 'Received ten peer-nominated awards through Red Hat\'s Reward Zone program between July and September 2026, spanning five distinct recognition categories. The nominations came from engineers, managers, and cross-functional partners across the AI Factory initiative - recognizing contributions in technical leadership, cross-team collaboration, mentorship, intern mentoring, debugging critical production issues, and delivery under pressure.',
     highlights: [
-      '5× Red Hat Multiplier (Collaborate) — cross-team technical partnership on AI Factory architecture, debugging, production readiness, and mentoring intern VC program',
-      '2× Customer Focus (Go Above and Beyond) — exceeding delivery expectations and technical acumen on AI Factory execution',
-      '1× Customer Focus (Resolve Issues) — debugging critical production issues',
-      '2× Team Advocate (Focus on Team) — collaboration, elevating team AI strategy, and being a dependable, insight-driven collaborator',
-      '1× Team Advocate (Encourage Others) — mentorship, introducing impactful initiatives, and fostering a research-driven culture',
-      '10 recognitions across Jul, Aug, Sep 2026 — the entire 9-month Red Hat tenure'
+      '5× Red Hat Multiplier (Collaborate) - cross-team technical partnership on AI Factory architecture, debugging, production readiness, and mentoring intern VC program',
+      '2× Customer Focus (Go Above and Beyond) - exceeding delivery expectations and technical acumen on AI Factory execution',
+      '1× Customer Focus (Resolve Issues) - debugging critical production issues',
+      '2× Team Advocate (Focus on Team) - collaboration, elevating team AI strategy, and being a dependable, insight-driven collaborator',
+      '1× Team Advocate (Encourage Others) - mentorship, introducing impactful initiatives, and fostering a research-driven culture',
+      '10 recognitions across Jul, Aug, Sep 2026 - the entire 9-month Red Hat tenure'
     ],
     tags: ['Red Hat', 'Reward Zone', 'AI Factory', 'Collaboration', 'Mentorship', 'Technical Leadership', 'Recognition']
   },
@@ -240,18 +241,19 @@ const workEvents: EventItem[] = [
 const publicEvents: EventItem[] = [
   {
     id: 'dypatil-fdp',
-    title: 'ATAL FDP on AI in Education — DY Patil University',
+    title: 'ATAL FDP on AI in Education - DY Patil University',
     location: 'DY Patil University School of Management, Pune',
     date: 'Oct 2026',
     type: 'Speaker',
     category: 'public',
     cover: dypatilSession,
+    coverFit: 'contain',
     images: [dypatilSession, dypatilAward, dypatilGroup],
-    description: 'Conducted a full-day hands-on session with 40 professors and students at the ATAL Faculty Development Programme on AI in Education at DY Patil University. The session focused on Agentic AI in classrooms — engineering context over prompt tricks, building agents for course outcomes, CO-PO matrices, and question papers, and the critical skill of knowing where the human check belongs.',
+    description: 'Conducted a full-day hands-on session with 40 professors and students at the ATAL Faculty Development Programme on AI in Education at DY Patil University. The session focused on Agentic AI in classrooms - engineering context over prompt tricks, building agents for course outcomes, CO-PO matrices, and question papers, and the critical skill of knowing where the human check belongs.',
     highlights: [
       'Full-day hands-on session on Agentic AI for education',
       'Red-team exercise: participants hid adversarial instructions inside syllabi to hijack each other\'s agents',
-      'Core thesis: AI only knows what you put in front of it — context engineering is the real skill',
+      'Core thesis: AI only knows what you put in front of it - context engineering is the real skill',
       'Practical agent workflows for CO-PO matrices, question papers, and course outcome mapping',
       'Audience of 40 management faculty and students',
       'Organised by Kirti Kakde and DY Patil University School of Management'
@@ -267,14 +269,14 @@ const publicEvents: EventItem[] = [
     category: 'public',
     cover: iitkGraduation,
     images: [iitkGraduation, iitkConvocationHall, iitkConvocationStage],
-    description: 'Earned a second postgraduate degree — E-Masters from IIT Kanpur\'s Department of Electrical Engineering — at the 59th Convocation. The program covered the full depth of modern AI: from the mathematical foundations in linear algebra, probability, and optimization that underpin every model, through machine learning, deep learning, NLP, and computer vision, to the systems layer — hardware accelerators and edge deployment. Pursuing two masters back-to-back while shipping production AI at Mercedes-Benz and Red Hat shaped a perspective where theory, research, and engineering reinforce each other.',
+    description: 'Earned a second postgraduate degree - E-Masters from IIT Kanpur\'s Department of Electrical Engineering - at the 59th Convocation. The program covered the full depth of modern AI: from the mathematical foundations in linear algebra, probability, and optimization that underpin every model, through machine learning, deep learning, NLP, and computer vision, to the systems layer - hardware accelerators and edge deployment. Pursuing two masters back-to-back while shipping production AI at Mercedes-Benz and Red Hat shaped a perspective where theory, research, and engineering reinforce each other.',
     highlights: [
-      'E-Masters, Dept. of Electrical Engineering — IIT Kanpur (59th Convocation, 15 Jul 2026)',
+      'E-Masters, Dept. of Electrical Engineering - IIT Kanpur (59th Convocation, 15 Jul 2026)',
       'Full-spectrum AI curriculum: ML, deep learning, NLP, computer vision, and AI systems',
-      'Strong mathematical foundations — linear algebra, probability theory, and optimization',
+      'Strong mathematical foundations - linear algebra, probability theory, and optimization',
       'Exposure to hardware accelerators and edge AI deployment',
       'Second postgraduate degree alongside M.Tech AI/ML from BITS Pilani',
-      'Completed while working full-time — first at Mercedes-Benz, then at Red Hat'
+      'Completed while working full-time - first at Mercedes-Benz, then at Red Hat'
     ],
     tags: ['IIT Kanpur', 'E-Masters', 'Deep Learning', 'NLP', 'Computer Vision', 'AI Systems', 'Optimization', 'Education']
   },
@@ -408,7 +410,7 @@ const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.da
             <Image 
               src={event.cover} 
               alt={event.title}
-              class={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${event.coverPosition === 'top' ? 'object-top' : ''}`}
+              class={`w-full h-full ${event.coverFit === 'contain' ? 'object-contain' : 'object-cover'} transition-transform duration-500 group-hover:scale-105 ${event.coverPosition === 'top' ? 'object-top' : ''}`}
             />
             <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
             
@@ -660,7 +662,7 @@ const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.da
                 <img 
                   src="${img.src}" 
                   alt="${event.title}" 
-                  class="modal-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === 0 ? 'opacity-100' : 'opacity-0'}"
+                  class="modal-slide absolute inset-0 w-full h-full ${event.coverFit === 'contain' ? 'object-contain' : 'object-cover'} transition-opacity duration-300 ${i === 0 ? 'opacity-100' : 'opacity-0'}"
                   style="object-position: ${pos};"
                   data-index="${i}"
                 />
@@ -789,14 +791,14 @@ const allEvents = [...publicEvents, ...workEvents].sort((a, b) => parseDate(b.da
     display: none;
   }
   .scrollbar-hide {
-    -ms-overflow-style: none;
+   -ms-overflow-style: none;
     scrollbar-width: none;
   }
   
   .line-clamp-2 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
     overflow: hidden;
   }
 </style>

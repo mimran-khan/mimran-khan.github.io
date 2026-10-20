@@ -6,7 +6,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 
 <BaseLayout
   title="Jev: The Model That Gave Up Talking | Demystifying AI in 5 Minutes"
-  description="TypeSafe AI ships Jev — a decision model that doesn't generate text. 175ms median, $0.042/M tokens, output free. 1,500 HN points, 17M views on X, and the loudest 'can't hallucinate' debate of 2026."
+  description="TypeSafe AI ships Jev - a decision model that doesn't generate text. 175ms median, $0.042/M tokens, output free. 1,500 HN points, 17M views on X, and the loudest 'can't hallucinate' debate of 2026."
   image="/og-series-ep35-jev-system-one.png"
   keywords="Jev, TypeSafe AI, System One, decision model, RLCD, classification, routing, calibrated probabilities, Kahneman, Jevons paradox, agent guardrails"
   publishedDate="2026-09-25"
@@ -66,7 +66,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
     <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
       <span class="text-xs font-mono text-cyan font-bold">// TL;DR</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        <strong>Jev is a decision model, not a language model.</strong> You send it state and typed questions. It returns structured answers — a choice, a score, or a yes/no probability — in a single parallel pass. No text generation. No string parsing. The output can never violate your schema because the schema <em>is</em> the output. Built by <strong>Diogo Almeida</strong> (ex-OpenAI; worked on RLHF, InstructGPT, ChatGPT, GPT-4) after two years in stealth. $40M seed from DCVC. Independent tests show <strong>13x faster and 22x cheaper</strong> than Claude Opus 5 on classification. TypeSafe's own claim of 193x faster did not hold up. The "can't hallucinate" marketing is misleading — it can absolutely return wrong answers. But the core insight is real: <strong>most AI calls in production software are decision calls, not generation calls</strong>, and we've been using the wrong tool.
+        <strong>Jev is a decision model, not a language model.</strong> You send it state and typed questions. It returns structured answers - a choice, a score, or a yes/no probability - in a single parallel pass. No text generation. No string parsing. The output can never violate your schema because the schema <em>is</em> the output. Built by <strong>Diogo Almeida</strong> (ex-OpenAI; worked on RLHF, InstructGPT, ChatGPT, GPT-4) after two years in stealth. $40M seed from DCVC. Independent tests show <strong>13x faster and 22x cheaper</strong> than Claude Opus 5 on classification. TypeSafe's own claim of 193x faster did not hold up. The "can't hallucinate" marketing is misleading - it can absolutely return wrong answers. But the core insight is real: <strong>most AI calls in production software are decision calls, not generation calls</strong>, and we've been using the wrong tool.
       </p>
     </div>
 
@@ -101,7 +101,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       </h2>
 
       <p class="text-sm text-foreground/80 leading-relaxed mb-4">
-        Count the LLM calls in your agent. Now count how many of them actually need text generation. Route this ticket to billing or engineering? LLM call. Is this tool invocation safe to execute? LLM call. Which model should handle this request? LLM call. Should we escalate to a human? LLM call. In each case, you're paying a model to generate a string, parsing that string, validating it, sometimes retrying when it hallucinates a JSON field — all to get a bounded answer your code could act on directly.
+        Count the LLM calls in your agent. Now count how many of them actually need text generation. Route this ticket to billing or engineering? LLM call. Is this tool invocation safe to execute? LLM call. Which model should handle this request? LLM call. Should we escalate to a human? LLM call. In each case, you're paying a model to generate a string, parsing that string, validating it, sometimes retrying when it hallucinates a JSON field - all to get a bounded answer your code could act on directly.
       </p>
 
       <p class="text-sm text-foreground/80 leading-relaxed mb-6">
@@ -125,11 +125,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
               </div>
               <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               <div class="w-full rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] px-3 py-2 text-center">
-                <span class="text-[10px] font-mono text-yellow-400">JSON.parse() — hope it's valid</span>
+                <span class="text-[10px] font-mono text-yellow-400">JSON.parse() - hope it's valid</span>
               </div>
               <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               <div class="w-full rounded-lg border border-yellow-500/30 bg-yellow-500/[0.05] px-3 py-2 text-center">
-                <span class="text-[10px] font-mono text-yellow-400">zod.safeParse() — validate schema</span>
+                <span class="text-[10px] font-mono text-yellow-400">zod.safeParse() - validate schema</span>
               </div>
               <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               <div class="w-full rounded-lg border border-red-500/30 bg-red-500/[0.05] px-3 py-2 text-center">
@@ -137,7 +137,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
               </div>
               <svg class="w-4 h-4 text-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               <div class="w-full rounded-lg border border-foreground/20 bg-foreground/5 px-3 py-2 text-center">
-                <span class="text-[10px] font-mono text-foreground/80">"billing" — finally usable</span>
+                <span class="text-[10px] font-mono text-foreground/80">"billing" - finally usable</span>
               </div>
             </div>
           </div>
@@ -150,7 +150,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
               </div>
               <svg class="w-4 h-4 text-cyan/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               <div class="w-full rounded-lg border border-cyan/30 bg-cyan/[0.05] px-3 py-2 text-center">
-                <span class="text-[10px] font-mono text-cyan">Parallel pass — all options at once</span>
+                <span class="text-[10px] font-mono text-cyan">Parallel pass - all options at once</span>
               </div>
               <svg class="w-4 h-4 text-cyan/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
               <div class="w-full rounded-lg border border-cyan/30 bg-cyan/[0.05] px-3 py-2 text-center">
@@ -181,14 +181,14 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <span class="text-[11px] font-bold text-foreground">System Two (LLMs)</span>
-            <p class="text-[11px] text-foreground/60 mt-1">Slow. Deliberate. Generates text one token at a time. Powerful for reasoning, writing, coding — anything where the output space is unbounded. This is what GPT, Claude, Gemini do.</p>
+            <p class="text-[11px] text-foreground/60 mt-1">Slow. Deliberate. Generates text one token at a time. Powerful for reasoning, writing, coding - anything where the output space is unbounded. This is what GPT, Claude, Gemini do.</p>
           </div>
           <div>
             <span class="text-[11px] font-bold text-cyan">System One (Jev)</span>
             <p class="text-[11px] text-foreground/60 mt-1">Fast. Intuitive. Evaluates all options in a single parallel pass. Built for decisions where the answer set is known in advance: routing, classification, scoring, gating, verification.</p>
           </div>
         </div>
-        <p class="text-[10px] text-foreground/40 mt-3">Named after Daniel Kahneman's <em>Thinking, Fast and Slow</em>. "Jev" comes from William Stanley Jevons — the Jevons paradox: cheaper resource → more consumption. TypeSafe's bet: cheaper intelligence means AI moves into every <code class="text-[9px] bg-background px-1 rounded">if</code> statement.</p>
+        <p class="text-[10px] text-foreground/40 mt-3">Named after Daniel Kahneman's <em>Thinking, Fast and Slow</em>. "Jev" comes from William Stanley Jevons - the Jevons paradox: cheaper resource → more consumption. TypeSafe's bet: cheaper intelligence means AI moves into every <code class="text-[9px] bg-background px-1 rounded">if</code> statement.</p>
       </div>
     </div>
 
@@ -222,7 +222,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 
       <!-- DIAGRAM: Parallel Evaluation -->
       <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
-        <div class="text-[10px] font-mono text-secondary mb-4 text-center">HOW JEV EVALUATES — ONE STATE, THREE QUESTIONS, ONE PASS</div>
+        <div class="text-[10px] font-mono text-secondary mb-4 text-center">HOW JEV EVALUATES - ONE STATE, THREE QUESTIONS, ONE PASS</div>
 
         <!-- State input -->
         <div class="flex justify-center mb-4">
@@ -245,7 +245,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         <!-- Three parallel questions -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
           <div class="rounded-lg border border-cyan/20 bg-background px-3 py-2.5 text-center">
-            <div class="text-[9px] font-mono text-cyan/60 mb-1">CHOICE — "dept"</div>
+            <div class="text-[9px] font-mono text-cyan/60 mb-1">CHOICE - "dept"</div>
             <div class="flex justify-center gap-1.5 flex-wrap">
               <span class="px-1.5 py-0.5 text-[9px] rounded bg-cyan/20 text-cyan font-mono font-bold">billing 94%</span>
               <span class="px-1.5 py-0.5 text-[9px] rounded bg-foreground/5 text-foreground/40 font-mono">technical 4%</span>
@@ -253,16 +253,16 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
             </div>
           </div>
           <div class="rounded-lg border border-cyan/20 bg-background px-3 py-2.5 text-center">
-            <div class="text-[9px] font-mono text-cyan/60 mb-1">SCORE — "urgency"</div>
+            <div class="text-[9px] font-mono text-cyan/60 mb-1">SCORE - "urgency"</div>
             <div class="flex items-center gap-1 justify-center">
               <div class="h-2 w-3 rounded-sm bg-foreground/10"></div>
               <div class="h-2 w-3 rounded-sm bg-foreground/10"></div>
               <div class="h-2 w-3 rounded-sm bg-cyan/70"></div>
             </div>
-            <div class="text-[9px] font-mono text-cyan mt-1">2.87 / 3 — "needs attention today"</div>
+            <div class="text-[9px] font-mono text-cyan mt-1">2.87 / 3 - "needs attention today"</div>
           </div>
           <div class="rounded-lg border border-cyan/20 bg-background px-3 py-2.5 text-center">
-            <div class="text-[9px] font-mono text-cyan/60 mb-1">NOUL — "wants_refund"</div>
+            <div class="text-[9px] font-mono text-cyan/60 mb-1">NOUL - "wants_refund"</div>
             <div class="flex items-center gap-2 justify-center mt-1">
               <div class="w-full max-w-[100px] h-2 rounded-full bg-foreground/10 overflow-hidden">
                 <div class="h-full rounded-full bg-cyan/70" style="width: 73%"></div>
@@ -285,7 +285,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         <!-- Typed response -->
         <div class="flex justify-center">
           <div class="rounded-lg border border-cyan/30 bg-cyan/[0.05] px-4 py-2.5 max-w-md w-full text-center">
-            <div class="text-[10px] font-mono text-cyan font-bold mb-1">TYPED RESPONSE — 175ms TOTAL</div>
+            <div class="text-[10px] font-mono text-cyan font-bold mb-1">TYPED RESPONSE - 175ms TOTAL</div>
             <div class="text-[9px] font-mono text-foreground/60">&#123; dept: ChoiceAnswer, urgency: ScoreAnswer, wants_refund: NoulAnswer &#125;</div>
           </div>
         </div>
@@ -306,7 +306,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 
       <div class="rounded-xl border border-cyan/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-4">
         <div class="flex items-center gap-2 mb-3">
-          <span class="text-[10px] font-mono text-cyan font-bold">CONFIDENCE-GATED ROUTING — THE CORE PATTERN</span>
+          <span class="text-[10px] font-mono text-cyan font-bold">CONFIDENCE-GATED ROUTING - THE CORE PATTERN</span>
         </div>
         <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">import &#123; TypeSafeClient, choice, score, noul &#125;</span>
 <span class="text-secondary">  from "@typesafe-ai/sdk";</span>
@@ -334,7 +334,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
 <span class="text-secondary">  &#125;,</span>
 <span class="text-secondary">&#125;);</span>
 
-<span class="text-cyan font-bold">// The confidence ladder — Jev decides, YOUR CODE acts</span>
+<span class="text-cyan font-bold">// The confidence ladder - Jev decides, YOUR CODE acts</span>
 <span class="text-secondary">if (r.answers.dept.confidence > 0.9) &#123;</span>
 <span class="text-secondary">  await route(r.answers.dept.choice);          // auto-route</span>
 <span class="text-secondary">&#125; else if (r.answers.dept.confidence > 0.6) &#123;</span>
@@ -424,27 +424,27 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       <div class="space-y-4 mb-6">
         <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 feat-card">
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-xs font-bold text-cyan">Vega — SOC Alert Triage</span>
+            <span class="text-xs font-bold text-cyan">Vega - SOC Alert Triage</span>
           </div>
           <p class="text-[11px] text-foreground/70">Put Jev as a gate in front of their agent-powered security operations center. One Jev call per alert (Choice + Nouls) before the expensive agent loop. Result: <strong>closed 15-33% of alerts automatically, 98% accuracy</strong> verified by human analysts. Their agent normally costs $0.34 and 2 minutes per alert. Jev's gate: fractions of a cent, sub-second.</p>
         </div>
         <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 feat-card">
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-xs font-bold text-cyan">Nym — Agent Tool Selection</span>
+            <span class="text-xs font-bold text-cyan">Nym - Agent Tool Selection</span>
           </div>
           <p class="text-[11px] text-foreground/70">Replaced per-turn LLM tool selection with a Jev call. Context + available tools go in, probabilities come out. If Jev is confident, the LLM skips reasoning and generates the tool call directly (thinking off, cached prefix reused). If Jev isn't confident, falls back to DeepSeek with full reasoning. Result: <strong>36% lower generative-model spend</strong>.</p>
         </div>
         <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 feat-card">
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-xs font-bold text-cyan">LangChain — Agent Harness Pattern</span>
+            <span class="text-xs font-bold text-cyan">LangChain - Agent Harness Pattern</span>
           </div>
-          <p class="text-[11px] text-foreground/70">Published a "harness" pattern: Jev as middleware that checks tool calls for risky actions <strong>before the tool executes</strong>. Same pattern that Claude Code, Codex, and Cursor use for their internal safety classifiers — but now available to anyone. A Noul per tool call: "Is this action dangerous?" Act or block based on the probability.</p>
+          <p class="text-[11px] text-foreground/70">Published a "harness" pattern: Jev as middleware that checks tool calls for risky actions <strong>before the tool executes</strong>. Same pattern that Claude Code, Codex, and Cursor use for their internal safety classifiers - but now available to anyone. A Noul per tool call: "Is this action dangerous?" Act or block based on the probability.</p>
         </div>
       </div>
 
       <!-- DIAGRAM: The Jev Gate Pattern -->
       <div class="rounded-xl border border-border bg-elevated p-4 md:p-6 mb-6">
-        <div class="text-[10px] font-mono text-secondary mb-4 text-center">THE JEV GATE PATTERN — USED BY VEGA, NYM, AND LANGCHAIN</div>
+        <div class="text-[10px] font-mono text-secondary mb-4 text-center">THE JEV GATE PATTERN - USED BY VEGA, NYM, AND LANGCHAIN</div>
 
         <div class="flex flex-col items-center gap-2 max-w-md mx-auto">
           <!-- Incoming request -->
@@ -459,7 +459,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           <div class="w-full rounded-lg border-2 border-cyan/40 bg-cyan/[0.05] px-3 py-3 text-center relative">
             <div class="absolute -top-2 left-3 bg-elevated px-1.5 text-[8px] font-mono text-cyan font-bold">JEV GATE</div>
             <div class="text-[10px] font-mono text-cyan font-bold">~175ms · ~$0.0001</div>
-            <div class="text-[9px] text-foreground/50 mt-0.5">Choice + Noul(s) — single round-trip</div>
+            <div class="text-[9px] text-foreground/50 mt-0.5">Choice + Noul(s) - single round-trip</div>
           </div>
 
           <!-- Fork -->
@@ -522,7 +522,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       </h2>
 
       <p class="text-sm text-foreground/80 leading-relaxed mb-4">
-        TypeSafe claims 40-200x faster and 40-400x cheaper. Independent tests from OpenRouter, AY Automate, and JevBench tell a different but still impressive story. The headline multiples come from comparing against LLMs with full chain-of-thought enabled — apples to oranges.
+        TypeSafe claims 40-200x faster and 40-400x cheaper. Independent tests from OpenRouter, AY Automate, and JevBench tell a different but still impressive story. The headline multiples come from comparing against LLMs with full chain-of-thought enabled - apples to oranges.
       </p>
 
       <div class="overflow-x-auto mb-6">
@@ -541,8 +541,8 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
               <td class="py-2.5 px-3">Banking77 (77-way)</td>
               <td class="py-2.5 px-3 text-center text-cyan font-bold">81.0%</td>
               <td class="py-2.5 px-3 text-center">84.4%</td>
-              <td class="py-2.5 px-3 text-center">—</td>
-              <td class="py-2.5 px-3 text-center">—</td>
+              <td class="py-2.5 px-3 text-center"> -</td>
+              <td class="py-2.5 px-3 text-center"> -</td>
             </tr>
             <tr class="border-b border-border/50">
               <td class="py-2.5 px-3">Latency p50</td>
@@ -555,8 +555,8 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
               <td class="py-2.5 px-3">Latency p99</td>
               <td class="py-2.5 px-3 text-center text-cyan font-bold">353ms</td>
               <td class="py-2.5 px-3 text-center">3,835ms</td>
-              <td class="py-2.5 px-3 text-center">—</td>
-              <td class="py-2.5 px-3 text-center">—</td>
+              <td class="py-2.5 px-3 text-center"> -</td>
+              <td class="py-2.5 px-3 text-center"> -</td>
             </tr>
             <tr class="border-b border-border/50">
               <td class="py-2.5 px-3">Cost / 1K decisions</td>
@@ -665,11 +665,11 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
             </div>
           </div>
         </div>
-        <div class="text-[9px] text-foreground/40 text-center mt-3">Jev's slowest call (1.42s p99) was still faster than Opus 5's fastest (~1.9s). Cost includes output tokens — Jev charges $0 for output.</div>
+        <div class="text-[9px] text-foreground/40 text-center mt-3">Jev's slowest call (1.42s p99) was still faster than Opus 5's fastest (~1.9s). Cost includes output tokens - Jev charges $0 for output.</div>
       </div>
 
       <p class="text-sm text-foreground/80 leading-relaxed">
-        <strong>The real comparison point is small models, not frontier ones.</strong> Against GPT-5.4 nano and Gemini Flash-Lite, Jev is 2-3.6x faster and 4.7-7.5x cheaper — real but not two orders of magnitude. Against frontier (Opus 5), it's 13x faster and 22x cheaper. The accuracy gap is consistent: 3-5 percentage points behind frontier LLMs on classification. The question is whether confidence-gated escalation closes that gap in practice. Vega's 98% accuracy at triage suggests it can.
+        <strong>The real comparison point is small models, not frontier ones.</strong> Against GPT-5.4 nano and Gemini Flash-Lite, Jev is 2-3.6x faster and 4.7-7.5x cheaper - real but not two orders of magnitude. Against frontier (Opus 5), it's 13x faster and 22x cheaper. The accuracy gap is consistent: 3-5 percentage points behind frontier LLMs on classification. The question is whether confidence-gated escalation closes that gap in practice. Vega's 98% accuracy at triage suggests it can.
       </p>
     </div>
 
@@ -680,7 +680,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       </h2>
 
       <p class="text-sm text-foreground/80 leading-relaxed mb-4">
-        TypeSafe describes two technical innovations: a <strong>parallel sampler</strong> (the model evaluates all questions at once instead of generating tokens sequentially) and <strong>RLCD</strong> — Reinforcement Learning for Calibrated Decisions (the training objective).
+        TypeSafe describes two technical innovations: a <strong>parallel sampler</strong> (the model evaluates all questions at once instead of generating tokens sequentially) and <strong>RLCD</strong> - Reinforcement Learning for Calibrated Decisions (the training objective).
       </p>
 
       <div class="overflow-x-auto mb-6">
@@ -695,12 +695,12 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           <tbody class="text-foreground/80">
             <tr class="border-b border-border/50">
               <td class="py-2.5 px-3 font-bold">RLHF</td>
-              <td class="py-2.5 px-3">Human preference — responses raters like</td>
+              <td class="py-2.5 px-3">Human preference - responses raters like</td>
               <td class="py-2.5 px-3">Chat models (ChatGPT, Claude)</td>
             </tr>
             <tr class="border-b border-border/50">
               <td class="py-2.5 px-3 font-bold">RLVR</td>
-              <td class="py-2.5 px-3">Verifiable rewards — programmatically checkable</td>
+              <td class="py-2.5 px-3">Verifiable rewards - programmatically checkable</td>
               <td class="py-2.5 px-3">Reasoning models (o3, DeepSeek R1)</td>
             </tr>
             <tr class="bg-cyan/[0.03]">
@@ -726,7 +726,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
             <div class="text-xs font-mono text-foreground/80 font-bold mb-1.5">RLHF</div>
             <div class="text-[10px] text-foreground/60 leading-relaxed">
               <strong>Signal:</strong> Human raters pick preferred outputs<br/>
-              <strong>Makes:</strong> Chat models — fluent, helpful, aligned<br/>
+              <strong>Makes:</strong> Chat models - fluent, helpful, aligned<br/>
               <strong>Ships:</strong> ChatGPT, Claude, Gemini
             </div>
             <div class="hidden md:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-foreground/20 text-lg z-10">→</div>
@@ -738,7 +738,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
             <div class="text-xs font-mono text-foreground/80 font-bold mb-1.5">RLVR</div>
             <div class="text-[10px] text-foreground/60 leading-relaxed">
               <strong>Signal:</strong> Programmatic verifiers check answers<br/>
-              <strong>Makes:</strong> Reasoning models — chain-of-thought<br/>
+              <strong>Makes:</strong> Reasoning models - chain-of-thought<br/>
               <strong>Ships:</strong> o3, DeepSeek R1, QwQ
             </div>
             <div class="hidden md:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-foreground/20 text-lg z-10">→</div>
@@ -750,7 +750,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
             <div class="text-xs font-mono text-cyan font-bold mb-1.5">RLCD</div>
             <div class="text-[10px] text-foreground/60 leading-relaxed">
               <strong class="text-cyan">Signal:</strong> <span class="text-cyan">"Epistemically honest probabilities"</span><br/>
-              <strong class="text-cyan">Makes:</strong> <span class="text-cyan">Decision models — calibrated, typed</span><br/>
+              <strong class="text-cyan">Makes:</strong> <span class="text-cyan">Decision models - calibrated, typed</span><br/>
               <strong class="text-cyan">Ships:</strong> <span class="text-cyan">Jev (only known implementation)</span>
             </div>
           </div>
@@ -761,7 +761,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       <div class="rounded-xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
         <span class="text-[10px] font-mono text-yellow-400 font-bold">WHAT'S NOT PUBLISHED</span>
         <p class="text-[11px] text-secondary mt-2 mb-0">
-          The architecture. The parameter count. The base model. The reward function. The training data. Whether a transformer sits underneath. Whether "single query" means one forward pass. No paper, no model card, no ablation. The CEO told HN the architecture is "close to the chest for now." <strong>You are trusting a black box with very strong marketing claims.</strong> The parallel sampler is partially verifiable from the outside (latency should scale with state size, not question count). RLCD is not verifiable at all — nobody outside TypeSafe has reproduced it because there is nothing published to reproduce.
+          The architecture. The parameter count. The base model. The reward function. The training data. Whether a transformer sits underneath. Whether "single query" means one forward pass. No paper, no model card, no ablation. The CEO told HN the architecture is "close to the chest for now." <strong>You are trusting a black box with very strong marketing claims.</strong> The parallel sampler is partially verifiable from the outside (latency should scale with state size, not question count). RLCD is not verifiable at all - nobody outside TypeSafe has reproduced it because there is nothing published to reproduce.
         </p>
       </div>
     </div>
@@ -773,7 +773,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       </h2>
 
       <p class="text-sm text-foreground/80 leading-relaxed mb-4">
-        The HN thread was originally titled <em>"New frontier model 40-400x cheaper and 20-200x faster"</em> — changed within an hour. The most-replied comment put it plainly: <strong>Jev can't emit an invalid type, but it can absolutely emit a wrong valid value.</strong> Calling a misclassification "not hallucination" is a category argument, not a safety guarantee.
+        The HN thread was originally titled <em>"New frontier model 40-400x cheaper and 20-200x faster"</em> - changed within an hour. The most-replied comment put it plainly: <strong>Jev can't emit an invalid type, but it can absolutely emit a wrong valid value.</strong> Calling a misclassification "not hallucination" is a category argument, not a safety guarantee.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -798,7 +798,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
       </div>
 
       <p class="text-sm text-foreground/80 leading-relaxed">
-        The founder's HN response was direct: <em>"I don't think it's fair to say a random forest hallucinates in the way LLMs do"</em> — and conceded: <em>"because these models are probabilistic, it's also possible to be confidently wrong."</em> He also confirmed Jev is, at core, <em>"basically a zero-shot classifier"</em> with better calibration. Fair enough. The marketing oversells it. The product is still genuinely useful.
+        The founder's HN response was direct: <em>"I don't think it's fair to say a random forest hallucinates in the way LLMs do"</em> - and conceded: <em>"because these models are probabilistic, it's also possible to be confidently wrong."</em> He also confirmed Jev is, at core, <em>"basically a zero-shot classifier"</em> with better calibration. Fair enough. The marketing oversells it. The product is still genuinely useful.
       </p>
     </div>
 
@@ -811,7 +811,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
         <ul class="space-y-1.5 mb-0">
           <li class="flex items-start gap-2">
             <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
-            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Cannot generate text, code, or explanations.</strong> Jev complements LLMs; it does not replace them. If your task needs a string output — a reply, a summary, a diff — Jev is the wrong tool.</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Cannot generate text, code, or explanations.</strong> Jev complements LLMs; it does not replace them. If your task needs a string output - a reply, a summary, a diff - Jev is the wrong tool.</span>
           </li>
           <li class="flex items-start gap-2">
             <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
@@ -823,7 +823,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
           </li>
           <li class="flex items-start gap-2">
             <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
-            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Early access.</strong> Direct API is waitlisted. OpenRouter, Vercel, and Cloudflare serve it without a waitlist but as a gateway-routed call. No free tier — $0.042/M is cheap but not zero.</span>
+            <span class="text-[11px] text-secondary"><strong class="text-yellow-400">Early access.</strong> Direct API is waitlisted. OpenRouter, Vercel, and Cloudflare serve it without a waitlist but as a gateway-routed call. No free tier - $0.042/M is cheap but not zero.</span>
           </li>
           <li class="flex items-start gap-2">
             <span class="text-yellow-400 text-[10px] mt-0.5">&#9679;</span>
@@ -837,7 +837,7 @@ import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
     <div class="rounded-xl border border-cyan/20 bg-cyan/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
       <span class="text-xs font-mono text-cyan font-bold">// Bottom Line</span>
       <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
-        Strip away the marketing and the HN drama and Jev is this: <strong>a fast, cheap, typed classifier with calibrated confidence scores and an API designed for software, not chat.</strong> That sounds boring until you count how many LLM calls in your codebase are doing exactly this job at 10-20x the cost and latency. Vega's SOC closed a third of its alerts with one Jev call each. Nym cut 36% of its generative-model spend. LangChain published the guardrail pattern that Cursor and Claude Code have kept proprietary. The 193x speed claim is marketing fiction — independent tests show 3-13x. The "can't hallucinate" framing is misleading — it can be confidently wrong. But if you build agents and your cost dashboard makes you flinch, the pattern is clear: <strong>let Jev triage, let the LLM reason, and put the confidence threshold in your code where it belongs.</strong>
+        Strip away the marketing and the HN drama and Jev is this: <strong>a fast, cheap, typed classifier with calibrated confidence scores and an API designed for software, not chat.</strong> That sounds boring until you count how many LLM calls in your codebase are doing exactly this job at 10-20x the cost and latency. Vega's SOC closed a third of its alerts with one Jev call each. Nym cut 36% of its generative-model spend. LangChain published the guardrail pattern that Cursor and Claude Code have kept proprietary. The 193x speed claim is marketing fiction - independent tests show 3-13x. The "can't hallucinate" framing is misleading - it can be confidently wrong. But if you build agents and your cost dashboard makes you flinch, the pattern is clear: <strong>let Jev triage, let the LLM reason, and put the confidence threshold in your code where it belongs.</strong>
       </p>
     </div>
     <!-- Next Episode -->
