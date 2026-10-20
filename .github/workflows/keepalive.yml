@@ -1,0 +1,26 @@
+# Keepalive — prevents GitHub from disabling scheduled workflows
+#
+# GitHub disables cron workflows on repos with no activity for 60 days.
+# This runs daily and makes a lightweight API call to keep the repo "active".
+# See: https://docs.github.com/en/actions/managing-workflow-runs/disabling-and-enabling-a-workflow
+
+name: Keepalive
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # Daily at 01:00 UTC
+
+permissions:
+  actions: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keepalive ping
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Keepalive ping at $(date -u)"
+          gh api repos/${{ github.repository }} --jq '.pushed_at' || true
+          echo "Done — repo activity registered"
