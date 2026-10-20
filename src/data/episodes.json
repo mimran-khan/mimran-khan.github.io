@@ -680,7 +680,7 @@
     "day": "Sat",
     "date": "Nov 14",
     "readTime": "5 min",
-    "published": false,
+    "published": true,
     "image": "/series/ep57-orl-diffusion-open.png"
   }
 ]
