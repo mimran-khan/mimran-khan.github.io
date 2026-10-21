@@ -521,8 +521,10 @@
       "branch": "ep47",
       "slug": "already-clean",
       "title": "Neural Networks Are Already Clean: The Interpretability Bombshell",
-      "status": "pending",
-      "release_date": "2026-10-21"
+      "status": "published",
+      "release_date": "2026-10-21",
+      "published_on": "2026-10-21",
+      "tag": "release/ep47"
     },
     {
       "ep": 48,
