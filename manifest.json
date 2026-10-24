@@ -524,7 +524,8 @@
       "status": "published",
       "release_date": "2026-10-21",
       "published_on": "2026-10-21",
-      "tag": "release/ep47"
+      "tag": "release/ep47",
+      "linkedin_post": "Episode 47: 5-minute read. Zero fluff : Neural Networks Are Already Clean\n\nThe co-author of the superposition hypothesis just reversed his own finding. Nick Cammarata at Goodfire says ~90% of Qwen3-32B neuron poles have one main function.\n\nKey findings:\n- The famous cat/car InceptionV1 neuron was really a V-shape detector\n- Polysemanticity was misread as superposition but is actually recursive generalization\n- We may not need sparse autoencoders to interpret models\n- OpenAI's Roon calls it historic; DeepMind's Neel Nanda warns against overhype\n\nThe takeaway? The entire interpretability field just got upended.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/already-clean\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Interpretability #Superposition #NeuralNetworks #AI #MachineLearning #Goodfire #MechanisticInterpretability"
     },
     {
       "ep": 48,
@@ -534,7 +535,8 @@
       "status": "published",
       "release_date": "2026-10-24",
       "published_on": "2026-10-24",
-      "tag": "release/ep48"
+      "tag": "release/ep48",
+      "linkedin_post": "Episode 48: 5-minute read. Zero fluff : Muse Spark Open\n\nMeta just open-sourced an 816 billion parameter model that runs on 2 Mac Studios. Best US open-weight model, period.\n\nKey findings:\n- 816B total params, 42B active (MoE)\n- 1M token context window\n- Runs locally via MLX on Apple M5 Ultra\n- Available on HuggingFace, vLLM, llama.cpp, SGLang\n- Built for coding and long-horizon agentic work\n\nThe takeaway? The frontier just came to your desktop.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/muse-spark-open\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#MuseSpark #MetaAI #OpenSource #LLMs #AI #MachineLearning #MoE #LocalInference"
     },
     {
       "ep": 49,
@@ -542,7 +544,8 @@
       "slug": "hybrid-reasoning-agents",
       "title": "Hybrid Reasoning: When Agents Think Without Words",
       "status": "pending",
-      "release_date": "2026-10-26"
+      "release_date": "2026-10-26",
+      "linkedin_post": "Episode 49: 5-minute read. Zero fluff : Hybrid Reasoning Agents\n\nStanford + Together AI built an agent that thinks without words. HybridAgent switches between latent-space reasoning and text-based tool interaction.\n\nKey findings:\n- 10.4% performance improvement over text-only reasoning\n- 35-55% token reduction, 1.8-2.6x faster, 2.7-3.7x cost savings\n- HybridLink maps hidden states back to input-embedding space\n- 8B checkpoint open-sourced on HuggingFace\n\nThe takeaway? The next frontier in agentic AI is thinking in latent space.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/hybrid-reasoning-agents\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#HybridReasoning #AgenticAI #LatentSpace #AI #MachineLearning #LLMs #Stanford"
     },
     {
       "ep": 50,
@@ -550,7 +553,8 @@
       "slug": "nemotron-35",
       "title": "Nemotron 3.5: NVIDIA's Mamba-Transformer Hybrid Eats SWE-bench",
       "status": "pending",
-      "release_date": "2026-10-28"
+      "release_date": "2026-10-28",
+      "linkedin_post": "Episode 50: 5-minute read. Zero fluff : Nemotron 3.5\n\nNVIDIA's Mamba-Transformer hybrid hits 51.78% SWE-bench Pro with just 12B active params out of 120B total.\n\nKey findings:\n- 120B MoE, only 12B active (Mamba + Transformer)\n- 4,856 tok/s/GPU on GB200\n- NVFP4 quantization: 99.62% accuracy, 2.43x throughput\n- Agentic mid-training improved DeepSWE from 6.4% to 10.4%\n- Handles text, images, video, and tool environments\n\nThe takeaway? Hybrids are eating pure transformers alive.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/nemotron-35\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Nemotron #NVIDIA #Mamba #Transformer #AI #SWEbench #MachineLearning"
     },
     {
       "ep": 51,
@@ -558,7 +562,8 @@
       "slug": "timestral",
       "title": "Timestral: Mistral Conquers Time-Series with 209M Parameters",
       "status": "pending",
-      "release_date": "2026-10-31"
+      "release_date": "2026-10-31",
+      "linkedin_post": "Episode 51: 5-minute read. Zero fluff : Timestral\n\nMistral's first non-language model: 209M parameters, #1 on ALL 3 time-series benchmarks, runs on CPU.\n\nKey findings:\n- Family of 4 models (5M to 209M params)\n- #1 on GIFT-Eval, TIME, and fev-bench\n- Zero-shot probabilistic forecasts with 21 quantiles\n- Supports up to 32,768 historical steps\n- Open weights on HuggingFace\n\nThe takeaway? Mistral just entered the time-series game and immediately won it.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/timestral\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Timestral #Mistral #TimeSeries #Forecasting #AI #MachineLearning #OpenSource"
     },
     {
       "ep": 52,
@@ -566,7 +571,8 @@
       "slug": "post-transformer-2026",
       "title": "Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars",
       "status": "pending",
-      "release_date": "2026-11-02"
+      "release_date": "2026-11-02",
+      "linkedin_post": "Episode 52: 5-minute read. Zero fluff : Post-Transformer Architecture Wars\n\nThe transformer monopoly is cracking. SSMs, diffusion LLMs, and hybrids are winning real workloads in 2026.\n\nKey findings:\n- Mamba SSMs: linear-time long sequences\n- Mercury 3: diffusion generates tokens in parallel at 1,068 tok/s\n- Nemotron 3.5: Mamba-Transformer hybrid, 51.78% SWE-bench\n- Linear attention models emerging (TransNormerLLM)\n- Hybrids winning: transformers for in-context learning + Mamba for long context\n\nThe takeaway? The future is mixture-of-architectures, not one winner.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/post-transformer-2026\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#PostTransformer #Mamba #DiffusionLLM #AI #MachineLearning #Architecture"
     },
     {
       "ep": 53,
@@ -574,7 +580,8 @@
       "slug": "agent-infra-boom",
       "title": "The Agent Infrastructure Boom: Memory, Harnesses, and the New Stack",
       "status": "pending",
-      "release_date": "2026-11-04"
+      "release_date": "2026-11-04",
+      "linkedin_post": "Episode 53: 5-minute read. Zero fluff : Agent Infrastructure Boom\n\nThe middleware layer nobody planned for is now the hottest layer in AI engineering. GitHub Trending Oct 2026 tells the story.\n\nKey findings:\n- opencode (217k stars): open-source coding agent\n- orca (98k stars): run any coding agent with your subscription\n- ruflo (77k stars): multi-agent swarms with adaptive memory\n- headroom (76k stars): compress tool outputs 60-95% before LLM\n- ai-memory (11k stars): long-term memory for coding agents in Rust\n\nThe takeaway? Agent harness engineering is the new hottest job in AI.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/agent-infra-boom\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgentInfra #CodingAgents #OpenSource #AI #DevTools #GitHubTrending"
     },
     {
       "ep": 54,
@@ -582,7 +589,8 @@
       "slug": "world-action-models",
       "title": "World Action Models: Robotics Just Had Its GPT-2 Moment",
       "status": "pending",
-      "release_date": "2026-11-07"
+      "release_date": "2026-11-07",
+      "linkedin_post": "Episode 54: 5-minute read. Zero fluff : World Action Models\n\nRobotics just had its GPT-2 moment. World Action Models learn physics from video like LLMs learn language from text.\n\nKey findings:\n- WAMs outperform hand-coded Vision-Language-Action models\n- Robots generalize to unseen objects and environments\n- The pre-training paradigm hits robotics\n- VLAs = prompt engineering (manual), WAMs = foundation models (learned)\n- Demo data requirements dropping fast\n\nThe takeaway? The robot foundation model era just started.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/world-action-models\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#WorldActionModels #Robotics #AI #MachineLearning #FoundationModels"
     },
     {
       "ep": 55,
@@ -590,7 +598,8 @@
       "slug": "character-ai-dead",
       "title": "Character.ai Is Dead: The Consumer AI Reckoning",
       "status": "pending",
-      "release_date": "2026-11-09"
+      "release_date": "2026-11-09",
+      "linkedin_post": "Episode 55: 5-minute read. Zero fluff : Character.ai Is Dead\n\nThe first major AI startup casualty of 2026. Over $1B raised, millions of users, zero path to profit.\n\nKey findings:\n- Filed Chapter 11 voluntary bankruptcy\n- Compute costs for free conversational AI unsustainable\n- Follows Inflection (acquired by Microsoft) and Jasper (pivoted)\n- Enterprise AI thriving while consumer AI collapses\n- Users won't pay enough to cover inference costs\n\nThe takeaway? Consumer AI chatbots don't have a business model. Enterprise does.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/character-ai-dead\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#CharacterAI #ConsumerAI #Startup #AI #BusinessModel #EnterpriseAI"
     },
     {
       "ep": 56,
@@ -598,7 +607,8 @@
       "slug": "papers-are-cooked",
       "title": "Conference Papers Are Cooked: The AI Writing Crisis in Research",
       "status": "pending",
-      "release_date": "2026-11-11"
+      "release_date": "2026-11-11",
+      "linkedin_post": "Episode 56: 5-minute read. Zero fluff : Conference Papers Are Cooked\n\n34% of ICML 2026 submissions flagged for AI-generated content. AI writes the papers, AI reviews them. The reproducibility crisis 2.0.\n\nKey findings:\n- NeurIPS reviewer audit: GPT-4o co-authored ~17% of submissions\n- 23% of ICML reviews showed LLM patterns\n- Signature phrases: 'delve', 'notably', 'it is worth noting'\n- ICLR 2027 CFP now requires methodology declarations\n- Some labs require 'human attestation certificates'\n\nThe takeaway? Double contamination is already here.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/papers-are-cooked\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AIResearch #ICML #NeurIPS #AcademicIntegrity #AI #MachineLearning"
     },
     {
       "ep": 57,
@@ -606,7 +616,8 @@
       "slug": "orl-diffusion-open",
       "title": "ORL: 2,788 Tokens Per Second From a Single RTX 5090",
       "status": "pending",
-      "release_date": "2026-11-14"
+      "release_date": "2026-11-14",
+      "linkedin_post": "Episode 57: 5-minute read. Zero fluff : ORL Diffusion\n\nOpen Reasoning via Latent diffusion: 2,788 tokens per second from a single RTX 5090. 46x faster than autoregressive at the same quality.\n\nKey findings:\n- Generates all tokens simultaneously, then refines iteratively\n- Matches GPT-6 Luna on GPQA Diamond, MATH-500, LiveCodeBench\n- 3B and 8B checkpoints open-sourced\n- Denoising schedule adapts to problem difficulty\n- Trivially parallelizable across GPUs\n\nThe takeaway? Autoregressive inference may be the next bottleneck to fall.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/orl-diffusion-open\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#ORL #DiffusionLLM #Inference #AI #MachineLearning #OpenSource #RTX5090"
     }
   ]
 }

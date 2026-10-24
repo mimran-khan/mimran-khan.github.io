@@ -248,6 +248,13 @@ jobs:
             for attempt in 1 2 3 4 5 6 7 8 9 10; do
               git checkout --ours src/data/episodes.json 2>/dev/null || true
               git add src/data/episodes.json
+              git checkout --ours manifest.json 2>/dev/null || true
+              git add manifest.json
+              # Resolve any other conflicting files by keeping main's version
+              for f in $(git diff --name-only --diff-filter=U 2>/dev/null); do
+                git checkout --ours "$f" 2>/dev/null || true
+                git add "$f"
+              done
               if GIT_EDITOR=true git rebase --continue 2>/dev/null; then
                 echo "Rebase completed after resolving $attempt conflict(s)"
                 break
