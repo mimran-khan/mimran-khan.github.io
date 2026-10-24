@@ -536,7 +536,8 @@
       "release_date": "2026-10-24",
       "published_on": "2026-10-24",
       "tag": "release/ep48",
-      "linkedin_post": "Episode 48: 5-minute read. Zero fluff : Muse Spark Open\n\nMeta just open-sourced an 816 billion parameter model that runs on 2 Mac Studios. Best US open-weight model, period.\n\nKey findings:\n- 816B total params, 42B active (MoE)\n- 1M token context window\n- Runs locally via MLX on Apple M5 Ultra\n- Available on HuggingFace, vLLM, llama.cpp, SGLang\n- Built for coding and long-horizon agentic work\n\nThe takeaway? The frontier just came to your desktop.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/muse-spark-open\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#MuseSpark #MetaAI #OpenSource #LLMs #AI #MachineLearning #MoE #LocalInference"
+      "linkedin_post": "Episode 48: 5-minute read. Zero fluff : Muse Spark Open\n\nMeta just open-sourced an 816 billion parameter model that runs on 2 Mac Studios. Best US open-weight model, period.\n\nKey findings:\n- 816B total params, 42B active (MoE)\n- 1M token context window\n- Runs locally via MLX on Apple M5 Ultra\n- Available on HuggingFace, vLLM, llama.cpp, SGLang\n- Built for coding and long-horizon agentic work\n\nThe takeaway? The frontier just came to your desktop.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/muse-spark-open\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#MuseSpark #MetaAI #OpenSource #LLMs #AI #MachineLearning #MoE #LocalInference",
+      "linkedin_posted_on": "2026-10-24"
     },
     {
       "ep": 49,
