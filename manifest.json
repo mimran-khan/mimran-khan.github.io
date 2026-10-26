@@ -541,7 +541,7 @@
     },
     {
       "ep": 49,
-      "branch": "ep49",
+      "branch": "release/ep49",
       "slug": "hybrid-reasoning-agents",
       "title": "Hybrid Reasoning: When Agents Think Without Words",
       "status": "pending",
@@ -550,7 +550,7 @@
     },
     {
       "ep": 50,
-      "branch": "ep50",
+      "branch": "release/ep50",
       "slug": "nemotron-35",
       "title": "Nemotron 3.5: NVIDIA's Mamba-Transformer Hybrid Eats SWE-bench",
       "status": "pending",
@@ -559,7 +559,7 @@
     },
     {
       "ep": 51,
-      "branch": "ep51",
+      "branch": "release/ep51",
       "slug": "timestral",
       "title": "Timestral: Mistral Conquers Time-Series with 209M Parameters",
       "status": "pending",
@@ -568,7 +568,7 @@
     },
     {
       "ep": 52,
-      "branch": "ep52",
+      "branch": "release/ep52",
       "slug": "post-transformer-2026",
       "title": "Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars",
       "status": "pending",
@@ -577,7 +577,7 @@
     },
     {
       "ep": 53,
-      "branch": "ep53",
+      "branch": "release/ep53",
       "slug": "agent-infra-boom",
       "title": "The Agent Infrastructure Boom: Memory, Harnesses, and the New Stack",
       "status": "pending",
@@ -586,7 +586,7 @@
     },
     {
       "ep": 54,
-      "branch": "ep54",
+      "branch": "release/ep54",
       "slug": "world-action-models",
       "title": "World Action Models: Robotics Just Had Its GPT-2 Moment",
       "status": "pending",
@@ -595,7 +595,7 @@
     },
     {
       "ep": 55,
-      "branch": "ep55",
+      "branch": "release/ep55",
       "slug": "character-ai-dead",
       "title": "Character.ai Is Dead: The Consumer AI Reckoning",
       "status": "pending",
@@ -604,7 +604,7 @@
     },
     {
       "ep": 56,
-      "branch": "ep56",
+      "branch": "release/ep56",
       "slug": "papers-are-cooked",
       "title": "Conference Papers Are Cooked: The AI Writing Crisis in Research",
       "status": "pending",
@@ -613,7 +613,7 @@
     },
     {
       "ep": 57,
-      "branch": "ep57",
+      "branch": "release/ep57",
       "slug": "orl-diffusion-open",
       "title": "ORL: 2,788 Tokens Per Second From a Single RTX 5090",
       "status": "pending",
