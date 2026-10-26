@@ -548,7 +548,8 @@
       "release_date": "2026-10-26",
       "linkedin_post": "Episode 49: 5-minute read. Zero fluff : Hybrid Reasoning Agents\n\nStanford + Together AI built an agent that thinks without words. HybridAgent switches between latent-space reasoning and text-based tool interaction.\n\nKey findings:\n- 10.4% performance improvement over text-only reasoning\n- 35-55% token reduction, 1.8-2.6x faster, 2.7-3.7x cost savings\n- HybridLink maps hidden states back to input-embedding space\n- 8B checkpoint open-sourced on HuggingFace\n\nThe takeaway? The next frontier in agentic AI is thinking in latent space.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/hybrid-reasoning-agents\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#HybridReasoning #AgenticAI #LatentSpace #AI #MachineLearning #LLMs #Stanford",
       "published_on": "2026-10-26",
-      "tag": "release/ep49"
+      "tag": "release/ep49",
+      "linkedin_posted_on": "2026-10-26"
     },
     {
       "ep": 50,
