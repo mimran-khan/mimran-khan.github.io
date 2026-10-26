@@ -14,11 +14,13 @@
 name: Scheduled Release
 
 on:
+  repository_dispatch:
+    types: [scheduled-release]
   schedule:
-    # Primary: Mon/Wed/Sat 05:30 UTC = Mon/Wed/Sat 11:00 AM IST
-    - cron: '30 5 * * 1,3,6'
-    # Backup catch-up: daily 07:30 UTC = 1:00 PM IST
-    - cron: '30 7 * * *'
+    # Backup only — primary trigger is external cron (cron-job.org) via repository_dispatch
+    # GitHub Actions cron is unreliable (2-7hr delays observed). These are safety nets only.
+    - cron: '30 5 * * 1,3,6'    # Mon/Wed/Sat 05:30 UTC = 11:00 AM IST (backup)
+    - cron: '30 7 * * *'         # Daily 07:30 UTC = 1:00 PM IST (catch-all backup)
   workflow_dispatch:
     inputs:
       force:
