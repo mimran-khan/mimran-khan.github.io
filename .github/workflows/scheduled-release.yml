@@ -442,7 +442,7 @@ jobs:
         if: steps.find.outputs.skip != 'true'
         run: |
           git push origin main --tags
-          git push origin --delete "${{ steps.find.outputs.branch }}"
+          git push origin --delete "refs/heads/${{ steps.find.outputs.branch }}"
 
       - name: Prepare public repo push
         if: steps.find.outputs.skip != 'true'
