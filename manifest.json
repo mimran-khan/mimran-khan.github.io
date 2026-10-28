@@ -556,9 +556,11 @@
       "branch": "release/ep50",
       "slug": "nemotron-35",
       "title": "Nemotron 3.5: NVIDIA's Mamba-Transformer Hybrid Eats SWE-bench",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-10-28",
-      "linkedin_post": "Episode 50: 5-minute read. Zero fluff : Nemotron 3.5\n\nNVIDIA's Mamba-Transformer hybrid hits 51.78% SWE-bench Pro with just 12B active params out of 120B total.\n\nKey findings:\n- 120B MoE, only 12B active (Mamba + Transformer)\n- 4,856 tok/s/GPU on GB200\n- NVFP4 quantization: 99.62% accuracy, 2.43x throughput\n- Agentic mid-training improved DeepSWE from 6.4% to 10.4%\n- Handles text, images, video, and tool environments\n\nThe takeaway? Hybrids are eating pure transformers alive.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/nemotron-35\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Nemotron #NVIDIA #Mamba #Transformer #AI #SWEbench #MachineLearning"
+      "linkedin_post": "Episode 50: 5-minute read. Zero fluff : Nemotron 3.5\n\nNVIDIA's Mamba-Transformer hybrid hits 51.78% SWE-bench Pro with just 12B active params out of 120B total.\n\nKey findings:\n- 120B MoE, only 12B active (Mamba + Transformer)\n- 4,856 tok/s/GPU on GB200\n- NVFP4 quantization: 99.62% accuracy, 2.43x throughput\n- Agentic mid-training improved DeepSWE from 6.4% to 10.4%\n- Handles text, images, video, and tool environments\n\nThe takeaway? Hybrids are eating pure transformers alive.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/nemotron-35\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Nemotron #NVIDIA #Mamba #Transformer #AI #SWEbench #MachineLearning",
+      "published_on": "2026-10-28",
+      "tag": "release/ep50"
     },
     {
       "ep": 51,
