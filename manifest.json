@@ -568,9 +568,11 @@
       "branch": "release/ep51",
       "slug": "timestral",
       "title": "Timestral: Mistral Conquers Time-Series with 209M Parameters",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-10-31",
-      "linkedin_post": "Episode 51: 5-minute read. Zero fluff : Timestral\n\nMistral's first non-language model: 209M parameters, #1 on ALL 3 time-series benchmarks, runs on CPU.\n\nKey findings:\n- Family of 4 models (5M to 209M params)\n- #1 on GIFT-Eval, TIME, and fev-bench\n- Zero-shot probabilistic forecasts with 21 quantiles\n- Supports up to 32,768 historical steps\n- Open weights on HuggingFace\n\nThe takeaway? Mistral just entered the time-series game and immediately won it.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/timestral\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Timestral #Mistral #TimeSeries #Forecasting #AI #MachineLearning #OpenSource"
+      "linkedin_post": "Episode 51: 5-minute read. Zero fluff : Timestral\n\nMistral's first non-language model: 209M parameters, #1 on ALL 3 time-series benchmarks, runs on CPU.\n\nKey findings:\n- Family of 4 models (5M to 209M params)\n- #1 on GIFT-Eval, TIME, and fev-bench\n- Zero-shot probabilistic forecasts with 21 quantiles\n- Supports up to 32,768 historical steps\n- Open weights on HuggingFace\n\nThe takeaway? Mistral just entered the time-series game and immediately won it.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/timestral\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Timestral #Mistral #TimeSeries #Forecasting #AI #MachineLearning #OpenSource",
+      "published_on": "2026-10-31",
+      "tag": "release/ep51"
     },
     {
       "ep": 52,
