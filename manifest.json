@@ -580,9 +580,11 @@
       "branch": "release/ep52",
       "slug": "post-transformer-2026",
       "title": "Post-Transformer 2026: Mamba, Diffusion, and the Architecture Wars",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-02",
-      "linkedin_post": "Episode 52: 5-minute read. Zero fluff : Post-Transformer Architecture Wars\n\nThe transformer monopoly is cracking. SSMs, diffusion LLMs, and hybrids are winning real workloads in 2026.\n\nKey findings:\n- Mamba SSMs: linear-time long sequences\n- Mercury 3: diffusion generates tokens in parallel at 1,068 tok/s\n- Nemotron 3.5: Mamba-Transformer hybrid, 51.78% SWE-bench\n- Linear attention models emerging (TransNormerLLM)\n- Hybrids winning: transformers for in-context learning + Mamba for long context\n\nThe takeaway? The future is mixture-of-architectures, not one winner.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/post-transformer-2026\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#PostTransformer #Mamba #DiffusionLLM #AI #MachineLearning #Architecture"
+      "linkedin_post": "Episode 52: 5-minute read. Zero fluff : Post-Transformer Architecture Wars\n\nThe transformer monopoly is cracking. SSMs, diffusion LLMs, and hybrids are winning real workloads in 2026.\n\nKey findings:\n- Mamba SSMs: linear-time long sequences\n- Mercury 3: diffusion generates tokens in parallel at 1,068 tok/s\n- Nemotron 3.5: Mamba-Transformer hybrid, 51.78% SWE-bench\n- Linear attention models emerging (TransNormerLLM)\n- Hybrids winning: transformers for in-context learning + Mamba for long context\n\nThe takeaway? The future is mixture-of-architectures, not one winner.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/post-transformer-2026\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#PostTransformer #Mamba #DiffusionLLM #AI #MachineLearning #Architecture",
+      "published_on": "2026-11-02",
+      "tag": "release/ep52"
     },
     {
       "ep": 53,
