@@ -592,9 +592,11 @@
       "branch": "release/ep53",
       "slug": "agent-infra-boom",
       "title": "The Agent Infrastructure Boom: Memory, Harnesses, and the New Stack",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-04",
-      "linkedin_post": "Episode 53: 5-minute read. Zero fluff : Agent Infrastructure Boom\n\nThe middleware layer nobody planned for is now the hottest layer in AI engineering. GitHub Trending Oct 2026 tells the story.\n\nKey findings:\n- opencode (217k stars): open-source coding agent\n- orca (98k stars): run any coding agent with your subscription\n- ruflo (77k stars): multi-agent swarms with adaptive memory\n- headroom (76k stars): compress tool outputs 60-95% before LLM\n- ai-memory (11k stars): long-term memory for coding agents in Rust\n\nThe takeaway? Agent harness engineering is the new hottest job in AI.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/agent-infra-boom\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgentInfra #CodingAgents #OpenSource #AI #DevTools #GitHubTrending"
+      "linkedin_post": "Episode 53: 5-minute read. Zero fluff : Agent Infrastructure Boom\n\nThe middleware layer nobody planned for is now the hottest layer in AI engineering. GitHub Trending Oct 2026 tells the story.\n\nKey findings:\n- opencode (217k stars): open-source coding agent\n- orca (98k stars): run any coding agent with your subscription\n- ruflo (77k stars): multi-agent swarms with adaptive memory\n- headroom (76k stars): compress tool outputs 60-95% before LLM\n- ai-memory (11k stars): long-term memory for coding agents in Rust\n\nThe takeaway? Agent harness engineering is the new hottest job in AI.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/agent-infra-boom\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgentInfra #CodingAgents #OpenSource #AI #DevTools #GitHubTrending",
+      "published_on": "2026-11-04",
+      "tag": "release/ep53"
     },
     {
       "ep": 54,
