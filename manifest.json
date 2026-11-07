@@ -608,7 +608,8 @@
       "release_date": "2026-11-07",
       "linkedin_post": "Episode 54: 5-minute read. Zero fluff : World Action Models\n\nRobotics just had its GPT-2 moment. World Action Models learn physics from video like LLMs learn language from text.\n\nKey findings:\n- WAMs outperform hand-coded Vision-Language-Action models\n- Robots generalize to unseen objects and environments\n- The pre-training paradigm hits robotics\n- VLAs = prompt engineering (manual), WAMs = foundation models (learned)\n- Demo data requirements dropping fast\n\nThe takeaway? The robot foundation model era just started.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/world-action-models\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#WorldActionModels #Robotics #AI #MachineLearning #FoundationModels",
       "published_on": "2026-11-07",
-      "tag": "release/ep54"
+      "tag": "release/ep54",
+      "linkedin_posted_on": "2026-11-07"
     },
     {
       "ep": 55,
