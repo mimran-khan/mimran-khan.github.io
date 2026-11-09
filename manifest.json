@@ -616,9 +616,11 @@
       "branch": "release/ep55",
       "slug": "character-ai-dead",
       "title": "Character.ai Is Dead: The Consumer AI Reckoning",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-09",
-      "linkedin_post": "Episode 55: 5-minute read. Zero fluff : Character.ai Is Dead\n\nThe first major AI startup casualty of 2026. Over $1B raised, millions of users, zero path to profit.\n\nKey findings:\n- Filed Chapter 11 voluntary bankruptcy\n- Compute costs for free conversational AI unsustainable\n- Follows Inflection (acquired by Microsoft) and Jasper (pivoted)\n- Enterprise AI thriving while consumer AI collapses\n- Users won't pay enough to cover inference costs\n\nThe takeaway? Consumer AI chatbots don't have a business model. Enterprise does.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/character-ai-dead\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#CharacterAI #ConsumerAI #Startup #AI #BusinessModel #EnterpriseAI"
+      "linkedin_post": "Episode 55: 5-minute read. Zero fluff : Character.ai Is Dead\n\nThe first major AI startup casualty of 2026. Over $1B raised, millions of users, zero path to profit.\n\nKey findings:\n- Filed Chapter 11 voluntary bankruptcy\n- Compute costs for free conversational AI unsustainable\n- Follows Inflection (acquired by Microsoft) and Jasper (pivoted)\n- Enterprise AI thriving while consumer AI collapses\n- Users won't pay enough to cover inference costs\n\nThe takeaway? Consumer AI chatbots don't have a business model. Enterprise does.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/character-ai-dead\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#CharacterAI #ConsumerAI #Startup #AI #BusinessModel #EnterpriseAI",
+      "published_on": "2026-11-09",
+      "tag": "release/ep55"
     },
     {
       "ep": 56,
