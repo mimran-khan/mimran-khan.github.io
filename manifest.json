@@ -627,9 +627,11 @@
       "branch": "release/ep56",
       "slug": "papers-are-cooked",
       "title": "Conference Papers Are Cooked: The AI Writing Crisis in Research",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-11",
-      "linkedin_post": "Episode 56: 5-minute read. Zero fluff : Conference Papers Are Cooked\n\n34% of ICML 2026 submissions flagged for AI-generated content. AI writes the papers, AI reviews them. The reproducibility crisis 2.0.\n\nKey findings:\n- NeurIPS reviewer audit: GPT-4o co-authored ~17% of submissions\n- 23% of ICML reviews showed LLM patterns\n- Signature phrases: 'delve', 'notably', 'it is worth noting'\n- ICLR 2027 CFP now requires methodology declarations\n- Some labs require 'human attestation certificates'\n\nThe takeaway? Double contamination is already here.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/papers-are-cooked\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AIResearch #ICML #NeurIPS #AcademicIntegrity #AI #MachineLearning"
+      "linkedin_post": "Episode 56: 5-minute read. Zero fluff : Conference Papers Are Cooked\n\n34% of ICML 2026 submissions flagged for AI-generated content. AI writes the papers, AI reviews them. The reproducibility crisis 2.0.\n\nKey findings:\n- NeurIPS reviewer audit: GPT-4o co-authored ~17% of submissions\n- 23% of ICML reviews showed LLM patterns\n- Signature phrases: 'delve', 'notably', 'it is worth noting'\n- ICLR 2027 CFP now requires methodology declarations\n- Some labs require 'human attestation certificates'\n\nThe takeaway? Double contamination is already here.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/papers-are-cooked\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AIResearch #ICML #NeurIPS #AcademicIntegrity #AI #MachineLearning",
+      "published_on": "2026-11-11",
+      "tag": "release/ep56"
     },
     {
       "ep": 57,
