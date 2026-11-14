@@ -682,5 +682,29 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep57-orl-diffusion-open.png"
+  },
+  {
+    "number": 58,
+    "slug": "claude-code-settings-leak",
+    "title": "Claude Code's Don't-Ask-Again Leak",
+    "hook": "Yes, and don't ask again saved full shell commands - passwords included - into .claude/settings.local.json. Apiiro found 1,122 public copies with secrets.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Nov 16",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep58-claude-code-settings-leak.png"
+  },
+  {
+    "number": 59,
+    "slug": "opticalrag",
+    "title": "OpticalRAG: RAG in 16 Visual Tokens",
+    "hook": "OpticalRAG renders documents as page images and distills retrieval into 16 query-conditioned tokens - winning compression-aware accuracy on LongBench-v2.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Nov 18",
+    "readTime": "5 min",
+    "published": false,
+    "image": "/series/ep59-opticalrag.png"
   }
 ]

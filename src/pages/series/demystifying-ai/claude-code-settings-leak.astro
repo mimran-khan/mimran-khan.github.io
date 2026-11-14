@@ -1,0 +1,504 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Claude Code's Don't-Ask-Again Leak | Demystifying AI in 5 Minutes"
+  description="Apiiro found 1,122 public .claude/settings.local.json copies holding secrets. Yes, and don't ask again saved full shell commands - passwords included."
+  image="/og-series-ep58-claude-code-settings-leak.png"
+  keywords="Claude Code, Apiiro, settings.local.json, secrets leak, don't ask again, GitHub, AI coding agent security, Anthropic"
+  publishedDate="2026-11-16"
+  articleSection="Demystifying AI"
+  articleTags={["Claude Code", "Apiiro", "Secrets Leak", "GitHub", "Agent Security", "Anthropic"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); }
+    .viz-card { transition: all 0.3s ease; }
+    .viz-card:hover { transform: translateY(-2px); box-shadow: 0 0 16px rgba(34, 197, 94, 0.1); }
+    .bar-fill { transition: width 0.6s ease; }
+  </style>
+
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep58-claude-code-settings-leak.png" alt="Claude Code's Don't-Ask-Again Leak" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 58
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <a href="https://apiiro.com/blog/claude-code-secrets-exposure-github" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full hover:bg-green/20 transition-colors">
+          Apiiro research
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Nov 16, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Claude Code's Don't-Ask-Again Leak
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        "Yes, and don't ask again" saved full shell commands - passwords included - into <code class="text-green/90 text-xs">.claude/settings.local.json</code>. Apiiro found 1,122 public copies holding secrets.
+      </p>
+
+      <ShareButtons title="Claude Code's Don't-Ask-Again Leak" url="/series/demystifying-ai/claude-code-settings-leak" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Claude Code can persist an approved Bash command <strong>verbatim</strong> into project <code class="text-xs">.claude/settings.local.json</code>. Secrets typed into that command become plain JSON. Apiiro found <strong>104,185</strong> public copies of the file; <strong>1,122</strong> held secrets (<strong>1,379</strong> in those files). Protection lives in the user's <strong>global</strong> git excludes - not the repo <code class="text-xs">.gitignore</code>. Anthropic has acknowledged the issue. <strong>No shipped fix yet.</strong>
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">104k</div>
+        <div class="text-[10px] font-mono text-secondary">Public file copies</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">1,122</div>
+        <div class="text-[10px] font-mono text-secondary">With ≥1 secret</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">1,379</div>
+        <div class="text-[10px] font-mono text-secondary">Secrets in those files</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">63</div>
+        <div class="text-[10px] font-mono text-secondary">Orgs exposed</div>
+      </div>
+    </div>
+
+    <!-- Section: Leak pipeline visual -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> The Leak Pipeline
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        This is not a remote exploit. It is a <strong>permission UX footgun</strong> that turns a convenience click into a committed secret.
+      </p>
+
+      <!-- Desktop horizontal pipeline -->
+      <div class="hidden md:grid grid-cols-5 gap-2 mb-4">
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-green mb-2">01</div>
+          <div class="text-xs font-bold text-foreground mb-1">Bash prompt</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">Claude asks before the command</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-green mb-2">02</div>
+          <div class="text-xs font-bold text-foreground mb-1">Don't ask again</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">You click once for convenience</p>
+        </div>
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-red-400 mb-2">03</div>
+          <div class="text-xs font-bold text-foreground mb-1">Exact command saved</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">Password still inside the string</p>
+        </div>
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-red-400 mb-2">04</div>
+          <div class="text-xs font-bold text-foreground mb-1">settings.local.json</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">Plain JSON in the project</p>
+        </div>
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-red-400 mb-2">05</div>
+          <div class="text-xs font-bold text-foreground mb-1">Public GitHub</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">History + forks keep it</p>
+        </div>
+      </div>
+
+      <!-- Mobile stacked pipeline -->
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3 items-start">
+          <span class="text-[10px] font-mono text-green font-bold">01</span>
+          <div><div class="text-xs font-bold text-foreground">Bash prompt</div><p class="text-[10px] text-secondary mb-0">Claude asks before the command</p></div>
+        </div>
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3 items-start">
+          <span class="text-[10px] font-mono text-green font-bold">02</span>
+          <div><div class="text-xs font-bold text-foreground">Don't ask again</div><p class="text-[10px] text-secondary mb-0">You click once for convenience</p></div>
+        </div>
+        <div class="rounded-lg border border-red-500/30 bg-red-500/[0.04] p-3 flex gap-3 items-start">
+          <span class="text-[10px] font-mono text-red-400 font-bold">03</span>
+          <div><div class="text-xs font-bold text-foreground">Exact command saved</div><p class="text-[10px] text-secondary mb-0">Password still inside the string</p></div>
+        </div>
+        <div class="rounded-lg border border-red-500/30 bg-red-500/[0.04] p-3 flex gap-3 items-start">
+          <span class="text-[10px] font-mono text-red-400 font-bold">04</span>
+          <div><div class="text-xs font-bold text-foreground">settings.local.json</div><p class="text-[10px] text-secondary mb-0">Plain JSON in the project</p></div>
+        </div>
+        <div class="rounded-lg border border-red-500/30 bg-red-500/[0.04] p-3 flex gap-3 items-start">
+          <span class="text-[10px] font-mono text-red-400 font-bold">05</span>
+          <div><div class="text-xs font-bold text-foreground">Public GitHub</div><p class="text-[10px] text-secondary mb-0">History + forks keep it</p></div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Safe rules look like patterns: <code class="text-xs">Bash(npm test:*)</code>. Dangerous rules look like the exact command Claude just ran - including <code class="text-xs">PGPASSWORD=</code>, <code class="text-xs">sshpass -p</code>, <code class="text-xs">mysql -p</code>, or a bearer header.
+      </p>
+
+      <!-- Good vs bad comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+        <div class="rounded-xl border border-green/25 bg-green/[0.03] p-4 viz-card">
+          <div class="text-[10px] font-mono text-green font-bold mb-2">SAFE PATTERN</div>
+          <pre class="text-[11px] font-mono text-foreground/80 leading-relaxed mb-2"><span class="text-cyan-400">"Bash(npm run:*)"</span>
+<span class="text-cyan-400">"Bash(psql $DATABASE_URL *)"</span></pre>
+          <p class="text-[10px] text-secondary mb-0">No literal secret. Env var name only. Pattern covers the family of commands.</p>
+        </div>
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-red-400 font-bold mb-2">LEAK MODE</div>
+          <pre class="text-[11px] font-mono text-foreground/80 leading-relaxed mb-2"><span class="text-red-400">"Bash(PGPASSWORD=hunter2 psql -c 'select 1')"</span></pre>
+          <p class="text-[10px] text-secondary mb-0">Exact string. Password in plain text. One commit away from public search.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-2">
+        <div class="text-[10px] font-mono text-secondary mb-3">SHAPE OF .claude/settings.local.json</div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">&#123;</span>
+  <span class="text-green">"permissions"</span><span class="text-secondary">: &#123;</span>
+    <span class="text-green">"allow"</span><span class="text-secondary">: [</span>
+      <span class="text-cyan-400">"Bash(npm test:*)"</span><span class="text-secondary">,</span>
+      <span class="text-red-400">"Bash(curl -H 'Authorization: Bearer glpat-XXXX' ...)"</span>
+    <span class="text-secondary">]</span>
+  <span class="text-secondary">&#125;</span>
+<span class="text-secondary">&#125;</span></pre>
+      </div>
+      <p class="text-[11px] text-secondary/70 mb-0">Illustrative shape from public writeups. The red line is the failure mode.</p>
+    </div>
+
+    <!-- Section: Why gitignore failed -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Why the "Protection" Failed
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Claude Code does try to keep the file local. The protection is the wrong layer.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+        <div class="rounded-xl border border-yellow-500/25 bg-yellow-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-yellow-400 font-bold mb-2">WHAT CLAUDE CODE DOES</div>
+          <ul class="text-[11px] text-foreground/70 space-y-2 mb-0 list-none pl-0">
+            <li class="flex gap-2"><span class="text-yellow-400">→</span><span>Adds path to <strong>user global</strong> git excludes when it creates the file</span></li>
+            <li class="flex gap-2"><span class="text-yellow-400">→</span><span>Stays on one laptop / one user config</span></li>
+            <li class="flex gap-2"><span class="text-yellow-400">→</span><span>Does nothing if the file was already tracked</span></li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-green/25 bg-green/[0.03] p-4 viz-card">
+          <div class="text-[10px] font-mono text-green font-bold mb-2">WHAT ACTUALLY WORKS</div>
+          <ul class="text-[11px] text-foreground/70 space-y-2 mb-0 list-none pl-0">
+            <li class="flex gap-2"><span class="text-green">→</span><span>Repo <code class="text-[10px]">.gitignore</code> checked into the project</span></li>
+            <li class="flex gap-2"><span class="text-green">→</span><span>Travels with clones, CI, and teammates</span></li>
+            <li class="flex gap-2"><span class="text-green">→</span><span><code class="text-[10px]">git rm --cached</code> if already committed</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Apiiro also found Claude co-authored commits touching the file in <strong>539 of 1,105</strong> traced repos - so this is not only "someone manually force-added a local file."
+      </p>
+    </div>
+
+    <!-- Section: Funnel + bars -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What Apiiro Measured
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-2">
+        Researchers Shmulik Cohen and Matan Giladi published Nov 5, 2026. The Hacker News, Ars Technica, and GitLab covered it within days.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Scope: public GitHub search for <code class="text-xs">.claude/settings.local.json</code>, then secret-format matching plus an AI reviewer.
+      </p>
+
+      <!-- Funnel -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">EXPOSURE FUNNEL</div>
+        <div class="space-y-2">
+          <div class="rounded-lg bg-green/10 border border-green/20 px-3 py-2.5" style="width:100%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">104,185 public copies</span>
+              <span class="text-[10px] font-mono text-secondary">103,617 repos</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-green/15 border border-green/25 px-3 py-2.5 mx-auto" style="width:72%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">1,122 with secrets</span>
+              <span class="text-[10px] font-mono text-secondary">~1.1%</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-green/20 border border-green/30 px-3 py-2.5 mx-auto" style="width:48%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">1,379 secrets</span>
+              <span class="text-[10px] font-mono text-secondary">in those files</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-yellow-500/10 border border-yellow-500/25 px-3 py-2.5 mx-auto" style="width:36%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">2,539 broader</span>
+              <span class="text-[10px] font-mono text-secondary">+ history / logs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secret type bars -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">SECRET TYPES IN LOCAL FILES (TOP COUNTS)</div>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">Database passwords</span>
+              <span class="font-mono text-green">379</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-green" style="width:100%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">SSH logins to public hosts</span>
+              <span class="font-mono text-green">43</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-green/80" style="width:11%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">GitHub / GitLab / npm tokens</span>
+              <span class="font-mono text-green">42</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-green/70" style="width:11%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">AWS keys</span>
+              <span class="font-mono text-green">23</span>
+            </div>
+            <div class="h-2 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-green/60" style="width:6%"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">Bar widths relative to 379 (DB passwords). Nearly three in ten secrets in those files were database passwords.</p>
+      </div>
+
+      <!-- Scanner miss visual -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">SCANNER COVERAGE ON 1,122 SECRET FILES</div>
+        <div class="grid grid-cols-3 gap-2 md:gap-3 text-center">
+          <div class="rounded-lg border border-border p-3">
+            <div class="text-lg font-bold text-foreground">564</div>
+            <div class="text-[10px] font-mono text-secondary mt-1">gitleaks</div>
+          </div>
+          <div class="rounded-lg border border-border p-3">
+            <div class="text-lg font-bold text-foreground">643</div>
+            <div class="text-[10px] font-mono text-secondary mt-1">TruffleHog</div>
+          </div>
+          <div class="rounded-lg border border-red-500/30 bg-red-500/[0.04] p-3">
+            <div class="text-lg font-bold text-red-400">215</div>
+            <div class="text-[10px] font-mono text-secondary mt-1">neither caught</div>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">Misses were mostly passwords buried inside command strings - exactly the don't-ask-again shape.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-base font-bold text-green">211</div>
+          <div class="text-[10px] font-mono text-secondary mt-1">forks still carrying secrets</div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-base font-bold text-green">74</div>
+          <div class="text-[10px] font-mono text-secondary mt-1">source repos forked</div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-base font-bold text-green">734</div>
+          <div class="text-[10px] font-mono text-secondary mt-1">secrets only in history</div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-base font-bold text-green">217d</div>
+          <div class="text-[10px] font-mono text-secondary mt-1">median age (half of hits)</div>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-3">
+        Apiiro did <strong>not</strong> live-test credentials. Treat the dataset as an exposure census.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        One notified company confirmed a key was still live. Every secret-bearing file Apiiro checked was still on the default branch.
+      </p>
+    </div>
+
+    <!-- Unique among agents -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Not Just Another Secret-in-Repo Story
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-4">
+        Of <strong>16 coding agents</strong> Apiiro compared, Claude Code was the only one confirmed to save the <strong>full approved command</strong> into a project file by default.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        User reports of this pattern go back to <strong>August 2025</strong>. The Nov 2026 research made the scale public.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-0">
+        <div class="text-[10px] font-mono text-secondary mb-3">ANTHROPIC STATUS (MID-NOV 2026)</div>
+        <div class="space-y-3">
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-[10px] font-mono">!</span>
+            <p class="text-[11px] text-foreground/70 mb-0"><strong class="text-foreground">No shipped product fix</strong> for this persistence path.</p>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-[10px] font-mono">~</span>
+            <p class="text-[11px] text-foreground/70 mb-0">Boris Cherny (Claude Code lead) on HN: team looking into prevention; plans to prototype auto-mode catch + basic secret scanning - <strong class="text-foreground">no date</strong>.</p>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full bg-green/20 text-green flex items-center justify-center text-[10px] font-mono">i</span>
+            <p class="text-[11px] text-foreground/70 mb-0">Anthropic advice: prefer auto mode and host secret scanning. Apiiro notes auto mode can still leave secrets in the file.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decision table -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What To Do Tonight
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Order matters. Rotate before you clean history theater.
+      </p>
+
+      <div class="hidden md:block overflow-hidden rounded-xl border border-border mb-4">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary w-16">Step</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Action</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Why</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">1</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs">Search org + git history for <code class="text-[10px]">.claude/settings*.json</code></td>
+              <td class="px-4 py-3 text-secondary text-xs">Deleted files still live in history and forks</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">2</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs"><strong>Rotate</strong> every password / token the file ever held</td>
+              <td class="px-4 py-3 text-secondary text-xs">Cleanup without rotation leaves attackers a window</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">3</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs"><code class="text-[10px]">git rm --cached</code> + add to <strong>repo</strong> <code class="text-[10px]">.gitignore</code></td>
+              <td class="px-4 py-3 text-secondary text-xs">Global excludes do not travel with the project</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">4</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs">Scrub local allow rules that embed secrets</td>
+              <td class="px-4 py-3 text-secondary text-xs">Even never-committed files sit on disk</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">5</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs">Approve patterns / <code class="text-[10px]">$ENV</code> vars - never literal secrets</td>
+              <td class="px-4 py-3 text-secondary text-xs">Stops the next don't-ask-again from re-leaking</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-green mb-1">1 · SEARCH</div>
+          <p class="text-xs text-foreground/90 mb-1">Org + history for <code class="text-[10px]">.claude/settings*.json</code></p>
+          <p class="text-[10px] text-secondary mb-0">History and forks keep deleted files</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-green mb-1">2 · ROTATE</div>
+          <p class="text-xs text-foreground/90 mb-1">Every secret the file ever held</p>
+          <p class="text-[10px] text-secondary mb-0">Before cleanup theater</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-green mb-1">3 · REPO GITIGNORE</div>
+          <p class="text-xs text-foreground/90 mb-1"><code class="text-[10px]">git rm --cached</code> + project ignore</p>
+          <p class="text-[10px] text-secondary mb-0">Global excludes stay on one laptop</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-green mb-1">4 · SCRUB LOCAL</div>
+          <p class="text-xs text-foreground/90 mb-1">Delete allow rules with secrets</p>
+          <p class="text-[10px] text-secondary mb-0">Even if never pushed</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-green mb-1">5 · PATTERNS + ENV</div>
+          <p class="text-xs text-foreground/90 mb-1">Approve <code class="text-[10px]">Bash(npm run:*)</code> / <code class="text-[10px]">$DATABASE_URL</code></p>
+          <p class="text-[10px] text-secondary mb-0">Never literal passwords in the rule</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">At the prompt</div>
+          <p class="text-[11px] text-foreground/60 mb-0">If the command shows a secret, choose plain <strong>Yes</strong> (one-shot) or refuse and rewrite with an env var. Do not click don't-ask-again on that line.</p>
+        </div>
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">In team policy</div>
+          <p class="text-[11px] text-foreground/60 mb-0">Require repo ignore for <code class="text-[10px]">.claude/settings.local.json</code>. Turn on host secret scanning. Treat agent allowlists like credential stores.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Agent permission UX is now a secrets surface.</strong> Don't-ask-again is convenient until it writes your production password into a project file that git ships to GitHub - Apiiro's 1,122 hits plus one confirmed live key make that concrete. <strong>Rotate, gitignore at the repo, and stop approving commands that embed secrets.</strong>
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={58} />
+
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
