@@ -379,7 +379,7 @@
       "title": "Jev: The Model That Gave Up Talking",
       "status": "published",
       "release_date": "2026-09-23",
-      "linkedin_post": "Episode 35: 5-minute read. Zero fluff : Jev: The Model That Gave Up Talking\n\nTypeSafe AI just shipped Jev — the first \"System One\" model. It doesn't generate text. It makes typed decisions with calibrated probabilities. And it can't hallucinate by design.\n\nKey facts:\n- Built by Diogo Almeida (ex-OpenAI, co-inventor of RLHF behind ChatGPT)\n- $40M seed from DCVC after 2 years in stealth\n- Three primitives: Choice (pick from options), Score (ordered scale), Noul (yes/no probability)\n- 175ms median latency — 13x faster than Claude Opus 5 on classification\n- $0.042 per million input tokens. Output is FREE\n- 81% accuracy on Banking77 (77-way intent) vs Opus 5's 84.4%\n- Already on Vercel AI Gateway, OpenRouter, and Cloudflare\n- TypeScript SDK with full type inference — no JSON.parse, no retry loops\n\nThe insight: most decisions in software don't need text generation. They need a typed answer and a confidence score. If your agent calls an LLM just to classify, route, gate, or filter — Jev does it in 175ms for almost nothing.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/jev-system-one\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Jev #TypeSafeAI #SystemOne #DecisionModel #AI #MachineLearning #AgenticAI #SoftwareEngineering #RLCD #Kahneman",
+      "linkedin_post": "Episode 35: 5-minute read. Zero fluff : Jev: The Model That Gave Up Talking\n\nTypeSafe AI just shipped Jev \u2014 the first \"System One\" model. It doesn't generate text. It makes typed decisions with calibrated probabilities. And it can't hallucinate by design.\n\nKey facts:\n- Built by Diogo Almeida (ex-OpenAI, co-inventor of RLHF behind ChatGPT)\n- $40M seed from DCVC after 2 years in stealth\n- Three primitives: Choice (pick from options), Score (ordered scale), Noul (yes/no probability)\n- 175ms median latency \u2014 13x faster than Claude Opus 5 on classification\n- $0.042 per million input tokens. Output is FREE\n- 81% accuracy on Banking77 (77-way intent) vs Opus 5's 84.4%\n- Already on Vercel AI Gateway, OpenRouter, and Cloudflare\n- TypeScript SDK with full type inference \u2014 no JSON.parse, no retry loops\n\nThe insight: most decisions in software don't need text generation. They need a typed answer and a confidence score. If your agent calls an LLM just to classify, route, gate, or filter \u2014 Jev does it in 175ms for almost nothing.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/jev-system-one\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#Jev #TypeSafeAI #SystemOne #DecisionModel #AI #MachineLearning #AgenticAI #SoftwareEngineering #RLCD #Kahneman",
       "published_on": "2026-09-25",
       "tag": "release/ep35",
       "linkedin_posted_on": "2026-09-25"
@@ -415,7 +415,7 @@
       "title": "10,000 Agents, 88 Hours, One Millennium Prize",
       "status": "published",
       "release_date": "2026-09-30",
-      "linkedin_post": "🧮 10,000 AI agents. 88 hours. One $1M math problem.\n\nOpenAI deployed ~10,000 coordinating agents that claimed to solve the Navier-Stokes Millennium Prize Problem — unsolved for 90 years.\n\nThe numbers:\n→ 130 billion output tokens\n→ 2.7 million messages\n→ Lean-verified in 17 hours\n→ Model: unreleased, 'significantly more capable than GPT-6 Astra'\n\nThen an NYU professor said OpenAI started AFTER hearing about his progress on the same problem — using OpenAI's own Codex tool.\n\nBroke it down in 5 minutes ↓\n\n🔗 https://mimran-khan.github.io/series/demystifying-ai/navier-stokes\n\n#AI #NavierStokes #MillenniumPrize #OpenAI #Mathematics #DemystifyingAI",
+      "linkedin_post": "\ud83e\uddee 10,000 AI agents. 88 hours. One $1M math problem.\n\nOpenAI deployed ~10,000 coordinating agents that claimed to solve the Navier-Stokes Millennium Prize Problem \u2014 unsolved for 90 years.\n\nThe numbers:\n\u2192 130 billion output tokens\n\u2192 2.7 million messages\n\u2192 Lean-verified in 17 hours\n\u2192 Model: unreleased, 'significantly more capable than GPT-6 Astra'\n\nThen an NYU professor said OpenAI started AFTER hearing about his progress on the same problem \u2014 using OpenAI's own Codex tool.\n\nBroke it down in 5 minutes \u2193\n\n\ud83d\udd17 https://mimran-khan.github.io/series/demystifying-ai/navier-stokes\n\n#AI #NavierStokes #MillenniumPrize #OpenAI #Mathematics #DemystifyingAI",
       "published_on": "2026-10-05",
       "tag": "release/ep38",
       "linkedin_posted_on": "2026-10-05"
@@ -652,7 +652,13 @@
       "title": "Claude Code's Don't-Ask-Again Leak",
       "status": "pending",
       "release_date": "2026-11-16",
-      "linkedin_post": "Episode 58: 5-minute read. Zero fluff : Claude Code's Don't-Ask-Again Leak\n\n\"Yes, and don't ask again\" just became a secrets incident. Apiiro found 1,122 public .claude/settings.local.json files on GitHub holding real credentials.\n\nKey findings:\n- 104,185 public copies of the file; ~1.1% (1,122) held at least one secret\n- 1,379 secrets in those files - including 379 database passwords\n- Claude Code saves the exact Bash command into project settings; global git excludes do not travel with the repo\n- Anthropic has acknowledged the issue - no shipped fix yet as of mid-November\n\nThe takeaway? Rotate first, add the file to the repo .gitignore, and never approve commands that embed secrets.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-code-settings-leak\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ClaudeCode #AppSec #GitHub #DevSecOps #Anthropic"
+      "linkedin_post": "Episode 58: 5-minute read. Zero fluff : Claude Code's Don't-Ask-Again Leak\n\n\"Yes, and don't ask again\" just became a secrets incident. Apiiro found 1,122 public .claude/settings.local.json files on GitHub holding real credentials.\n\nKey findings:\n- 104,185 public copies of the file; ~1.1% (1,122) held at least one secret\n- 1,379 secrets in those files - including 379 database passwords\n- Claude Code saves the exact Bash command into project settings; global git excludes do not travel with the repo\n- Anthropic has acknowledged the issue - no shipped fix yet as of mid-November\n\nThe takeaway? Rotate first, add the file to the repo .gitignore, and never approve commands that embed secrets.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-code-settings-leak\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ClaudeCode #AppSec #GitHub #DevSecOps #Anthropic",
+      "hook": "Yes, and don't ask again saved full shell commands - passwords included - into .claude/settings.local.json. Apiiro found 1,122 public copies with secrets.",
+      "category": "hot-topic",
+      "day": "Mon",
+      "date": "Nov 16",
+      "readTime": "5 min",
+      "image": "/series/ep58-claude-code-settings-leak.png"
     },
     {
       "ep": 59,
@@ -661,7 +667,13 @@
       "title": "OpticalRAG: RAG in 16 Visual Tokens",
       "status": "queued",
       "release_date": "2026-11-18",
-      "linkedin_post": "Episode 59: 5-minute read. Zero fluff : OpticalRAG: RAG in 16 Visual Tokens\n\nRAG does not have to dump text into the prompt. OpticalRAG (NeurIPS 2026) renders documents as page images, retrieves in visual space, and distills the hit into 16 query-conditioned tokens for a frozen Qwen2.5-7B.\n\nKey findings:\n- LongBench-v2: 35.79 vs closed-book 30.62 (+5.17) at 16 tokens\n- Best compression-aware (CAP) scores across LongBench-v2, BAMBOO, and LooGLE-v2 (avg CAP 55.67)\n- BAMBOO win is CAP, not raw accuracy - so read the metric before celebrating\n- Vision encoder + LLM stay frozen; only the compressor + bridge train\n\nThe takeaway? Pixel-space compression is a real lever for layout-heavy retrieval under tiny context budgets - check open-ended and latency before ripping out the text index.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/opticalrag\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #RAG #NeurIPS #OpticalRAG #Research #Qwen"
+      "linkedin_post": "Episode 59: 5-minute read. Zero fluff : OpticalRAG: RAG in 16 Visual Tokens\n\nRAG does not have to dump text into the prompt. OpticalRAG (NeurIPS 2026) renders documents as page images, retrieves in visual space, and distills the hit into 16 query-conditioned tokens for a frozen Qwen2.5-7B.\n\nKey findings:\n- LongBench-v2: 35.79 vs closed-book 30.62 (+5.17) at 16 tokens\n- Best compression-aware (CAP) scores across LongBench-v2, BAMBOO, and LooGLE-v2 (avg CAP 55.67)\n- BAMBOO win is CAP, not raw accuracy - so read the metric before celebrating\n- Vision encoder + LLM stay frozen; only the compressor + bridge train\n\nThe takeaway? Pixel-space compression is a real lever for layout-heavy retrieval under tiny context budgets - check open-ended and latency before ripping out the text index.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/opticalrag\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #RAG #NeurIPS #OpticalRAG #Research #Qwen",
+      "hook": "OpticalRAG renders documents as page images and distills retrieval into 16 query-conditioned tokens - winning compression-aware accuracy on LongBench-v2.",
+      "category": "research-paper",
+      "day": "Wed",
+      "date": "Nov 18",
+      "readTime": "5 min",
+      "image": "/series/ep59-opticalrag.png"
     },
     {
       "ep": 60,
@@ -670,7 +682,13 @@
       "title": "Claude Fable 5.2: The Frontier Coding Model",
       "status": "queued",
       "release_date": "2026-11-21",
-      "linkedin_post": "Episode 60: 5-minute read. Zero fluff : Claude Fable 5.2: The Frontier Coding Model\n\nAnthropic shipped Claude Fable 5.2 (+ Mythos 5.2) on Nov 9. Hardest public Claude for long-horizon agentic work - and still not the daily driver. Opus 5.5 is.\n\nKey findings:\n- FrontierSWE v2: 69.9% (was 56.3% on Fable 5.1; ahead of Opus 5.5 at 62.3% in Anthropic's table)\n- OSWorld 2.1: 89.3% offline partial credit - strict pass is 54.6%. Read the label.\n- Price: $8 / $40 per MTok - exactly 20% cheaper than Fable 5.1 ($10 / $50)\n- Mythos 5.2 = same weights, fewer safeguards, verification-gated\n\nThe takeaway? Keep Opus as default. Open a Fable lane when evals still fail. Do not tweet bare \"89% OSWorld.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-fable-52\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Claude #Anthropic #Fable #CodingAgents #NewRelease"
+      "linkedin_post": "Episode 60: 5-minute read. Zero fluff : Claude Fable 5.2: The Frontier Coding Model\n\nAnthropic shipped Claude Fable 5.2 (+ Mythos 5.2) on Nov 9. Hardest public Claude for long-horizon agentic work - and still not the daily driver. Opus 5.5 is.\n\nKey findings:\n- FrontierSWE v2: 69.9% (was 56.3% on Fable 5.1; ahead of Opus 5.5 at 62.3% in Anthropic's table)\n- OSWorld 2.1: 89.3% offline partial credit - strict pass is 54.6%. Read the label.\n- Price: $8 / $40 per MTok - exactly 20% cheaper than Fable 5.1 ($10 / $50)\n- Mythos 5.2 = same weights, fewer safeguards, verification-gated\n\nThe takeaway? Keep Opus as default. Open a Fable lane when evals still fail. Do not tweet bare \"89% OSWorld.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-fable-52\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Claude #Anthropic #Fable #CodingAgents #NewRelease",
+      "hook": "Anthropic's hardest public model - 69.9% FrontierSWE v2, 89.3% OSWorld 2.1 offline partial, 20% cheaper than Fable 5.1.",
+      "category": "new-release",
+      "day": "Sat",
+      "date": "Nov 21",
+      "readTime": "5 min",
+      "image": "/series/ep60-claude-fable-52.png"
     },
     {
       "ep": 61,
@@ -679,7 +697,13 @@
       "title": "Grok Build Apps Went Live Without Auth",
       "status": "queued",
       "release_date": "2026-11-23",
-      "linkedin_post": "Episode 61: 5-minute read. Zero fluff : Grok Build Apps Went Live Without Auth\n\nClaroc (Asaf Aprozper) scanned Grok Build via passive DNS. Of 37,571 live apps, 35,578 (94.7%) opened with no sign-in. SpaceXSI pulled 24 staff apps after disclosure - and left everyone else's largely up.\n\nKey findings:\n- Funnel: 43,601 DNS names → 37,571 live → 35,578 open / 1,993 HTTP 401\n- Not all PII: ~650-800 estimated sensitive; samples include ICU data, hospital roster 3,500+, plaintext passwords, SpaceXSI confidential docs\n- Claroc's own tests: open DB writes; \"team\" OAuth added any signed-in account\n- Defaults disputed: SpaceXSI says private-until-share; Claroc says paid UI preselects \"Anyone with the link\"\n\nThe takeaway? Treat *.grok.me like a public URL. Inventory, unpublish, rotate, ban link-open for work data.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/grok-build-open-apps\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Grok #Security #AppSec #SpaceXSI #HotTopic"
+      "linkedin_post": "Episode 61: 5-minute read. Zero fluff : Grok Build Apps Went Live Without Auth\n\nClaroc (Asaf Aprozper) scanned Grok Build via passive DNS. Of 37,571 live apps, 35,578 (94.7%) opened with no sign-in. SpaceXSI pulled 24 staff apps after disclosure - and left everyone else's largely up.\n\nKey findings:\n- Funnel: 43,601 DNS names \u2192 37,571 live \u2192 35,578 open / 1,993 HTTP 401\n- Not all PII: ~650-800 estimated sensitive; samples include ICU data, hospital roster 3,500+, plaintext passwords, SpaceXSI confidential docs\n- Claroc's own tests: open DB writes; \"team\" OAuth added any signed-in account\n- Defaults disputed: SpaceXSI says private-until-share; Claroc says paid UI preselects \"Anyone with the link\"\n\nThe takeaway? Treat *.grok.me like a public URL. Inventory, unpublish, rotate, ban link-open for work data.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/grok-build-open-apps\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Grok #Security #AppSec #SpaceXSI #HotTopic",
+      "hook": "Claroc checked 37,571 live Grok Build apps. 35,578 opened with no sign-in. SpaceXSI pulled 24 staff-built apps after disclosure.",
+      "category": "hot-topic",
+      "day": "Mon",
+      "date": "Nov 23",
+      "readTime": "5 min",
+      "image": "/series/ep61-grok-build-open-apps.png"
     },
     {
       "ep": 62,
@@ -688,7 +712,13 @@
       "title": "AlphaProof Code: Signal Verified at Machine Code",
       "status": "queued",
       "release_date": "2026-11-25",
-      "linkedin_post": "Episode 62: 5-minute read. Zero fluff : AlphaProof Code: Signal Verified at Machine Code\n\nDeepMind shipped AlphaProof Code (Nov 10): humans approve Lean specs, Gemini Carbon agents write proofs, Lean accepts or rejects. A five-person team verified PQXDH + Triple Ratchet on unmodified libsignal AArch64 in four weeks - ~6.5M machine-checked proof lines.\n\nKey findings:\n- Not IMO AlphaProof - this is software verification over real compiled crypto\n- Trusted base ~26k LOC (specs + AArch64 semantics); agents are untrusted\n- Crypto primitives hooked via contracts - not proved from AES upward\n- Bug injection: two prior libsignal bugs → machine-checked insecurity proofs\n- Out of scope: mobile app, groups, sealed sender\n\nThe takeaway? Agentic provers move the bottleneck to spec quality - not a blanket \"Signal is fully proved.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/alphaproof-code-signal\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #DeepMind #Signal #FormalVerification #Lean #Research"
+      "linkedin_post": "Episode 62: 5-minute read. Zero fluff : AlphaProof Code: Signal Verified at Machine Code\n\nDeepMind shipped AlphaProof Code (Nov 10): humans approve Lean specs, Gemini Carbon agents write proofs, Lean accepts or rejects. A five-person team verified PQXDH + Triple Ratchet on unmodified libsignal AArch64 in four weeks - ~6.5M machine-checked proof lines.\n\nKey findings:\n- Not IMO AlphaProof - this is software verification over real compiled crypto\n- Trusted base ~26k LOC (specs + AArch64 semantics); agents are untrusted\n- Crypto primitives hooked via contracts - not proved from AES upward\n- Bug injection: two prior libsignal bugs \u2192 machine-checked insecurity proofs\n- Out of scope: mobile app, groups, sealed sender\n\nThe takeaway? Agentic provers move the bottleneck to spec quality - not a blanket \"Signal is fully proved.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/alphaproof-code-signal\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #DeepMind #Signal #FormalVerification #Lean #Research",
+      "hook": "DeepMind agents wrote about 6.5M lines of Lean and proved PQXDH + Triple Ratchet properties on real libsignal AArch64 code in four weeks.",
+      "category": "research-paper",
+      "day": "Wed",
+      "date": "Nov 25",
+      "readTime": "5 min",
+      "image": "/series/ep62-alphaproof-code-signal.png"
     },
     {
       "ep": 63,
@@ -697,7 +727,13 @@
       "title": "ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers",
       "status": "queued",
       "release_date": "2026-11-28",
-      "linkedin_post": "Episode 63: 5-minute read. Zero fluff : ElevenLabs Scribe v3 Live\n\nScribe v3 Live (Nov 9-10) adds realtime speaker diarization + turn_prediction. ElevenLabs reports 43% lower semantic WER vs Scribe v2 Realtime and 3.1% English DER (aligned, vendor-run). List price $0.22/audio-hour. Model ID: scribe_v3_live.\n\nTry it first:\n1. Mic demo (usually no key): https://elevenlabs.io/realtime-speech-to-text\n2. Free app STT with diarization: https://elevenlabs.io/app/speech-to-text\n3. API on free credits (~30 min/mo): modelId scribe_v3_live + diarize + turn_prediction\n\nThe takeaway? One-line model upgrade - prove it on the public mic before rewriting the stack. Cite benches as ElevenLabs-reported.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/elevenlabs-scribe-v3-live\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ElevenLabs #SpeechToText #VoiceAgents #Scribe #NewRelease"
+      "linkedin_post": "Episode 63: 5-minute read. Zero fluff : ElevenLabs Scribe v3 Live\n\nScribe v3 Live (Nov 9-10) adds realtime speaker diarization + turn_prediction. ElevenLabs reports 43% lower semantic WER vs Scribe v2 Realtime and 3.1% English DER (aligned, vendor-run). List price $0.22/audio-hour. Model ID: scribe_v3_live.\n\nTry it first:\n1. Mic demo (usually no key): https://elevenlabs.io/realtime-speech-to-text\n2. Free app STT with diarization: https://elevenlabs.io/app/speech-to-text\n3. API on free credits (~30 min/mo): modelId scribe_v3_live + diarize + turn_prediction\n\nThe takeaway? One-line model upgrade - prove it on the public mic before rewriting the stack. Cite benches as ElevenLabs-reported.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/elevenlabs-scribe-v3-live\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ElevenLabs #SpeechToText #VoiceAgents #Scribe #NewRelease",
+      "hook": "Scribe v3 Live: ElevenLabs reports 43% lower semantic WER vs v2 Realtime, 3.1% EN DER with live diarization, and turn_prediction. Public mic demo.",
+      "category": "new-release",
+      "day": "Sat",
+      "date": "Nov 28",
+      "readTime": "5 min",
+      "image": "/series/ep63-elevenlabs-scribe-v3-live.png"
     },
     {
       "ep": 64,
@@ -706,7 +742,13 @@
       "title": "OpenAI Kills Agent Builder and Evals on Nov 30",
       "status": "queued",
       "release_date": "2026-11-30",
-      "linkedin_post": "Episode 64: 5-minute read. Zero fluff : OpenAI Kills Agent Builder and Evals on Nov 30\n\nSame day this episode ships: OpenAI shuts Agent Builder, the Evals dashboard/API/graders, and reusable prompts (/v1/prompts). Notice was Jun 3. Evals have been read-only since Oct 31. ChatKit stays.\n\nMigrate:\n- Agent Builder → Agents SDK or Workspace Agents (export ≠ parity - retest)\n- Evals → Promptfoo (manual recreate; past runs do not move)\n- Prompt objects → prompts in git + Responses API input\n\nTry now: Agents SDK quickstart + Promptfoo cookbook + prompt migrate guide.\n\nThe takeaway? Platform amputation, not the death of OpenAI agents. Inventory today.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/openai-agent-builder-shutdown\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #OpenAI #Agents #Promptfoo #Deprecation #HotTopic"
+      "linkedin_post": "Episode 64: 5-minute read. Zero fluff : OpenAI Kills Agent Builder and Evals on Nov 30\n\nSame day this episode ships: OpenAI shuts Agent Builder, the Evals dashboard/API/graders, and reusable prompts (/v1/prompts). Notice was Jun 3. Evals have been read-only since Oct 31. ChatKit stays.\n\nMigrate:\n- Agent Builder \u2192 Agents SDK or Workspace Agents (export \u2260 parity - retest)\n- Evals \u2192 Promptfoo (manual recreate; past runs do not move)\n- Prompt objects \u2192 prompts in git + Responses API input\n\nTry now: Agents SDK quickstart + Promptfoo cookbook + prompt migrate guide.\n\nThe takeaway? Platform amputation, not the death of OpenAI agents. Inventory today.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/openai-agent-builder-shutdown\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #OpenAI #Agents #Promptfoo #Deprecation #HotTopic",
+      "hook": "Same day this episode ships: Agent Builder, the Evals dashboard/API, and reusable prompts shut down. Migrate to Agents SDK / Promptfoo - or Builder-backed agents break.",
+      "category": "hot-topic",
+      "day": "Mon",
+      "date": "Nov 30",
+      "readTime": "5 min",
+      "image": "/series/ep64-openai-agent-builder-shutdown.png"
     },
     {
       "ep": 65,
@@ -715,7 +757,13 @@
       "title": "ResMem: Turn Retrieval Into Model Weights",
       "status": "queued",
       "release_date": "2026-12-02",
-      "linkedin_post": "Episode 65: 5-minute read. Zero fluff : ResMem: Turn Retrieval Into Model Weights\n\nResMem (arXiv 2611.00450) distills BM25-retrieved evidence into a logit residual on frozen Mistral-7B. Decode is retrieval-free: softmax(z_B + γ s).\n\nKey findings:\n- Teacher-construction storage: 602 → 32 GiB (94.7% cut) vs kNN pipeline on Wiki subset - not inference VRAM\n- Mean F1 32.83 → 34.48; 21% fewer harms vs MLP Memory\n- ~1.54B trainable memory; base frozen\n- Try: GitHub + HF weights - needs ≥24 GB GPU (no Colab)\n\nThe takeaway? Mechanism + cheaper construction. Modest QA lift. Don't sell 94.7% as \"cheaper RAG at decode.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/resmem-parametric\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ResMem #RAG #ParametricMemory #Research #Mistral"
+      "linkedin_post": "Episode 65: 5-minute read. Zero fluff : ResMem: Turn Retrieval Into Model Weights\n\nResMem (arXiv 2611.00450) distills BM25-retrieved evidence into a logit residual on frozen Mistral-7B. Decode is retrieval-free: softmax(z_B + \u03b3 s).\n\nKey findings:\n- Teacher-construction storage: 602 \u2192 32 GiB (94.7% cut) vs kNN pipeline on Wiki subset - not inference VRAM\n- Mean F1 32.83 \u2192 34.48; 21% fewer harms vs MLP Memory\n- ~1.54B trainable memory; base frozen\n- Try: GitHub + HF weights - needs \u226524 GB GPU (no Colab)\n\nThe takeaway? Mechanism + cheaper construction. Modest QA lift. Don't sell 94.7% as \"cheaper RAG at decode.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/resmem-parametric\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ResMem #RAG #ParametricMemory #Research #Mistral",
+      "hook": "ResMem distills retrieved evidence into a parametric logit residual - 94.7% less teacher-construction storage than a kNN memory pipeline.",
+      "category": "research-paper",
+      "day": "Wed",
+      "date": "Dec 2",
+      "readTime": "5 min",
+      "image": "/series/ep65-resmem-parametric.png"
     },
     {
       "ep": 66,
@@ -724,7 +772,13 @@
       "title": "Gemini 4 Hydrogen: Frontier Coding at Flash Prices",
       "status": "queued",
       "release_date": "2026-12-05",
-      "linkedin_post": "Episode 66: 5-minute read. Zero fluff : Gemini 4 Hydrogen: Frontier Coding at Flash Prices\n\nGoogle shipped gemini-4-hydrogen on Nov 12 - Flash-class Gemini 4 for everyday coding and agents. Soft sequel to EP45 Argon: speed/price/Orchestrator, not Chrome lore.\n\nKey findings:\n- Flat $1.50 / $7.50 per 1M across full 1M context; cached input $0.075; free tier on API/AI Studio\n- Google: 2.5x vs 3.8 Flash at high; Terminal-Bench 4.1 57% vs 18.2%; fabricated claims >5x fewer\n- Thinking: low / medium / high (default) / xhigh\n- Orchestrator (Carbon↔Hydrogen): near-Carbon success, -24% quota, -19% faster (vendor; TB 4.0/4.1 cite split)\n- Try: AI Studio model dropdown - no GPU needed\n\nThe takeaway? Workhorse Gemini 4. Measure on your Flash migration before rewriting prompts. Recheck week-of Dec 5 if a hotter Sat headline lands.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/gemini-4-hydrogen\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Gemini4 #Hydrogen #GoogleDeepMind #Antigravity #NewRelease"
+      "linkedin_post": "Episode 66: 5-minute read. Zero fluff : Gemini 4 Hydrogen: Frontier Coding at Flash Prices\n\nGoogle shipped gemini-4-hydrogen on Nov 12 - Flash-class Gemini 4 for everyday coding and agents. Soft sequel to EP45 Argon: speed/price/Orchestrator, not Chrome lore.\n\nKey findings:\n- Flat $1.50 / $7.50 per 1M across full 1M context; cached input $0.075; free tier on API/AI Studio\n- Google: 2.5x vs 3.8 Flash at high; Terminal-Bench 4.1 57% vs 18.2%; fabricated claims >5x fewer\n- Thinking: low / medium / high (default) / xhigh\n- Orchestrator (Carbon\u2194Hydrogen): near-Carbon success, -24% quota, -19% faster (vendor; TB 4.0/4.1 cite split)\n- Try: AI Studio model dropdown - no GPU needed\n\nThe takeaway? Workhorse Gemini 4. Measure on your Flash migration before rewriting prompts. Recheck week-of Dec 5 if a hotter Sat headline lands.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/gemini-4-hydrogen\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Gemini4 #Hydrogen #GoogleDeepMind #Antigravity #NewRelease",
+      "hook": "Google's fast Gemini 4 for everyday coding and agents: $1.50 / $7.50 per 1M tokens, 1M context, Orchestrator with Carbon.",
+      "category": "new-release",
+      "day": "Sat",
+      "date": "Dec 5",
+      "readTime": "5 min",
+      "image": "/series/ep66-gemini-4-hydrogen.png"
     },
     {
       "ep": 67,
@@ -733,7 +787,13 @@
       "title": "ChatGPT Wallet: Agents Pay Without the Real Card",
       "status": "queued",
       "release_date": "2026-12-07",
-      "linkedin_post": "Episode 67: 5-minute read. Zero fluff : ChatGPT Wallet: Agents Pay Without the Real Card\n\nNov 13 OpenAI launch. US ChatGPT Pro dots only. Face ID / Touch ID every purchase. Networks mint a payment token - agent and merchant don't get the real PAN.\n\nKey findings:\n- Partners: Amex, Mastercard, Visa · eligible US-issued cards (Chase: primary holder only)\n- Not in Chat / Work / Codex threads\n- \"Ready to check out\" ≠ merchant confirmation\n- Recurring terms: merchant may store credential after approval - read the sheet\n- Merchants: Web Bot Auth + risk allowlists; don't reuse the token for another purchase\n\nThe takeaway? Payment rails for agents, not autopilot spend. Compatibility is the hard part.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/chatgpt-wallet\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ChatGPTWallet #OpenAI #Dots #Payments #HotTopic"
+      "linkedin_post": "Episode 67: 5-minute read. Zero fluff : ChatGPT Wallet: Agents Pay Without the Real Card\n\nNov 13 OpenAI launch. US ChatGPT Pro dots only. Face ID / Touch ID every purchase. Networks mint a payment token - agent and merchant don't get the real PAN.\n\nKey findings:\n- Partners: Amex, Mastercard, Visa \u00b7 eligible US-issued cards (Chase: primary holder only)\n- Not in Chat / Work / Codex threads\n- \"Ready to check out\" \u2260 merchant confirmation\n- Recurring terms: merchant may store credential after approval - read the sheet\n- Merchants: Web Bot Auth + risk allowlists; don't reuse the token for another purchase\n\nThe takeaway? Payment rails for agents, not autopilot spend. Compatibility is the hard part.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/chatgpt-wallet\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ChatGPTWallet #OpenAI #Dots #Payments #HotTopic",
+      "hook": "OpenAI's ChatGPT Wallet lets dots check out after Face ID - networks mint a payment token so the agent never sees the real card.",
+      "category": "hot-topic",
+      "day": "Mon",
+      "date": "Dec 7",
+      "readTime": "5 min",
+      "image": "/series/ep67-chatgpt-wallet.png"
     },
     {
       "ep": 68,
@@ -742,7 +802,13 @@
       "title": "Continual Harness Evolution Forgets Hard",
       "status": "queued",
       "release_date": "2026-12-09",
-      "linkedin_post": "Episode 68: 5-minute read. Zero fluff : Continual Harness Evolution Forgets Hard\n\narXiv 2611.03219 (Zhao, Zhang, Li / Tsinghua AI Agent Group). Meta-Harness hits 94% on sampled SWE - then five FeatureBench rounds drop it to 32% (66% relative). Model frozen. Harness forgot.\n\nKey findings:\n- Verification conflicts = 87.1% of pass-to-fail; ablating one verify gate → 0% on SWE\n- SWE→SWT: AHE/Meta nearly wipe prior SWE (100% / 98% drops)\n- Soft vs EP02 (harness vs grep) and EP53 (infra boom) - this is catastrophic forgetting under continual self-evolution\n- Try: GitHub THU-Agent/continual-harness-evolution - or audit your own submit gates\n\nThe takeaway? Auto-evolve without old-task checks and you ship a forgetting machine.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/continual-harness-forgetting\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Harness #ContinualLearning #SWEBench #Research #MetaHarness"
+      "linkedin_post": "Episode 68: 5-minute read. Zero fluff : Continual Harness Evolution Forgets Hard\n\narXiv 2611.03219 (Zhao, Zhang, Li / Tsinghua AI Agent Group). Meta-Harness hits 94% on sampled SWE - then five FeatureBench rounds drop it to 32% (66% relative). Model frozen. Harness forgot.\n\nKey findings:\n- Verification conflicts = 87.1% of pass-to-fail; ablating one verify gate \u2192 0% on SWE\n- SWE\u2192SWT: AHE/Meta nearly wipe prior SWE (100% / 98% drops)\n- Soft vs EP02 (harness vs grep) and EP53 (infra boom) - this is catastrophic forgetting under continual self-evolution\n- Try: GitHub THU-Agent/continual-harness-evolution - or audit your own submit gates\n\nThe takeaway? Auto-evolve without old-task checks and you ship a forgetting machine.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/continual-harness-forgetting\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Harness #ContinualLearning #SWEBench #Research #MetaHarness",
+      "hook": "Meta-Harness hits 94% on SWE-Bench - then FeatureBench evolution drops it to 32%. Verification conflicts can wipe a prior task type to 0%.",
+      "category": "research-paper",
+      "day": "Wed",
+      "date": "Dec 9",
+      "readTime": "5 min",
+      "image": "/series/ep68-continual-harness-forgetting.png"
     },
     {
       "ep": 69,
@@ -751,7 +817,13 @@
       "title": "Nex-N2.6: Computer-Use Agent That Stopped Looping",
       "status": "queued",
       "release_date": "2026-12-12",
-      "linkedin_post": "Episode 69: 5-minute read. Zero fluff : Nex-N2.6: Computer-Use Agent That Stopped Looping\n\nNex-AGI shipped Nex-N2.6 (~Nov 10-12): ~321B FP8 on GLM-5.3-Flash, Apache 2.0. Soft vs EP06 Antidoom - lead computer-use, not LoRA doom-loop lore. Recheck week-of Dec 12.\n\nKey findings:\n- OSWorld 83.0 (vs 82.2 N2.5-Pro / 78.0 base) · Terminal-Bench 2.1 84.1\n- Vendor: reasoning repetition 16.0% → 1.6%; 100% tool-list adherence (internal)\n- AutomationBench 45.7 trails DeepSeek-V4.1-Flash 54.8 on the same card\n- Try: OpenRouter nex-agi/nex-n2.6 - or HF FP8 + SGLang\n\nThe takeaway? Open CUA with a reliability pitch. Measure yourself - Plotly still saw hour-long loops.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/nex-n26\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Nex #ComputerUse #OSWorld #OpenSource #NewRelease"
+      "linkedin_post": "Episode 69: 5-minute read. Zero fluff : Nex-N2.6: Computer-Use Agent That Stopped Looping\n\nNex-AGI shipped Nex-N2.6 (~Nov 10-12): ~321B FP8 on GLM-5.3-Flash, Apache 2.0. Soft vs EP06 Antidoom - lead computer-use, not LoRA doom-loop lore. Recheck week-of Dec 12.\n\nKey findings:\n- OSWorld 83.0 (vs 82.2 N2.5-Pro / 78.0 base) \u00b7 Terminal-Bench 2.1 84.1\n- Vendor: reasoning repetition 16.0% \u2192 1.6%; 100% tool-list adherence (internal)\n- AutomationBench 45.7 trails DeepSeek-V4.1-Flash 54.8 on the same card\n- Try: OpenRouter nex-agi/nex-n2.6 - or HF FP8 + SGLang\n\nThe takeaway? Open CUA with a reliability pitch. Measure yourself - Plotly still saw hour-long loops.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/nex-n26\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Nex #ComputerUse #OSWorld #OpenSource #NewRelease",
+      "hook": "Open multimodal agent. OSWorld 83.0. Vendor-reported reasoning repetition 16.0% to 1.6%. Apache FP8 weights.",
+      "category": "new-release",
+      "day": "Sat",
+      "date": "Dec 12",
+      "readTime": "5 min",
+      "image": "/series/ep69-nex-n26.png"
     },
     {
       "ep": 70,
@@ -760,7 +832,13 @@
       "title": "ScrapeBench: Agents vs robots.txt Reality",
       "status": "queued",
       "release_date": "2026-12-14",
-      "linkedin_post": "Episode 70: 5-minute read. Zero fluff : ScrapeBench: Agents vs robots.txt Reality\n\narXiv 2611.11306 (Imperial, Slate, Kolt). Tell six frontier agents to scrape 1,626 sites that ban scraping. Most comply under 5%. Reading the rules barely helps.\n\nKey findings:\n- Neutral prompt: five of six near-zero compliance (Grok ~11%)\n- GPT can fetch robots.txt ~100% and still only comply 14.2% when links are given\n- Paste full ToS/robots in-context → GPT/Claude/Gemini 70%+ - a crutch, not a product\n- Claude Opus 4.6 over-refuses up to 98.5% on sites that do NOT ban scraping\n- Humans (n=180): more cautious compliance, higher over-refusal\n\nThe takeaway? Wire the gate in code. robots.txt alone will not stop agents.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/scrapebench\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ScrapeBench #robots.txt #ToS #Compliance #HotTopic"
+      "linkedin_post": "Episode 70: 5-minute read. Zero fluff : ScrapeBench: Agents vs robots.txt Reality\n\narXiv 2611.11306 (Imperial, Slate, Kolt). Tell six frontier agents to scrape 1,626 sites that ban scraping. Most comply under 5%. Reading the rules barely helps.\n\nKey findings:\n- Neutral prompt: five of six near-zero compliance (Grok ~11%)\n- GPT can fetch robots.txt ~100% and still only comply 14.2% when links are given\n- Paste full ToS/robots in-context \u2192 GPT/Claude/Gemini 70%+ - a crutch, not a product\n- Claude Opus 4.6 over-refuses up to 98.5% on sites that do NOT ban scraping\n- Humans (n=180): more cautious compliance, higher over-refusal\n\nThe takeaway? Wire the gate in code. robots.txt alone will not stop agents.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/scrapebench\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ScrapeBench #robots.txt #ToS #Compliance #HotTopic",
+      "hook": "Most agents comply under 5% on 1,626 sites that ban scraping - even after fetching robots.txt and ToS.",
+      "category": "hot-topic",
+      "day": "Mon",
+      "date": "Dec 14",
+      "readTime": "5 min",
+      "image": "/series/ep70-scrapebench.png"
     },
     {
       "ep": 71,
@@ -769,7 +847,13 @@
       "title": "Evolver: Exploration Becomes Permanent Skill",
       "status": "queued",
       "release_date": "2026-12-16",
-      "linkedin_post": "Episode 71: 5-minute read. Zero fluff : Evolver: Exploration Becomes Permanent Skill\n\narXiv 2611.07595 (Zhang et al., EvoMap). Exploration → Gene assets. No weight updates. Soft vs EP05 SkillOpt.\n\nKey findings:\n- 320 paired diagnostic runs: 83.13% → 87.50% success (+4.38 pts)\n- Execution tokens -24.24% overall; -17.57% on 265 both-success pairs\n- Claude Code +2.50 / Codex +6.25; Terminal-Bench +8.75; 9/16 configs up\n- Gene + Capsule + AntiGene; hooks/MCP into existing harnesses\n- Try: github.com/EvoMap/evolver\n\nThe takeaway? Make exploration compound. Quarantine drafts. Measure on your suite.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/evolver-agent-experience\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Evolver #Gene #ClaudeCode #Codex #Research"
+      "linkedin_post": "Episode 71: 5-minute read. Zero fluff : Evolver: Exploration Becomes Permanent Skill\n\narXiv 2611.07595 (Zhang et al., EvoMap). Exploration \u2192 Gene assets. No weight updates. Soft vs EP05 SkillOpt.\n\nKey findings:\n- 320 paired diagnostic runs: 83.13% \u2192 87.50% success (+4.38 pts)\n- Execution tokens -24.24% overall; -17.57% on 265 both-success pairs\n- Claude Code +2.50 / Codex +6.25; Terminal-Bench +8.75; 9/16 configs up\n- Gene + Capsule + AntiGene; hooks/MCP into existing harnesses\n- Try: github.com/EvoMap/evolver\n\nThe takeaway? Make exploration compound. Quarantine drafts. Measure on your suite.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/evolver-agent-experience\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Evolver #Gene #ClaudeCode #Codex #Research",
+      "hook": "Evolver turns exploration into reusable Gene assets - paired success 83.13% to 87.50%, execution tokens down 24%.",
+      "category": "research-paper",
+      "day": "Wed",
+      "date": "Dec 16",
+      "readTime": "5 min",
+      "image": "/series/ep71-evolver-agent-experience.png"
     },
     {
       "ep": 72,
@@ -778,7 +862,13 @@
       "title": "AgentAbstain: Do Agents Know When Not to Act?",
       "status": "queued",
       "release_date": "2026-12-19",
-      "linkedin_post": "Episode 72: 5-minute read. Zero fluff : AgentAbstain: Do Agents Know When Not to Act?\n\nSeries arc closer. NeurIPS 2026 oral (UIUC; arXiv 2607.10059). Soft vs EP43 calibration / EP70 compliance.\n\nKey findings:\n- 263 paired tasks · 42 MCP sandboxes · 8 abstention scenarios\n- Best paired accuracy: Gemini 3.1 Pro 59.5% (Opus 4.7 at 59.4%)\n- Mean 45.7% · 13/17 models under 50% · always-act/refuse capped at 50%\n- Abstention skill largely independent of task-solving skill\n- Failure mode to hunt: post-hoc abstention (commit, then claim restraint)\n- Try: agentabstain.github.io · github.com/AntiQuality/agentabstain\n\nThe takeaway? Wire a commit check. Score act and abstain together. Scaling \"finish the ticket\" does not teach stop.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/agentabstain\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #AgentAbstain #NeurIPS2026 #Abstention #AgentSafety #Research"
+      "linkedin_post": "Episode 72: 5-minute read. Zero fluff : AgentAbstain: Do Agents Know When Not to Act?\n\nSeries arc closer. NeurIPS 2026 oral (UIUC; arXiv 2607.10059). Soft vs EP43 calibration / EP70 compliance.\n\nKey findings:\n- 263 paired tasks \u00b7 42 MCP sandboxes \u00b7 8 abstention scenarios\n- Best paired accuracy: Gemini 3.1 Pro 59.5% (Opus 4.7 at 59.4%)\n- Mean 45.7% \u00b7 13/17 models under 50% \u00b7 always-act/refuse capped at 50%\n- Abstention skill largely independent of task-solving skill\n- Failure mode to hunt: post-hoc abstention (commit, then claim restraint)\n- Try: agentabstain.github.io \u00b7 github.com/AntiQuality/agentabstain\n\nThe takeaway? Wire a commit check. Score act and abstain together. Scaling \"finish the ticket\" does not teach stop.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/agentabstain\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #AgentAbstain #NeurIPS2026 #Abstention #AgentSafety #Research",
+      "hook": "NeurIPS 2026 oral. Best frontier agent: 59.5% paired accuracy. Scaling task success does not teach stopping.",
+      "category": "research-paper",
+      "day": "Sat",
+      "date": "Dec 19",
+      "readTime": "5 min",
+      "image": "/series/ep72-agentabstain.png"
     }
   ]
 }

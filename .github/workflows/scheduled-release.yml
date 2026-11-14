@@ -382,13 +382,13 @@ jobs:
                   number: me.ep,
                   slug: me.slug,
                   title: me.title,
-                  hook: me.title,
-                  category: 'hot-topic',
-                  day: dayStr,
-                  date: dateStr,
-                  readTime: '5 min',
+                  hook: me.hook || me.title,
+                  category: me.category || 'hot-topic',
+                  day: me.day || dayStr,
+                  date: me.date || dateStr,
+                  readTime: me.readTime || '5 min',
                   published: true,
-                  image: '/series/ep' + String(me.ep).padStart(2,'0') + '-' + me.slug + '.png'
+                  image: me.image || ('/series/ep' + String(me.ep).padStart(2,'0') + '-' + me.slug + '.png')
                 });
                 console.log('Added missing EP' + me.ep + ' (' + me.slug + ') to episodes.json');
               });
