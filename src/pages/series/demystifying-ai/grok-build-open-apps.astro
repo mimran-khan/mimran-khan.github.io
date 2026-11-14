@@ -1,0 +1,434 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="Grok Build Apps Went Live Without Auth | Demystifying AI in 5 Minutes"
+  description="Claroc found 35,578 of 37,571 live Grok Build apps opened with no sign-in - including SpaceXSI staff apps with confidential docs. Link-open is not private."
+  image="/og-series-ep61-grok-build-open-apps.png"
+  keywords="Grok Build, Claroc, GhostShares, SpaceXSI, xAI, Grok, open apps, no auth, AI coding agent security, Asaf Aprozper"
+  publishedDate="2026-11-23"
+  articleSection="Demystifying AI"
+  articleTags={["Grok Build", "Claroc", "SpaceXSI", "Security", "AI Agents", "Hot Topic"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); }
+    .viz-card { transition: all 0.3s ease; }
+    .viz-card:hover { transform: translateY(-2px); box-shadow: 0 0 16px rgba(34, 197, 94, 0.1); }
+    .bar-fill { transition: width 0.6s ease; }
+  </style>
+
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-green/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-green transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep61-grok-build-open-apps.png" alt="Grok Build Apps Went Live Without Auth" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-green font-mono bg-green/5 border border-green/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
+          EP 61
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          HOT TOPIC
+        </span>
+        <a href="https://blog.claroc.io/ghostshares-grok-build-apps/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-green/10 border border-green/20 text-green rounded-full hover:bg-green/20 transition-colors">
+          Claroc research
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Nov 23, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        Grok Build Apps Went Live Without Auth
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Claroc checked 37,571 live Grok Build apps. <strong class="text-foreground/90">35,578</strong> opened with no sign-in - including SpaceXSI staff apps holding confidential docs.
+      </p>
+
+      <ShareButtons title="Grok Build Apps Went Live Without Auth" url="/series/demystifying-ai/grok-build-open-apps" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-green font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        Claroc Research (Asaf Aprozper) published <strong>Nov 10, 2026</strong>: of <strong>37,571</strong> live Grok Build apps found via passive DNS, <strong>35,578 (94.7%)</strong> loaded with <strong>no sign-in</strong>. Most were harmless toys. The dangerous slice held hospital data, staff rosters, plaintext passwords, and <strong>SpaceXSI / X staff</strong> confidential apps. SpaceXSI pulled <strong>24</strong> staff apps after disclosure. It did <strong>not</strong> mass-take-down everyone else's.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">37,571</div>
+        <div class="text-[10px] font-mono text-secondary">Still online (of 43,551 tried)</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">35,578</div>
+        <div class="text-[10px] font-mono text-secondary">Open, no sign-in</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">94.7%</div>
+        <div class="text-[10px] font-mono text-secondary">Of live set open</div>
+      </div>
+      <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-green mb-1">24</div>
+        <div class="text-[10px] font-mono text-secondary">Staff apps pulled</div>
+      </div>
+    </div>
+
+    <!-- What is Grok Build -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What Grok Build Is
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Chat → working app → publish on a <code class="text-xs">*.grok.me</code> hostname. Hostnames are not meant to be guessed. They still land in <strong>passive DNS</strong> the moment anyone opens them - and Claroc harvested that list.
+      </p>
+
+      <div class="hidden md:grid grid-cols-4 gap-2 mb-4">
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-green mb-2">01</div>
+          <div class="text-xs font-bold text-foreground mb-1">Prompt</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">Describe the app in chat</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-green mb-2">02</div>
+          <div class="text-xs font-bold text-foreground mb-1">Build</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">Agent ships a working UI</p>
+        </div>
+        <div class="rounded-xl border border-yellow-500/30 bg-yellow-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-yellow-400 mb-2">03</div>
+          <div class="text-xs font-bold text-foreground mb-1">Publish</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">*.grok.me goes live</p>
+        </div>
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-red-400 mb-2">04</div>
+          <div class="text-xs font-bold text-foreground mb-1">Discoverable</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">Passive DNS indexes it</p>
+        </div>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3"><span class="text-[10px] font-mono text-green font-bold">01</span><div><div class="text-xs font-bold text-foreground">Prompt</div><p class="text-[10px] text-secondary mb-0">Describe the app in chat</p></div></div>
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3"><span class="text-[10px] font-mono text-green font-bold">02</span><div><div class="text-xs font-bold text-foreground">Build</div><p class="text-[10px] text-secondary mb-0">Agent ships a working UI</p></div></div>
+        <div class="rounded-lg border border-yellow-500/30 bg-yellow-500/[0.04] p-3 flex gap-3"><span class="text-[10px] font-mono text-yellow-400 font-bold">03</span><div><div class="text-xs font-bold text-foreground">Publish</div><p class="text-[10px] text-secondary mb-0">*.grok.me goes live</p></div></div>
+        <div class="rounded-lg border border-red-500/30 bg-red-500/[0.04] p-3 flex gap-3"><span class="text-[10px] font-mono text-red-400 font-bold">04</span><div><div class="text-xs font-bold text-foreground">Discoverable</div><p class="text-[10px] text-secondary mb-0">Passive DNS indexes it</p></div></div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        This is not "someone brute-forced the internet." It is <strong>link-open apps</strong> that became enumerable once DNS saw them.
+      </p>
+    </div>
+
+    <!-- Funnel -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Claroc's Scan Funnel
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Numbers below are Claroc's Nov 8-10, 2026 scan - not "every Grok app ever built."
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">EXPOSURE FUNNEL</div>
+        <div class="space-y-2">
+          <div class="rounded-lg bg-green/10 border border-green/20 px-3 py-2.5" style="width:100%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">43,601 names in passive DNS</span>
+              <span class="text-[10px] font-mono text-secondary">harvest</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-green/12 border border-green/22 px-3 py-2.5 mx-auto" style="width:92%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">43,551 addresses tried</span>
+              <span class="text-[10px] font-mono text-secondary">probe</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-green/15 border border-green/25 px-3 py-2.5 mx-auto" style="width:80%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">37,571 still online</span>
+              <span class="text-[10px] font-mono text-secondary">live set</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-red-500/15 border border-red-500/30 px-3 py-2.5 mx-auto" style="width:72%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">35,578 open (no auth)</span>
+              <span class="text-[10px] font-mono text-red-400">94.7%</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-border/40 border border-border px-3 py-2.5 mx-auto" style="width:28%">
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-xs font-bold text-foreground">1,993 → HTTP 401</span>
+              <span class="text-[10px] font-mono text-secondary">5.3%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">OPEN VS AUTH (LIVE SET)</div>
+        <div class="flex h-8 rounded-full overflow-hidden border border-border mb-2">
+          <div class="bg-red-500/70 flex items-center justify-center text-[9px] font-mono text-white font-bold" style="width:94.7%">94.7% open</div>
+          <div class="bg-green/40 flex items-center justify-center text-[9px] font-mono text-foreground" style="width:5.3%">401</div>
+        </div>
+        <p class="text-[10px] text-secondary mb-0">Nearly nineteen in twenty live apps Claroc hit required no login.</p>
+      </div>
+    </div>
+
+    <!-- What was exposed -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Not Just Open Landing Pages
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Most of the 35k were games, calculators, demos. Claroc's calibrated estimate: ~<strong>650-800</strong> apps held private data (~2% of the open set). Separately, Claroc also wrote that about <strong>1 in 10</strong> held some sensitive / internal / personal material, with ~<strong>2%</strong> rated high or critical. Samples that matter:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+        <div class="rounded-xl border border-red-500/25 bg-red-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-red-400 font-bold mb-2">HEALTH / SAFETY</div>
+          <ul class="text-[11px] text-foreground/70 space-y-1.5 mb-0 list-none pl-0">
+            <li class="flex gap-2"><span class="text-red-400">→</span><span>ICU patient labs, imaging, ventilator data</span></li>
+            <li class="flex gap-2"><span class="text-red-400">→</span><span>Hospital roster: 3,500+ employees</span></li>
+            <li class="flex gap-2"><span class="text-red-400">→</span><span>Firefighter names, badges, shifts</span></li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-red-500/25 bg-red-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-red-400 font-bold mb-2">CREDENTIALS / BUSINESS</div>
+          <ul class="text-[11px] text-foreground/70 space-y-1.5 mb-0 list-none pl-0">
+            <li class="flex gap-2"><span class="text-red-400">→</span><span>Contractor timesheet with 18 plaintext passwords in client script</span></li>
+            <li class="flex gap-2"><span class="text-red-400">→</span><span>Trucking recruit list: 1,000+ names + emails</span></li>
+            <li class="flex gap-2"><span class="text-red-400">→</span><span>SpaceXSI onboarding + sales map of 594 accounts</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-2">
+        <div class="text-[10px] font-mono text-secondary mb-3">SENSITIVITY SLICE (CLAROC ESTIMATE)</div>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">Harmless / demo</span>
+              <span class="font-mono text-secondary">majority of 35,578</span>
+            </div>
+            <div class="h-2.5 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-secondary/40" style="width:100%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-yellow-400">Private data estimate (~650-800)</span>
+              <span class="font-mono text-yellow-400">~2%</span>
+            </div>
+            <div class="h-2.5 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-yellow-400/70" style="width:2%"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">Bar width matches the ~650-800 private-data estimate (~2%), not Claroc's separate "1 in 10 sensitive" line. Do not claim all 35k held PII.</p>
+      </div>
+    </div>
+
+    <!-- Claroc test findings architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Auth Model Failures Claroc Proved
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Proven on Claroc's <strong>own</strong> test apps - Claroc did not write to third-party apps.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-red-400 font-bold mb-2">OPEN DB WRITE</div>
+          <p class="text-[11px] text-foreground/70 mb-0">App DB with no auth: any visitor can write. "Published" equals world-writable if the agent scaffolded it that way.</p>
+        </div>
+        <div class="rounded-xl border border-red-500/30 bg-red-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-red-400 font-bold mb-2">TEAM LOGIN BYPASS</div>
+          <p class="text-[11px] text-foreground/70 mb-0">"Team" Google/X login added <strong>any</strong> signed-in account to the team - read / edit / delete.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline + SpaceXSI -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Timeline + The SpaceXSI Irony
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        The company shipping the tool also left staff apps link-open.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">NOV 8-10, 2026</div>
+        <div class="space-y-3">
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 w-16 text-[10px] font-mono text-green font-bold pt-0.5">Nov 8</span>
+            <p class="text-[11px] text-foreground/70 mb-0">Scan + report to SpaceXSI via <code class="text-[10px]">security.txt</code>. Two staff apps flagged first.</p>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 w-16 text-[10px] font-mono text-green font-bold pt-0.5">Nov 9</span>
+            <p class="text-[11px] text-foreground/70 mb-0">Other 22 staff apps identified (24 total across SpaceXSI + X).</p>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="flex-shrink-0 w-16 text-[10px] font-mono text-green font-bold pt-0.5">Nov 10</span>
+            <p class="text-[11px] text-foreground/70 mb-0">Public write-up. SpaceXSI answers reporters. Staff apps taken down (Ars: within hours of reporter email).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
+        <div class="rounded-xl border border-yellow-500/25 bg-yellow-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-yellow-400 font-bold mb-2">SPACEXSI SAID</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Apps private until the creator shares. Multi-step Publish + disclaimer. Employee accounts default "Only you."</p>
+        </div>
+        <div class="rounded-xl border border-green/25 bg-green/[0.03] p-4 viz-card">
+          <div class="text-[10px] font-mono text-green font-bold mb-2">CLAROC SAID</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Paid-user publish UI <strong>preselects "Anyone with the link."</strong> 24 staff apps were open. No direct reply to Claroc's report by publish day. Other users' apps largely stayed up.</p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border bg-elevated p-4 mt-3 viz-card">
+        <div class="text-[10px] font-mono text-secondary font-bold mb-2">CURSOR (VIA ARS)</div>
+        <p class="text-[11px] text-foreground/70 mb-0">Separately told Ars the product is "private by default." That is Cursor's line - not SpaceXSI's, and not a proof the UI preselect matches.</p>
+      </div>
+      <p class="text-[11px] text-secondary mt-3 mb-0">Present both sides. Do not claim the platform defaults were fully fixed - only that the 24 staff apps came down.</p>
+    </div>
+
+    <!-- Org scale -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> Not Only Hobbyists
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Claroc identified ~<strong>30</strong> other orgs in the open set (26 with &gt;1k employees; 6 Fortune 500). Hostnames and company names Claroc withheld stay withheld here.
+      </p>
+
+      <div class="grid grid-cols-3 gap-3">
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center viz-card">
+          <div class="text-xl font-bold text-green mb-1">30</div>
+          <div class="text-[10px] font-mono text-secondary">Orgs identified</div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center viz-card">
+          <div class="text-xl font-bold text-green mb-1">26</div>
+          <div class="text-[10px] font-mono text-secondary">&gt;1k employees</div>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 text-center viz-card">
+          <div class="text-xl font-bold text-green mb-1">6</div>
+          <div class="text-[10px] font-mono text-secondary">Fortune 500</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decision -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-green font-mono text-sm">#</span> What To Do If You Used Grok Build
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Treat every published <code class="text-xs">*.grok.me</code> like a public URL until proven otherwise.
+      </p>
+
+      <div class="rounded-xl border border-border overflow-hidden mb-4 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary w-16">Step</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Action</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Why</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">1</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs">Inventory every published Grok Build app in the org</td>
+              <td class="px-4 py-3 text-secondary text-xs">Passive DNS already did</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">2</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs">Unpublish or lock anything with real data</td>
+              <td class="px-4 py-3 text-secondary text-xs">Link-open is not a secrets store</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">3</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs"><strong>Rotate</strong> any password / token that lived in the app</td>
+              <td class="px-4 py-3 text-secondary text-xs">Client scripts were in Claroc's samples</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">4</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs">Ban "Anyone with the link" for work data</td>
+              <td class="px-4 py-3 text-secondary text-xs">UI preselect fights muscle memory</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-green text-xs">5</td>
+              <td class="px-4 py-3 text-foreground/90 text-xs">Assume team OAuth is not a permission boundary until tested</td>
+              <td class="px-4 py-3 text-secondary text-xs">Claroc's test apps failed this</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-border p-3"><div class="text-[10px] font-mono text-green mb-1">1 · INVENTORY</div><p class="text-[11px] text-secondary mb-0">Every published *.grok.me in the org</p></div>
+        <div class="rounded-lg border border-border p-3"><div class="text-[10px] font-mono text-green mb-1">2 · UNPUBLISH</div><p class="text-[11px] text-secondary mb-0">Anything with real data</p></div>
+        <div class="rounded-lg border border-border p-3"><div class="text-[10px] font-mono text-green mb-1">3 · ROTATE</div><p class="text-[11px] text-secondary mb-0">Passwords / tokens that lived in the app</p></div>
+        <div class="rounded-lg border border-border p-3"><div class="text-[10px] font-mono text-green mb-1">4 · BAN LINK-OPEN</div><p class="text-[11px] text-secondary mb-0">For work data - ignore the preselect</p></div>
+        <div class="rounded-lg border border-border p-3"><div class="text-[10px] font-mono text-green mb-1">5 · TEST TEAM AUTH</div><p class="text-[11px] text-secondary mb-0">Do not trust OAuth until proven</p></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">Safe claim</div>
+          <p class="text-[11px] text-foreground/60 mb-0">94.7% of Claroc's live sample opened without auth. Staff apps held confidential docs. Defaults are disputed.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">Unsafe claim</div>
+          <p class="text-[11px] text-foreground/60 mb-0">"All 35k leaked PII." "Platform is fixed." Naming withheld hostnames/orgs Claroc did not publish.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-green/20 bg-green/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-green font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>AI app builders ship public URLs by accident at industrial scale.</strong> Claroc's 35,578 open Grok Build apps - plus 24 SpaceXSI/X staff takedowns - make the pattern concrete: link-open is not private, passive DNS is a search engine, and agent-scaffolded auth can fail open. Inventory, unpublish, rotate, and stop putting real data behind "Anyone with the link."
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={61} />
+
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-green hover:border-green/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-xs text-green hover:bg-green/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
