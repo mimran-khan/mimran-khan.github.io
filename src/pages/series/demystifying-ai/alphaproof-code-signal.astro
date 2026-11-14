@@ -1,0 +1,421 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="AlphaProof Code: Signal Verified at Machine Code | Demystifying AI in 5 Minutes"
+  description="DeepMind AlphaProof Code agents wrote ~6.5M Lean lines proving PQXDH + Triple Ratchet properties on unmodified libsignal AArch64 - in four weeks. Specs are trusted. Agents are not."
+  image="/og-series-ep62-alphaproof-code-signal.png"
+  keywords="AlphaProof Code, DeepMind, Signal, libsignal, PQXDH, Triple Ratchet, Lean, formal verification, AArch64, Google DeepMind"
+  publishedDate="2026-11-25"
+  articleSection="Demystifying AI"
+  articleTags={["AlphaProof Code", "DeepMind", "Signal", "Formal Verification", "Lean", "Research"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(139, 92, 246, 0.15); }
+    .viz-card { transition: all 0.3s ease; }
+    .viz-card:hover { transform: translateY(-2px); box-shadow: 0 0 16px rgba(139, 92, 246, 0.12); }
+    .bar-fill { transition: width 0.6s ease; }
+  </style>
+
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-violet-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep62-alphaproof-code-signal.png" alt="AlphaProof Code: Signal Verified at Machine Code" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet-400 font-mono bg-violet-500/5 border border-violet-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          EP 62
+        </span>
+        <a href="https://deepmind.google/blog/introducing-alphaproof-code/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          DeepMind blog
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <a href="https://deepmind.google/documents/36/Formal_Verification_of_Signal_4.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          Paper PDF
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Nov 25, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        AlphaProof Code: Signal Verified at Machine Code
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        DeepMind agents wrote ~6.5M Lean lines proving PQXDH + Triple Ratchet properties on unmodified libsignal AArch64 - in four weeks.
+      </p>
+
+      <ShareButtons title="AlphaProof Code: Signal Verified at Machine Code" url="/series/demystifying-ai/alphaproof-code-signal" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        On <strong>Nov 10, 2026</strong>, Google DeepMind (Chaudhuri, Ferraiuolo, Kovsharov, Chajed et al.) introduced <strong>AlphaProof Code</strong>: humans approve Lean <strong>specs</strong>; <strong>Gemini 4 Carbon</strong> agents write <strong>proofs</strong>; Lean accepts or rejects. A five-person team spent <strong>four weeks</strong> on stock <code class="text-xs">libsignal</code> v0.105.4 → <strong>AArch64</strong>, producing ~<strong>6.5M</strong> machine-checked lines for PQXDH + Triple Ratchet. Specs are trusted; agents are not - and crypto primitives were hooked via contracts, not proved from AES upward.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">~6.5M</div>
+        <div class="text-[10px] font-mono text-secondary">Lean proof lines</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">4 wks</div>
+        <div class="text-[10px] font-mono text-secondary">Team of five</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">~26k</div>
+        <div class="text-[10px] font-mono text-secondary">Trusted base LOC</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">~140k</div>
+        <div class="text-[10px] font-mono text-secondary">AArch64 instructions</div>
+      </div>
+    </div>
+
+    <!-- IMO vs Code -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Not the IMO AlphaProof
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Same Lean lineage. Different job.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">ALPHAPROOF (2024)</div>
+          <p class="text-[11px] text-foreground/70 mb-0">RL system that proves math olympiad problems in Lean. Contest theorems. No shipping binaries.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-2">ALPHAPROOF CODE (2026)</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Multi-agent software verification. Prove properties of <strong>real compiled code</strong> against human-approved specs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> System Architecture
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        The trust story is the architecture. Humans own specs. Agents propose proofs. Lean decides.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">TRUST BOUNDARY</div>
+
+        <div class="hidden md:block space-y-3">
+          <div class="grid grid-cols-3 gap-2">
+            <div class="rounded-lg border border-yellow-500/25 bg-yellow-500/[0.04] p-3 text-center">
+              <div class="text-[9px] font-mono text-yellow-400 mb-1">TRUSTED · HUMAN</div>
+              <div class="text-[10px] font-bold text-foreground">Lean specs</div>
+              <div class="text-[9px] text-secondary mt-1">~18k LOC to read</div>
+            </div>
+            <div class="rounded-lg border border-yellow-500/25 bg-yellow-500/[0.04] p-3 text-center">
+              <div class="text-[9px] font-mono text-yellow-400 mb-1">TRUSTED · TCB</div>
+              <div class="text-[10px] font-bold text-foreground">AArch64 semantics</div>
+              <div class="text-[9px] text-secondary mt-1">~8k + Lean kernel</div>
+            </div>
+            <div class="rounded-lg border border-yellow-500/25 bg-yellow-500/[0.04] p-3 text-center">
+              <div class="text-[9px] font-mono text-yellow-400 mb-1">TRUSTED · CONTRACTS</div>
+              <div class="text-[10px] font-bold text-foreground">Crypto hooks</div>
+              <div class="text-[9px] text-secondary mt-1">AES / X25519 / Kyber stubs</div>
+            </div>
+          </div>
+
+          <div class="flex justify-center text-[10px] font-mono text-violet-400">↓ agents write proofs (untrusted)</div>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] p-3 text-center">
+              <div class="text-[9px] font-mono text-violet-400 mb-1">AGENT</div>
+              <div class="text-[10px] font-bold text-foreground">Gemini 4 Carbon</div>
+              <div class="text-[9px] text-secondary mt-1">autonomous provers</div>
+            </div>
+            <div class="rounded-lg border border-violet-500/40 bg-violet-500/10 p-3 text-center">
+              <div class="text-[9px] font-mono text-violet-400 mb-1">ARTIFACT</div>
+              <div class="text-[10px] font-bold text-violet-400">~6.5M Lean lines</div>
+              <div class="text-[9px] text-secondary mt-1">machine-checked proofs</div>
+            </div>
+            <div class="rounded-lg border border-border bg-[#161b22] p-3 text-center">
+              <div class="text-[9px] font-mono text-secondary mb-1">JUDGE</div>
+              <div class="text-[10px] font-bold text-foreground">Lean kernel</div>
+              <div class="text-[9px] text-secondary mt-1">accept / reject</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:hidden space-y-2">
+          <div class="rounded-lg border border-yellow-500/25 bg-yellow-500/[0.04] p-3">
+            <div class="text-[9px] font-mono text-yellow-400 mb-1">TRUSTED</div>
+            <div class="text-xs font-bold text-foreground">Human specs + AArch64 semantics + crypto contracts</div>
+          </div>
+          <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.04] p-3">
+            <div class="text-[9px] font-mono text-violet-400 mb-1">UNTRUSTED</div>
+            <div class="text-xs font-bold text-foreground">Gemini 4 Carbon agents write ~6.5M proof lines</div>
+          </div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-[9px] font-mono text-secondary mb-1">JUDGE</div>
+            <div class="text-xs font-bold text-foreground">Lean kernel accepts or rejects</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-violet-500/25 bg-violet-500/[0.03] p-4 viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-2">WHY THIS SPLIT MATTERS</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Wrong agent output fails the kernel. Wrong <strong>spec</strong> still "proves" the wrong thing. Read the trusted base.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">TRUSTED BASE SIZE</div>
+          <p class="text-[11px] text-foreground/70 mb-0">~<strong>26k</strong> LOC total (~18k specs + ~8k AArch64 semantics) vs ~6.5M proof lines. Humans review the small pile.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pipeline: Rust → AArch64 → Lean -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> From Rust Crates to AArch64 Proofs
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        The target is not a toy model. It is stock <code class="text-xs">libsignal</code> through a normal compiler.
+      </p>
+
+      <div class="hidden md:grid grid-cols-5 gap-2 mb-4">
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">01</div>
+          <div class="text-xs font-bold text-foreground mb-1">libsignal</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">v0.105.4 Rust crates</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">02</div>
+          <div class="text-xs font-bold text-foreground mb-1">rustc</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">stock compiler</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">03</div>
+          <div class="text-xs font-bold text-foreground mb-1">AArch64</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">~140k instr · ~560 KB</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">04</div>
+          <div class="text-xs font-bold text-foreground mb-1">CLI harness</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">libsignal-cli Linux</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/40 bg-violet-500/10 p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 mb-2">05</div>
+          <div class="text-xs font-bold text-foreground mb-1">Lean proofs</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">over AArch64 semantics</p>
+        </div>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3"><span class="text-[10px] font-mono text-violet-400 font-bold">01</span><div><div class="text-xs font-bold text-foreground">libsignal v0.105.4</div><p class="text-[10px] text-secondary mb-0">Unmodified Rust crates</p></div></div>
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3"><span class="text-[10px] font-mono text-violet-400 font-bold">02</span><div><div class="text-xs font-bold text-foreground">Stock rustc → AArch64</div><p class="text-[10px] text-secondary mb-0">~140k instructions</p></div></div>
+        <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.04] p-3 flex gap-3"><span class="text-[10px] font-mono text-violet-400 font-bold">03</span><div><div class="text-xs font-bold text-foreground">CLI harness</div><p class="text-[10px] text-secondary mb-0">Not the mobile Signal app</p></div></div>
+        <div class="rounded-lg border border-violet-500/40 bg-violet-500/10 p-3 flex gap-3"><span class="text-[10px] font-mono text-violet-400 font-bold">04</span><div><div class="text-xs font-bold text-foreground">Lean over AArch64 semantics</div><p class="text-[10px] text-secondary mb-0">Machine-checked proofs</p></div></div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        DeepMind frames this as the first proofs linking protocol-level guarantees to an <strong>unmodified</strong>, widely deployed crypto <strong>implementation</strong> - not only an abstract model.
+      </p>
+    </div>
+
+    <!-- What was proved -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> What Was Actually Proved
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Protocols: <strong>PQXDH</strong> + <strong>Triple Ratchet</strong> (SPQR) inside libsignal. Dual tracks: symbolic (~10 theorems) + computational.
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+        <div class="rounded-xl border border-violet-500/25 bg-violet-500/[0.03] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-1">FS</div>
+          <div class="text-[11px] text-foreground/80">Forward secrecy</div>
+        </div>
+        <div class="rounded-xl border border-violet-500/25 bg-violet-500/[0.03] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-1">AUTH</div>
+          <div class="text-[11px] text-foreground/80">Authentication</div>
+        </div>
+        <div class="rounded-xl border border-violet-500/25 bg-violet-500/[0.03] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-1">PCS</div>
+          <div class="text-[11px] text-foreground/80">Post-compromise security</div>
+        </div>
+        <div class="rounded-xl border border-violet-500/25 bg-violet-500/[0.03] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-1">HS</div>
+          <div class="text-[11px] text-foreground/80">Handshake secrecy</div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-2">
+        <div class="text-[10px] font-mono text-secondary mb-3">TWO TRACKS</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-[10px] font-mono text-violet-400 font-bold mb-1">SYMBOLIC</div>
+            <p class="text-[11px] text-foreground/70 mb-0">~10 theorems. Idealized primitives. Protocol logic under perfect crypto assumptions.</p>
+          </div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-[10px] font-mono text-violet-400 font-bold mb-1">COMPUTATIONAL</div>
+            <p class="text-[11px] text-foreground/70 mb-0">Reduces guarantees to hardness of the hooked primitives - still not a full AES proof.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bug injection -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Sanity Check: Bug Injection
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        DeepMind reintroduced <strong>two prior libsignal bugs</strong>. The system produced machine-checked <strong>insecurity</strong> proofs - so the harness can say "broken" when the code is broken.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-green/25 bg-green/[0.03] p-4 viz-card">
+          <div class="text-[10px] font-mono text-green font-bold mb-2">CLEAN BUILD</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Proofs of the stated security properties go through against the unmodified crates.</p>
+        </div>
+        <div class="rounded-xl border border-red-500/25 bg-red-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-red-400 font-bold mb-2">BUGS REINSERTED</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Machine-checked proofs that the properties <strong>fail</strong> - not silent green.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caveats -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> What This Does Not Prove
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Read this section before tweeting "Signal is fully proved secure."
+      </p>
+
+      <div class="rounded-xl border border-border overflow-hidden mb-4 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">In scope</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Out of scope</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 text-secondary text-xs">libsignal CLI harness on AArch64 Linux</td>
+              <td class="px-4 py-3 text-secondary text-xs">Signal mobile app / UI / servers</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-secondary text-xs">PQXDH + Triple Ratchet one-to-one</td>
+              <td class="px-4 py-3 text-secondary text-xs">Group messaging, sealed sender</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-secondary text-xs">Properties under hooked crypto contracts</td>
+              <td class="px-4 py-3 text-secondary text-xs">Full proofs of AES / X25519 / Kyber impls</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-secondary text-xs">Agent proofs checked by Lean</td>
+              <td class="px-4 py-3 text-secondary text-xs">Guaranteeing the human specs are correct; <code class="text-[10px]">keygen</code> not verified</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-violet-500/25 bg-violet-500/[0.03] p-3">
+          <div class="text-[10px] font-mono text-violet-400 mb-1">IN SCOPE</div>
+          <p class="text-[11px] text-secondary mb-0">CLI harness, PQXDH + Triple Ratchet 1:1, Lean-checked proofs under contracts.</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-secondary mb-1">OUT OF SCOPE</div>
+          <p class="text-[11px] text-secondary mb-0">Mobile app, groups, sealed sender, keygen, full primitive impl proofs, wrong-spec risk.</p>
+        </div>
+      </div>
+
+      <p class="text-sm text-secondary leading-relaxed mb-0">
+        Signal CTO Ehren Kret endorsed the methodology in DeepMind's blog. That is praise for the approach - not a warranty for every Signal surface.
+      </p>
+    </div>
+
+    <!-- Why it matters / decision -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Why Engineers Should Care
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Formal verification of real crypto used to take years. This campaign took a small team <strong>four weeks</strong> with agent-written proofs. The bottleneck moves to <strong>spec quality</strong>.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+        <div class="rounded-xl border border-violet-500/25 bg-violet-500/[0.03] p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">Take this</div>
+          <p class="text-[11px] text-foreground/60 mb-0">Agentic provers + a tiny trusted base can scale Lean proofs over compiled crypto. Specs + TCB remain the human job.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">Leave this</div>
+          <p class="text-[11px] text-foreground/60 mb-0">"All of Signal is proved." "No remaining bugs." "AES itself is verified here."</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="text-[10px] font-mono text-violet-400 font-bold mb-3">ONE-LINE MENTAL MODEL</div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-yellow-400">humans</span> <span class="text-secondary">write/approve</span> <span class="text-foreground/80">specs</span>
+<span class="text-violet-400">agents</span>  <span class="text-secondary">propose</span>           <span class="text-foreground/80">proofs</span>
+<span class="text-cyan-400">Lean</span>    <span class="text-secondary">checks</span>            <span class="text-foreground/80">proofs</span>
+<span class="text-secondary">wrong specs still "prove" the wrong world</span></pre>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>AlphaProof Code moves formal verification from olympiad math to shipping crypto binaries.</strong> ~6.5M Lean lines over unmodified libsignal AArch64 in four weeks is a real step - with hooked primitives, a CLI harness, one-to-one only, and a human-owned trusted base. Treat it as a new verification workflow, not a blanket "Signal is done."
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={62} />
+
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-violet-400 hover:border-violet-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-xs text-violet-400 hover:bg-violet-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
