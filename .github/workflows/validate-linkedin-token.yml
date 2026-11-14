@@ -1,0 +1,62 @@
+# Temporary one-shot check. Does NOT post to LinkedIn.
+name: Validate LinkedIn Token
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check LinkedIn access token
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+        run: |
+          if [ -z "$LINKEDIN_ACCESS_TOKEN" ]; then
+            echo "::error::LINKEDIN_ACCESS_TOKEN secret is empty"
+            exit 1
+          fi
+          if [ -z "$LINKEDIN_PERSON_URN" ]; then
+            echo "::error::LINKEDIN_PERSON_URN secret is empty"
+            exit 1
+          fi
+
+          echo "Token length: ${#LINKEDIN_ACCESS_TOKEN}"
+          echo "Person URN set: yes (${#LINKEDIN_PERSON_URN} chars)"
+
+          echo "--- Trying OpenID userinfo ---"
+          RESP=$(curl -s -w "\n%{http_code}" \
+            -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
+            "https://api.linkedin.com/v2/userinfo")
+          CODE=$(echo "$RESP" | tail -1)
+          BODY=$(echo "$RESP" | sed '$d')
+          echo "HTTP $CODE"
+          echo "$BODY" | head -c 400
+          echo
+
+          if [ "$CODE" = "200" ]; then
+            echo "VALID: token accepted by LinkedIn (userinfo 200)"
+            exit 0
+          fi
+
+          echo "--- Trying /v2/me fallback ---"
+          RESP2=$(curl -s -w "\n%{http_code}" \
+            -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
+            "https://api.linkedin.com/v2/me")
+          CODE2=$(echo "$RESP2" | tail -1)
+          BODY2=$(echo "$RESP2" | sed '$d')
+          echo "HTTP $CODE2"
+          echo "$BODY2" | head -c 400
+          echo
+
+          if [ "$CODE2" = "200" ]; then
+            echo "VALID: token accepted by LinkedIn (/v2/me 200)"
+            exit 0
+          fi
+
+          echo "::error::Token check failed (userinfo=$CODE, me=$CODE2)"
+          exit 1
