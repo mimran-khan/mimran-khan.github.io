@@ -1,0 +1,471 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+
+const wsSnippet = `<span class="text-cyan-400">const</span> <span class="text-foreground/80">ws</span> <span class="text-secondary">=</span> <span class="text-cyan-400">new</span> <span class="text-yellow-400">WebSocket</span><span class="text-secondary">(</span>
+  <span class="text-green">"wss://api.elevenlabs.io/v1/speech-to-text/realtime"</span>
+<span class="text-secondary">);</span>
+
+<span class="text-secondary">// session config (shape)</span>
+<span class="text-foreground/80">modelId</span><span class="text-secondary">:</span>          <span class="text-green">"scribe_v3_live"</span>
+<span class="text-foreground/80">commitStrategy</span><span class="text-secondary">:</span>   <span class="text-green">"turn_prediction"</span>
+<span class="text-foreground/80">diarize</span><span class="text-secondary">:</span>          <span class="text-cyan-400">true</span>`;
+---
+
+<BaseLayout
+  title="ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers | Demystifying AI in 5 Minutes"
+  description="Scribe v3 Live: ElevenLabs reports 43% lower semantic WER vs v2 Realtime, 3.1% English DER with live diarization, and turn_prediction for voice agents. Try the mic demo in under a minute."
+  image="/og-series-ep63-elevenlabs-scribe-v3-live.png"
+  keywords="ElevenLabs, Scribe v3 Live, scribe_v3_live, realtime STT, speaker diarization, turn prediction, speech to text, voice agents"
+  publishedDate="2026-11-28"
+  articleSection="Demystifying AI"
+  articleTags={["ElevenLabs", "Scribe v3 Live", "Speech-to-Text", "Diarization", "Voice Agents", "New Release"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(34, 211, 238, 0.12); }
+    .viz-card { transition: all 0.3s ease; }
+    .viz-card:hover { transform: translateY(-2px); box-shadow: 0 0 16px rgba(34, 211, 238, 0.1); }
+    .bar-fill { transition: width 0.6s ease; }
+    .try-card { transition: all 0.3s ease; }
+    .try-card:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(34, 211, 238, 0.15); }
+  </style>
+
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,211,238,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-cyan-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep63-elevenlabs-scribe-v3-live.png" alt="ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-cyan-400 font-mono bg-cyan-500/5 border border-cyan-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          EP 63
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          NEW RELEASE
+        </span>
+        <a href="https://elevenlabs.io/blog/scribe-v3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full hover:bg-cyan-500/20 transition-colors">
+          ElevenLabs blog
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <a href="https://elevenlabs.io/realtime-speech-to-text" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 rounded-full hover:bg-cyan-500/30 transition-colors">
+          Try mic demo
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Nov 28, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Live diarization, smarter turn commits, and ElevenLabs-reported 43% lower semantic WER vs Scribe v2 Realtime. Mic demo is public - try it before the API key.
+      </p>
+
+      <ShareButtons title="ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers" url="/series/demystifying-ai/elevenlabs-scribe-v3-live" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-2">
+        ElevenLabs shipped <strong>Scribe v3</strong> / <strong>Scribe v3 Live</strong> around <strong>Nov 9-10, 2026</strong>. Realtime model ID: <code class="text-xs">scribe_v3_live</code>.
+      </p>
+      <p class="text-sm text-foreground/90 leading-relaxed mb-2">
+        ElevenLabs reports <strong>43%</strong> lower semantic WER vs Scribe v2 Realtime, English realtime DER <strong>3.1%</strong> (aligned; not cross-vendor comparable), and <code class="text-xs">turn_prediction</code> commits. List price: <strong>$0.22/audio-hour</strong>.
+      </p>
+      <p class="text-sm text-foreground/90 leading-relaxed mb-0">
+        Public mic demo: <a href="https://elevenlabs.io/realtime-speech-to-text" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">elevenlabs.io/realtime-speech-to-text</a>.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-cyan-400 mb-1">-43%</div>
+        <div class="text-[10px] font-mono text-secondary">Semantic WER vs v2 RT</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-cyan-400 mb-1">3.1%</div>
+        <div class="text-[10px] font-mono text-secondary">EN DER (aligned)</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-cyan-400 mb-1">~$0.22</div>
+        <div class="text-[10px] font-mono text-secondary">Per audio hour</div>
+      </div>
+      <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-cyan-400 mb-1">90+</div>
+        <div class="text-[10px] font-mono text-secondary">Languages (product)</div>
+      </div>
+    </div>
+
+    <!-- TRY / EXPERIMENT - prominent early -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Try It / Experiment
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        This one is publicly tryable. Start with the mic, then escalate to the app and API.
+      </p>
+
+      <div class="rounded-xl border border-cyan-500/40 bg-cyan-500/[0.06] p-4 md:p-5 mb-5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+          <div>
+            <div class="text-[10px] font-mono text-cyan-400 font-bold mb-1">FASTEST PATH · ~30 SECONDS</div>
+            <div class="text-sm font-bold text-foreground">Realtime mic showcase</div>
+            <p class="text-[11px] text-secondary mb-0 mt-1">Usually no API key. Allow mic → speak → watch partial then committed text.</p>
+          </div>
+          <a href="https://elevenlabs.io/realtime-speech-to-text" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-xs font-mono text-cyan-300 hover:bg-cyan-500/30 transition-colors shrink-0">
+            Open mic demo
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+
+        <div class="hidden md:grid grid-cols-5 gap-2">
+          <div class="rounded-lg border border-cyan-500/25 bg-[#161b22] p-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan-400 mb-1">1</div>
+            <div class="text-[10px] text-foreground/80">Open page</div>
+          </div>
+          <div class="rounded-lg border border-cyan-500/25 bg-[#161b22] p-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan-400 mb-1">2</div>
+            <div class="text-[10px] text-foreground/80">Start transcribing</div>
+          </div>
+          <div class="rounded-lg border border-cyan-500/25 bg-[#161b22] p-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan-400 mb-1">3</div>
+            <div class="text-[10px] text-foreground/80">Allow mic</div>
+          </div>
+          <div class="rounded-lg border border-cyan-500/25 bg-[#161b22] p-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan-400 mb-1">4</div>
+            <div class="text-[10px] text-foreground/80">Speak ~20s</div>
+          </div>
+          <div class="rounded-lg border border-cyan-500/40 bg-cyan-500/10 p-2.5 text-center">
+            <div class="text-[9px] font-mono text-cyan-400 mb-1">5</div>
+            <div class="text-[10px] text-foreground/80">Watch commits</div>
+          </div>
+        </div>
+        <div class="md:hidden space-y-1.5">
+          <div class="text-[11px] text-foreground/70"><span class="font-mono text-cyan-400">1</span> Open the realtime page</div>
+          <div class="text-[11px] text-foreground/70"><span class="font-mono text-cyan-400">2</span> Click start transcribing</div>
+          <div class="text-[11px] text-foreground/70"><span class="font-mono text-cyan-400">3</span> Allow the mic</div>
+          <div class="text-[11px] text-foreground/70"><span class="font-mono text-cyan-400">4</span> Speak ~20 seconds</div>
+          <div class="text-[11px] text-foreground/70"><span class="font-mono text-cyan-400">5</span> Watch partial → committed text</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
+        <a href="https://elevenlabs.io/realtime-speech-to-text" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-cyan-500/30 bg-cyan-500/[0.04] p-4 try-card block">
+          <div class="text-[10px] font-mono text-cyan-400 font-bold mb-2">A · MIC DEMO</div>
+          <div class="text-xs font-bold text-foreground mb-1">No key needed</div>
+          <p class="text-[11px] text-secondary mb-2">Feel latency + commits live.</p>
+          <span class="text-[10px] font-mono text-cyan-400">elevenlabs.io/realtime-speech-to-text →</span>
+        </a>
+        <a href="https://elevenlabs.io/app/speech-to-text" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-border bg-elevated p-4 try-card block hover:border-cyan-500/30">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">B · APP STT</div>
+          <div class="text-xs font-bold text-foreground mb-1">Free account</div>
+          <p class="text-[11px] text-secondary mb-2">Upload a 2-speaker clip. Turn diarization on.</p>
+          <span class="text-[10px] font-mono text-cyan-400">app/speech-to-text →</span>
+        </a>
+        <a href="https://elevenlabs.io/docs/eleven-api/guides/how-to/speech-to-text/realtime/client-side-streaming" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-border bg-elevated p-4 try-card block hover:border-cyan-500/30">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">C · API BUILD</div>
+          <div class="text-xs font-bold text-foreground mb-1">Free credits</div>
+          <p class="text-[11px] text-secondary mb-2">~30 min STT/mo on free tier. Wire <code class="text-[10px]">scribe_v3_live</code>.</p>
+          <span class="text-[10px] font-mono text-cyan-400">client-side streaming docs →</span>
+        </a>
+      </div>
+      <p class="text-[10px] text-secondary mt-3 mb-0">Free plan: 10,000 credits/mo, no card. STT is about 330 credits/min → roughly 30 minutes to experiment.</p>
+    </div>
+
+    <!-- What shipped -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> What Shipped
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Two IDs. One story: better realtime STT with speakers and smarter commits.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">BATCH</div>
+          <div class="text-xs font-bold text-foreground mb-1"><code class="text-cyan-400">scribe_v3</code></div>
+          <p class="text-[11px] text-foreground/70 mb-0">File / app STT. Up to 32 speakers. Keyterm prompting up to 1,000. List ~$0.20/hr.</p>
+        </div>
+        <div class="rounded-xl border border-cyan-500/30 bg-cyan-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-cyan-400 font-bold mb-2">REALTIME (THIS EPISODE)</div>
+          <div class="text-xs font-bold text-foreground mb-1"><code class="text-cyan-400">scribe_v3_live</code></div>
+          <p class="text-[11px] text-foreground/70 mb-0">WebSocket STT. Live diarization. <code class="text-[10px]">turn_prediction</code>. List ~$0.22/hr. ~150 ms marketing latency.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="text-[10px] font-mono text-secondary mb-3">THREE COMMIT STRATEGIES</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-[10px] font-mono text-secondary font-bold mb-1">manual</div>
+            <p class="text-[10px] text-foreground/70 mb-0">Default. You decide when a chunk commits.</p>
+          </div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-[10px] font-mono text-secondary font-bold mb-1">vad</div>
+            <p class="text-[10px] text-foreground/70 mb-0">Voice-activity based commits.</p>
+          </div>
+          <div class="rounded-lg border border-cyan-500/30 bg-cyan-500/[0.06] p-3">
+            <div class="text-[10px] font-mono text-cyan-400 font-bold mb-1">turn_prediction</div>
+            <p class="text-[10px] text-foreground/70 mb-0">v3 Live. Context-aware turn ends for agents.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture: audio → WS → speakers -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Realtime Pipeline
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Mic or client stream → WebSocket → partials → committed text (+ optional speaker labels).
+      </p>
+
+      <div class="hidden md:grid grid-cols-4 gap-2 mb-4">
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-cyan-400 mb-2">01</div>
+          <div class="text-xs font-bold text-foreground mb-1">Audio in</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">Mic / PCM stream</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-cyan-400 mb-2">02</div>
+          <div class="text-xs font-bold text-foreground mb-1">WS endpoint</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">/v1/speech-to-text/realtime</p>
+        </div>
+        <div class="rounded-xl border border-cyan-500/30 bg-cyan-500/[0.04] p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-cyan-400 mb-2">03</div>
+          <div class="text-xs font-bold text-foreground mb-1">scribe_v3_live</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">partial → commit</p>
+        </div>
+        <div class="rounded-xl border border-cyan-500/40 bg-cyan-500/10 p-3 text-center viz-card">
+          <div class="text-[10px] font-mono text-cyan-400 mb-2">04</div>
+          <div class="text-xs font-bold text-foreground mb-1">Text + speakers</div>
+          <p class="text-[10px] text-secondary/80 leading-snug">diarize=true opt-in</p>
+        </div>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3"><span class="text-[10px] font-mono text-cyan-400 font-bold">01</span><div><div class="text-xs font-bold text-foreground">Audio in</div><p class="text-[10px] text-secondary mb-0">Mic / PCM</p></div></div>
+        <div class="rounded-lg border border-border bg-elevated p-3 flex gap-3"><span class="text-[10px] font-mono text-cyan-400 font-bold">02</span><div><div class="text-xs font-bold text-foreground">Realtime WebSocket</div><p class="text-[10px] text-secondary mb-0">speech-to-text/realtime</p></div></div>
+        <div class="rounded-lg border border-cyan-500/30 bg-cyan-500/[0.04] p-3 flex gap-3"><span class="text-[10px] font-mono text-cyan-400 font-bold">03</span><div><div class="text-xs font-bold text-foreground">scribe_v3_live</div><p class="text-[10px] text-secondary mb-0">partial → commit</p></div></div>
+        <div class="rounded-lg border border-cyan-500/40 bg-cyan-500/10 p-3 flex gap-3"><span class="text-[10px] font-mono text-cyan-400 font-bold">04</span><div><div class="text-xs font-bold text-foreground">Text + speakers</div><p class="text-[10px] text-secondary mb-0">diarize=true</p></div></div>
+      </div>
+
+      <div class="rounded-xl border border-cyan-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto">
+        <div class="text-[10px] font-mono text-cyan-400 font-bold mb-3">CONFIG SHAPE (ILLUSTRATIVE)</div>
+        <pre class="text-[11px] font-mono leading-relaxed" set:html={wsSnippet}></pre>
+        <p class="text-[10px] text-secondary mt-3 mb-0">Browser clients usually need a short-lived token - do not paste a long-lived API key into frontend code. See the client-side streaming guide.</p>
+      </div>
+    </div>
+
+    <!-- Numbers with caveats -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> The Numbers (ElevenLabs-Run)
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        All headline benches below are vendor-internal FLEURS-style evals unless noted. Cite as "ElevenLabs reports."
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">REALTIME VS SCRIBE V2 REALTIME</div>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">Semantic WER improvement</span>
+              <span class="font-mono text-cyan-400">43% lower (blog)</span>
+            </div>
+            <div class="h-2.5 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-cyan-400" style="width:43%"></div>
+            </div>
+            <p class="text-[9px] text-secondary mt-1 mb-0">Docs/changelog sometimes say 44% on a 73-lang cut. Prefer "about 43-44%."</p>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">Word error rate (realtime)</span>
+              <span class="font-mono text-cyan-400">31% lower</span>
+            </div>
+            <div class="h-2.5 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-cyan-400/70" style="width:31%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+        <div class="rounded-xl border border-cyan-500/30 bg-cyan-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-cyan-400 font-bold mb-2">DIARIZATION · ENGLISH REALTIME</div>
+          <div class="text-2xl font-bold text-cyan-400 mb-1">3.1% DER</div>
+          <p class="text-[11px] text-foreground/70 mb-0">vs 5.9-7.3% other realtime models ElevenLabs tested. Aligned to reference first - not a raw cross-vendor shootout.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">BATCH SCRIBE V3 (SEPARATE)</div>
+          <p class="text-[11px] text-foreground/70 mb-0">27% fewer word errors vs v2 across 102 langs (blog). DER 12% fewer overall; 17% fewer on 3+ speakers.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-yellow-500/25 bg-yellow-500/[0.04] p-4">
+        <div class="text-[10px] font-mono text-yellow-400 font-bold mb-2">DO NOT OVERCLAIM</div>
+        <p class="text-[11px] text-foreground/70 mb-0">Not "most accurate realtime STT on earth." Not independent DER wins. Agents product: v3 Live is an <strong>option</strong>, not yet the Agents default per ElevenLabs FAQ.</p>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> Pricing Snapshot
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        API list prices. Add-ons stack.
+      </p>
+
+      <div class="rounded-xl border border-border overflow-hidden mb-4 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Item</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">List</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 text-xs text-foreground">Scribe v3 (batch)</td>
+              <td class="px-4 py-3 font-mono text-cyan-400 text-xs">$0.20 / hr</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs text-foreground">Scribe v3 Live</td>
+              <td class="px-4 py-3 font-mono text-cyan-400 text-xs">$0.22 / hr</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs text-foreground">Keyterm prompting (Live)</td>
+              <td class="px-4 py-3 font-mono text-secondary text-xs">$0.08 / hr</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs text-foreground">Keyterm library (Live, up to 10k)</td>
+              <td class="px-4 py-3 font-mono text-secondary text-xs">$0.08 / hr</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs text-foreground">Transcript editing (Live)</td>
+              <td class="px-4 py-3 font-mono text-secondary text-xs">$0.12 / hr</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-cyan-500/25 bg-cyan-500/[0.03] p-3 flex justify-between"><span class="text-[11px] text-foreground">v3 Live</span><span class="font-mono text-cyan-400 text-[11px]">$0.22/hr</span></div>
+        <div class="rounded-lg border border-border p-3 flex justify-between"><span class="text-[11px] text-foreground">v3 batch</span><span class="font-mono text-secondary text-[11px]">$0.20/hr</span></div>
+      </div>
+
+      <p class="text-[11px] text-secondary mb-0">Enterprise: US default residency; EU / India / Singapore options; Zero Retention; HIPAA-eligible with BAA.</p>
+    </div>
+
+    <!-- Decision -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-cyan-400 font-mono text-sm">#</span> When To Reach For It
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Upgrade path is usually a model ID + flags - not a full rewrite.
+      </p>
+
+      <div class="rounded-xl border border-border overflow-hidden mb-4 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary w-28">Signal</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Use v3 Live</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Stay / elsewhere</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 text-xs font-bold text-foreground">Need</td>
+              <td class="px-4 py-3 text-secondary text-xs">Live STT + speaker labels + agent turns</td>
+              <td class="px-4 py-3 text-secondary text-xs">Offline batch only → <code class="text-[10px]">scribe_v3</code></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs font-bold text-foreground">Stack</td>
+              <td class="px-4 py-3 text-secondary text-xs">Already on ElevenLabs realtime WS</td>
+              <td class="px-4 py-3 text-secondary text-xs">Deep custom ASR pipeline with own evals</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs font-bold text-foreground">Proof</td>
+              <td class="px-4 py-3 text-secondary text-xs">Run mic demo + your 2-speaker clip</td>
+              <td class="px-4 py-3 text-secondary text-xs">Need independent DER before buying</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md:hidden space-y-2">
+        <div class="rounded-lg border border-cyan-500/25 bg-cyan-500/[0.03] p-3">
+          <div class="text-[10px] font-mono text-cyan-400 mb-1">USE V3 LIVE</div>
+          <p class="text-[11px] text-secondary mb-0">Realtime + speakers + turn_prediction on ElevenLabs stack.</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-secondary mb-1">ELSE</div>
+          <p class="text-[11px] text-secondary mb-0">Batch-only → scribe_v3. Own ASR + independent evals → measure first.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-cyan-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>Scribe v3 Live is a one-line model upgrade with a public mic to prove it.</strong> Take ElevenLabs' 43% semantic-WER and 3.1% EN DER claims as vendor numbers, flip on <code class="text-xs">diarize</code> + <code class="text-xs">turn_prediction</code> for agent work, and experiment on free credits before rewriting the stack. Try the demo first - then decide.
+      </p>
+    </div>
+
+    <!-- Final CTA try again -->
+    <div class="max-w-3xl mb-8 md:mb-10 flex flex-col sm:flex-row gap-3">
+      <a href="https://elevenlabs.io/realtime-speech-to-text" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-cyan-500/15 border border-cyan-500/40 text-sm font-mono text-cyan-300 hover:bg-cyan-500/25 transition-colors">
+        Try mic demo
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+      <a href="https://elevenlabs.io/docs/eleven-api/guides/how-to/speech-to-text/realtime/client-side-streaming" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border text-sm font-mono text-secondary hover:text-cyan-400 hover:border-cyan-500/30 transition-colors">
+        Build with API docs
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+    </div>
+
+    <NextEpisodeTeaser current={63} />
+
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-cyan-400 hover:border-cyan-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-400 hover:bg-cyan-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
