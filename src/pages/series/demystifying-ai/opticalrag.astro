@@ -1,0 +1,737 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import NextEpisodeTeaser from '../../../components/NextEpisodeTeaser.astro';
+---
+
+<BaseLayout
+  title="OpticalRAG: RAG in 16 Visual Tokens | Demystifying AI in 5 Minutes"
+  description="OpticalRAG renders documents as page images and distills retrieval into 16 query-conditioned tokens - winning compression-aware accuracy on LongBench-v2."
+  image="/og-series-ep59-opticalrag.png"
+  keywords="OpticalRAG, pixel-space RAG, visual tokens, LongBench-v2, CAP, NeurIPS 2026, arXiv 2611.13675, Qwen2.5, DeepEncoder, Encoder-Bridged Retrieval, Query-Driven Distillation"
+  publishedDate="2026-11-18"
+  articleSection="Demystifying AI"
+  articleTags={["OpticalRAG", "RAG", "Visual Tokens", "LongBench-v2", "NeurIPS 2026", "arXiv"]}
+>
+
+  <style>
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(139, 92, 246, 0.15); }
+    .viz-card { transition: all 0.3s ease; }
+    .viz-card:hover { transform: translateY(-2px); box-shadow: 0 0 16px rgba(139, 92, 246, 0.12); }
+    .bar-fill { transition: width 0.6s ease; }
+  </style>
+
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="absolute inset-0 bg-gradient-to-b from-violet-500/[0.04] via-background to-background"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.06)_0%,transparent_60%)]"></div>
+
+    <div class="relative container-main max-w-4xl pt-20 pb-10">
+      <a href="/series/demystifying-ai" class="inline-flex items-center gap-2 text-xs text-secondary hover:text-violet-400 transition-colors mb-8 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        cd ~/series/demystifying-ai
+      </a>
+
+      <div class="rounded-xl overflow-hidden border border-border mb-8">
+        <img src="/series/ep59-opticalrag.png" alt="OpticalRAG: RAG in 16 Visual Tokens" class="w-full h-auto block" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
+        <span class="flex items-center gap-1.5 text-[10px] text-violet-400 font-mono bg-violet-500/5 border border-violet-500/20 px-2 py-1 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          EP 59
+        </span>
+        <a href="https://arxiv.org/abs/2611.13675" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-full hover:bg-violet-500/20 hover:border-violet-500/40 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 7l3 5-3 5M15 7l-3 5 3 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          arXiv: 2611.13675
+          <svg class="w-2.5 h-2.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <span class="text-[10px] text-secondary font-mono">Nov 18, 2026</span>
+        <span class="text-[10px] text-secondary font-mono">5 min</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-3">
+        OpticalRAG: RAG in 16 Visual Tokens
+      </h1>
+      <p class="text-sm md:text-base text-secondary max-w-2xl mb-2">
+        Pixel-space compression for retrieval. Render the page, keep 16 query-conditioned tokens, beat text compressors on LongBench-v2.
+      </p>
+
+      <ShareButtons title="OpticalRAG: RAG in 16 Visual Tokens" url="/series/demystifying-ai/opticalrag" />
+    </div>
+  </section>
+
+  <article class="container-main max-w-4xl py-8 md:py-10 overflow-hidden">
+
+    <!-- TL;DR -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 mb-8 md:mb-10 max-w-3xl">
+      <span class="text-xs font-mono text-violet-400 font-bold">// TL;DR</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>OpticalRAG</strong> (Liu et al., NeurIPS 2026 / arXiv:2611.13675) argues the RAG bottleneck is the <strong>compression modality</strong>, not raw information density. It renders docs as page images, encodes with a frozen ViT, retrieves via <strong>Encoder-Bridged Retrieval</strong> (no contrastive training), then <strong>Query-Driven Distillation</strong> packs the hit into <strong>16</strong> prefix tokens for frozen Qwen2.5-7B-Instruct. LongBench-v2: <strong>35.79</strong> vs closed-book <strong>30.62</strong> (<strong>+5.17</strong>). Best CAP on all three benches.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-10 max-w-3xl">
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">16</div>
+        <div class="text-[10px] font-mono text-secondary">Prefix tokens</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">+5.17</div>
+        <div class="text-[10px] font-mono text-secondary">LongBench-v2 lift</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">55.67</div>
+        <div class="text-[10px] font-mono text-secondary">Avg CAP (best)</div>
+      </div>
+      <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 text-center stat-card">
+        <div class="text-xl md:text-2xl font-bold text-violet-400 mb-1">0</div>
+        <div class="text-[10px] font-mono text-secondary">Contrastive pretrain</div>
+      </div>
+    </div>
+
+    <!-- Problem: modality bottleneck -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> The Bottleneck Is the Modality
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Feeding long docs into the LLM is expensive. Aggressive <strong>text</strong> compression throws away layout, tables, and fine detail that a 1D token stream cannot keep. OpticalRAG says that is a <strong>modality choice</strong>, not a hard information limit.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-3">TEXT COMPRESSION PATH</div>
+          <div class="flex flex-col gap-2 mb-3">
+            <div class="rounded-lg border border-border bg-[#161b22] px-3 py-2 text-[10px] font-mono text-foreground/70">PDF / pages</div>
+            <div class="text-center text-[10px] text-secondary">↓ OCR / chunk</div>
+            <div class="rounded-lg border border-border bg-[#161b22] px-3 py-2 text-[10px] font-mono text-foreground/70">1D token stream</div>
+            <div class="text-center text-[10px] text-secondary">↓ prune / summarize</div>
+            <div class="rounded-lg border border-yellow-500/30 bg-yellow-500/[0.04] px-3 py-2 text-[10px] font-mono text-yellow-400">Hundreds of tokens · layout gone</div>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Once structure is flattened to text, compressors cannot recover tables and figures cleanly.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-3">PIXEL COMPRESSION PATH</div>
+          <div class="flex flex-col gap-2 mb-3">
+            <div class="rounded-lg border border-violet-500/20 bg-[#161b22] px-3 py-2 text-[10px] font-mono text-foreground/70">PDF / pages</div>
+            <div class="text-center text-[10px] text-violet-400">↓ render images</div>
+            <div class="rounded-lg border border-violet-500/20 bg-[#161b22] px-3 py-2 text-[10px] font-mono text-foreground/70">Frozen ViT (~100 visual toks / page)</div>
+            <div class="text-center text-[10px] text-violet-400">↓ query distill</div>
+            <div class="rounded-lg border border-violet-500/40 bg-violet-500/10 px-3 py-2 text-[10px] font-mono text-violet-400 font-bold">16 prefix tokens · layout kept</div>
+          </div>
+          <p class="text-[10px] text-secondary mb-0">Modern visual encoders pack a rendered page with little semantic loss - a tradeoff text alone cannot match.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Classic vs OpticalRAG -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Classic RAG vs OpticalRAG
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Same job: retrieve evidence, answer with an LLM. Different thing stuffed into the prompt.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-3">CLASSIC TEXT RAG</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center text-[9px] font-mono text-secondary shrink-0">1</span>
+              <span class="text-[11px] text-foreground/80">Embed query in text space</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center text-[9px] font-mono text-secondary shrink-0">2</span>
+              <span class="text-[11px] text-foreground/80">Retrieve text chunks</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center text-[9px] font-mono text-secondary shrink-0">3</span>
+              <span class="text-[11px] text-foreground/80">Paste chunks into context</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center text-[9px] font-mono text-secondary shrink-0">4</span>
+              <span class="text-[11px] text-foreground/80">LLM answers on a fat prompt</span>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-3">OPTICALRAG</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-[9px] font-mono text-violet-400 shrink-0">1</span>
+              <span class="text-[11px] text-foreground/80">Render docs → page images</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-[9px] font-mono text-violet-400 shrink-0">2</span>
+              <span class="text-[11px] text-foreground/80">Bridge query into visual space</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-[9px] font-mono text-violet-400 shrink-0">3</span>
+              <span class="text-[11px] text-foreground/80">Distill retrieved visuals → 16 toks</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-[9px] font-mono text-violet-400 shrink-0">4</span>
+              <span class="text-[11px] text-foreground/80">LLM answers on a tiny prefix</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full architecture -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> System Architecture
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Five stages. Two frozen giants. One small trainable middle.
+      </p>
+
+      <!-- Desktop architecture flow -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">END-TO-END FLOW</div>
+
+        <div class="hidden md:block space-y-3">
+          <!-- Row: corpus -->
+          <div class="flex items-stretch gap-2">
+            <div class="w-28 shrink-0 flex items-center">
+              <span class="text-[10px] font-mono text-secondary">CORPUS</span>
+            </div>
+            <div class="flex-1 grid grid-cols-3 gap-2">
+              <div class="rounded-lg border border-border bg-[#161b22] p-3 text-center">
+                <div class="text-[10px] font-bold text-foreground mb-1">Docs</div>
+                <div class="text-[9px] text-secondary">PDF / HTML / pages</div>
+              </div>
+              <div class="rounded-lg border border-border bg-[#161b22] p-3 text-center flex flex-col justify-center">
+                <div class="text-[9px] text-violet-400 font-mono mb-1">render →</div>
+                <div class="text-[10px] font-bold text-foreground">Page images</div>
+              </div>
+              <div class="rounded-lg border border-yellow-500/25 bg-yellow-500/[0.04] p-3 text-center">
+                <div class="text-[9px] font-mono text-yellow-400 mb-1">FROZEN</div>
+                <div class="text-[10px] font-bold text-foreground">DeepEncoder ViT</div>
+                <div class="text-[9px] text-secondary mt-1">~100 visual toks / page</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <div class="text-[10px] font-mono text-violet-400">↓ visual index</div>
+          </div>
+
+          <!-- Row: query -->
+          <div class="flex items-stretch gap-2">
+            <div class="w-28 shrink-0 flex items-center">
+              <span class="text-[10px] font-mono text-secondary">QUERY</span>
+            </div>
+            <div class="flex-1 grid grid-cols-3 gap-2">
+              <div class="rounded-lg border border-border bg-[#161b22] p-3 text-center">
+                <div class="text-[10px] font-bold text-foreground mb-1">Text query</div>
+                <div class="text-[9px] text-secondary">user question</div>
+              </div>
+              <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] p-3 text-center">
+                <div class="text-[9px] font-mono text-violet-400 mb-1">TRAIN</div>
+                <div class="text-[10px] font-bold text-foreground">Encoder Bridge</div>
+                <div class="text-[9px] text-secondary mt-1">project → visual space</div>
+              </div>
+              <div class="rounded-lg border border-border bg-[#161b22] p-3 text-center">
+                <div class="text-[10px] font-bold text-foreground mb-1">Top-k pages</div>
+                <div class="text-[9px] text-secondary">retrieved visuals</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <div class="text-[10px] font-mono text-violet-400">↓ Query-Driven Distillation</div>
+          </div>
+
+          <!-- Row: compress + LLM -->
+          <div class="flex items-stretch gap-2">
+            <div class="w-28 shrink-0 flex items-center">
+              <span class="text-[10px] font-mono text-secondary">ANSWER</span>
+            </div>
+            <div class="flex-1 grid grid-cols-3 gap-2">
+              <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] p-3 text-center">
+                <div class="text-[9px] font-mono text-violet-400 mb-1">TRAIN</div>
+                <div class="text-[10px] font-bold text-foreground">Compressor</div>
+                <div class="text-[9px] text-secondary mt-1">cross-attn · 256 → 16</div>
+              </div>
+              <div class="rounded-lg border border-violet-500/40 bg-violet-500/10 p-3 text-center">
+                <div class="text-[10px] font-bold text-violet-400 mb-1">16 prefix toks</div>
+                <div class="text-[9px] text-secondary">query-conditioned</div>
+              </div>
+              <div class="rounded-lg border border-yellow-500/25 bg-yellow-500/[0.04] p-3 text-center">
+                <div class="text-[9px] font-mono text-yellow-400 mb-1">FROZEN</div>
+                <div class="text-[10px] font-bold text-foreground">Qwen2.5-7B</div>
+                <div class="text-[9px] text-secondary mt-1">Instruct · answers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile architecture -->
+        <div class="md:hidden space-y-2">
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-[9px] font-mono text-secondary mb-1">01 · RENDER</div>
+            <div class="text-xs font-bold text-foreground">Docs → page images → frozen DeepEncoder</div>
+          </div>
+          <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.04] p-3">
+            <div class="text-[9px] font-mono text-violet-400 mb-1">02 · BRIDGE (TRAIN)</div>
+            <div class="text-xs font-bold text-foreground">Text query projected into visual feature space</div>
+          </div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-[9px] font-mono text-secondary mb-1">03 · RETRIEVE</div>
+            <div class="text-xs font-bold text-foreground">Top-k visual pages / tokens from the index</div>
+          </div>
+          <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.04] p-3">
+            <div class="text-[9px] font-mono text-violet-400 mb-1">04 · DISTILL (TRAIN)</div>
+            <div class="text-xs font-bold text-foreground">Cross-attn compressor: 256 → 16 prefix tokens</div>
+          </div>
+          <div class="rounded-lg border border-yellow-500/25 bg-yellow-500/[0.04] p-3">
+            <div class="text-[9px] font-mono text-yellow-400 mb-1">05 · GENERATE (FROZEN)</div>
+            <div class="text-xs font-bold text-foreground">Qwen2.5-7B-Instruct reads the 16-token prefix</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frozen vs train legend -->
+      <div class="grid grid-cols-2 gap-3 mb-2">
+        <div class="rounded-xl border border-yellow-500/25 bg-yellow-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-yellow-400 font-bold mb-2">FROZEN (DO NOT TRAIN)</div>
+          <ul class="text-[11px] text-foreground/70 space-y-1.5 mb-0 list-none pl-0">
+            <li class="flex gap-2"><span class="text-yellow-400">→</span><span>DeepEncoder / ViT</span></li>
+            <li class="flex gap-2"><span class="text-yellow-400">→</span><span>Qwen2.5-7B-Instruct</span></li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-2">TRAINABLE (SMALL)</div>
+          <ul class="text-[11px] text-foreground/70 space-y-1.5 mb-0 list-none pl-0">
+            <li class="flex gap-2"><span class="text-violet-400">→</span><span>Encoder Bridge projection</span></li>
+            <li class="flex gap-2"><span class="text-violet-400">→</span><span>Query-Driven Distillation</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-[11px] text-secondary mt-3 mb-0">
+        Plug-in stack: keep the backbone, train the bridge + compressor only. No expensive vision-language contrastive pretraining.
+      </p>
+    </div>
+
+    <!-- Ingredient 1: Encoder-Bridged Retrieval -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Ingredient 1: Encoder-Bridged Retrieval
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        The hard part of pixel RAG: the user types <strong>text</strong>, the index holds <strong>visual</strong> features. OpticalRAG does not train a CLIP-style dual encoder from scratch.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-4">
+        <div class="text-[10px] font-mono text-secondary mb-4">TEXT QUERY → VISUAL SPACE (NO CONTRASTIVE)</div>
+        <div class="hidden md:grid grid-cols-5 gap-2 items-center">
+          <div class="rounded-lg border border-border bg-[#161b22] p-3 text-center">
+            <div class="text-[10px] font-bold text-foreground">"What is X?"</div>
+            <div class="text-[9px] text-secondary mt-1">text query</div>
+          </div>
+          <div class="text-center text-[10px] font-mono text-violet-400">→ states</div>
+          <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] p-3 text-center">
+            <div class="text-[10px] font-bold text-foreground">Shared projection</div>
+            <div class="text-[9px] text-secondary mt-1">same as compressor</div>
+          </div>
+          <div class="text-center text-[10px] font-mono text-violet-400">→ match</div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3 text-center">
+            <div class="text-[10px] font-bold text-foreground">Visual index</div>
+            <div class="text-[9px] text-secondary mt-1">page features</div>
+          </div>
+        </div>
+        <div class="md:hidden space-y-2">
+          <div class="rounded-lg border border-border bg-[#161b22] p-3 text-[11px] text-foreground/80">Text query states</div>
+          <div class="text-center text-[10px] font-mono text-violet-400">↓ shared projection (also used by compressor)</div>
+          <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] p-3 text-[11px] text-foreground/80">Projected into frozen ViT feature space</div>
+          <div class="text-center text-[10px] font-mono text-violet-400">↓ nearest neighbors</div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3 text-[11px] text-foreground/80">Retrieved visual tokens / pages</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">USUAL APPROACH</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Train contrastive text-image pairs so query and page live in one space. Expensive. Separate from the compressor.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-2">OPTICALRAG BRIDGE</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Project query states into the <strong>already frozen</strong> visual feature space with a projection <strong>shared with the compressor</strong>. Retrieve without a second contrastive stage.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ingredient 2: Query-Driven Distillation -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Ingredient 2: Query-Driven Distillation
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Retrieved pages still cost too many visual tokens. A lightweight cross-attention compressor condenses them into a <strong>query-conditioned</strong> prefix the LLM can actually afford.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">COMPRESSION FUNNEL · 256 → 16</div>
+
+        <!-- Wide input -->
+        <div class="rounded-lg border border-border bg-[#161b22] px-3 py-3 mb-2">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="text-[10px] font-mono text-secondary">RETRIEVED VISUAL FEATURES</span>
+            <span class="text-[10px] font-mono text-foreground">256</span>
+          </div>
+          <div class="h-8 rounded bg-secondary/20 border border-border overflow-hidden flex">
+            <div class="flex-1 bg-secondary/30 border-r border-border/50"></div>
+            <div class="flex-1 bg-secondary/25 border-r border-border/50"></div>
+            <div class="flex-1 bg-secondary/30 border-r border-border/50"></div>
+            <div class="flex-1 bg-secondary/20 border-r border-border/50"></div>
+            <div class="flex-1 bg-secondary/30 border-r border-border/50"></div>
+            <div class="flex-1 bg-secondary/25 border-r border-border/50"></div>
+            <div class="flex-1 bg-secondary/30 border-r border-border/50"></div>
+            <div class="flex-1 bg-secondary/20"></div>
+          </div>
+          <p class="text-[9px] text-secondary mt-2 mb-0">Dense pack from retrieved page images (schematic width = budget before distill).</p>
+        </div>
+
+        <div class="flex justify-center my-2">
+          <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] px-4 py-2 text-center">
+            <div class="text-[10px] font-mono text-violet-400 font-bold">Query-Driven Distillation</div>
+            <div class="text-[9px] text-secondary mt-0.5">cross-attn · query = Q · visuals = KV</div>
+          </div>
+        </div>
+
+        <!-- Narrow output: 4x4 labeled tokens -->
+        <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.04] px-3 py-3 max-w-sm mx-auto">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="text-[10px] font-mono text-violet-400">PREFIX TOKENS</span>
+            <span class="text-[10px] font-mono text-violet-400 font-bold">16</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5">
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v1</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v2</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v3</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v4</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v5</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v6</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v7</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v8</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v9</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v10</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v11</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v12</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v13</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v14</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v15</div>
+            <div class="rounded border border-violet-500/40 bg-violet-500/20 py-1.5 text-center text-[9px] font-mono text-violet-400">v16</div>
+          </div>
+          <p class="text-[9px] text-violet-400/80 text-center mt-2 mb-0 font-mono">query-conditioned · injected as prefix</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-violet-500/20 bg-[#161b22] p-4 md:p-5 overflow-x-auto mb-2">
+        <div class="text-[10px] font-mono text-violet-400 font-bold mb-3">WHAT THE LLM ACTUALLY SEES</div>
+        <pre class="text-[11px] font-mono leading-relaxed"><span class="text-secondary">[</span><span class="text-violet-400">v1 v2 ... v16</span><span class="text-secondary">]</span>  <span class="text-secondary">&lt;- 16 distilled visual prefixes</span>
+<span class="text-cyan-400">User:</span> <span class="text-foreground/80">What does Table 3 report for X?</span>
+<span class="text-cyan-400">Assistant:</span> <span class="text-secondary">...</span></pre>
+      </div>
+      <p class="text-[11px] text-secondary mb-0">
+        Not a generic summary of the page. The 16 tokens are shaped by the <strong>query</strong>, so different questions pull different evidence from the same pages.
+      </p>
+    </div>
+
+    <!-- Token budget -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> Why 16 Tokens Matter
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Context windows grew. Cost and latency did not vanish. Compression is how RAG stays useful when every retrieved chunk eats budget.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-2">
+        <div class="text-[10px] font-mono text-secondary mb-4">CONTEXT BUDGET (ILLUSTRATIVE SCALE)</div>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">Raw multi-page RAG dump</span>
+              <span class="font-mono text-secondary">thousands</span>
+            </div>
+            <div class="h-2.5 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-secondary/40" style="width:100%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">Text compressors (RECOMP / LLMLingua-style)</span>
+              <span class="font-mono text-secondary">hundreds</span>
+            </div>
+            <div class="h-2.5 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-violet-400/50" style="width:35%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80"><strong class="text-violet-400">OpticalRAG prefix</strong></span>
+              <span class="font-mono text-violet-400">16</span>
+            </div>
+            <div class="h-2.5 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-violet-400" style="width:4%"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">Bar widths are relative for the article, not a paper-reported exact count for every baseline.</p>
+      </div>
+    </div>
+
+    <!-- CAP explained -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> How to Read CAP
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Raw accuracy alone rewards fat prompts. <strong>CAP</strong> (compression-aware performance) rewards methods that beat closed-book <strong>while staying cheap</strong>.
+      </p>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-4">
+        <div class="text-[10px] font-mono text-secondary mb-3">INTUITION</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-lg font-bold text-foreground mb-1">S</div>
+            <div class="text-[10px] text-secondary">method score</div>
+          </div>
+          <div class="rounded-lg border border-border bg-[#161b22] p-3">
+            <div class="text-lg font-bold text-foreground mb-1">S₀</div>
+            <div class="text-[10px] text-secondary">closed-book score</div>
+          </div>
+          <div class="rounded-lg border border-violet-500/30 bg-violet-500/[0.06] p-3">
+            <div class="text-lg font-bold text-violet-400 mb-1">CAP ↑</div>
+            <div class="text-[10px] text-secondary">when S &gt; S₀ on a tiny budget</div>
+          </div>
+        </div>
+        <p class="text-[11px] text-secondary mt-3 mb-0">
+          The paper still reports raw S even when S &lt; S₀. The compression <strong>bonus</strong> only kicks in when retrieval actually helps.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-[10px] font-mono text-secondary font-bold mb-2">HIGH RAW, LOW CAP</div>
+          <p class="text-[11px] text-foreground/70 mb-0">Paste a novel into context. Accuracy up a bit. Token bill huge. CAP stays modest.</p>
+        </div>
+        <div class="rounded-xl border border-violet-500/30 bg-violet-500/[0.04] p-4 viz-card">
+          <div class="text-[10px] font-mono text-violet-400 font-bold mb-2">OPTICALRAG STYLE</div>
+          <p class="text-[11px] text-foreground/70 mb-0">+5.17 on LongBench-v2 with 16 tokens. That is the CAP story - lift per budget.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benchmarks -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> What the Paper Measured
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-2">
+        Authors: <strong>Senhao Liu, Yuheng Zhang, Chunyu Wei, Yueguo Chen, Xinran Zhang</strong> (Renmin University of China). Accepted at NeurIPS 2026. Same backbone for comparisons: Qwen2.5-7B-Instruct. Eval is multiple-choice long-context style.
+      </p>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Code: <a href="https://github.com/brighterr/OpticalRAG" target="_blank" rel="noopener noreferrer" class="text-violet-400 hover:underline">github.com/brighterr/OpticalRAG</a>.
+      </p>
+
+      <!-- LongBench lift visual -->
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5 mb-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">LONGBENCH-V2 · SAME BACKBONE</div>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-foreground/80">Closed-book Qwen2.5-7B</span>
+              <span class="font-mono text-secondary">30.62</span>
+            </div>
+            <div class="h-3 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-secondary/50" style="width:85.5%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-violet-400 font-bold">OpticalRAG (16 toks)</span>
+              <span class="font-mono text-violet-400">35.79 · +5.17</span>
+            </div>
+            <div class="h-3 rounded-full bg-border overflow-hidden">
+              <div class="bar-fill h-full rounded-full bg-violet-400" style="width:100%"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">Bar widths relative to OpticalRAG 35.79. CAP on this bench: <strong>49.68</strong> (best).</p>
+      </div>
+
+      <div class="rounded-xl border border-border overflow-hidden mb-5 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Bench</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Score</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Len</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">CAP</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Read carefully</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 text-foreground/90 text-xs font-bold">LongBench-v2</td>
+              <td class="px-4 py-3 font-mono text-violet-400 text-xs">35.79</td>
+              <td class="px-4 py-3 font-mono text-secondary text-xs">16</td>
+              <td class="px-4 py-3 font-mono text-violet-400 text-xs">49.68</td>
+              <td class="px-4 py-3 text-secondary text-xs">Best raw + CAP vs closed-book 30.62</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-foreground/90 text-xs font-bold">BAMBOO</td>
+              <td class="px-4 py-3 font-mono text-violet-400 text-xs">61.00</td>
+              <td class="px-4 py-3 font-mono text-secondary text-xs">16</td>
+              <td class="px-4 py-3 font-mono text-violet-400 text-xs">84.67</td>
+              <td class="px-4 py-3 text-secondary text-xs">Best CAP; raw trails RECOMP / LLMLingua-v2</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-foreground/90 text-xs font-bold">LooGLE-v2</td>
+              <td class="px-4 py-3 font-mono text-violet-400 text-xs">23.54</td>
+              <td class="px-4 py-3 font-mono text-secondary text-xs">16</td>
+              <td class="px-4 py-3 font-mono text-violet-400 text-xs">32.67</td>
+              <td class="px-4 py-3 text-secondary text-xs">Best raw + CAP; xRAG CAP near-tie (32.54)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-5">
+        <div class="rounded-lg border border-violet-500/25 bg-violet-500/[0.03] p-3">
+          <div class="text-[10px] font-mono text-violet-400 mb-1">LONGBENCH-V2 · 35.79 / CAP 49.68</div>
+          <p class="text-[11px] text-secondary mb-0">Closed-book 30.62 (+5.17). Best raw + CAP at 16 tokens.</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-violet-400 mb-1">BAMBOO · 61.00 / CAP 84.67</div>
+          <p class="text-[11px] text-secondary mb-0">Win is CAP, not raw accuracy vs RECOMP / LLMLingua-v2.</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-violet-400 mb-1">LOOGLE-V2 · 23.54 / CAP 32.67</div>
+          <p class="text-[11px] text-secondary mb-0">Best raw + CAP; xRAG CAP 32.54 is a near-tie on 1 token.</p>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-elevated p-4 md:p-5">
+        <div class="text-[10px] font-mono text-secondary mb-4">AVG CAP · THREE BENCHES</div>
+        <div class="flex items-end gap-3 h-32">
+          <div class="flex-1 flex flex-col justify-end items-center gap-1 h-full">
+            <span class="text-[10px] font-mono text-violet-400 font-bold">55.67</span>
+            <div class="w-full rounded-t-md bg-violet-400" style="height:100%"></div>
+            <span class="text-[9px] font-mono text-secondary text-center">OpticalRAG</span>
+          </div>
+          <div class="flex-1 flex flex-col justify-end items-center gap-1 h-full">
+            <span class="text-[10px] font-mono text-secondary/60">↓</span>
+            <div class="w-full rounded-t-md bg-border" style="height:72%"></div>
+            <span class="text-[9px] font-mono text-secondary text-center">Text comps.</span>
+          </div>
+          <div class="flex-1 flex flex-col justify-end items-center gap-1 h-full">
+            <span class="text-[10px] font-mono text-secondary/60">↓</span>
+            <div class="w-full rounded-t-md bg-border" style="height:58%"></div>
+            <span class="text-[9px] font-mono text-secondary text-center">1-tok RAG</span>
+          </div>
+        </div>
+        <p class="text-[10px] text-secondary mt-3 mb-0">OpticalRAG avg CAP <strong>55.67</strong> is best among compared methods. Neighbor bars are schematic relative height.</p>
+      </div>
+    </div>
+
+    <!-- Decision -->
+    <div class="max-w-3xl mb-10 md:mb-12">
+      <h2 class="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+        <span class="text-violet-400 font-mono text-sm">#</span> When This Matters for You
+      </h2>
+      <p class="text-sm text-secondary leading-relaxed mb-5">
+        Not a universal "replace every RAG stack" paper. It is a sharp bet on <strong>layout-heavy docs + tiny context budgets</strong>.
+      </p>
+
+      <div class="rounded-xl border border-border overflow-hidden mb-4 hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary w-28">Situation</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Lean OpticalRAG-style</th>
+              <th class="px-4 py-3 text-[10px] font-mono text-secondary">Stay on text RAG</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="px-4 py-3 text-xs font-bold text-foreground">Docs</td>
+              <td class="px-4 py-3 text-secondary text-xs">PDFs, slides, tables, mixed layout</td>
+              <td class="px-4 py-3 text-secondary text-xs">Clean markdown / code / chat logs</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs font-bold text-foreground">Budget</td>
+              <td class="px-4 py-3 text-secondary text-xs">Need handfuls of prefix tokens</td>
+              <td class="px-4 py-3 text-secondary text-xs">You can afford long retrieved text</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs font-bold text-foreground">Eval</td>
+              <td class="px-4 py-3 text-secondary text-xs">Multiple-choice long-context style</td>
+              <td class="px-4 py-3 text-secondary text-xs">Open-ended citation / quote-exact tasks</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-xs font-bold text-foreground">Ops</td>
+              <td class="px-4 py-3 text-secondary text-xs">Can render pages + run a ViT bridge</td>
+              <td class="px-4 py-3 text-secondary text-xs">Text index already shipped and tuned</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="md:hidden space-y-2 mb-4">
+        <div class="rounded-lg border border-violet-500/25 bg-violet-500/[0.03] p-3">
+          <div class="text-[10px] font-mono text-violet-400 mb-1">LEAN PIXEL RAG</div>
+          <p class="text-[11px] text-secondary mb-0">Layout-heavy PDFs, tiny token budgets, MC long-context evals, render pipeline available.</p>
+        </div>
+        <div class="rounded-lg border border-border p-3">
+          <div class="text-[10px] font-mono text-secondary mb-1">STAY ON TEXT</div>
+          <p class="text-[11px] text-secondary mb-0">Clean text corpora, fat context OK, need exact quotes, text index already production.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="rounded-xl border border-violet-500/25 bg-violet-500/[0.03] p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">Do credit</div>
+          <p class="text-[11px] text-foreground/60 mb-0">CAP wins on all three benches. LongBench-v2 raw +5.17 at 16 tokens. Frozen backbone + shared bridge design.</p>
+        </div>
+        <div class="rounded-xl border border-border bg-elevated p-4 viz-card">
+          <div class="text-xs font-bold text-foreground mb-2">Do not overclaim</div>
+          <p class="text-[11px] text-foreground/60 mb-0">BAMBOO raw is not the win. Eval is multiple-choice. Not "beats all RAG in production."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="rounded-xl border border-violet-500/20 bg-violet-500/[0.03] p-4 md:p-6 max-w-3xl mb-8 md:mb-10">
+      <span class="text-xs font-mono text-violet-400 font-bold">// Bottom Line</span>
+      <p class="text-sm text-foreground/90 leading-relaxed mt-3 mb-0">
+        <strong>RAG does not have to mean dumping text into the prompt.</strong> OpticalRAG shows page images + Encoder-Bridged Retrieval + Query-Driven Distillation can land a LongBench-v2 <strong>+5.17</strong> in <strong>16</strong> tokens, with the best CAP across three benches - without contrastive vision-language pretraining. Treat it as a compression architecture win for layout-heavy retrieval. Then check open-ended tasks and production latency before ripping out the text index.
+      </p>
+    </div>
+
+    <NextEpisodeTeaser current={59} />
+
+    <div class="max-w-3xl mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-border bg-elevated">
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-0.5">Enjoyed this?</p>
+        <p class="text-xs text-secondary">New episodes Mon, Wed, Sat.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/series/demystifying-ai" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs text-secondary hover:text-violet-400 hover:border-violet-500/30 transition-colors">All Episodes</a>
+        <a href="https://www.linkedin.com/in/mohdimran-khan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-xs text-violet-400 hover:bg-violet-500/20 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Follow
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+</BaseLayout>
