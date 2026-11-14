@@ -1,0 +1,385 @@
+[
+  {
+    "slug": "pvc-shadow-plant",
+    "title": "Propose-Validate-Correct Shadow-Plant Architecture for Safe AI Agents in Process Operations",
+    "shortTitle": "PVC Shadow-Plant Architecture",
+    "paperId": "SPE-235393-MS",
+    "doi": "10.2118/235393-MS",
+    "venue": "SPE-235393-MS · 2026 · ADIPEC 2026 · ABU DHABI",
+    "role": "First author",
+    "authors": "Mohammed Imran Khan¹,², Manju Khanna², Abhishek Shivkumar¹, Tuhin Sharma¹, Adinarayana Sakala¹, Nirav Kumar¹, Pranjalya Singh¹, Darshika Pundir¹, Atrik Ghosh¹",
+    "affiliations": "¹ Red Hat, Bengaluru, Karnataka, India · ² Amrita School of Computing, Amrita Vishwa Vidyapeetham, Bengaluru, Karnataka, India",
+    "hook": "Simulate the move before the plant feels it.",
+    "summary": "A safety layer where every agent action is tested on a shadow plant first. Unsafe proposals are rejected with feedback so the agent can correct itself - before anything reaches the real process.",
+    "abstract": "LLM agents can propose physically unsafe control actions in process plants. PVC is a framework-agnostic safety layer: every proposed action is simulated in a shadow plant before it can reach the real process. On OpsEnv (CSTR), shadow-equipped agents record zero actual violations across 282 PVC cells, intercept 1,552 unsafe proposals, and keep completion statistically on par with direct agents. Descriptive feedback lifts self-correction 3× versus binary reject. Plan-and-Execute with PVC runs 31× faster than ReAct with PVC for Gemini Flash.",
+    "problem": "LLM agents can hallucinate setpoints outside safe envelopes. Approve-everything restores the human bottleneck. Trust-everything lets unsafe moves hit the plant. Neither extreme works for safety-critical operations.",
+    "approach": "PVC inserts a physics-grounded shadow plant between the agent and the process. Propose → validate (forward simulate N=5 timesteps / 50 s) → correct with structured feedback (up to K=3 attempts), or escalate. Built on LangGraph + OpsEnv CSTR ODEs. Advisory layer only - not a replacement for certified SIS.",
+    "contributions": [
+      "PVC pattern: propose-validate-correct loop with configurable feedback granularity as a safety gate for LLM agents",
+      "Shadow plant: physics-grounded CSTR simulator for pre-execution validation",
+      "Structured agent output: JSON proposals in natural-language rationale with conservative parse fallbacks",
+      "Evidence from 440 experiment cells across 4 setups, 4 LLMs, 3 feedback levels, and 11 scenarios",
+      "Model-specific violation profiling showing order-of-magnitude differences in unsafe proposal rates"
+    ],
+    "method": [
+      "Benchmark: OpsEnv open-source CSTR (mass/energy/level ODEs, Arrhenius kinetics, PI cooling)",
+      "Setups: react_shadow, react_direct, plan_exec_shadow, plan_exec_direct",
+      "Models: Gemini 2.5 Flash (cloud); Qwen 2.5 32B, Llama 3.1 8B, Mistral 7B (Ollama 4-bit)",
+      "Feedback levels: binary, descriptive, suggested fix"
+    ],
+    "results": [
+      {
+        "value": "0",
+        "label": "actual violations on the real process across 282 PVC cells"
+      },
+      {
+        "value": "1,552",
+        "label": "unsafe proposals intercepted before execution"
+      },
+      {
+        "value": "3×",
+        "label": "higher self-correction with descriptive feedback vs binary"
+      },
+      {
+        "value": "31×",
+        "label": "faster wall time: Plan-and-Execute+PVC vs ReAct+PVC (Gemini)"
+      }
+    ],
+    "findings": [
+      "PVC eliminates actual plant violations for every model and architecture tested (282 shadow cells).",
+      "Without PVC, violation propensity spans 5.3 (Gemini) to 25.9 (Mistral) per react_direct cell - PVC normalizes safety across models.",
+      "Correction works in optimization (A-series SCSR 40.3%) but is conservative in upsets (B-series SCSR 0% at the 20% stability threshold).",
+      "Completion trade-off is negligible (Cohen's d = −0.053); CI spans zero. Formal equivalence not confirmed at current sample size.",
+      "81% of rejections are stability/trajectory-based - they need forward simulation, not static range checks alone."
+    ],
+    "tags": [
+      {
+        "label": "PVC",
+        "detail": "propose → validate → correct"
+      },
+      {
+        "label": "Shadow plant",
+        "detail": "physics sim before execution"
+      },
+      {
+        "label": "OpsEnv",
+        "detail": "open CSTR benchmark"
+      },
+      {
+        "label": "LangGraph",
+        "detail": "orchestration of the PVC loop"
+      }
+    ],
+    "onepetro": "https://onepetro.org/SPEADIP/proceedings/26ADIP/26ADIP/D021S080R001/809309",
+    "slides": "/research/slides/spe-235393-pvc.pptx?v=3",
+    "slideCount": 15,
+    "video": {
+      "status": "ready",
+      "title": "The Shadow Gate - AI Safety in Process Operations",
+      "note": "A walkthrough of the Propose-Validate-Correct shadow-plant architecture for safe AI agents.",
+      "src": "/research/videos/pvc-shadow-plant-explainer.mp4"
+    },
+    "pipeline": [
+      {
+        "step": "Propose",
+        "detail": "Agent emits JSON action"
+      },
+      {
+        "step": "Validate",
+        "detail": "Shadow plant forward-sim N=5"
+      },
+      {
+        "step": "Correct",
+        "detail": "Structured feedback, K≤3"
+      },
+      {
+        "step": "Execute / Escalate",
+        "detail": "Only safe moves reach the plant"
+      }
+    ],
+    "figures": [
+      {
+        "id": "Fig. 1",
+        "src": "/research/figures/pvc/fig1-architecture.png",
+        "title": "Propose-Validate-Correct architecture",
+        "caption": "Every agent-proposed control action is validated by the shadow plant before it can reach the real process. Unsafe proposals loop back with physics feedback (up to K=3), or escalate to an operator."
+      },
+      {
+        "id": "Fig. 2",
+        "src": "/research/figures/pvc/fig2-violations-heatmap.png",
+        "title": "Constraint exceedances by model and setup",
+        "caption": "Shadow-equipped setups record zero actual violations across every model. Without PVC, ReAct Direct drives most of the 1,128 baseline violations - Mistral 7B alone contributes 414."
+      },
+      {
+        "id": "Fig. 3",
+        "src": "/research/figures/pvc/fig3-completion.png",
+        "title": "Completion score by model and agent setup",
+        "caption": "Error bars show one standard deviation. PVC mean completion sits at 0.581; the completion trade-off versus direct agents is negligible (Cohen's d = -0.053)."
+      },
+      {
+        "id": "Fig. 4",
+        "src": "/research/figures/pvc/fig4-wall-time.png",
+        "title": "Mean wall time by model and setup (log scale)",
+        "caption": "Gray lines span the range of setup means per model. Plan-and-Execute with PVC is ~31× faster than ReAct with PVC for Gemini Flash, with the same zero-violation guarantee."
+      },
+      {
+        "id": "Fig. 5",
+        "src": "/research/figures/pvc/fig5-scsr.png",
+        "title": "Self-Correction Success Rate by feedback level",
+        "caption": "For Gemini Flash shadow agents (Tiers 1 and 2). Descriptive feedback lifts A-series SCSR from 16.7% to 50.9% (3.0×). Suggested-fix adds only +2.7 pp."
+      }
+    ],
+    "presenter": "Mohammed Imran Khan",
+    "authorList": [
+      {
+        "name": "Mohammed Imran Khan",
+        "aff": "1,2",
+        "presenter": true
+      },
+      {
+        "name": "Manju Khanna",
+        "aff": "2"
+      },
+      {
+        "name": "Abhishek Shivkumar",
+        "aff": "1"
+      },
+      {
+        "name": "Tuhin Sharma",
+        "aff": "1"
+      },
+      {
+        "name": "Adinarayana Sakala",
+        "aff": "1"
+      },
+      {
+        "name": "Nirav Kumar",
+        "aff": "1"
+      },
+      {
+        "name": "Pranjalya Singh",
+        "aff": "1"
+      },
+      {
+        "name": "Darshika Pundir",
+        "aff": "1"
+      },
+      {
+        "name": "Atrik Ghosh",
+        "aff": "1"
+      }
+    ],
+    "affiliationList": [
+      {
+        "id": "1",
+        "label": "Red Hat, Bengaluru, Karnataka, India"
+      },
+      {
+        "id": "2",
+        "label": "Amrita School of Computing, Amrita Vishwa Vidyapeetham, Bengaluru, Karnataka, India"
+      }
+    ],
+    "citation": "Mohammed Imran Khan, Manju Khanna, Abhishek Shivkumar, Tuhin Sharma, Adinarayana Sakala, Nirav Kumar, Pranjalya Singh, Darshika Pundir, and Atrik Ghosh. 2026. \"Propose-Validate-Correct Shadow-Plant Architecture for Safe AI Agents in Process Operations.\" Paper SPE-235393-MS. https://doi.org/10.2118/235393-MS"
+  },
+  {
+    "slug": "bounded-autonomy",
+    "title": "Bounded Autonomy: A Budget-Constrained Framework for AI Agent Operations Toward Safety-Critical Process Environments",
+    "shortTitle": "Bounded Autonomy",
+    "paperId": "SPE-236401-MS",
+    "doi": "10.2118/236401-MS",
+    "venue": "SPE-236401-MS · 2026 · ADIPEC 2026 · ABU DHABI",
+    "role": "First author",
+    "authors": "Mohammed Imran Khan¹,², Manju Khanna², Abhishek Shivkumar¹, Tuhin Sharma¹, Adinarayana Sakala¹, Nirav Kumar¹, Pranjalya Singh¹, Darshika Pundir¹, Atrik Ghosh¹",
+    "affiliations": "¹ Red Hat, Bengaluru, Karnataka, India · ² Amrita School of Computing, Amrita Vishwa Vidyapeetham, Bengaluru, Karnataka, India",
+    "hook": "Give the agent a budget. Not a blank check.",
+    "summary": "Instead of approve-everything or free rein, agents get hard limits on actions and how much they can change the process. Safer, faster, and cheaper to run.",
+    "abstract": "Bounded Autonomy constrains AI agents along four dimensions - tool calls, cumulative process perturbation, simulation timesteps, and checkpoint intervals - calibrated from one tightness knob. Pre-execution LangGraph middleware rejects over-budget actions. Across 7,100+ experiment cells on OpsEnv, tight budgets cut reactive safety-check rejections ~89% and token cost ~85% while completion retention centers on 100.8% (95% CI 90.9-111.5%). ReAct runs ~7× faster under tight budgets.",
+    "problem": "Agent governance in process plants is usually binary: full human approval (too slow) or free rein (too risky). There is no graduated way to quantify how much autonomy an agent should get, or to cap its physical impact on the process.",
+    "approach": "Four-dimensional autonomy budget B = (tool calls, perturbation, timesteps, checkpoint interval), derived from a single tightness multiplier on each scenario's Nopt. Middleware pre-checks every tool call, executes if within budget, updates counters, and checkpoints. Simulation-only rollback restores state when needed. Advisory layer below SIL 1 - always behind BPCS/SIS.",
+    "contributions": [
+      "Four-dimensional autonomy budget including physical process perturbation - not just tokens or API calls",
+      "Pre-execution LangGraph middleware that rejects over-budget actions before they reach the process",
+      "Empirical safety-completion trade-offs across 4 architectures, 4 budget levels, and 3 LLMs",
+      "Adaptive budget controller that redistributes remaining budget from completion, safety margin, and utilization signals",
+      "Checkpoint rollback evaluation (simulation only) with 1,295 triggers and 33.3% completion-improvement rate"
+    ],
+    "method": [
+      "Benchmark: OpsEnv CSTR - 12 optimization (A01-A12) + 8 disturbance (B01-B08) scenarios",
+      "Architectures: ReAct, Reflexion, Plan-and-Execute, Hybrid",
+      "Budget levels: unconstrained, loose (2.0×), tight (1.2×), minimal (1.0×) relative to Nopt",
+      "Models: Gemini 2.5 Flash; Qwen 2.5 32B and Llama 3.1 8B (Ollama)",
+      "7,100+ cells including Tier 1 (1,680), extended seeds, cross-model, ablation, and rollback suites"
+    ],
+    "results": [
+      {
+        "value": "~89%",
+        "label": "fewer safety-check rejections under tight budgets (reactive)"
+      },
+      {
+        "value": "~85%",
+        "label": "lower token cost with completion essentially unchanged"
+      },
+      {
+        "value": "7×",
+        "label": "wall-time reduction for ReAct under tight budgets"
+      },
+      {
+        "value": "100.8%",
+        "label": "pooled completion retention (95% CI 90.9-111.5%)"
+      }
+    ],
+    "findings": [
+      "Pooled completion retention centers on 100.8% with a worst-case CI bound of 9.1% loss - budgets do not tax task success on average.",
+      "Unconstrained agents often take ~5× more actions than necessary; excess actions can be counterproductive.",
+      "Architecture matters: reactive agents benefit most on safety and speed; Plan-and-Execute already uses short sequences and retains ~98.9%.",
+      "Some multi-step optimization tasks (e.g. A04 under ReAct) can lose up to 73 pp under very tight budgets - tightness is a knob, not a free lunch.",
+      "Perturbation is a distinct governance signal from tool-call counting - process impact, not just compute cost."
+    ],
+    "tags": [
+      {
+        "label": "Budgets",
+        "detail": "four limits on agent autonomy"
+      },
+      {
+        "label": "Perturbation",
+        "detail": "cap cumulative process change"
+      },
+      {
+        "label": "LangGraph",
+        "detail": "pre-execution reject middleware"
+      },
+      {
+        "label": "OpsEnv",
+        "detail": "20 CSTR scenarios"
+      }
+    ],
+    "onepetro": "https://onepetro.org/SPEADIP/proceedings/26ADIP/26ADIP/D021S080R007/809915",
+    "slides": "/research/slides/spe-236401-bounded-autonomy.pptx?v=3",
+    "slideCount": 10,
+    "video": {
+      "status": "ready",
+      "title": "Bounded Autonomy explainer",
+      "note": "A 4-minute walkthrough of the budget-constrained framework for AI agents in safety-critical process environments.",
+      "src": "/research/videos/bounded-autonomy-explainer.mp4"
+    },
+    "pipeline": [
+      {
+        "step": "Budget B",
+        "detail": "4 limits from one tightness knob"
+      },
+      {
+        "step": "Pre-check",
+        "detail": "Middleware rejects over-budget calls"
+      },
+      {
+        "step": "Execute",
+        "detail": "Update counters + checkpoints"
+      },
+      {
+        "step": "Rollback",
+        "detail": "Sim-only restore when needed"
+      }
+    ],
+    "figures": [
+      {
+        "id": "Fig. 1",
+        "src": "/research/figures/ba/fig1-architecture.png",
+        "title": "Bounded Autonomy architecture",
+        "caption": "Budget enforcement middleware intercepts every tool call. Over-budget proposals are rejected before they reach OpsEnv; approved actions update the remaining budget and may create checkpoints."
+      },
+      {
+        "id": "Alg. 1",
+        "src": "/research/figures/ba/alg1-middleware.png",
+        "title": "Budget Enforcement Middleware",
+        "caption": "Pre-execution checks on tool calls, perturbation, and timesteps; one-step safety simulation; checkpointing on interval Br."
+      },
+      {
+        "id": "Fig. 2",
+        "src": "/research/figures/ba/fig2-completion.png",
+        "title": "Mean completion by architecture and budget",
+        "caption": "Tier 1, static mode. Individual run scores overlaid. R&E baseline at 0.704. Tight budgets keep completion essentially on par with unconstrained."
+      },
+      {
+        "id": "Fig. 3",
+        "src": "/research/figures/ba/fig3-overshoot.png",
+        "title": "Overshoot effect under unconstrained budgets",
+        "caption": "(a) Under unconstrained conditions, actions and completion are weakly anti-correlated for ReAct (r = -0.22). (b) Paired per-scenario comparison: tight budgets often match or beat unconstrained completion."
+      },
+      {
+        "id": "Fig. 4",
+        "src": "/research/figures/ba/fig4-pareto.png",
+        "title": "Pareto frontier: completion vs safety violations",
+        "caption": "Tier 1, 960 static cells. Marker shape = architecture; fill = budget level. Unconstrained reactive agents sit at high violations; budgets pull them down the y-axis."
+      },
+      {
+        "id": "Fig. 5",
+        "src": "/research/figures/ba/fig5-violations-heatmap.png",
+        "title": "Mean safety violations heatmap",
+        "caption": "Tier 1, static mode. Unconstrained ReAct/Reflexion average ~9.6-9.7 violations; tight/minimal budgets cut that to ~1.1 / ~0.9."
+      },
+      {
+        "id": "Fig. 6",
+        "src": "/research/figures/ba/fig6-wall-time.png",
+        "title": "Mean wall time by architecture and budget",
+        "caption": "Log scale. Tight budgets cut ReAct wall time ~7× and Reflexion ~6.7× by stopping wasteful action loops."
+      },
+      {
+        "id": "Fig. 7",
+        "src": "/research/figures/ba/fig7-scenario-regime.png",
+        "title": "Per-scenario operating regime under tight budget",
+        "caption": "Tier 1, static mode, pooled across architectures. Left: mean completion. Right: mean safety violations. Optimization (A) stays near-zero violations; some disturbance (B) scenarios remain harder."
+      }
+    ],
+    "presenter": "Mohammed Imran Khan",
+    "authorList": [
+      {
+        "name": "Mohammed Imran Khan",
+        "aff": "1,2",
+        "presenter": true
+      },
+      {
+        "name": "Manju Khanna",
+        "aff": "2"
+      },
+      {
+        "name": "Abhishek Shivkumar",
+        "aff": "1"
+      },
+      {
+        "name": "Tuhin Sharma",
+        "aff": "1"
+      },
+      {
+        "name": "Adinarayana Sakala",
+        "aff": "1"
+      },
+      {
+        "name": "Nirav Kumar",
+        "aff": "1"
+      },
+      {
+        "name": "Pranjalya Singh",
+        "aff": "1"
+      },
+      {
+        "name": "Darshika Pundir",
+        "aff": "1"
+      },
+      {
+        "name": "Atrik Ghosh",
+        "aff": "1"
+      }
+    ],
+    "affiliationList": [
+      {
+        "id": "1",
+        "label": "Red Hat, Bengaluru, Karnataka, India"
+      },
+      {
+        "id": "2",
+        "label": "Amrita School of Computing, Amrita Vishwa Vidyapeetham, Bengaluru, Karnataka, India"
+      }
+    ],
+    "citation": "Mohammed Imran Khan, Manju Khanna, Abhishek Shivkumar, Tuhin Sharma, Adinarayana Sakala, Nirav Kumar, Pranjalya Singh, Darshika Pundir, and Atrik Ghosh. 2026. \"Bounded Autonomy: A Budget-Constrained Framework for AI Agent Operations Toward Safety-Critical Process Environments.\" Paper SPE-236401-MS. https://doi.org/10.2118/236401-MS"
+  }
+]

@@ -1,0 +1,252 @@
+---
+interface Props {
+  src: string;
+  title: string;
+  slideCount?: number;
+}
+
+const { src, title, slideCount } = Astro.props;
+const id = `deck-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<section class="pptx-native rounded-xl border border-border bg-elevated overflow-hidden" data-pptx-root data-src={src} data-title={title} id={id}>
+  <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-border">
+    <div>
+      <p class="text-xs font-mono text-green mb-0.5">// Slideshow</p>
+      <p class="text-sm text-foreground font-medium">{title}</p>
+      {slideCount && (
+        <p class="text-[10px] font-mono text-secondary mt-0.5" data-pptx-meta>{slideCount} slides · native playback with animations</p>
+      )}
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" data-pptx-fullscreen class="btn btn-primary text-xs py-1.5 px-3">
+        Slideshow mode
+      </button>
+    </div>
+  </div>
+
+  <div class="relative bg-[#0d1117]">
+    <div
+      data-pptx-stage
+      class="w-full aspect-video overflow-hidden select-none cursor-pointer outline-none"
+      tabindex="0"
+      role="region"
+      aria-label={`${title} presentation`}
+    >
+      <div data-pptx-loading class="absolute inset-0 flex items-center justify-center text-xs font-mono text-secondary">
+        Loading deck…
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between gap-3 px-4 py-2 border-t border-border bg-background/40">
+      <button type="button" data-pptx-prev class="btn btn-secondary text-xs py-1.5 px-3" disabled>Prev</button>
+      <p class="text-[11px] font-mono text-secondary" data-pptx-progress>Preparing…</p>
+      <button type="button" data-pptx-next class="btn btn-secondary text-xs py-1.5 px-3" disabled>Next</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pptx-native [data-pptx-stage] :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .pptx-native.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    border: 0;
+    background: #0d1117;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pptx-native.is-fullscreen [data-pptx-stage] {
+    flex: 1;
+    aspect-ratio: auto;
+    height: calc(100dvh - 7rem);
+    min-height: 0;
+  }
+</style>
+
+<script>
+  import { parse } from '@web-ppt/core';
+  import { Viewer } from '@web-ppt/viewer-core';
+
+  type DeckViewer = Viewer;
+
+  async function mountDeck(root: HTMLElement) {
+    if (root.dataset.ready === '1') return;
+    root.dataset.ready = '1';
+
+    const src = root.dataset.src;
+    if (!src) return;
+
+    const stage = root.querySelector('[data-pptx-stage]') as HTMLElement | null;
+    const loading = root.querySelector('[data-pptx-loading]') as HTMLElement | null;
+    const progress = root.querySelector('[data-pptx-progress]') as HTMLElement | null;
+    const prevBtn = root.querySelector('[data-pptx-prev]') as HTMLButtonElement | null;
+    const nextBtn = root.querySelector('[data-pptx-next]') as HTMLButtonElement | null;
+    const fsBtn = root.querySelector('[data-pptx-fullscreen]') as HTMLButtonElement | null;
+    const meta = root.querySelector('[data-pptx-meta]') as HTMLElement | null;
+
+    if (!stage) return;
+
+    try {
+      const res = await fetch(src);
+      if (!res.ok) throw new Error(`Failed to load deck (${res.status})`);
+      const buf = await res.arrayBuffer();
+      const pres = await parse(buf);
+      stage.innerHTML = '';
+      const viewer: DeckViewer = new Viewer(stage, pres, {
+        animate: true,
+        media: 'player',
+      });
+
+      const updateChrome = () => {
+        const total = viewer.count;
+        const index = viewer.index + 1;
+        const anim = viewer.animationTotal
+          ? ` · build ${viewer.animationDone}/${viewer.animationTotal}`
+          : '';
+        if (progress) progress.textContent = `Slide ${index} / ${total}${anim}`;
+        if (meta) meta.textContent = `${total} slides · left = prev · right = next`;
+        if (prevBtn) prevBtn.disabled = viewer.index <= 0 && viewer.animationDone <= 0;
+        if (nextBtn) nextBtn.disabled = viewer.index >= total - 1 && !viewer.hasPendingAnimation;
+      };
+
+      viewer.onChange = () => updateChrome();
+      viewer.onAnimStep = () => updateChrome();
+      updateChrome();
+
+      const goNext = () => {
+        viewer.next();
+        updateChrome();
+      };
+      const goPrev = () => {
+        viewer.prev();
+        updateChrome();
+      };
+
+      // Left half = previous, right half = next (build steps, then slides)
+      stage.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement | null;
+        if (target?.closest('a[href], [data-media-toggle], button, video, audio')) return;
+        e.preventDefault();
+        const rect = stage.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        if (x < rect.width / 2) goPrev();
+        else goNext();
+      });
+
+      prevBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goPrev();
+      });
+      nextBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goNext();
+      });
+
+      const docAny = document as Document & {
+        webkitFullscreenElement?: Element | null;
+        webkitExitFullscreen?: () => Promise<void> | void;
+      };
+      const rootAny = root as HTMLElement & {
+        webkitRequestFullscreen?: () => Promise<void> | void;
+      };
+
+      const enterFullscreen = async () => {
+        // CSS overlay first so phones without Fullscreen API still work
+        root.classList.add('is-fullscreen');
+        if (fsBtn) fsBtn.textContent = 'Exit slideshow';
+        try {
+          const already =
+            document.fullscreenElement === root ||
+            docAny.webkitFullscreenElement === root;
+          if (!already) {
+            if (typeof root.requestFullscreen === 'function') {
+              await root.requestFullscreen();
+            } else if (typeof rootAny.webkitRequestFullscreen === 'function') {
+              await rootAny.webkitRequestFullscreen();
+            }
+          }
+        } catch {
+          // CSS fullscreen fallback is enough on iOS
+        }
+        stage.focus({ preventScroll: true });
+      };
+
+      const exitFullscreen = async () => {
+        root.classList.remove('is-fullscreen');
+        if (fsBtn) fsBtn.textContent = 'Slideshow mode';
+        try {
+          if (document.fullscreenElement) await document.exitFullscreen();
+          else if (docAny.webkitFullscreenElement && docAny.webkitExitFullscreen) {
+            await docAny.webkitExitFullscreen();
+          }
+        } catch { /* ignore */ }
+      };
+
+      fsBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (root.classList.contains('is-fullscreen')) exitFullscreen();
+        else enterFullscreen();
+      });
+
+      const onFsChange = () => {
+        if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+          root.classList.remove('is-fullscreen');
+          if (fsBtn) fsBtn.textContent = 'Slideshow mode';
+        }
+      };
+      document.addEventListener('fullscreenchange', onFsChange);
+      document.addEventListener('webkitfullscreenchange', onFsChange);
+
+      const onKey = (e: KeyboardEvent) => {
+        const tag = (e.target as HTMLElement | null)?.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+        const inDeck = root.contains(document.activeElement) || root.classList.contains('is-fullscreen') || stage === document.activeElement;
+        if (!inDeck && !root.classList.contains('is-fullscreen')) return;
+
+        if (e.key === 'Escape' && root.classList.contains('is-fullscreen')) {
+          exitFullscreen();
+          return;
+        }
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          goNext();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          goPrev();
+        }
+      };
+      window.addEventListener('keydown', onKey);
+      stage.focus({ preventScroll: true });
+
+      (root as HTMLElement & { __pptxViewer?: DeckViewer }).__pptxViewer = viewer;
+    } catch (err) {
+      if (loading) {
+        loading.textContent = 'Could not load the deck in-browser. Refresh and try again.';
+      }
+      console.error(err);
+      root.dataset.ready = '0';
+    }
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-pptx-root]').forEach((root) => {
+      void mountDeck(root);
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>

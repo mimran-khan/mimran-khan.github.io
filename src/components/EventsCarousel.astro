@@ -16,6 +16,10 @@ import meetiaPosterCrowd from '../assets/images/speaking/meetia-poster-crowd.png
 import dypatilAward from '../assets/images/speaking/dypatil-award.png';
 import dypatilSession from '../assets/images/speaking/dypatil-session.png';
 import dypatilGroup from '../assets/images/speaking/dypatil-group.png';
+import adipecTitleSlide from '../assets/images/speaking/adipec-title-slide.jpg';
+import adipecPodium from '../assets/images/speaking/adipec-podium.jpg';
+import adipecEposter from '../assets/images/speaking/adipec-eposter.jpg';
+import adipecSpeakerBadge from '../assets/images/speaking/adipec-speaker-badge.jpg';
 
 // Work events
 import sgTranslations from '../assets/images/projects/servicegipfel-translations.png';
@@ -239,6 +243,28 @@ const workEvents: EventItem[] = [
 ];
 
 const publicEvents: EventItem[] = [
+  {
+    id: 'adipec-2026',
+    title: 'ADIPEC 2026 - SPE Technical Programme',
+    location: 'Abu Dhabi, UAE',
+    date: 'Nov 2026',
+    type: 'Speaker',
+    category: 'public',
+    cover: adipecTitleSlide,
+    coverFit: 'contain',
+    images: [adipecTitleSlide, adipecPodium, adipecEposter, adipecSpeakerBadge],
+    description: 'Presented two SPE papers at ADIPEC 2026. Both are about a simple idea: AI agents belong in process operations only if safety is designed in first, not bolted on later. One path validates every proposed action on a shadow plant before it can touch the real process. The other puts hard budgets on how much an agent can do and how much it can change. ADIPEC was a strong place to put that work in front of people who run plants, build platforms, and care about what happens when autonomy meets operations.',
+    highlights: [
+      'SPE-235393-MS - Propose-Validate-Correct shadow-plant architecture for safe AI agents',
+      'SPE-236401-MS - Bounded Autonomy budget-constrained agent operations',
+      'Presented at ADIPEC 2026, Abu Dhabi (2-5 November)',
+      'Co-authors: Manju Khanna, Abhishek Shivkumar, Tuhin Sharma, Adinarayana Sakala, Nirav Kumar, Pranjalya Singh, Darshika Pundir, and Atrik Ghosh',
+      'Supported by Red Hat Data and AI leadership',
+      '<a href="/research/pvc-shadow-plant" class="text-green hover:underline">SPE-235393-MS</a>',
+      '<a href="/research/bounded-autonomy" class="text-green hover:underline">SPE-236401-MS</a>'
+    ],
+    tags: ['ADIPEC', 'SPE', 'AI Agents', 'Process Safety', 'Shadow Plant', 'Bounded Autonomy', 'Red Hat', 'Research', 'Speaker']
+  },
   {
     id: 'dypatil-fdp',
     title: 'ATAL FDP on AI in Education - DY Patil University',

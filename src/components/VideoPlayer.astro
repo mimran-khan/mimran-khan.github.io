@@ -1,0 +1,398 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+  poster?: string;
+}
+
+const { src, title = 'Explainer video', poster } = Astro.props;
+---
+
+<div class="vp rounded-2xl overflow-hidden border border-border bg-[#0a0c10]" data-video-player>
+  <div class="relative aspect-video bg-black group" data-vp-stage>
+    <video
+      data-vp-video
+      class="w-full h-full object-contain"
+      playsinline
+      preload="metadata"
+      poster={poster}
+      src={src}
+    ></video>
+
+    <!-- Big center play -->
+    <button
+      type="button"
+      data-vp-bigplay
+      class="absolute inset-0 flex items-center justify-center bg-black/25 transition-opacity"
+      aria-label="Play video"
+    >
+      <span class="w-16 h-16 rounded-full bg-green/90 text-[#0d1117] flex items-center justify-center shadow-lg">
+        <svg class="w-7 h-7 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+    </button>
+
+    <!-- Controls -->
+    <div
+      data-vp-controls
+      class="absolute inset-x-0 bottom-0 px-3 pb-3 pt-10 bg-gradient-to-t from-black/90 via-black/55 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-within:opacity-100 transition-opacity"
+    >
+      <!-- Seek -->
+      <input
+        data-vp-seek
+        type="range"
+        min="0"
+        max="1000"
+        value="0"
+        step="1"
+        class="vp-range w-full mb-2"
+        aria-label="Seek"
+      />
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button type="button" data-vp-play class="vp-btn" aria-label="Play">
+          <svg data-icon-play class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg data-icon-pause class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/></svg>
+        </button>
+
+        <div class="flex items-center gap-1.5 min-w-0">
+          <button type="button" data-vp-mute class="vp-btn" aria-label="Mute">
+            <svg data-icon-vol class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 00-2.5-4.03v8.06A4.5 4.5 0 0016.5 12zM14 3.23v2.06a7 7 0 010 13.42v2.06A9 9 0 0014 3.23z"/></svg>
+            <svg data-icon-muted class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M16.5 12a4.5 4.5 0 01-2.5 4.03v-2.24l2.45 2.45A4.48 4.48 0 0016.5 12zm2.5-8.77v2.06a9 9 0 01-.9 14.58l1.45 1.45.03.01A11 11 0 0019 3.23zM3.27 2L2 3.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L3.27 2zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+          </button>
+          <input data-vp-volume type="range" min="0" max="100" value="90" class="vp-range w-16 sm:w-24" aria-label="Volume" />
+        </div>
+
+        <p class="text-[11px] font-mono text-white/80 tabular-nums shrink-0">
+          <span data-vp-current>0:00</span>
+          <span class="text-white/40"> / </span>
+          <span data-vp-duration>0:00</span>
+        </p>
+
+        <div class="ml-auto flex items-center gap-1.5 sm:gap-2">
+          <label class="flex items-center gap-1.5 text-[11px] font-mono text-white/80">
+            <span class="hidden sm:inline">Speed</span>
+            <select data-vp-speed class="vp-select" aria-label="Playback speed">
+              <option value="0.5">0.5x</option>
+              <option value="0.75">0.75x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+              <option value="1.75">1.75x</option>
+              <option value="2">2x</option>
+            </select>
+          </label>
+
+          <button type="button" data-vp-fs class="vp-btn" aria-label="Fullscreen">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-4 py-2.5 border-t border-border bg-elevated/60 flex items-center justify-between gap-3">
+    <p class="text-[12px] text-secondary truncate">{title}</p>
+    <p class="text-[10px] font-mono text-secondary/60 shrink-0">Space = play · ← → seek · M mute</p>
+  </div>
+</div>
+
+<style>
+  .vp-btn {
+    @apply w-8 h-8 inline-flex items-center justify-center rounded-md text-white/90 hover:bg-white/10 transition-colors;
+  }
+  .vp-select {
+    @apply bg-white/10 border border-white/15 text-white text-[11px] font-mono rounded-md px-1.5 py-1 outline-none;
+  }
+  .vp-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.25);
+    outline: none;
+    cursor: pointer;
+  }
+  .vp-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: #3fb950;
+    border: none;
+  }
+  .vp.is-playing [data-vp-bigplay] {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .vp.is-playing:not(:hover):not(:focus-within) [data-vp-bigplay] {
+    opacity: 0;
+  }
+
+  /* Mobile fallback when Fullscreen API is blocked (common on iOS) */
+  .vp.is-css-fullscreen [data-vp-stage] {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: #000;
+  }
+  .vp.is-css-fullscreen [data-vp-controls] {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  function fmt(t: number) {
+    if (!isFinite(t)) return '0:00';
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
+  }
+
+  function initPlayer(root: HTMLElement) {
+    if (root.dataset.ready === '1') return;
+    root.dataset.ready = '1';
+
+    const video = root.querySelector('[data-vp-video]') as HTMLVideoElement;
+    const stage = root.querySelector('[data-vp-stage]') as HTMLElement;
+    const playBtn = root.querySelector('[data-vp-play]') as HTMLButtonElement;
+    const bigPlay = root.querySelector('[data-vp-bigplay]') as HTMLButtonElement;
+    const muteBtn = root.querySelector('[data-vp-mute]') as HTMLButtonElement;
+    const vol = root.querySelector('[data-vp-volume]') as HTMLInputElement;
+    const seek = root.querySelector('[data-vp-seek]') as HTMLInputElement;
+    const speed = root.querySelector('[data-vp-speed]') as HTMLSelectElement;
+    const fsBtn = root.querySelector('[data-vp-fs]') as HTMLButtonElement;
+    const cur = root.querySelector('[data-vp-current]') as HTMLElement;
+    const dur = root.querySelector('[data-vp-duration]') as HTMLElement;
+    const iconPlay = root.querySelector('[data-icon-play]') as HTMLElement;
+    const iconPause = root.querySelector('[data-icon-pause]') as HTMLElement;
+    const iconVol = root.querySelector('[data-icon-vol]') as HTMLElement;
+    const iconMuted = root.querySelector('[data-icon-muted]') as HTMLElement;
+
+    let seeking = false;
+
+    const syncPlay = () => {
+      const playing = !video.paused && !video.ended;
+      root.classList.toggle('is-playing', playing);
+      iconPlay.classList.toggle('hidden', playing);
+      iconPause.classList.toggle('hidden', !playing);
+      playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    };
+
+    const syncMute = () => {
+      const muted = video.muted || video.volume === 0;
+      iconVol.classList.toggle('hidden', muted);
+      iconMuted.classList.toggle('hidden', !muted);
+    };
+
+    const toggle = async () => {
+      if (video.paused) {
+        try { await video.play(); } catch {}
+      } else {
+        video.pause();
+      }
+      syncPlay();
+    };
+
+    playBtn.addEventListener('click', toggle);
+    bigPlay.addEventListener('click', toggle);
+    video.addEventListener('click', toggle);
+    video.addEventListener('play', syncPlay);
+    video.addEventListener('pause', syncPlay);
+    video.addEventListener('ended', () => {
+      syncPlay();
+      bigPlay.style.opacity = '1';
+      bigPlay.style.pointerEvents = 'auto';
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+      dur.textContent = fmt(video.duration);
+    });
+    video.addEventListener('timeupdate', () => {
+      if (seeking) return;
+      cur.textContent = fmt(video.currentTime);
+      if (video.duration) {
+        seek.value = String(Math.round((video.currentTime / video.duration) * 1000));
+      }
+    });
+
+    seek.addEventListener('pointerdown', () => { seeking = true; });
+    seek.addEventListener('pointerup', () => { seeking = false; });
+    seek.addEventListener('input', () => {
+      if (!video.duration) return;
+      const t = (Number(seek.value) / 1000) * video.duration;
+      video.currentTime = t;
+      cur.textContent = fmt(t);
+    });
+
+    vol.addEventListener('input', () => {
+      video.volume = Number(vol.value) / 100;
+      video.muted = video.volume === 0;
+      syncMute();
+    });
+    muteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (!video.muted && video.volume === 0) {
+        video.volume = 0.9;
+        vol.value = '90';
+      }
+      syncMute();
+    });
+
+    speed.addEventListener('change', () => {
+      video.playbackRate = Number(speed.value);
+    });
+
+    const docAny = document as Document & {
+      webkitFullscreenElement?: Element | null;
+      webkitExitFullscreen?: () => Promise<void> | void;
+    };
+    const stageAny = stage as HTMLElement & {
+      webkitRequestFullscreen?: () => Promise<void> | void;
+    };
+    const videoAny = video as HTMLVideoElement & {
+      webkitEnterFullscreen?: () => void;
+      webkitDisplayingFullscreen?: boolean;
+    };
+
+    const isFsActive = () =>
+      Boolean(
+        document.fullscreenElement ||
+        docAny.webkitFullscreenElement ||
+        root.classList.contains('is-css-fullscreen') ||
+        videoAny.webkitDisplayingFullscreen
+      );
+
+    const exitFs = async () => {
+      root.classList.remove('is-css-fullscreen');
+      try {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (docAny.webkitFullscreenElement && docAny.webkitExitFullscreen) {
+          await docAny.webkitExitFullscreen();
+        }
+      } catch {}
+    };
+
+    const enterFs = async () => {
+      // iOS Safari: only the video element can go native fullscreen
+      if (typeof videoAny.webkitEnterFullscreen === 'function') {
+        try {
+          if (video.paused) await video.play();
+          videoAny.webkitEnterFullscreen();
+          return;
+        } catch {}
+      }
+
+      try {
+        if (typeof stage.requestFullscreen === 'function') {
+          await stage.requestFullscreen();
+          return;
+        }
+        if (typeof stageAny.webkitRequestFullscreen === 'function') {
+          await stageAny.webkitRequestFullscreen();
+          return;
+        }
+      } catch {}
+
+      // Last resort: CSS fixed overlay (Android WebViews / locked APIs)
+      root.classList.add('is-css-fullscreen');
+    };
+
+    fsBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isFsActive()) await exitFs();
+      else await enterFs();
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement && !docAny.webkitFullscreenElement) {
+        root.classList.remove('is-css-fullscreen');
+      }
+    });
+    video.addEventListener('webkitbeginfullscreen', () => {
+      root.classList.remove('is-css-fullscreen');
+    });
+    video.addEventListener('webkitendfullscreen', () => {
+      root.classList.remove('is-css-fullscreen');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && root.classList.contains('is-css-fullscreen')) {
+        exitFs();
+      }
+    });
+
+    // keyboard when focused in player
+    root.tabIndex = 0;
+    root.addEventListener('keydown', (e) => {
+      if (e.target instanceof HTMLSelectElement || e.target instanceof HTMLInputElement) return;
+      if (e.code === 'Space' || e.key === 'k') {
+        e.preventDefault();
+        toggle();
+      } else if (e.key === 'm') {
+        muteBtn.click();
+      } else if (e.key === 'ArrowRight') {
+        video.currentTime = Math.min(video.duration || 0, video.currentTime + 5);
+      } else if (e.key === 'ArrowLeft') {
+        video.currentTime = Math.max(0, video.currentTime - 5);
+      } else if (e.key === 'f') {
+        fsBtn.click();
+      }
+    });
+
+    video.volume = Number(vol.value) / 100;
+    syncPlay();
+    syncMute();
+
+    const startFromHeader = async () => {
+      const section = document.getElementById('explainer') || root;
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      try {
+        await video.play();
+      } catch {
+        // Autoplay may be blocked until a direct gesture reaches the video;
+        // retry once after scroll settles.
+        setTimeout(() => { video.play().catch(() => {}); }, 350);
+      }
+      syncPlay();
+      root.focus({ preventScroll: true });
+    };
+
+    (root as any)._startFromHeader = startFromHeader;
+  }
+
+  function wireExplainerTriggers() {
+    document.querySelectorAll<HTMLElement>('[data-play-explainer]').forEach((btn) => {
+      if (btn.dataset.wired === '1') return;
+      btn.dataset.wired = '1';
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const player = document.querySelector<HTMLElement>('#explainer [data-video-player]');
+        if (!player) {
+          document.getElementById('explainer')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        const start = (player as any)._startFromHeader as (() => void) | undefined;
+        if (typeof start === 'function') start();
+        else {
+          history.replaceState(null, '', '#explainer');
+          player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const video = player.querySelector('video');
+          video?.play().catch(() => {});
+        }
+      });
+    });
+  }
+
+  function boot() {
+    document.querySelectorAll<HTMLElement>('[data-video-player]').forEach(initPlayer);
+    wireExplainerTriggers();
+  }
+  boot();
+  document.addEventListener('astro:page-load', boot);
+</script>

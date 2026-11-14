@@ -1,5 +1,6 @@
 ---
 const navLinks = [
+  { href: '/#research', label: 'Publications' },
   { href: '/#experience', label: 'Experience' },
   { href: '/series/demystifying-ai', label: 'Series' },
   { href: '/#blog', label: 'Blog' },
@@ -7,6 +8,8 @@ const navLinks = [
   { href: '/#contact', label: 'Contact' },
   { href: '/beyond-code', label: 'Beyond Code' },
 ];
+
+const topmateUrl = 'https://topmate.io/mohdimran_khan';
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -29,12 +32,14 @@ const navLinks = [
         ))}
       </ul>
       
-      <button 
-        id="calendly-btn-desktop"
+      <a 
+        href={topmateUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         class="hidden md:flex btn btn-primary text-small py-1.5 px-3 ml-4"
       >
         Book a Call
-      </button>
+      </a>
       
       <button 
         id="mobile-menu-toggle"
@@ -64,42 +69,18 @@ const navLinks = [
         </li>
       ))}
       <li class="pt-2">
-        <button 
-          id="calendly-btn-mobile"
+        <a 
+          href={topmateUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           class="w-full btn btn-primary text-center text-small"
         >
           Book a Call
-        </button>
+        </a>
       </li>
     </ul>
   </div>
 </header>
-
-<!-- Calendly Modal -->
-<div id="calendly-modal" class="fixed inset-0 z-[100] hidden">
-  <!-- Backdrop -->
-  <div id="calendly-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-  
-  <!-- Modal Content -->
-  <div class="absolute inset-4 sm:inset-8 md:inset-12 lg:inset-16 flex items-center justify-center">
-    <div class="relative w-full h-full max-w-4xl max-h-[90vh] bg-elevated rounded-lg border border-border overflow-hidden">
-      <!-- Close Button -->
-      <button id="calendly-close" class="absolute top-3 right-3 z-10 p-2 bg-background/80 rounded-full text-secondary hover:text-green transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-      
-      <!-- Calendly Iframe -->
-      <iframe 
-        id="calendly-iframe"
-        src=""
-        class="w-full h-full border-0"
-        loading="lazy"
-      ></iframe>
-    </div>
-  </div>
-</div>
 
 <script is:inline>
   // Mobile menu toggle
@@ -120,43 +101,6 @@ const navLinks = [
       openIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
     });
-  });
-
-  // Calendly Modal
-  const calendlyModal = document.getElementById('calendly-modal');
-  const calendlyIframe = document.getElementById('calendly-iframe');
-  const calendlyClose = document.getElementById('calendly-close');
-  const calendlyBackdrop = document.getElementById('calendly-backdrop');
-  const calendlyBtnDesktop = document.getElementById('calendly-btn-desktop');
-  const calendlyBtnMobile = document.getElementById('calendly-btn-mobile');
-  const calendlyUrl = 'https://calendly.com/mimran-khan?hide_gdpr_banner=1&background_color=0d1117&text_color=e6edf3&primary_color=3fb950';
-
-  function openCalendlyModal() {
-    if (calendlyIframe) calendlyIframe.src = calendlyUrl;
-    calendlyModal?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    // Close mobile menu if open
-    menu?.classList.add('hidden');
-    openIcon?.classList.remove('hidden');
-    closeIcon?.classList.add('hidden');
-  }
-
-  function closeCalendlyModal() {
-    calendlyModal?.classList.add('hidden');
-    document.body.style.overflow = '';
-    if (calendlyIframe) calendlyIframe.src = '';
-  }
-
-  calendlyBtnDesktop?.addEventListener('click', openCalendlyModal);
-  calendlyBtnMobile?.addEventListener('click', openCalendlyModal);
-  calendlyClose?.addEventListener('click', closeCalendlyModal);
-  calendlyBackdrop?.addEventListener('click', closeCalendlyModal);
-  
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !calendlyModal?.classList.contains('hidden')) {
-      closeCalendlyModal();
-    }
   });
 
   // Text scramble effect for logo

@@ -7,6 +7,7 @@ import EventsCarousel from '../components/EventsCarousel.astro';
 import CommunityRescue from '../components/CommunityRescue.astro';
 import { getCollection } from 'astro:content';
 import episodes from '../data/episodes.json';
+import publications from '../data/publications.json';
 
 import iitk from '../assets/images/education/iitk.png';
 import bits from '../assets/images/education/bits-pillani.png';
@@ -43,11 +44,11 @@ const dayLabel: Record<string, string> = {
 const skillGroups = [
   {
     category: 'Agentic AI',
-    skills: ['Multi-Agent Systems', 'MCP Servers', 'A2A Protocol', 'LangGraph', 'CrewAI', 'AutoGen', 'Tool Orchestration']
+    skills: ['Multi-Agent Systems', 'MCP Servers', 'A2A Protocol', 'LangGraph', 'CrewAI', 'AutoGen', 'Tool Orchestration', 'Agent Evals']
   },
   {
-    category: 'LLM Engineering', 
-    skills: ['RAG', 'Fine-tuning', 'QLoRA', 'Prompt Engineering', 'LLM Evals', 'Vector DBs', 'Embeddings']
+    category: 'LLM Engineering',
+    skills: ['RAG', 'Agentic RAG', 'Fine-tuning', 'QLoRA', 'Prompt Engineering', 'LLM Evals', 'Vector DBs', 'Embeddings']
   },
   {
     category: 'ML & Deep Learning',
@@ -55,7 +56,7 @@ const skillGroups = [
   },
   {
     category: 'NLP & Speech',
-    skills: ['NLP', 'ASR', 'TTS', 'Speech-to-Speech', 'Translation', 'Sentiment Analysis']
+    skills: ['NLP', 'ASR', 'TTS', 'Speech-to-Speech', 'Translation', 'Voice Cloning']
   },
   {
     category: 'Infrastructure',
@@ -74,9 +75,9 @@ const education = [
   },
   {
     institution: 'IIT Kanpur',
-    degree: 'Masters',
+    degree: 'E-Masters',
     field: 'AI & ML',
-    year: '2025',
+    year: '2026',
     logo: iitk,
     note: '',
   },
@@ -84,7 +85,7 @@ const education = [
     institution: 'BITS Pilani',
     degree: 'M.Tech',
     field: 'AI & ML',
-    year: '2024',
+    year: '2025',
     logo: bits,
     note: '',
   },
@@ -97,6 +98,9 @@ const education = [
     note: '',
   },
 ];
+
+const seriesComplete = !nextEpisode;
+
 ---
 
 <BaseLayout 
@@ -118,16 +122,26 @@ const education = [
               <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
             <a href="/series/demystifying-ai" class="text-lg md:text-xl font-bold text-foreground hover:text-green transition-colors">Demystifying AI in 5 Minutes</a>
-            <span class="flex items-center gap-1 text-[10px] text-green font-mono"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>LIVE</span>
+            {seriesComplete ? (
+              <span class="flex items-center gap-1 text-[10px] text-green font-mono px-2 py-0.5 rounded bg-green/10 border border-green/20">COMPLETE</span>
+            ) : (
+              <span class="flex items-center gap-1 text-[10px] text-green font-mono"><span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>LIVE</span>
+            )}
           </div>
-          <p class="text-xs md:text-sm text-secondary">Deep dives into cutting-edge AI. Research papers, hot topics, and new releases broken down for builders.</p>
+          <p class="text-xs md:text-sm text-secondary">
+            {seriesComplete
+              ? '72 episodes. Research papers, hot topics, and new releases broken down for builders.'
+              : 'Deep dives into cutting-edge AI. Research papers, hot topics, and new releases broken down for builders.'}
+          </p>
         </div>
         <a href="/series/demystifying-ai" class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green/10 border border-green/20 text-green text-xs font-mono hover:bg-green/20 transition-colors shrink-0">
-          Full series <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          {seriesComplete ? 'Browse all episodes' : 'Full series'} <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
       </div>
 
-      <!-- Schedule: mobile = compact inline, desktop = 7-col grid -->
+      {/* Schedule strip only while the series is still releasing */}
+      {!seriesComplete && (
+      <>
       <div class="hidden md:grid grid-cols-7 gap-2 mb-6">
         <div class="flex flex-col items-center gap-1 px-2 py-2 rounded-lg bg-green/5 border border-green/10">
           <span class="text-[9px] font-mono text-secondary">MON</span>
@@ -175,15 +189,17 @@ const education = [
           <span class="text-[9px] font-mono text-cyan">Sat</span>
         </div>
       </div>
+      </>
+      )}
 
       <!-- Series Progress -->
       <div class="mt-4 mb-4">
         <div class="flex items-center justify-between mb-1.5">
           <span class="text-[10px] font-mono text-secondary">Series progress</span>
-          <span class="text-[10px] font-mono text-green">{Math.round((publishedEpisodes.length / 75) * 100)}%</span>
+          <span class="text-[10px] font-mono text-green">{Math.round((publishedEpisodes.length / 72) * 100)}%</span>
         </div>
         <div class="w-full h-1.5 rounded-full bg-border overflow-hidden">
-          <div class="h-full rounded-full bg-gradient-to-r from-green via-green/80 to-green/60 transition-all duration-500" style={`width: ${(publishedEpisodes.length / 75) * 100}%`}></div>
+          <div class="h-full rounded-full bg-gradient-to-r from-green via-green/80 to-green/60 transition-all duration-500" style={`width: ${(publishedEpisodes.length / 72) * 100}%`}></div>
         </div>
         <div class="flex items-center justify-between mt-1.5">
           <span class="text-[9px] font-mono text-secondary/60">Jul 6, 2026</span>
@@ -266,11 +282,20 @@ const education = [
 
       <div class="flex items-center justify-between mt-4 md:mt-6">
         <div class="flex items-center gap-2 md:gap-4 text-[9px] md:text-[10px] text-secondary font-mono flex-wrap">
-          <span>3x/week</span>
-          <span class="text-border">|</span>
-          <span>Mon &middot; Wed &middot; Sat</span>
-          <span class="text-border hidden md:inline">|</span>
-          <span class="hidden md:inline">{publishedEpisodes.length} of 75 episodes</span>
+          {nextEpisode ? (
+            <>
+              <span>3x/week</span>
+              <span class="text-border">|</span>
+              <span>Mon &middot; Wed &middot; Sat</span>
+              <span class="text-border hidden md:inline">|</span>
+            </>
+          ) : (
+            <>
+              <span>Series complete</span>
+              <span class="text-border hidden md:inline">|</span>
+            </>
+          )}
+          <span class="hidden md:inline">{publishedEpisodes.length} of 72 episodes</span>
         </div>
         <a href="/series/demystifying-ai" class="md:hidden text-xs text-green flex items-center gap-1 font-mono shrink-0">
           All <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -391,6 +416,67 @@ const education = [
     <div class="container-main">
       <p class="section-heading">Milestones & Moments</p>
       <EventsCarousel />
+    </div>
+  </section>
+
+  <!-- Published Research -->
+  <section id="research" class="section border-t border-border">
+    <div class="container-main">
+      <div class="mb-6">
+        <p class="section-heading mb-2">Published Research</p>
+        <p class="text-base sm:text-lg text-foreground font-medium max-w-2xl leading-snug mb-2">
+          Write it down. Measure it. Ship it to peer review.
+        </p>
+        <p class="text-sm text-secondary max-w-2xl leading-relaxed">
+          Research is how production ideas get stress-tested in public. Publishing forces clarity - what worked, what failed, and what others can reuse. The papers below are that record.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {publications.map((paper) => (
+          <a
+            href={`/research/${paper.slug}`}
+            class="group flex flex-col p-5 rounded-xl border border-border bg-elevated hover:border-violet-500/40 transition-all"
+          >
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="text-[10px] font-mono text-secondary">{paper.venue}</span>
+              <span class="text-[10px] font-mono text-green ml-auto">{paper.role}</span>
+            </div>
+
+            <h3 class="text-sm font-semibold text-foreground group-hover:text-violet-400 transition-colors mb-2 leading-snug">
+              {paper.title}
+            </h3>
+
+            <p class="text-sm text-foreground font-medium leading-snug mb-2">
+              {paper.hook}
+            </p>
+
+            <p class="text-xs text-secondary leading-relaxed mb-3">
+              {paper.summary}
+            </p>
+
+            <div class="flex flex-col gap-1 mb-3">
+              {paper.tags.map((tag) => (
+                <div class="flex flex-wrap items-baseline gap-x-2 text-[11px]">
+                  <span class="font-mono text-foreground/90 shrink-0">{tag.label}</span>
+                  <span class="text-secondary">{tag.detail}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="flex items-center justify-between gap-3">
+              <span class="text-[10px] font-mono text-violet-400/70 group-hover:text-violet-400 transition-colors shrink-0">Open paper →</span>
+              <img
+                src="/research/adipec-adnoc-white.png?v=2"
+                alt="ADIPEC · ADNOC Host"
+                class="h-9 sm:h-10 w-auto max-w-[58%] object-contain object-right opacity-95 group-hover:opacity-100 transition-opacity"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -663,10 +749,15 @@ const education = [
           </div>
         </div>
 
-        <!-- Awards -->
+        <!-- Org awards -->
         <div>
-          <p class="text-small text-green font-mono mb-3">// Awards</p>
+          <p class="text-small text-green font-mono mb-3">// Org awards</p>
           <div class="space-y-2">
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2026</span>
+              <span class="text-foreground">Loop Engineering Impact (Dataverse)</span>
+              <span class="text-xs text-secondary hidden sm:inline">Red Hat</span>
+            </div>
             <div class="flex items-center gap-3 text-sm">
               <span class="font-mono text-green shrink-0 w-12">2024</span>
               <span class="text-foreground">IT Innovation Award - SyncX</span>
@@ -690,6 +781,18 @@ const education = [
             <div class="flex items-center gap-3 text-sm">
               <span class="font-mono text-green shrink-0 w-12">2020</span>
               <span class="text-foreground">Top Employee of the Year</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Peer recognitions -->
+        <div>
+          <p class="text-small text-green font-mono mb-3">// Peer recognitions</p>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 text-sm">
+              <span class="font-mono text-green shrink-0 w-12">2026</span>
+              <span class="text-foreground">Red Hat Reward Zone - 10 recognitions in 3 months</span>
+              <span class="text-xs text-secondary hidden sm:inline">AI Factory</span>
             </div>
           </div>
         </div>
@@ -742,20 +845,28 @@ const education = [
     <div class="container-main">
       <div class="max-w-lg">
         <p class="section-heading">Contact</p>
-        
+
         <h2 class="text-h1 text-foreground mb-4">
           Let's work together
         </h2>
-        
+
         <p class="text-body text-secondary mb-6">
-          I'm open to discussing AI/ML consulting, autonomous agent systems, and enterprise AI deployments.
+          Open to discussing AI/ML consulting, autonomous agent systems, and enterprise AI deployments. Book a session - discovery call, MCP build, agent review, mock interview, and more.
         </p>
-        
+
         <div class="flex flex-wrap gap-3">
-          <a href="mailto:mohammed_imran.khan@outlook.com" class="btn btn-primary">
+          <a
+            href="https://topmate.io/mohdimran_khan"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Book a Call
+          </a>
+          <a href="mailto:mohammed_imran.khan@outlook.com" class="btn btn-secondary">
             Send Email
           </a>
-          <a 
+          <a
             href="https://www.linkedin.com/in/mohdimran-khan/"
             target="_blank"
             rel="noopener noreferrer"
