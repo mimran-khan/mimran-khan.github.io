@@ -638,9 +638,11 @@
       "branch": "release/ep57",
       "slug": "orl-diffusion-open",
       "title": "ORL: 2,788 Tokens Per Second From a Single RTX 5090",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-14",
-      "linkedin_post": "Episode 57: 5-minute read. Zero fluff : ORL Diffusion\n\nOpen Reasoning via Latent diffusion: 2,788 tokens per second from a single RTX 5090. 46x faster than autoregressive at the same quality.\n\nKey findings:\n- Generates all tokens simultaneously, then refines iteratively\n- Matches GPT-6 Luna on GPQA Diamond, MATH-500, LiveCodeBench\n- 3B and 8B checkpoints open-sourced\n- Denoising schedule adapts to problem difficulty\n- Trivially parallelizable across GPUs\n\nThe takeaway? Autoregressive inference may be the next bottleneck to fall.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/orl-diffusion-open\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#ORL #DiffusionLLM #Inference #AI #MachineLearning #OpenSource #RTX5090"
+      "linkedin_post": "Episode 57: 5-minute read. Zero fluff : ORL Diffusion\n\nOpen Reasoning via Latent diffusion: 2,788 tokens per second from a single RTX 5090. 46x faster than autoregressive at the same quality.\n\nKey findings:\n- Generates all tokens simultaneously, then refines iteratively\n- Matches GPT-6 Luna on GPQA Diamond, MATH-500, LiveCodeBench\n- 3B and 8B checkpoints open-sourced\n- Denoising schedule adapts to problem difficulty\n- Trivially parallelizable across GPUs\n\nThe takeaway? Autoregressive inference may be the next bottleneck to fall.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/orl-diffusion-open\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#ORL #DiffusionLLM #Inference #AI #MachineLearning #OpenSource #RTX5090",
+      "published_on": "2026-11-14",
+      "tag": "release/ep57"
     }
   ]
 }
