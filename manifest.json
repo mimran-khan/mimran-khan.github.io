@@ -668,7 +668,7 @@
       "branch": "release/ep59",
       "slug": "opticalrag",
       "title": "OpticalRAG: RAG in 16 Visual Tokens",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-18",
       "linkedin_post": "Episode 59: 5-minute read. Zero fluff : OpticalRAG: RAG in 16 Visual Tokens\n\nRAG does not have to dump text into the prompt. OpticalRAG (NeurIPS 2026) renders documents as page images, retrieves in visual space, and distills the hit into 16 query-conditioned tokens for a frozen Qwen2.5-7B.\n\nKey findings:\n- LongBench-v2: 35.79 vs closed-book 30.62 (+5.17) at 16 tokens\n- Best compression-aware (CAP) scores across LongBench-v2, BAMBOO, and LooGLE-v2 (avg CAP 55.67)\n- BAMBOO win is CAP, not raw accuracy - so read the metric before celebrating\n- Vision encoder + LLM stay frozen; only the compressor + bridge train\n\nThe takeaway? Pixel-space compression is a real lever for layout-heavy retrieval under tiny context budgets - check open-ended and latency before ripping out the text index.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/opticalrag\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #RAG #NeurIPS #OpticalRAG #Research #Qwen",
       "hook": "OpticalRAG renders documents as page images and distills retrieval into 16 query-conditioned tokens - winning compression-aware accuracy on LongBench-v2.",
@@ -676,14 +676,16 @@
       "day": "Wed",
       "date": "Nov 18",
       "readTime": "5 min",
-      "image": "/series/ep59-opticalrag.png"
+      "image": "/series/ep59-opticalrag.png",
+      "published_on": "2026-11-18",
+      "tag": "release/ep59"
     },
     {
       "ep": 60,
       "branch": "release/ep60",
       "slug": "claude-fable-52",
       "title": "Claude Fable 5.2: The Frontier Coding Model",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-11-21",
       "linkedin_post": "Episode 60: 5-minute read. Zero fluff : Claude Fable 5.2: The Frontier Coding Model\n\nAnthropic shipped Claude Fable 5.2 (+ Mythos 5.2) on Nov 9. Hardest public Claude for long-horizon agentic work - and still not the daily driver. Opus 5.5 is.\n\nKey findings:\n- FrontierSWE v2: 69.9% (was 56.3% on Fable 5.1; ahead of Opus 5.5 at 62.3% in Anthropic's table)\n- OSWorld 2.1: 89.3% offline partial credit - strict pass is 54.6%. Read the label.\n- Price: $8 / $40 per MTok - exactly 20% cheaper than Fable 5.1 ($10 / $50)\n- Mythos 5.2 = same weights, fewer safeguards, verification-gated\n\nThe takeaway? Keep Opus as default. Open a Fable lane when evals still fail. Do not tweet bare \"89% OSWorld.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-fable-52\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Claude #Anthropic #Fable #CodingAgents #NewRelease",
       "hook": "Anthropic's hardest public model - 69.9% FrontierSWE v2, 89.3% OSWorld 2.1 offline partial, 20% cheaper than Fable 5.1.",
