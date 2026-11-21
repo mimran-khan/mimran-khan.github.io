@@ -686,7 +686,7 @@
       "branch": "release/ep60",
       "slug": "claude-fable-52",
       "title": "Claude Fable 5.2: The Frontier Coding Model",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-21",
       "linkedin_post": "Episode 60: 5-minute read. Zero fluff : Claude Fable 5.2: The Frontier Coding Model\n\nAnthropic shipped Claude Fable 5.2 (+ Mythos 5.2) on Nov 9. Hardest public Claude for long-horizon agentic work - and still not the daily driver. Opus 5.5 is.\n\nKey findings:\n- FrontierSWE v2: 69.9% (was 56.3% on Fable 5.1; ahead of Opus 5.5 at 62.3% in Anthropic's table)\n- OSWorld 2.1: 89.3% offline partial credit - strict pass is 54.6%. Read the label.\n- Price: $8 / $40 per MTok - exactly 20% cheaper than Fable 5.1 ($10 / $50)\n- Mythos 5.2 = same weights, fewer safeguards, verification-gated\n\nThe takeaway? Keep Opus as default. Open a Fable lane when evals still fail. Do not tweet bare \"89% OSWorld.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/claude-fable-52\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Claude #Anthropic #Fable #CodingAgents #NewRelease",
       "hook": "Anthropic's hardest public model - 69.9% FrontierSWE v2, 89.3% OSWorld 2.1 offline partial, 20% cheaper than Fable 5.1.",
@@ -694,14 +694,16 @@
       "day": "Sat",
       "date": "Nov 21",
       "readTime": "5 min",
-      "image": "/series/ep60-claude-fable-52.png"
+      "image": "/series/ep60-claude-fable-52.png",
+      "published_on": "2026-11-21",
+      "tag": "release/ep60"
     },
     {
       "ep": 61,
       "branch": "release/ep61",
       "slug": "grok-build-open-apps",
       "title": "Grok Build Apps Went Live Without Auth",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-11-23",
       "linkedin_post": "Episode 61: 5-minute read. Zero fluff : Grok Build Apps Went Live Without Auth\n\nClaroc (Asaf Aprozper) scanned Grok Build via passive DNS. Of 37,571 live apps, 35,578 (94.7%) opened with no sign-in. SpaceXSI pulled 24 staff apps after disclosure - and left everyone else's largely up.\n\nKey findings:\n- Funnel: 43,601 DNS names → 37,571 live → 35,578 open / 1,993 HTTP 401\n- Not all PII: ~650-800 estimated sensitive; samples include ICU data, hospital roster 3,500+, plaintext passwords, SpaceXSI confidential docs\n- Claroc's own tests: open DB writes; \"team\" OAuth added any signed-in account\n- Defaults disputed: SpaceXSI says private-until-share; Claroc says paid UI preselects \"Anyone with the link\"\n\nThe takeaway? Treat *.grok.me like a public URL. Inventory, unpublish, rotate, ban link-open for work data.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/grok-build-open-apps\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Grok #Security #AppSec #SpaceXSI #HotTopic",
       "hook": "Claroc checked 37,571 live Grok Build apps. 35,578 opened with no sign-in. SpaceXSI pulled 24 staff-built apps after disclosure.",

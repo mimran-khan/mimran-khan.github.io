@@ -706,5 +706,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep59-opticalrag.png"
+  },
+  {
+    "number": 60,
+    "slug": "claude-fable-52",
+    "title": "Claude Fable 5.2: The Frontier Coding Model",
+    "hook": "Anthropic's hardest public model - 69.9% FrontierSWE v2, 89.3% OSWorld 2.1 offline partial, 20% cheaper than Fable 5.1.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Nov 21",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep60-claude-fable-52.png"
   }
 ]
