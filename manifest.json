@@ -704,7 +704,7 @@
       "branch": "release/ep61",
       "slug": "grok-build-open-apps",
       "title": "Grok Build Apps Went Live Without Auth",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-23",
       "linkedin_post": "Episode 61: 5-minute read. Zero fluff : Grok Build Apps Went Live Without Auth\n\nClaroc (Asaf Aprozper) scanned Grok Build via passive DNS. Of 37,571 live apps, 35,578 (94.7%) opened with no sign-in. SpaceXSI pulled 24 staff apps after disclosure - and left everyone else's largely up.\n\nKey findings:\n- Funnel: 43,601 DNS names → 37,571 live → 35,578 open / 1,993 HTTP 401\n- Not all PII: ~650-800 estimated sensitive; samples include ICU data, hospital roster 3,500+, plaintext passwords, SpaceXSI confidential docs\n- Claroc's own tests: open DB writes; \"team\" OAuth added any signed-in account\n- Defaults disputed: SpaceXSI says private-until-share; Claroc says paid UI preselects \"Anyone with the link\"\n\nThe takeaway? Treat *.grok.me like a public URL. Inventory, unpublish, rotate, ban link-open for work data.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/grok-build-open-apps\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #Grok #Security #AppSec #SpaceXSI #HotTopic",
       "hook": "Claroc checked 37,571 live Grok Build apps. 35,578 opened with no sign-in. SpaceXSI pulled 24 staff-built apps after disclosure.",
@@ -712,14 +712,16 @@
       "day": "Mon",
       "date": "Nov 23",
       "readTime": "5 min",
-      "image": "/series/ep61-grok-build-open-apps.png"
+      "image": "/series/ep61-grok-build-open-apps.png",
+      "published_on": "2026-11-23",
+      "tag": "release/ep61"
     },
     {
       "ep": 62,
       "branch": "release/ep62",
       "slug": "alphaproof-code-signal",
       "title": "AlphaProof Code: Signal Verified at Machine Code",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-11-25",
       "linkedin_post": "Episode 62: 5-minute read. Zero fluff : AlphaProof Code: Signal Verified at Machine Code\n\nDeepMind shipped AlphaProof Code (Nov 10): humans approve Lean specs, Gemini Carbon agents write proofs, Lean accepts or rejects. A five-person team verified PQXDH + Triple Ratchet on unmodified libsignal AArch64 in four weeks - ~6.5M machine-checked proof lines.\n\nKey findings:\n- Not IMO AlphaProof - this is software verification over real compiled crypto\n- Trusted base ~26k LOC (specs + AArch64 semantics); agents are untrusted\n- Crypto primitives hooked via contracts - not proved from AES upward\n- Bug injection: two prior libsignal bugs → machine-checked insecurity proofs\n- Out of scope: mobile app, groups, sealed sender\n\nThe takeaway? Agentic provers move the bottleneck to spec quality - not a blanket \"Signal is fully proved.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/alphaproof-code-signal\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #DeepMind #Signal #FormalVerification #Lean #Research",
       "hook": "DeepMind agents wrote about 6.5M lines of Lean and proved PQXDH + Triple Ratchet properties on real libsignal AArch64 code in four weeks.",

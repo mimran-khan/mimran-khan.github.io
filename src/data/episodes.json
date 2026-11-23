@@ -718,5 +718,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep60-claude-fable-52.png"
+  },
+  {
+    "number": 61,
+    "slug": "grok-build-open-apps",
+    "title": "Grok Build Apps Went Live Without Auth",
+    "hook": "Claroc checked 37,571 live Grok Build apps. 35,578 opened with no sign-in. SpaceXSI pulled 24 staff-built apps after disclosure.",
+    "category": "hot-topic",
+    "day": "Mon",
+    "date": "Nov 23",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep61-grok-build-open-apps.png"
   }
 ]
