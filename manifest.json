@@ -722,7 +722,7 @@
       "branch": "release/ep62",
       "slug": "alphaproof-code-signal",
       "title": "AlphaProof Code: Signal Verified at Machine Code",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-25",
       "linkedin_post": "Episode 62: 5-minute read. Zero fluff : AlphaProof Code: Signal Verified at Machine Code\n\nDeepMind shipped AlphaProof Code (Nov 10): humans approve Lean specs, Gemini Carbon agents write proofs, Lean accepts or rejects. A five-person team verified PQXDH + Triple Ratchet on unmodified libsignal AArch64 in four weeks - ~6.5M machine-checked proof lines.\n\nKey findings:\n- Not IMO AlphaProof - this is software verification over real compiled crypto\n- Trusted base ~26k LOC (specs + AArch64 semantics); agents are untrusted\n- Crypto primitives hooked via contracts - not proved from AES upward\n- Bug injection: two prior libsignal bugs → machine-checked insecurity proofs\n- Out of scope: mobile app, groups, sealed sender\n\nThe takeaway? Agentic provers move the bottleneck to spec quality - not a blanket \"Signal is fully proved.\"\n\nhttps://mimran-khan.github.io/series/demystifying-ai/alphaproof-code-signal\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #DeepMind #Signal #FormalVerification #Lean #Research",
       "hook": "DeepMind agents wrote about 6.5M lines of Lean and proved PQXDH + Triple Ratchet properties on real libsignal AArch64 code in four weeks.",
@@ -730,14 +730,16 @@
       "day": "Wed",
       "date": "Nov 25",
       "readTime": "5 min",
-      "image": "/series/ep62-alphaproof-code-signal.png"
+      "image": "/series/ep62-alphaproof-code-signal.png",
+      "published_on": "2026-11-25",
+      "tag": "release/ep62"
     },
     {
       "ep": 63,
       "branch": "release/ep63",
       "slug": "elevenlabs-scribe-v3-live",
       "title": "ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-11-28",
       "linkedin_post": "Episode 63: 5-minute read. Zero fluff : ElevenLabs Scribe v3 Live\n\nScribe v3 Live (Nov 9-10) adds realtime speaker diarization + turn_prediction. ElevenLabs reports 43% lower semantic WER vs Scribe v2 Realtime and 3.1% English DER (aligned, vendor-run). List price $0.22/audio-hour. Model ID: scribe_v3_live.\n\nTry it first:\n1. Mic demo (usually no key): https://elevenlabs.io/realtime-speech-to-text\n2. Free app STT with diarization: https://elevenlabs.io/app/speech-to-text\n3. API on free credits (~30 min/mo): modelId scribe_v3_live + diarize + turn_prediction\n\nThe takeaway? One-line model upgrade - prove it on the public mic before rewriting the stack. Cite benches as ElevenLabs-reported.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/elevenlabs-scribe-v3-live\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ElevenLabs #SpeechToText #VoiceAgents #Scribe #NewRelease",
       "hook": "Scribe v3 Live: ElevenLabs reports 43% lower semantic WER vs v2 Realtime, 3.1% EN DER with live diarization, and turn_prediction. Public mic demo.",

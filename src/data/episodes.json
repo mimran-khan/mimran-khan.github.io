@@ -730,5 +730,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep61-grok-build-open-apps.png"
+  },
+  {
+    "number": 62,
+    "slug": "alphaproof-code-signal",
+    "title": "AlphaProof Code: Signal Verified at Machine Code",
+    "hook": "DeepMind agents wrote about 6.5M lines of Lean and proved PQXDH + Triple Ratchet properties on real libsignal AArch64 code in four weeks.",
+    "category": "research-paper",
+    "day": "Wed",
+    "date": "Nov 25",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep62-alphaproof-code-signal.png"
   }
 ]
