@@ -740,7 +740,7 @@
       "branch": "release/ep63",
       "slug": "elevenlabs-scribe-v3-live",
       "title": "ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers",
-      "status": "pending",
+      "status": "published",
       "release_date": "2026-11-28",
       "linkedin_post": "Episode 63: 5-minute read. Zero fluff : ElevenLabs Scribe v3 Live\n\nScribe v3 Live (Nov 9-10) adds realtime speaker diarization + turn_prediction. ElevenLabs reports 43% lower semantic WER vs Scribe v2 Realtime and 3.1% English DER (aligned, vendor-run). List price $0.22/audio-hour. Model ID: scribe_v3_live.\n\nTry it first:\n1. Mic demo (usually no key): https://elevenlabs.io/realtime-speech-to-text\n2. Free app STT with diarization: https://elevenlabs.io/app/speech-to-text\n3. API on free credits (~30 min/mo): modelId scribe_v3_live + diarize + turn_prediction\n\nThe takeaway? One-line model upgrade - prove it on the public mic before rewriting the stack. Cite benches as ElevenLabs-reported.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/elevenlabs-scribe-v3-live\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #ElevenLabs #SpeechToText #VoiceAgents #Scribe #NewRelease",
       "hook": "Scribe v3 Live: ElevenLabs reports 43% lower semantic WER vs v2 Realtime, 3.1% EN DER with live diarization, and turn_prediction. Public mic demo.",
@@ -748,14 +748,16 @@
       "day": "Sat",
       "date": "Nov 28",
       "readTime": "5 min",
-      "image": "/series/ep63-elevenlabs-scribe-v3-live.png"
+      "image": "/series/ep63-elevenlabs-scribe-v3-live.png",
+      "published_on": "2026-11-28",
+      "tag": "release/ep63"
     },
     {
       "ep": 64,
       "branch": "release/ep64",
       "slug": "openai-agent-builder-shutdown",
       "title": "OpenAI Kills Agent Builder and Evals on Nov 30",
-      "status": "queued",
+      "status": "pending",
       "release_date": "2026-11-30",
       "linkedin_post": "Episode 64: 5-minute read. Zero fluff : OpenAI Kills Agent Builder and Evals on Nov 30\n\nSame day this episode ships: OpenAI shuts Agent Builder, the Evals dashboard/API/graders, and reusable prompts (/v1/prompts). Notice was Jun 3. Evals have been read-only since Oct 31. ChatKit stays.\n\nMigrate:\n- Agent Builder → Agents SDK or Workspace Agents (export ≠ parity - retest)\n- Evals → Promptfoo (manual recreate; past runs do not move)\n- Prompt objects → prompts in git + Responses API input\n\nTry now: Agents SDK quickstart + Promptfoo cookbook + prompt migrate guide.\n\nThe takeaway? Platform amputation, not the death of OpenAI agents. Inventory today.\n\nhttps://mimran-khan.github.io/series/demystifying-ai/openai-agent-builder-shutdown\n\n<< Demystifying AI in 5 Minutes\nResearch papers, hot topics, new releases. Three times a week (Mon/Wed/Sat). Built for engineers who ship. >>\n\n#AgenticAI #AI #MachineLearning #LLMs #SoftwareEngineering #OpenAI #Agents #Promptfoo #Deprecation #HotTopic",
       "hook": "Same day this episode ships: Agent Builder, the Evals dashboard/API, and reusable prompts shut down. Migrate to Agents SDK / Promptfoo - or Builder-backed agents break.",

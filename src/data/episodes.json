@@ -742,5 +742,17 @@
     "readTime": "5 min",
     "published": true,
     "image": "/series/ep62-alphaproof-code-signal.png"
+  },
+  {
+    "number": 63,
+    "slug": "elevenlabs-scribe-v3-live",
+    "title": "ElevenLabs Scribe v3 Live: Realtime STT That Labels Speakers",
+    "hook": "Scribe v3 Live: ElevenLabs reports 43% lower semantic WER vs v2 Realtime, 3.1% EN DER with live diarization, and turn_prediction. Public mic demo.",
+    "category": "new-release",
+    "day": "Sat",
+    "date": "Nov 28",
+    "readTime": "5 min",
+    "published": true,
+    "image": "/series/ep63-elevenlabs-scribe-v3-live.png"
   }
 ]
